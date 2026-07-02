@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Escrow Payment | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:120px;
+}
+
+header{
+background:#fff;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 2px 15px rgba(0,0,0,.05);
+}
+
+header a{
+text-decoration:none;
+color:#0F766E;
+font-size:20px;
+}
+
+header h2{
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.order-id{
+background:#ECFDF5;
+border-left:5px solid #10B981;
+padding:15px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.order-id h3{
+color:#065F46;
+margin-bottom:8px;
+}
+
+.order-id p{
+font-weight:600;
+}
+
+.summary{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #E5E7EB;
+}
+
+.summary:last-child{
+border-bottom:none;
+font-size:22px;
+font-weight:700;
+color:#0F766E;
+}
+
+.payment-option{
+display:flex;
+align-items:center;
+gap:15px;
+padding:18px;
+border:2px solid #E5E7EB;
+border-radius:15px;
+margin-bottom:15px;
+cursor:pointer;
+transition:.3s;
+}
+
+.payment-option:hover{
+border-color:#0F766E;
+background:#F0FDFA;
+}
+
+.payment-option input{
+transform:scale(1.2);
+}
+
+.icon{
+width:55px;
+height:55px;
+background:#ECFDF5;
+border-radius:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#0F766E;
+font-size:24px;
+}
+
+.payment-option h4{
+margin-bottom:4px;
+}
+
+.payment-option p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notice{
+background:#EFF6FF;
+border-left:5px solid #2563EB;
+padding:18px;
+border-radius:12px;
+margin-top:20px;
+}
+
+.notice h4{
+margin-bottom:10px;
+color:#1D4ED8;
+}
+
+.notice p{
+font-size:14px;
+line-height:1.7;
+}
+
+.footer{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+padding:18px;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.btn{
+display:block;
+width:100%;
+text-align:center;
+padding:16px;
+background:#0F766E;
+color:white;
+text-decoration:none;
+border-radius:14px;
+font-size:17px;
+font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="order-review.html">
+<i class="fa-solid fa-arrow-left"></i>
+</a>
+
+<h2>Escrow Payment</h2>
+
+</header>
+
+<div class="container">
+
+<div class="order-id">
+
+<h3>Order Reference</h3>
+
+<p>MP-2026-000128</p>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin-bottom:20px;color:#0F766E;">Amount to Secure</h3>
+
+<div class="summary">
+<span>Livestock</span>
+<span>$62,500</span>
+</div>
+
+<div class="summary">
+<span>Transport</span>
+<span>$1,200</span>
+</div>
+
+<div class="summary">
+<span>Escrow Fee</span>
+<span>$250</span>
+</div>
+
+<div class="summary">
+<span>Total</span>
+<span>$63,950</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin-bottom:20px;color:#0F766E;">
+Choose Payment Method
+</h3>
+
+<label class="payment-option">
+
+<input type="radio" name="payment" checked>
+
+<div class="icon">
+<i class="fa-solid fa-building-columns"></i>
+</div>
+
+<div>
+<h4>Bank Transfer / SWIFT</h4>
+<p>Recommended for international buyers.</p>
+</div>
+
+</label>
+
+<label class="payment-option">
+
+<input type="radio" name="payment">
+
+<div class="icon">
+<i class="fa-solid fa-mobile-screen"></i>
+</div>
+
+<div>
+<h4>MTN / Airtel Money</h4>
+<p>Fast local mobile payments.</p>
+</div>
+
+</label>
+
+<label class="payment-option">
+
+<input type="radio" name="payment">
+
+<div class="icon">
+<i class="fa-solid fa-credit-card"></i>
+</div>
+
+<div>
+<h4>Debit / Credit Card</h4>
+<p>Visa & Mastercard accepted.</p>
+</div>
+
+</label>
+
+<label class="payment-option">
+
+<input type="radio" name="payment">
+
+<div class="icon">
+<i class="fa-brands fa-bitcoin"></i>
+</div>
+
+<div>
+<h4>USDT Cryptocurrency</h4>
+<p>Cross-border digital payment.</p>
+</div>
+
+</label>
+
+</div>
+
+<div class="notice">
+
+<h4><i class="fa-solid fa-lock"></i> Secure Escrow</h4>
+
+<p>
+
+Your payment is <strong>not sent to the supplier immediately.</strong>
+Funds are securely held in escrow and will only be released after successful delivery, document verification, and your confirmation.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+<a href="payment-success.html" class="btn">
+
+Secure Funds in Escrow
+
+</a>
+
+</div>
+
+</body>
+</html>
