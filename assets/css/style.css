@@ -1,0 +1,233 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:#F8FAFC;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+.background-shape{
+
+    position:absolute;
+    border-radius:50%;
+    opacity:.12;
+    z-index:-1;
+}
+
+.shape1{
+
+    width:320px;
+    height:320px;
+    background:#0F766E;
+
+    top:-120px;
+    right:-120px;
+}
+
+.shape2{
+
+    width:250px;
+    height:250px;
+
+    background:#16A34A;
+
+    bottom:-90px;
+    left:-90px;
+}
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 25px;
+
+    text-align:center;
+}
+
+.logo{
+
+    width:90px;
+
+    margin-bottom:20px;
+}
+
+h1{
+
+    font-size:38px;
+
+    color:#0F766E;
+
+    margin-bottom:15px;
+
+    font-weight:700;
+}
+
+.subtitle{
+
+    font-size:17px;
+
+    color:#6B7280;
+
+    line-height:1.7;
+
+    margin-bottom:35px;
+}
+
+.hero-image{
+
+    width:300px;
+
+    max-width:90%;
+
+    margin-bottom:40px;
+}
+
+.features{
+
+    width:100%;
+
+    max-width:500px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin-bottom:40px;
+}
+
+.feature-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+    transition:.3s;
+}
+
+.feature-card:hover{
+
+    transform:translateY(-5px);
+}
+
+.feature-card i{
+
+    color:#0F766E;
+
+    font-size:30px;
+
+    margin-bottom:15px;
+}
+
+.feature-card span{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:600;
+}
+
+.btn-primary{
+
+    background:#0F766E;
+
+    color:white;
+
+    text-decoration:none;
+
+    width:280px;
+
+    height:55px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    border-radius:30px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn-primary:hover{
+
+    background:#115E59;
+
+    transform:scale(1.03);
+}
+
+.login-text{
+
+    margin-top:25px;
+
+    color:#6B7280;
+}
+
+.login-text a{
+
+    color:#0F766E;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#9CA3AF;
+
+    font-size:14px;
+}
+
+@media(max-width:600px){
+
+.features{
+
+grid-template-columns:1fr;
+
+}
+
+h1{
+
+font-size:32px;
+
+}
+
+.hero-image{
+
+width:240px;
+
+}
+
+}

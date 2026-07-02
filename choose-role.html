@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Role | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#F6F8FB;
+    color:#1F2937;
+}
+
+.container{
+    width:100%;
+    max-width:450px;
+    margin:auto;
+    min-height:100vh;
+    padding:40px 20px;
+}
+
+.logo{
+    width:70px;
+    height:70px;
+    margin:auto;
+    display:block;
+    margin-bottom:20px;
+}
+
+h1{
+    text-align:center;
+    color:#0F766E;
+    font-size:32px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#6B7280;
+    margin-top:10px;
+    margin-bottom:40px;
+    line-height:1.6;
+}
+
+.role-card{
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    background:#fff;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:18px;
+
+    text-decoration:none;
+    color:#111827;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+    transition:.3s;
+}
+
+.role-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+
+}
+
+.icon{
+
+    width:60px;
+    height:60px;
+
+    background:#E6FFFA;
+
+    border-radius:16px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#0F766E;
+
+    font-size:24px;
+
+}
+
+.role-info{
+
+    flex:1;
+
+}
+
+.role-info h3{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+}
+
+.role-info p{
+
+    color:#6B7280;
+
+    font-size:14px;
+
+}
+
+.arrow{
+
+    color:#9CA3AF;
+
+}
+
+.back{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:30px;
+
+    color:#0F766E;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="assets/images/logo.png" class="logo">
+
+<h1>Select Your Role</h1>
+
+<p class="subtitle">
+Choose how you want to use Mobile Procure.
+You can switch roles later.
+</p>
+
+<a href="buyer/dashboard.html" class="role-card">
+
+<div class="icon">
+<i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+<div class="role-info">
+<h3>Buyer</h3>
+<p>Browse livestock, place orders and manage escrow payments.</p>
+</div>
+
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+
+</a>
+
+<a href="supplier/dashboard.html" class="role-card">
+
+<div class="icon">
+<i class="fa-solid fa-warehouse"></i>
+</div>
+
+<div class="role-info">
+<h3>Supplier</h3>
+<p>List livestock, receive orders and manage deliveries.</p>
+</div>
+
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+
+</a>
+
+<a href="logistics/dashboard.html" class="role-card">
+
+<div class="icon">
+<i class="fa-solid fa-truck"></i>
+</div>
+
+<div class="role-info">
+<h3>Logistics Partner</h3>
+<p>Transport livestock and update shipment progress.</p>
+</div>
+
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+
+</a>
+
+<a href="government/dashboard.html" class="role-card">
+
+<div class="icon">
+<i class="fa-solid fa-building-columns"></i>
+</div>
+
+<div class="role-info">
+<h3>Government</h3>
+<p>Access reports, audits and export analytics.</p>
+</div>
+
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+
+</a>
+
+<a href="index.html" class="back">
+<i class="fa-solid fa-arrow-left"></i>
+Back
+</a>
+
+</div>
+
+</body>
+</html>
