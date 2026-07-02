@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marketplace | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:90px;
+}
+
+header{
+
+padding:20px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+header h2{
+color:#0F766E;
+}
+
+.search{
+
+margin:0 20px 20px;
+
+background:white;
+
+border-radius:15px;
+
+padding:14px 18px;
+
+display:flex;
+align-items:center;
+
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+
+}
+
+.search input{
+
+flex:1;
+border:none;
+outline:none;
+font-size:15px;
+margin-left:10px;
+
+}
+
+.categories{
+
+display:flex;
+overflow:auto;
+gap:12px;
+
+padding:0 20px 20px;
+
+scrollbar-width:none;
+
+}
+
+.categories::-webkit-scrollbar{
+display:none;
+}
+
+.category{
+
+padding:10px 18px;
+
+background:white;
+
+border-radius:25px;
+
+white-space:nowrap;
+
+font-size:14px;
+
+cursor:pointer;
+
+box-shadow:0 4px 10px rgba(0,0,0,.05);
+
+}
+
+.category.active{
+
+background:#0F766E;
+
+color:white;
+
+}
+
+.products{
+
+padding:0 20px;
+
+display:grid;
+
+gap:20px;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.image{
+
+position:relative;
+
+}
+
+.image img{
+
+width:100%;
+height:210px;
+object-fit:cover;
+
+}
+
+.favorite{
+
+position:absolute;
+
+right:15px;
+top:15px;
+
+width:42px;
+height:42px;
+
+background:white;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:#EF4444;
+
+font-size:18px;
+
+}
+
+.details{
+
+padding:18px;
+
+}
+
+.badges{
+
+display:flex;
+gap:10px;
+margin-bottom:12px;
+
+flex-wrap:wrap;
+
+}
+
+.badge{
+
+background:#DCFCE7;
+
+color:#166534;
+
+padding:6px 10px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+h3{
+
+margin-bottom:8px;
+
+color:#111827;
+
+}
+
+.location{
+
+color:#6B7280;
+
+font-size:14px;
+
+margin-bottom:15px;
+
+}
+
+.info{
+
+display:flex;
+justify-content:space-between;
+
+margin-bottom:18px;
+
+}
+
+.info div{
+
+text-align:center;
+
+}
+
+.info h4{
+
+color:#0F766E;
+
+}
+
+button{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+background:#0F766E;
+
+color:white;
+
+border-radius:14px;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+left:0;
+
+width:100%;
+
+background:white;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:14px 0;
+
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-decoration:none;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+gap:5px;
+
+}
+
+.bottom-nav a.active{
+
+color:#0F766E;
+
+font-weight:600;
+
+}
+
+.bottom-nav i{
+
+font-size:20px;
+
+}
+
+.btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:14px;
+    background:#0F766E;
+    color:#fff;
+    text-decoration:none;
+    border-radius:14px;
+    font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>Marketplace</h2>
+
+<i class="fa-solid fa-sliders"></i>
+
+</header>
+
+<div class="search">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+placeholder="Search livestock...">
+
+</div>
+
+<div class="categories">
+
+<div class="category active">All</div>
+
+<div class="category">Cattle</div>
+
+<div class="category">Goats</div>
+
+<div class="category">Sheep</div>
+
+<div class="category">Pigs</div>
+
+<div class="category">Poultry</div>
+
+</div>
+
+<div class="products">
+
+<div class="card">
+
+<div class="image">
+
+<img src="../assets/images/cattle.jpg">
+
+<div class="favorite">
+
+<i class="fa-regular fa-heart"></i>
+
+</div>
+
+</div>
+
+<div class="details">
+
+<div class="badges">
+
+<span class="badge">Verified</span>
+
+<span class="badge">Vet Certified</span>
+
+</div>
+
+<h3>Angus Bulls</h3>
+
+<p class="location">
+
+📍 Chisamba, Central Province
+
+</p>
+
+<div class="info">
+
+<div>
+
+<h4>200</h4>
+
+<small>Available</small>
+
+</div>
+
+<div>
+
+<h4>$1,250</h4>
+
+<small>Per Head</small>
+
+</div>
+
+<div>
+
+<h4>520kg</h4>
+
+<small>Average</small>
+
+</div>
+
+</div>
+
+<!-- <button>
+
+View Details
+
+</button> -->
+
+<a href="livestock-details.html" class="btn">
+    View Details
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="image">
+
+<img src="../assets/images/sheep.jpg">
+
+<div class="favorite">
+
+<i class="fa-regular fa-heart"></i>
+
+</div>
+
+</div>
+
+<div class="details">
+
+<div class="badges">
+
+<span class="badge">Verified</span>
+
+<span class="badge">Health Checked</span>
+
+</div>
+
+<h3>Dorper Sheep</h3>
+
+<p class="location">
+
+📍 Mazabuka, Southern Province
+
+</p>
+
+<div class="info">
+
+<div>
+
+<h4>400</h4>
+
+<small>Available</small>
+
+</div>
+
+<div>
+
+<h4>$130</h4>
+
+<small>Per Head</small>
+
+</div>
+
+<div>
+
+<h4>48kg</h4>
+
+<small>Average</small>
+
+</div>
+
+</div>
+
+<!-- <button>
+
+View Details
+
+</button> -->
+<a href="livestock-details.html" class="btn">
+    View Details
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a class="active" href="#">
+
+<i class="fa-solid fa-store"></i>
+
+Marketplace
+
+</a>
+
+<a href="orders.html">
+
+<i class="fa-solid fa-box"></i>
+
+Orders
+
+</a>
+
+<a href="catalog.html">
+
+<i class="fa-solid fa-book"></i>
+
+Catalog
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

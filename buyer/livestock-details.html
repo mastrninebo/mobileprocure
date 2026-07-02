@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Livestock Details | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:100px;
+color:#1F2937;
+}
+
+.header{
+position:relative;
+}
+
+.header img{
+width:100%;
+height:280px;
+object-fit:cover;
+}
+
+.back{
+position:absolute;
+top:20px;
+left:20px;
+width:45px;
+height:45px;
+background:#fff;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+color:#111;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.content{
+margin-top:-25px;
+background:#fff;
+border-radius:30px 30px 0 0;
+padding:25px;
+position:relative;
+}
+
+.title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.title h2{
+color:#0F766E;
+}
+
+.price{
+font-size:24px;
+font-weight:700;
+color:#0F766E;
+}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:15px 0 20px;
+}
+
+.badge{
+background:#DCFCE7;
+color:#166534;
+padding:8px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+.section{
+margin-top:25px;
+}
+
+.section h3{
+margin-bottom:12px;
+color:#0F766E;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.info{
+background:#F8FAFC;
+padding:18px;
+border-radius:16px;
+text-align:center;
+}
+
+.info h4{
+margin-bottom:6px;
+}
+
+.supplier{
+display:flex;
+align-items:center;
+gap:15px;
+background:#F8FAFC;
+padding:18px;
+border-radius:18px;
+}
+
+.supplier img{
+width:60px;
+height:60px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.supplier h4{
+margin-bottom:5px;
+}
+
+.supplier p{
+color:#6B7280;
+font-size:14px;
+}
+
+.description{
+line-height:1.7;
+color:#555;
+}
+
+.actions{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+padding:18px;
+display:flex;
+gap:15px;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.actions button{
+flex:1;
+padding:15px;
+border:none;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.secondary{
+background:#E5E7EB;
+}
+
+.primary{
+background:#0F766E;
+color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<img src="../assets/images/cattle.jpg">
+
+<a href="marketplace.html" class="back">
+<i class="fa-solid fa-arrow-left"></i>
+</a>
+
+</div>
+
+<div class="content">
+
+<div class="title">
+
+<div>
+<h2>Angus Bulls</h2>
+<p>Chisamba, Central Province</p>
+</div>
+
+<div class="price">
+$1,250
+</div>
+
+</div>
+
+<div class="badges">
+
+<div class="badge">✔ Verified Supplier</div>
+
+<div class="badge">✔ Vet Certified</div>
+
+<div class="badge">✔ Escrow Protected</div>
+
+<div class="badge">✔ Transport Available</div>
+
+</div>
+
+<div class="section">
+
+<h3>Livestock Information</h3>
+
+<div class="info-grid">
+
+<div class="info">
+<h4>Breed</h4>
+<p>Angus</p>
+</div>
+
+<div class="info">
+<h4>Available</h4>
+<p>200 Head</p>
+</div>
+
+<div class="info">
+<h4>Average Weight</h4>
+<p>520 kg</p>
+</div>
+
+<div class="info">
+<h4>Age</h4>
+<p>18 Months</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Supplier</h3>
+
+<div class="supplier">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h4>Mpundu Cattle Ranch</h4>
+
+<p>★★★★★ (4.9)</p>
+
+<p>PACRA Verified • 125 Successful Deliveries</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Description</h3>
+
+<p class="description">
+
+Premium Angus Bulls raised on natural pasture with complete vaccination records and veterinary certification. Suitable for export and commercial beef production.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="secondary">
+Message Supplier
+</button>
+
+<button class="primary">
+Place Order
+</button>
+
+</div>
+
+</body>
+</html>
