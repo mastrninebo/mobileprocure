@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Supplier Dashboard | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+background:white;
+border-radius:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.summary{
+
+margin:0 20px;
+
+background:linear-gradient(135deg,#0F766E,#14B8A6);
+
+color:white;
+
+padding:25px;
+
+border-radius:22px;
+
+}
+
+.summary small{
+opacity:.9;
+}
+
+.summary h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.summary p{
+opacity:.95;
+}
+
+.section{
+margin:35px 20px 15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.section h2{
+font-size:20px;
+}
+
+.actions{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:18px;
+
+margin:0 20px;
+
+}
+
+.action{
+
+background:white;
+
+padding:22px;
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+cursor:pointer;
+
+transition:.3s;
+
+text-decoration:none;
+
+color:#1F2937;
+
+}
+
+.action:hover{
+
+transform:translateY(-4px);
+
+}
+
+.action i{
+
+font-size:32px;
+
+color:#0F766E;
+
+margin-bottom:15px;
+
+}
+
+.action h4{
+
+margin-bottom:8px;
+
+}
+
+.action p{
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.orders{
+
+margin:0 20px;
+
+}
+
+.order{
+
+background:white;
+
+padding:18px;
+
+border-radius:18px;
+
+margin-bottom:15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+
+}
+
+.order h4{
+margin-bottom:5px;
+}
+
+.order p{
+font-size:13px;
+color:#6B7280;
+}
+
+.status{
+
+padding:8px 14px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.pending{
+
+background:#FEF3C7;
+
+color:#92400E;
+
+}
+
+.ready{
+
+background:#DCFCE7;
+
+color:#166534;
+
+}
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+background:white;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:15px 0;
+
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:5px;
+
+text-decoration:none;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+.bottom-nav a.active{
+
+color:#0F766E;
+
+font-weight:600;
+
+}
+
+.bottom-nav i{
+
+font-size:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>Mpundu Ranch</h3>
+
+<p>Verified Supplier ✓</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="summary">
+
+<small>Total Sales This Month</small>
+
+<h2>$148,500</h2>
+
+<p>12 completed livestock transactions.</p>
+
+</div>
+
+<div class="section">
+
+<h2>Quick Actions</h2>
+
+</div>
+
+<div class="actions">
+
+<a href="#" class="action">
+
+<i class="fa-solid fa-plus"></i>
+
+<h4>Add Livestock</h4>
+
+<p>Create a new livestock listing.</p>
+
+</a>
+
+<a href="#" class="action">
+
+<i class="fa-solid fa-cow"></i>
+
+<h4>Inventory</h4>
+
+<p>Manage available livestock.</p>
+
+</a>
+
+<a href="#" class="action">
+
+<i class="fa-solid fa-file-shield"></i>
+
+<h4>Certificates</h4>
+
+<p>Upload veterinary documents.</p>
+
+</a>
+
+<a href="#" class="action">
+
+<i class="fa-solid fa-wallet"></i>
+
+<h4>Escrow</h4>
+
+<p>View pending supplier payments.</p>
+
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>Incoming Orders</h2>
+
+</div>
+
+<div class="orders">
+
+<div class="order">
+
+<div>
+
+<h4>200 Angus Bulls</h4>
+
+<p>Buyer: African Beef Imports</p>
+
+</div>
+
+<div class="status pending">
+
+Preparing
+
+</div>
+
+</div>
+
+<div class="order">
+
+<div>
+
+<h4>150 Boer Goats</h4>
+
+<p>Buyer: Lusaka Meat Processors</p>
+
+</div>
+
+<div class="status ready">
+
+Ready for Pickup
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="#" class="active">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-boxes-stacked"></i>
+
+Inventory
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-clipboard-list"></i>
+
+Orders
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-wallet"></i>
+
+Escrow
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

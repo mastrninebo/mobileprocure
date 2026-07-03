@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Logistics Dashboard | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.summary{
+
+margin:0 20px;
+
+background:linear-gradient(135deg,#0F766E,#14B8A6);
+
+padding:25px;
+
+border-radius:22px;
+
+color:white;
+
+}
+
+.summary small{
+opacity:.9;
+}
+
+.summary h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.section{
+
+margin:30px 20px 15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.section h2{
+font-size:20px;
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin:0 20px;
+
+}
+
+.stat{
+
+background:white;
+
+padding:20px;
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.stat i{
+
+font-size:30px;
+
+color:#0F766E;
+
+margin-bottom:12px;
+
+}
+
+.stat h3{
+
+font-size:28px;
+
+margin-bottom:5px;
+
+}
+
+.stat p{
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.delivery{
+
+background:white;
+
+margin:0 20px 15px;
+
+padding:20px;
+
+border-radius:18px;
+
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+
+}
+
+.delivery-header{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:12px;
+
+}
+
+.delivery h4{
+
+margin-bottom:6px;
+
+}
+
+.delivery p{
+
+font-size:13px;
+
+color:#6B7280;
+
+margin-bottom:6px;
+
+}
+
+.status{
+
+padding:8px 15px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.transit{
+
+background:#DBEAFE;
+
+color:#1D4ED8;
+
+}
+
+.border{
+
+background:#FEF3C7;
+
+color:#92400E;
+
+}
+
+.progress{
+
+height:8px;
+
+background:#E5E7EB;
+
+border-radius:10px;
+
+margin-top:15px;
+
+overflow:hidden;
+
+}
+
+.progress span{
+
+display:block;
+
+height:100%;
+
+background:#0F766E;
+
+}
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+background:white;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:15px 0;
+
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-decoration:none;
+
+font-size:12px;
+
+gap:5px;
+
+color:#9CA3AF;
+
+}
+
+.bottom-nav a.active{
+
+color:#0F766E;
+
+font-weight:600;
+
+}
+
+.bottom-nav i{
+
+font-size:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>ZamFreight Logistics</h3>
+
+<p>Licensed Logistics Partner</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="summary">
+
+<small>Today's Deliveries</small>
+
+<h2>14</h2>
+
+<p>9 Active • 3 At Border • 2 Completed</p>
+
+</div>
+
+<div class="section">
+
+<h2>Fleet Overview</h2>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+<i class="fa-solid fa-truck"></i>
+
+<h3>18</h3>
+
+<p>Available Trucks</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-route"></i>
+
+<h3>9</h3>
+
+<p>Active Routes</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-warehouse"></i>
+
+<h3>3</h3>
+
+<p>Border Clearance</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<h3>72</h3>
+
+<p>Completed This Month</p>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Assigned Deliveries</h2>
+
+</div>
+
+<div class="delivery">
+
+<div class="delivery-header">
+
+<h4>Order MP-2026-000128</h4>
+
+<div class="status transit">
+
+In Transit
+
+</div>
+
+</div>
+
+<p><strong>Livestock:</strong> 200 Angus Bulls</p>
+
+<p><strong>Route:</strong> Chisamba → Johannesburg</p>
+
+<p><strong>Driver:</strong> Brian Phiri</p>
+
+<div class="progress">
+
+<span style="width:65%;"></span>
+
+</div>
+
+</div>
+
+<div class="delivery">
+
+<div class="delivery-header">
+
+<h4>Order MP-2026-000129</h4>
+
+<div class="status border">
+
+At Kasumbalesa Border
+
+</div>
+
+</div>
+
+<p><strong>Livestock:</strong> 150 Boer Goats</p>
+
+<p><strong>Route:</strong> Choma → Lubumbashi</p>
+
+<p><strong>Driver:</strong> Joseph Banda</p>
+
+<div class="progress">
+
+<span style="width:45%;"></span>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="#" class="active">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+Deliveries
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Tracking
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-qrcode"></i>
+
+QR Scan
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
