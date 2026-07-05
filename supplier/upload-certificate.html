@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Livestock | Mobile Procure</title>
+<title>Mobile Procure | Veterinary Certificate</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
 
 <style>
 
@@ -21,22 +23,22 @@ font-family:'Poppins',sans-serif;
 
 body{
 background:#F5F7FA;
-padding-bottom:100px;
 color:#1F2937;
+padding-bottom:100px;
 }
 
 header{
-background:white;
+background:#fff;
 padding:20px;
 display:flex;
 align-items:center;
 gap:15px;
-box-shadow:0 2px 15px rgba(0,0,0,.05);
+box-shadow:0 3px 15px rgba(0,0,0,.05);
 }
 
 header a{
-color:#0F766E;
 text-decoration:none;
+color:#0F766E;
 font-size:20px;
 }
 
@@ -49,17 +51,16 @@ padding:20px;
 }
 
 .card{
-background:white;
-padding:20px;
-border-radius:18px;
-margin-bottom:20px;
+background:#fff;
+padding:22px;
+border-radius:20px;
 box-shadow:0 8px 20px rgba(0,0,0,.05);
+margin-bottom:20px;
 }
 
-.section-title{
+.card h3{
 color:#0F766E;
 margin-bottom:18px;
-font-size:18px;
 }
 
 label{
@@ -80,14 +81,9 @@ font-size:15px;
 outline:none;
 }
 
-textarea{
-height:120px;
-resize:none;
-}
-
 .upload{
 border:2px dashed #CBD5E1;
-border-radius:15px;
+border-radius:16px;
 padding:35px;
 text-align:center;
 background:#F8FAFC;
@@ -95,80 +91,80 @@ margin-bottom:20px;
 }
 
 .upload i{
-font-size:40px;
+font-size:48px;
 color:#0F766E;
 margin-bottom:15px;
 }
 
+.upload h4{
+margin-bottom:8px;
+}
+
 .upload p{
 color:#6B7280;
+font-size:14px;
+}
+
+.preview{
+background:#ECFDF5;
+border-left:5px solid #0F766E;
+padding:18px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.preview h4{
+margin-bottom:8px;
+}
+
+.preview p{
+font-size:14px;
+color:#6B7280;
+line-height:1.7;
 }
 
 .btn{
 display:block;
 width:100%;
 padding:16px;
-background:#0F766E;
-color:white;
 text-align:center;
 text-decoration:none;
-border-radius:14px;
-font-size:17px;
+background:#0F766E;
+color:white;
 font-weight:600;
+border-radius:14px;
+font-size:16px;
 }
 
 .bottom-nav{
-
 position:fixed;
-
 bottom:0;
-
 left:0;
-
 width:100%;
-
 background:white;
-
 display:flex;
-
 justify-content:space-around;
-
 padding:15px 0;
-
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
-
 }
 
 .bottom-nav a{
-
 display:flex;
-
 flex-direction:column;
-
 align-items:center;
-
 gap:5px;
-
-font-size:12px;
-
 text-decoration:none;
-
+font-size:12px;
 color:#9CA3AF;
-
 }
 
 .bottom-nav a.active{
-
 color:#0F766E;
-
 font-weight:600;
-
 }
 
 .bottom-nav i{
-
 font-size:20px;
-
 }
 
 </style>
@@ -179,13 +175,13 @@ font-size:20px;
 
 <header>
 
-<a href="inventory.html">
+<a href="order-details.html">
 
 <i class="fa-solid fa-arrow-left"></i>
 
 </a>
 
-<h2>Add Livestock</h2>
+<h2>Veterinary Certificate</h2>
 
 </header>
 
@@ -193,89 +189,69 @@ font-size:20px;
 
 <div class="card">
 
-<h3 class="section-title">
+<h3>Certificate Details</h3>
 
-Livestock Information
+<label>Certificate Number</label>
 
-</h3>
+<input type="text" placeholder="e.g. VET-2026-45821">
 
-<label>Category</label>
-
-<select>
-
-<option>Cattle</option>
-
-<option>Goats</option>
-
-<option>Sheep</option>
-
-<option>Pigs</option>
-
-<option>Chickens</option>
-
-</select>
-
-<label>Breed</label>
-
-<input type="text" placeholder="e.g. Angus Bulls">
-
-<label>Quantity</label>
-
-<input type="number" placeholder="200">
-
-<label>Average Weight (kg)</label>
-
-<input type="number" placeholder="450">
-
-<label>Price Per Head (USD)</label>
-
-<input type="number" placeholder="1250">
-
-<label>Farm Location</label>
-
-<input type="text" placeholder="Chisamba, Central Province">
-
-<label>Vaccination Status</label>
+<label>Issuing Authority</label>
 
 <select>
 
-<option>Fully Vaccinated</option>
+<option>Ministry of Fisheries & Livestock</option>
 
-<option>Partially Vaccinated</option>
-
-<option>Awaiting Inspection</option>
+<option>Provincial Veterinary Office</option>
 
 </select>
 
-<label>Description</label>
+<label>Issue Date</label>
 
-<textarea placeholder="Describe the livestock..."></textarea>
+<input type="date">
+
+<label>Expiry Date</label>
+
+<input type="date">
 
 </div>
 
 <div class="card">
 
-<h3 class="section-title">
-
-Livestock Photos
-
-</h3>
+<h3>Upload Certificate</h3>
 
 <div class="upload">
 
 <i class="fa-solid fa-cloud-arrow-up"></i>
 
-<h4>Upload Images</h4>
+<h4>Select PDF or Image</h4>
 
 <p>Drag & Drop or Click to Upload</p>
 
 </div>
 
+<div class="preview">
+
+<h4>
+
+<i class="fa-solid fa-circle-check"></i>
+
+Digital Verification
+
+</h4>
+
+<p>
+
+Once uploaded, this certificate will be linked to the order and will be available for verification by Buyers, Logistics Partners and Government agencies.
+
+</p>
+
 </div>
 
-<a href="inventory.html" class="btn">
+</div>
 
-Publish Listing
+<a href="payments.html" class="btn">
+
+Submit Certificate
 
 </a>
 
@@ -284,28 +260,43 @@ Publish Listing
 <div class="bottom-nav">
 
 <a href="dashboard.html">
-    <i class="fa-solid fa-house"></i>
-    Home
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
 </a>
 
 <a href="inventory.html">
-    <i class="fa-solid fa-boxes-stacked"></i>
-    Inventory
+
+<i class="fa-solid fa-boxes-stacked"></i>
+
+Inventory
+
 </a>
 
-<a href="orders.html">
-    <i class="fa-solid fa-clipboard-list"></i>
-    Orders
+<a href="orders.html" class="active">
+
+<i class="fa-solid fa-clipboard-list"></i>
+
+Orders
+
 </a>
 
 <a href="payments.html">
-    <i class="fa-solid fa-wallet"></i>
-    Escrow
+
+<i class="fa-solid fa-wallet"></i>
+
+Escrow
+
 </a>
 
 <a href="profile.html">
-    <i class="fa-solid fa-user"></i>
-    Profile
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
 </a>
 
 </div>

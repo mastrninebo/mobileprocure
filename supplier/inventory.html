@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventory | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:100px;
+color:#1F2937;
+}
+
+header{
+background:white;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 2px 15px rgba(0,0,0,.05);
+}
+
+header a{
+color:#0F766E;
+font-size:20px;
+text-decoration:none;
+}
+
+header h2{
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.search{
+margin-bottom:20px;
+}
+
+.search input{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:white;
+box-shadow:0 4px 15px rgba(0,0,0,.05);
+font-size:15px;
+outline:none;
+}
+
+.add-btn{
+display:block;
+text-align:center;
+background:#0F766E;
+color:white;
+padding:15px;
+border-radius:15px;
+text-decoration:none;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+overflow:hidden;
+margin-bottom:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.content{
+padding:18px;
+}
+
+.content h3{
+margin-bottom:8px;
+}
+
+.info{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin:15px 0;
+font-size:14px;
+}
+
+.info div{
+background:#F8FAFC;
+padding:10px;
+border-radius:10px;
+}
+
+.badge{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.verified{
+background:#DCFCE7;
+color:#166534;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.actions{
+display:flex;
+gap:10px;
+}
+
+.actions a{
+flex:1;
+text-align:center;
+padding:12px;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+}
+
+.edit{
+background:#0F766E;
+color:white;
+}
+
+.view{
+background:#E5E7EB;
+color:#111827;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+gap:5px;
+}
+
+.bottom-nav a.active{
+color:#0F766E;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<h2>Inventory</h2>
+
+</header>
+
+<div class="container">
+
+<div class="search">
+
+<input type="text" placeholder="Search livestock...">
+
+</div>
+
+<a href="add-livestock.html" class="add-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Livestock
+
+</a>
+
+<div class="card">
+
+<img src="../assets/images/cattle.jpg">
+
+<div class="content">
+
+<h3>Angus Bulls</h3>
+
+<span class="badge verified">
+
+Verified
+
+</span>
+
+<div class="info">
+
+<div>
+
+<strong>Quantity</strong><br>
+
+200 Head
+
+</div>
+
+<div>
+
+<strong>Weight</strong><br>
+
+450kg Avg
+
+</div>
+
+<div>
+
+<strong>Price</strong><br>
+
+$1,250
+
+</div>
+
+<div>
+
+<strong>Location</strong><br>
+
+Chisamba
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<a href="livestock-details.html" class="view">View</a>
+<a href="edit-livestock.html" class="edit">Edit</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="../assets/images/goats.jpg">
+
+<div class="content">
+
+<h3>Boer Goats</h3>
+
+<span class="badge pending">
+
+Pending Inspection
+
+</span>
+
+<div class="info">
+
+<div>
+
+<strong>Quantity</strong><br>
+
+150 Head
+
+</div>
+
+<div>
+
+<strong>Weight</strong><br>
+
+45kg Avg
+
+</div>
+
+<div>
+
+<strong>Price</strong><br>
+
+$220
+
+</div>
+
+<div>
+
+<strong>Location</strong><br>
+
+Mazabuka
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<a href="#" class="view">
+
+View
+
+</a>
+
+<a href="#" class="edit">
+
+Edit
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="inventory.html" class="active">
+
+<i class="fa-solid fa-boxes-stacked"></i>
+
+Inventory
+
+</a>
+
+<a href="orders.html">
+
+<i class="fa-solid fa-clipboard-list"></i>
+
+Orders
+
+</a>
+
+<a href="payments.html">
+
+<i class="fa-solid fa-wallet"></i>
+
+Escrow
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
