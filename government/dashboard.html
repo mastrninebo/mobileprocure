@@ -8,197 +8,230 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
 
 <style>
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-  background:#F5F7FA;
-  color:#1F2937;
-  padding-bottom:100px;
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
 }
 
 header{
-  padding:25px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .profile{
-  display:flex;
-  align-items:center;
-  gap:15px;
+display:flex;
+align-items:center;
+gap:15px;
 }
 
 .profile img{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  object-fit:cover;
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
 }
 
 .profile h3{
-  font-size:20px;
+font-size:20px;
 }
 
 .profile p{
-  font-size:13px;
-  color:#6B7280;
+font-size:13px;
+color:#6B7280;
 }
 
 .notify{
-  width:45px;
-  height:45px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:white;
-  border-radius:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,.05);
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
 }
 
 .hero{
-  margin:0 20px;
-  padding:25px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#1E40AF,#3B82F6);
-  color:white;
+margin:0 20px;
+padding:25px;
+border-radius:22px;
+background:linear-gradient(135deg,#1E40AF,#3B82F6);
+color:white;
 }
 
 .hero small{
-  opacity:.9;
+opacity:.9;
 }
 
 .hero h2{
-  font-size:34px;
-  margin:10px 0;
+font-size:34px;
+margin:10px 0;
 }
 
 .hero p{
-  opacity:.95;
+opacity:.95;
 }
 
 .section{
-  margin:30px 20px 15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+margin:30px 20px 15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .section h2{
-  font-size:20px;
+font-size:20px;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  margin:0 20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin:0 20px;
 }
 
 .card{
-  background:white;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 8px 20px rgba(0,0,0,.05);
-  text-align:center;
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+text-align:center;
 }
 
 .card i{
-  font-size:30px;
-  color:#1E40AF;
-  margin-bottom:15px;
+font-size:30px;
+color:#1E40AF;
+margin-bottom:15px;
 }
 
 .card h3{
-  font-size:28px;
-  margin-bottom:6px;
+font-size:28px;
+margin-bottom:6px;
 }
 
 .card p{
-  font-size:13px;
-  color:#6B7280;
+font-size:13px;
+color:#6B7280;
 }
 
 .alert{
-  background:white;
-  margin:0 20px 15px;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 6px 18px rgba(0,0,0,.05);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+background:white;
+margin:0 20px 15px;
+padding:20px;
+border-radius:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .alert-left h4{
-  margin-bottom:6px;
+margin-bottom:6px;
 }
 
 .alert-left p{
-  font-size:13px;
-  color:#6B7280;
+font-size:13px;
+color:#6B7280;
 }
 
 .badge{
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:600;
+padding:8px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
 }
 
 .success{
-  background:#DBEAFE;
-  color:#16A34A;
+background:#DCFCE7;
+color:#16A34A;
 }
 
 .warning{
-  background:#FEF3C7;
-  color:#D97706;
-}
-
-.danger{
-  background:#FEE2E2;
-  color:#DC2626;
+background:#FEF3C7;
+color:#D97706;
 }
 
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:space-around;
-  padding:15px 0;
-  box-shadow:0 -5px 20px rgba(0,0,0,.08);
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
 }
 
 .bottom-nav a{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-decoration:none;
-  font-size:12px;
-  gap:5px;
-  color:#9CA3AF;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-decoration:none;
+font-size:12px;
+gap:5px;
+color:#9CA3AF;
 }
 
 .bottom-nav a.active{
-  color:#1E40AF;
-  font-weight:600;
+color:#1E40AF;
+font-weight:600;
 }
 
 .bottom-nav i{
-  font-size:20px;
+font-size:20px;
 }
+
+/* ── Quick Access restructured ── */
+.qa-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin:0 20px;
+}
+
+.qa-card{
+background:white;
+padding:18px 16px;
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+text-align:center;
+transition:all 0.2s ease;
+border:2px solid transparent;
+}
+
+.qa-card i{
+font-size:28px;
+color:#1E40AF;
+margin-bottom:8px;
+display:block;
+}
+
+.qa-card .qa-title{
+font-weight:600;
+font-size:15px;
+color:#1F2937;
+}
+
+.qa-card .qa-sub{
+font-size:12px;
+color:#9CA3AF;
+margin-top:2px;
+}
+
 </style>
 
 </head>
@@ -335,45 +368,40 @@ Pending
 
 <h2>Quick Access</h2>
 
-<div class="grid">
+</div>
 
-<a href="reports.html" class="card">
+<!-- ★ Quick Access – restructured ★ -->
+<div class="qa-grid">
 
+<div class="qa-card">
 <i class="fa-solid fa-chart-line"></i>
+<div class="qa-title">Trade Analytics</div>
+<div class="qa-sub">Insights &amp; trends</div>
+</div>
 
-<p>Trade Analytics</p>
-
-</a>
-
-<a href="audits.html" class="card">
-
+<div class="qa-card">
 <i class="fa-solid fa-scale-balanced"></i>
+<div class="qa-title">Audit Trail</div>
+<div class="qa-sub">Activity log</div>
+</div>
 
-<p>Audit Trail</p>
-
-</a>
-
-<a href="traceability.html" class="card">
-
+<div class="qa-card">
 <i class="fa-solid fa-virus"></i>
+<div class="qa-title">Disease Traceability</div>
+<div class="qa-sub">Track &amp; report</div>
+</div>
 
-<p>Disease Traceability</p>
-
-</a>
-
-<a href="report-details.html" class="card">
-
+<div class="qa-card">
 <i class="fa-solid fa-building-columns"></i>
-
-<p>ZRA Reports</p>
-
-</a>
+<div class="qa-title">ZRA Reports</div>
+<div class="qa-sub">Zambia Revenue</div>
+</div>
 
 </div>
 
 <div class="bottom-nav">
 
-<a href="dashboard.html" class="active">
+<a href="#" class="active">
 
 <i class="fa-solid fa-house"></i>
 
@@ -381,7 +409,7 @@ Home
 
 </a>
 
-<a href="reports.html">
+<a href="#">
 
 <i class="fa-solid fa-chart-column"></i>
 
@@ -389,7 +417,7 @@ Reports
 
 </a>
 
-<a href="audits.html">
+<a href="#">
 
 <i class="fa-solid fa-shield-halved"></i>
 
@@ -397,7 +425,7 @@ Audits
 
 </a>
 
-<a href="compliance.html">
+<a href="#">
 
 <i class="fa-solid fa-clipboard-check"></i>
 
@@ -405,7 +433,7 @@ Compliance
 
 </a>
 
-<a href="profile.html">
+<a href="#">
 
 <i class="fa-solid fa-user"></i>
 
