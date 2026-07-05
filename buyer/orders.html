@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | My Orders</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:100px;
+color:#1F2937;
+}
+
+header{
+background:#fff;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header h2{
+font-size:22px;
+color:#0F766E;
+}
+
+.search{
+padding:20px;
+}
+
+.search input{
+width:100%;
+padding:14px 16px;
+border:1px solid #E5E7EB;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+.filters{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:0 20px 20px;
+}
+
+.filters button{
+border:none;
+padding:10px 18px;
+border-radius:25px;
+background:#E5E7EB;
+cursor:pointer;
+font-weight:500;
+white-space:nowrap;
+}
+
+.filters .active{
+background:#0F766E;
+color:white;
+}
+
+.container{
+padding:0 20px;
+}
+
+.order-card{
+background:white;
+border-radius:20px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.order-id{
+font-weight:600;
+color:#0F766E;
+}
+
+.badge{
+padding:7px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.transit{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.completed{
+background:#DCFCE7;
+color:#166534;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.info{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin:15px 0;
+}
+
+.box{
+background:#F8FAFC;
+padding:12px;
+border-radius:12px;
+}
+
+.box small{
+display:block;
+color:#6B7280;
+margin-bottom:5px;
+}
+
+.actions{
+display:flex;
+gap:12px;
+margin-top:18px;
+}
+
+.actions a{
+flex:1;
+text-align:center;
+text-decoration:none;
+padding:13px;
+border-radius:12px;
+font-weight:600;
+}
+
+.primary{
+background:#0F766E;
+color:white;
+}
+
+.secondary{
+background:#E5E7EB;
+color:#111827;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#0F766E;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>My Orders</h2>
+
+<i class="fa-solid fa-box-open" style="font-size:22px;color:#0F766E;"></i>
+
+</header>
+
+<div class="search">
+
+<input type="text" placeholder="Search Order ID or Supplier...">
+
+</div>
+
+<div class="filters">
+
+<button class="active">All</button>
+<button>Pending</button>
+<button>In Transit</button>
+<button>Delivered</button>
+
+</div>
+
+<div class="container">
+
+<div class="order-card">
+
+<div class="top">
+
+<div class="order-id">MP-2026-000128</div>
+
+<div class="badge transit">In Transit</div>
+
+</div>
+
+<div class="info">
+
+<div class="box">
+<small>Supplier</small>
+<strong>Mpundu Cattle Ranch</strong>
+</div>
+
+<div class="box">
+<small>Livestock</small>
+<strong>200 Angus Bulls</strong>
+</div>
+
+<div class="box">
+<small>Total</small>
+<strong>$63,950</strong>
+</div>
+
+<div class="box">
+<small>Escrow</small>
+<strong>Funds Secured</strong>
+</div>
+
+</div>
+
+<div class="actions">
+
+<a href="tracking.html" class="primary">
+
+Track Shipment
+
+</a>
+
+<a href="order-review.html" class="secondary">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+<div class="order-card">
+
+<div class="top">
+
+<div class="order-id">MP-2026-000117</div>
+
+<div class="badge completed">Delivered</div>
+
+</div>
+
+<div class="info">
+
+<div class="box">
+<small>Supplier</small>
+<strong>Eastern Livestock</strong>
+</div>
+
+<div class="box">
+<small>Livestock</small>
+<strong>80 Boer Goats</strong>
+</div>
+
+<div class="box">
+<small>Total</small>
+<strong>$24,600</strong>
+</div>
+
+<div class="box">
+<small>Escrow</small>
+<strong>Released</strong>
+</div>
+
+</div>
+
+<div class="actions">
+
+<a href="tracking.html" class="primary">
+
+View Journey
+
+</a>
+
+<a href="order-review.html" class="secondary">
+
+Receipt
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="marketplace.html">
+
+<i class="fa-solid fa-store"></i>
+
+Marketplace
+
+</a>
+
+<a class="active" href="orders.html">
+
+<i class="fa-solid fa-box"></i>
+
+Orders
+
+</a>
+
+<a href="catalog.html">
+
+<i class="fa-solid fa-book"></i>
+
+Catalog
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Shipment Tracking</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+background:white;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header a{
+text-decoration:none;
+color:#0F766E;
+font-size:20px;
+}
+
+header h2{
+color:#0F766E;
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.order-card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.order-id{
+color:#0F766E;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.status{
+display:inline-block;
+padding:8px 15px;
+background:#DBEAFE;
+color:#1D4ED8;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.info{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.box{
+background:#F8FAFC;
+padding:12px;
+border-radius:12px;
+}
+
+.box small{
+display:block;
+color:#6B7280;
+margin-bottom:5px;
+}
+
+.progress-card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.progress-title{
+font-weight:600;
+margin-bottom:15px;
+color:#0F766E;
+}
+
+.progress-bar{
+height:10px;
+background:#E5E7EB;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.progress{
+width:75%;
+height:100%;
+background:#0F766E;
+}
+
+.progress-text{
+font-size:14px;
+color:#6B7280;
+}
+
+.timeline{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.timeline h3{
+color:#0F766E;
+margin-bottom:20px;
+}
+
+.event{
+display:flex;
+gap:15px;
+margin-bottom:25px;
+}
+
+.icon{
+width:40px;
+height:40px;
+border-radius:50%;
+background:#D1FAE5;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#0F766E;
+flex-shrink:0;
+}
+
+.event-content h4{
+font-size:15px;
+margin-bottom:4px;
+}
+
+.event-content p{
+font-size:13px;
+color:#6B7280;
+margin-bottom:3px;
+}
+
+.map-card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+text-align:center;
+}
+
+.map-placeholder{
+height:180px;
+border-radius:16px;
+background:#E5E7EB;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+color:#6B7280;
+margin-top:15px;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#0F766E;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="orders.html">
+<i class="fa-solid fa-arrow-left"></i>
+</a>
+
+<h2>Shipment Tracking</h2>
+
+</header>
+
+<div class="container">
+
+<div class="order-card">
+
+<div class="order-id">
+Order: MP-2026-000128
+</div>
+
+<div class="status">
+In Transit
+</div>
+
+<div class="info">
+
+<div class="box">
+<small>Supplier</small>
+<strong>Mpundu Cattle Ranch</strong>
+</div>
+
+<div class="box">
+<small>Livestock</small>
+<strong>200 Angus Bulls</strong>
+</div>
+
+<div class="box">
+<small>Destination</small>
+<strong>Johannesburg, SA</strong>
+</div>
+
+<div class="box">
+<small>Transporter</small>
+<strong>Zam Logistics Ltd</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="progress-card">
+
+<div class="progress-title">
+Shipment Progress
+</div>
+
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+
+<p class="progress-text">
+75% Complete • Estimated Arrival: 2 Days
+</p>
+
+</div>
+
+<div class="timeline">
+
+<h3>Tracking Timeline</h3>
+
+<div class="event">
+
+<div class="icon">
+<i class="fa-solid fa-warehouse"></i>
+</div>
+
+<div class="event-content">
+<h4>Loaded at Farm</h4>
+<p>Mpundu Cattle Ranch</p>
+<p>05 Aug 2026 • 08:15 AM</p>
+</div>
+
+</div>
+
+<div class="event">
+
+<div class="icon">
+<i class="fa-solid fa-truck"></i>
+</div>
+
+<div class="event-content">
+<h4>Departed Supplier</h4>
+<p>Central Province, Zambia</p>
+<p>05 Aug 2026 • 12:30 PM</p>
+</div>
+
+</div>
+
+<div class="event">
+
+<div class="icon">
+<i class="fa-solid fa-passport"></i>
+</div>
+
+<div class="event-content">
+<h4>Border Clearance</h4>
+<p>Chirundu Border Post</p>
+<p>06 Aug 2026 • 09:45 AM</p>
+</div>
+
+</div>
+
+<div class="event">
+
+<div class="icon">
+<i class="fa-solid fa-location-dot"></i>
+</div>
+
+<div class="event-content">
+<h4>Currently In Transit</h4>
+<p>Near Johannesburg</p>
+<p>07 Aug 2026 • 02:15 PM</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="map-card">
+
+<h3>Live Route</h3>
+
+<div class="map-placeholder">
+
+<i class="fa-solid fa-map-location-dot"></i>
+&nbsp; GPS Tracking Map
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a class="active" href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="marketplace.html">
+
+<i class="fa-solid fa-store"></i>
+
+Marketplace
+
+</a>
+
+<a href="orders.html">
+
+<i class="fa-solid fa-box"></i>
+
+Orders
+
+</a>
+
+<a href="catalog.html">
+
+<i class="fa-solid fa-book"></i>
+
+Catalog
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Catalog</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+background:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header h2{
+color:#0F766E;
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.section-title{
+margin:25px 0 15px;
+font-size:18px;
+font-weight:600;
+color:#0F766E;
+}
+
+.card{
+background:white;
+padding:18px;
+border-radius:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+margin-bottom:18px;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+}
+
+.top h3{
+font-size:18px;
+}
+
+.favorite{
+color:#EF4444;
+font-size:20px;
+}
+
+.details{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.box{
+background:#F8FAFC;
+padding:12px;
+border-radius:12px;
+}
+
+.box small{
+display:block;
+color:#6B7280;
+margin-bottom:5px;
+}
+
+.rating{
+color:#F59E0B;
+margin-top:10px;
+}
+
+.btn{
+display:block;
+margin-top:18px;
+text-align:center;
+padding:12px;
+background:#0F766E;
+color:white;
+text-decoration:none;
+border-radius:12px;
+font-weight:600;
+}
+
+.quote{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #E5E7EB;
+}
+
+.quote:last-child{
+border:none;
+}
+
+.status{
+padding:6px 14px;
+border-radius:20px;
+background:#DBEAFE;
+color:#1D4ED8;
+font-size:12px;
+font-weight:600;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+font-size:12px;
+text-decoration:none;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#0F766E;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>Catalog</h2>
+
+<i class="fa-solid fa-book-open" style="font-size:22px;color:#0F766E;"></i>
+
+</header>
+
+<div class="container">
+
+<h3 class="section-title">Favourite Suppliers</h3>
+
+<div class="card">
+
+<div class="top">
+
+<h3>Mpundu Cattle Ranch</h3>
+
+<i class="fa-solid fa-heart favorite"></i>
+
+</div>
+
+<p>Verified supplier of premium Angus and Brahman cattle.</p>
+
+<div class="rating">
+
+★★★★★ (4.9)
+
+</div>
+
+<div class="details">
+
+<div class="box">
+
+<small>Completed Orders</small>
+
+<strong>126</strong>
+
+</div>
+
+<div class="box">
+
+<small>Location</small>
+
+<strong>Central Province</strong>
+
+</div>
+
+</div>
+
+<a href="marketplace.html" class="btn">
+
+View Listings
+
+</a>
+
+</div>
+
+<h3 class="section-title">Preferred Quotes</h3>
+
+<div class="card">
+
+<div class="quote">
+
+<div>
+
+<strong>120 Boer Goats</strong><br>
+
+<small>Eastern Livestock</small>
+
+</div>
+
+<span class="status">
+
+Awaiting Response
+
+</span>
+
+</div>
+
+<div class="quote">
+
+<div>
+
+<strong>80 Angus Bulls</strong><br>
+
+<small>Mpundu Cattle Ranch</small>
+
+</div>
+
+<span class="status">
+
+Quoted
+
+</span>
+
+</div>
+
+</div>
+
+<h3 class="section-title">Recently Purchased</h3>
+
+<div class="card">
+
+<div class="quote">
+
+<div>
+
+<strong>200 Angus Bulls</strong><br>
+
+<small>Order MP-2026-000128</small>
+
+</div>
+
+<span class="status">
+
+Delivered
+
+</span>
+
+</div>
+
+<div class="quote">
+
+<div>
+
+<strong>50 Dorper Sheep</strong><br>
+
+<small>Order MP-2026-000104</small>
+
+</div>
+
+<span class="status">
+
+Completed
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="marketplace.html">
+
+<i class="fa-solid fa-store"></i>
+
+Marketplace
+
+</a>
+
+<a href="orders.html">
+
+<i class="fa-solid fa-box"></i>
+
+Orders
+
+</a>
+
+<a class="active" href="catalog.html">
+
+<i class="fa-solid fa-book"></i>
+
+Catalog
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
