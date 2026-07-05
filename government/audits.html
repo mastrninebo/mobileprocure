@@ -5,12 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mobile Procure | National Reports</title>
+<title>Mobile Procure | Audit Trail</title>
 
 <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 <style>
@@ -24,12 +23,12 @@ font-family:'Poppins',sans-serif;
 
 body{
 background:#F5F7FA;
-padding-bottom:100px;
 color:#1F2937;
+padding-bottom:100px;
 }
 
 header{
-background:white;
+background:#fff;
 padding:20px;
 display:flex;
 align-items:center;
@@ -38,9 +37,9 @@ box-shadow:0 3px 15px rgba(0,0,0,.05);
 }
 
 header a{
-text-decoration:none;
 color:#1E40AF;
 font-size:20px;
+text-decoration:none;
 }
 
 header h2{
@@ -53,59 +52,93 @@ padding:20px;
 
 .summary{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 margin-bottom:25px;
 }
 
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
+.stat{
+background:#fff;
+padding:18px;
+border-radius:16px;
 text-align:center;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 }
 
-.card i{
-font-size:28px;
+.stat h3{
 color:#1E40AF;
-margin-bottom:12px;
+font-size:22px;
+margin-bottom:6px;
 }
 
-.card h3{
-margin-bottom:5px;
-font-size:24px;
-}
-
-.card p{
+.stat p{
+font-size:13px;
 color:#6B7280;
-font-size:14px;
 }
 
-.report{
+.audit{
 background:white;
-padding:20px;
 border-radius:18px;
+padding:20px;
 margin-bottom:18px;
 box-shadow:0 6px 18px rgba(0,0,0,.05);
 }
 
-.report h3{
-color:#1E40AF;
-margin-bottom:10px;
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
 }
 
-.report p{
+.top h3{
+color:#1E40AF;
+font-size:18px;
+}
+
+.badge{
+padding:6px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.success{
+background:#DCFCE7;
+color:#166534;
+}
+
+.warning{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.info{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:15px;
+}
+
+.box{
+background:#F8FAFC;
+padding:12px;
+border-radius:12px;
+}
+
+.box small{
+display:block;
 color:#6B7280;
-margin-bottom:15px;
-line-height:1.6;
+margin-bottom:5px;
 }
 
 .button{
-display:inline-block;
-padding:12px 18px;
+display:block;
+margin-top:18px;
+text-align:center;
 background:#1E40AF;
 color:white;
+padding:14px;
 text-decoration:none;
 border-radius:12px;
 font-weight:600;
@@ -151,12 +184,10 @@ font-size:20px;
 <header>
 
 <a href="dashboard.html">
-
 <i class="fa-solid fa-arrow-left"></i>
-
 </a>
 
-<h2>National Reports</h2>
+<h2>Audit Trail</h2>
 
 </header>
 
@@ -164,97 +195,110 @@ font-size:20px;
 
 <div class="summary">
 
-<div class="card">
-
-<i class="fa-solid fa-cow"></i>
-
-<h3>12,548</h3>
-
-<p>Animals Exported</p>
-
+<div class="stat">
+<h3>2,418</h3>
+<p>Audit Events</p>
 </div>
 
-<div class="card">
-
-<i class="fa-solid fa-dollar-sign"></i>
-
-<h3>$18.4M</h3>
-
-<p>Trade Value</p>
-
+<div class="stat">
+<h3>99.8%</h3>
+<p>Verified</p>
 </div>
 
-<div class="card">
-
-<i class="fa-solid fa-building-columns"></i>
-
-<h3>$2.6M</h3>
-
-<p>Estimated Tax</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-earth-africa"></i>
-
-<h3>17</h3>
-
-<p>Destination Countries</p>
-
+<div class="stat">
+<h3>18</h3>
+<p>Open Reviews</p>
 </div>
 
 </div>
 
-<div class="report">
+<div class="audit">
 
-<h3>Livestock Export Summary</h3>
+<div class="top">
 
-<p>
+<h3>Order MP-2026-000128</h3>
 
-View procurement volumes, export destinations, and monthly livestock trade trends across Zambia.
+<span class="badge success">
+Verified
+</span>
 
-</p>
+</div>
+
+<p>Complete audit history available for inspection.</p>
+
+<div class="info">
+
+<div class="box">
+<small>Supplier</small>
+<strong>Mpundu Cattle Ranch</strong>
+</div>
+
+<div class="box">
+<small>Buyer</small>
+<strong>African Beef Imports</strong>
+</div>
+
+<div class="box">
+<small>Escrow</small>
+<strong>Funds Locked</strong>
+</div>
+
+<div class="box">
+<small>Current Status</small>
+<strong>In Transit</strong>
+</div>
+
+</div>
 
 <a href="#" class="button">
 
-Open Report
+Open Audit Log
 
 </a>
 
 </div>
 
-<div class="report">
+<div class="audit">
 
-<h3>ZRA Revenue Report</h3>
+<div class="top">
 
-<p>
+<h3>Order MP-2026-000117</h3>
 
-Review estimated taxable values, VAT, and export-related transaction summaries.
-
-</p>
-
-<a href="#" class="button">
-
-Generate Report
-
-</a>
+<span class="badge warning">
+Under Review
+</span>
 
 </div>
 
-<div class="report">
+<p>Shipment delayed at border awaiting veterinary verification.</p>
 
-<h3>Provincial Performance</h3>
+<div class="info">
 
-<p>
+<div class="box">
+<small>Supplier</small>
+<strong>Eastern Livestock</strong>
+</div>
 
-Compare livestock exports by province, supplier activity, and market growth.
+<div class="box">
+<small>Destination</small>
+<strong>Dubai</strong>
+</div>
 
-</p>
+<div class="box">
+<small>Issue</small>
+<strong>Certificate Delay</strong>
+</div>
+
+<div class="box">
+<small>Assigned Officer</small>
+<strong>Inspector Zulu</strong>
+</div>
+
+</div>
 
 <a href="#" class="button">
 
-View Analytics
+Review Audit
 
 </a>
 
@@ -265,43 +309,28 @@ View Analytics
 <div class="bottom-nav">
 
 <a href="dashboard.html">
-
 <i class="fa-solid fa-house"></i>
-
 Home
-
 </a>
 
-<a href="reports.html" class="active">
-
+<a href="reports.html">
 <i class="fa-solid fa-chart-column"></i>
-
 Reports
-
 </a>
 
-<a href="audits.html">
-
+<a href="audits.html" class="active">
 <i class="fa-solid fa-shield-halved"></i>
-
 Audits
-
 </a>
 
 <a href="compliance.html">
-
 <i class="fa-solid fa-clipboard-check"></i>
-
 Compliance
-
 </a>
 
 <a href="profile.html">
-
 <i class="fa-solid fa-user"></i>
-
 Profile
-
 </a>
 
 </div>

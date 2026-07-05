@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Logistics Profile</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+background:#fff;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header h2{
+font-size:22px;
+}
+
+header a{
+color:#0F766E;
+font-size:20px;
+text-decoration:none;
+}
+
+.container{
+padding:20px;
+}
+
+.profile-card{
+background:#fff;
+border-radius:22px;
+padding:30px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+margin-bottom:20px;
+}
+
+.avatar{
+width:110px;
+height:110px;
+border-radius:50%;
+background:#0F766E;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:45px;
+color:white;
+margin-bottom:18px;
+}
+
+.profile-card h2{
+margin-bottom:6px;
+}
+
+.profile-card p{
+color:#6B7280;
+margin-bottom:15px;
+}
+
+.badge{
+display:inline-block;
+padding:8px 18px;
+background:#DCFCE7;
+color:#166534;
+border-radius:30px;
+font-size:13px;
+font-weight:600;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin:20px 0;
+}
+
+.stat{
+background:#fff;
+padding:18px;
+text-align:center;
+border-radius:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.stat h3{
+color:#0F766E;
+margin-bottom:5px;
+}
+
+.section{
+background:#fff;
+padding:22px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.section h3{
+margin-bottom:18px;
+color:#0F766E;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #ECECEC;
+}
+
+.item:last-child{
+border:none;
+padding-bottom:0;
+}
+
+.left{
+display:flex;
+align-items:center;
+}
+
+.left i{
+width:25px;
+color:#0F766E;
+margin-right:10px;
+}
+
+.right{
+color:#6B7280;
+font-size:14px;
+}
+
+.button{
+display:block;
+text-align:center;
+padding:15px;
+text-decoration:none;
+border-radius:14px;
+font-weight:600;
+margin-top:15px;
+}
+
+.primary{
+background:#0F766E;
+color:white;
+}
+
+.secondary{
+background:#EF4444;
+color:white;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:#fff;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#0F766E;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>Logistics Profile</h2>
+
+<a href="#">
+
+<i class="fa-solid fa-pen"></i>
+
+</a>
+
+</header>
+
+<div class="container">
+
+<div class="profile-card">
+
+<div class="avatar">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+</div>
+
+<h2>ZamFreight Logistics Ltd.</h2>
+
+<p>Lusaka, Zambia</p>
+
+<span class="badge">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Verified Logistics Partner
+
+</span>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+<h3>348</h3>
+
+<p>Deliveries</p>
+
+</div>
+
+<div class="stat">
+
+<h3>4.8★</h3>
+
+<p>Rating</p>
+
+</div>
+
+<div class="stat">
+
+<h3>18</h3>
+
+<p>Fleet</p>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Company Information</h3>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-building"></i>
+
+Company
+
+</div>
+
+<div class="right">
+
+ZamFreight Logistics Ltd.
+
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-id-card"></i>
+
+Transport Licence
+
+</div>
+
+<div class="right">
+
+Valid
+
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Head Office
+
+</div>
+
+<div class="right">
+
+Lusaka
+
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-truck"></i>
+
+Fleet Size
+
+</div>
+
+<div class="right">
+
+18 Livestock Trucks
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Compliance</h3>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-file-shield"></i>
+
+Insurance
+
+</div>
+
+<div class="right">
+
+Active
+
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Safety Rating
+
+</div>
+
+<div class="right">
+
+Excellent
+
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+Government Verification
+
+</div>
+
+<div class="right">
+
+Approved
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Account</h3>
+
+<a href="#" class="button primary">
+
+Edit Profile
+
+</a>
+
+<a href="../index.html" class="button secondary">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="deliveries.html">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+Deliveries
+
+</a>
+
+<a href="tracking.html">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Tracking
+
+</a>
+
+<a href="qr-scan.html">
+
+<i class="fa-solid fa-qrcode"></i>
+
+QR Scan
+
+</a>
+
+<a href="profile.html" class="active">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

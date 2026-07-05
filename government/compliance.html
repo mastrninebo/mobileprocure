@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Compliance</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:100px;
+}
+
+header{
+background:#fff;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header a{
+text-decoration:none;
+color:#1E40AF;
+font-size:20px;
+}
+
+header h2{
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.summary{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat{
+background:#fff;
+padding:20px;
+border-radius:18px;
+text-align:center;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.stat i{
+font-size:28px;
+color:#1E40AF;
+margin-bottom:10px;
+}
+
+.stat h3{
+font-size:24px;
+margin-bottom:5px;
+color:#1E40AF;
+}
+
+.stat p{
+font-size:14px;
+color:#6B7280;
+}
+
+.section{
+background:#fff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.05);
+margin-bottom:18px;
+}
+
+.section h3{
+color:#1E40AF;
+margin-bottom:18px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #E5E7EB;
+}
+
+.item:last-child{
+border-bottom:none;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.left i{
+font-size:18px;
+color:#1E40AF;
+width:25px;
+}
+
+.badge{
+padding:6px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.approved{
+background:#DCFCE7;
+color:#166534;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.review{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.button{
+display:block;
+margin-top:20px;
+text-align:center;
+text-decoration:none;
+padding:14px;
+border-radius:12px;
+background:#1E40AF;
+color:white;
+font-weight:600;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#1E40AF;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<h2>Compliance Centre</h2>
+
+</header>
+
+<div class="container">
+
+<div class="summary">
+
+<div class="stat">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<h3>98%</h3>
+
+<p>Compliance Rate</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+<h3>1,482</h3>
+
+<p>Verified Certificates</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-hourglass-half"></i>
+
+<h3>34</h3>
+
+<p>Pending Reviews</p>
+
+</div>
+
+<div class="stat">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+<h3>7</h3>
+
+<p>Flagged Cases</p>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Compliance Checklist</h3>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-file-medical"></i>
+
+Veterinary Certificate
+
+</div>
+
+<span class="badge approved">Approved</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-building"></i>
+
+PACRA Verification
+
+</div>
+
+<span class="badge approved">Verified</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-building-columns"></i>
+
+ZRA Tax Status
+
+</div>
+
+<span class="badge approved">Compliant</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-qrcode"></i>
+
+QR Traceability
+
+</div>
+
+<span class="badge approved">Tracked</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-virus"></i>
+
+Disease Clearance
+
+</div>
+
+<span class="badge pending">Pending</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-file-export"></i>
+
+Export Permit
+
+</div>
+
+<span class="badge review">Requires Review</span>
+
+</div>
+
+<a href="#" class="button">
+
+Review Compliance Records
+
+</a>
+
+</div>
+
+<div class="section">
+
+<h3>Recent Compliance Alerts</h3>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-circle-exclamation"></i>
+
+Order MP-2026-000117
+
+</div>
+
+<span class="badge review">Certificate Mismatch</span>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<i class="fa-solid fa-circle-info"></i>
+
+Order MP-2026-000128
+
+</div>
+
+<span class="badge approved">Fully Compliant</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="reports.html">
+
+<i class="fa-solid fa-chart-column"></i>
+
+Reports
+
+</a>
+
+<a href="audits.html">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Audits
+
+</a>
+
+<a href="compliance.html" class="active">
+
+<i class="fa-solid fa-clipboard-check"></i>
+
+Compliance
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

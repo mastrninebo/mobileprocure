@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | QR Scanner</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:100px;
+color:#1F2937;
+}
+
+header{
+background:#fff;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+}
+
+header a{
+text-decoration:none;
+color:#0F766E;
+font-size:20px;
+}
+
+header h2{
+font-size:22px;
+}
+
+.container{
+padding:20px;
+}
+
+.scanner{
+
+background:white;
+border-radius:20px;
+padding:25px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+margin-bottom:20px;
+
+}
+
+.scan-box{
+
+width:250px;
+height:250px;
+margin:auto;
+border:4px dashed #0F766E;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#F8FAFC;
+
+}
+
+.scan-box i{
+
+font-size:90px;
+color:#0F766E;
+
+}
+
+.scanner h3{
+
+margin-top:20px;
+
+}
+
+.scanner p{
+
+color:#6B7280;
+margin-top:10px;
+
+}
+
+.btn{
+
+display:block;
+text-align:center;
+background:#0F766E;
+color:white;
+padding:16px;
+border-radius:14px;
+text-decoration:none;
+font-weight:600;
+margin-top:25px;
+
+}
+
+.card{
+
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+margin-bottom:20px;
+
+}
+
+.card h3{
+
+color:#0F766E;
+margin-bottom:18px;
+
+}
+
+.info{
+
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid #EEE;
+
+}
+
+.info:last-child{
+
+border:none;
+
+}
+
+.label{
+
+color:#6B7280;
+
+}
+
+.value{
+
+font-weight:600;
+
+}
+
+.success{
+
+background:#ECFDF5;
+border-left:5px solid #10B981;
+padding:18px;
+border-radius:12px;
+margin-top:20px;
+
+}
+
+.success h4{
+
+color:#065F46;
+margin-bottom:8px;
+
+}
+
+.success p{
+
+color:#4B5563;
+line-height:1.6;
+
+}
+
+.bottom-nav{
+
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+}
+
+.bottom-nav a{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+
+}
+
+.bottom-nav a.active{
+
+color:#0F766E;
+font-weight:600;
+
+}
+
+.bottom-nav i{
+
+font-size:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="tracking.html">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<h2>QR Scanner</h2>
+
+</header>
+
+<div class="container">
+
+<div class="scanner">
+
+<div class="scan-box">
+
+<i class="fa-solid fa-qrcode"></i>
+
+</div>
+
+<h3>Scan Shipment QR Code</h3>
+
+<p>
+
+Scan the QR code attached to the livestock shipment to update its journey.
+
+</p>
+
+<a href="#" class="btn">
+
+<i class="fa-solid fa-camera"></i>
+
+Open Camera
+
+</a>
+
+</div>
+
+<div class="card">
+
+<h3>Latest Scan</h3>
+
+<div class="info">
+
+<span class="label">Shipment</span>
+
+<span class="value">MP-2026-000128</span>
+
+</div>
+
+<div class="info">
+
+<span class="label">Livestock</span>
+
+<span class="value">200 Angus Bulls</span>
+
+</div>
+
+<div class="info">
+
+<span class="label">Current Stage</span>
+
+<span class="value">Loaded at Farm</span>
+
+</div>
+
+<div class="info">
+
+<span class="label">Location</span>
+
+<span class="value">Chisamba</span>
+
+</div>
+
+<div class="info">
+
+<span class="label">Timestamp</span>
+
+<span class="value">12 Jun 2026 • 08:20</span>
+
+</div>
+
+<div class="success">
+
+<h4>
+
+<i class="fa-solid fa-circle-check"></i>
+
+Shipment Verified
+
+</h4>
+
+<p>
+
+The QR code has been successfully verified. A digital audit entry has been created and is now visible to the Buyer, Supplier and Government dashboard.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="deliveries.html">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+Deliveries
+
+</a>
+
+<a href="tracking.html">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Tracking
+
+</a>
+
+<a href="qr-scan.html" class="active">
+
+<i class="fa-solid fa-qrcode"></i>
+
+QR Scan
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
