@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Portal | Mobile Procure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="icon" href="assets/images/logo.png" type="image/png">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#F5F7FA;
+    color:#1F2937;
+}
+
+.container{
+    width:100%;
+    max-width:550px;
+    margin:auto;
+    min-height:100vh;
+    padding:40px 25px;
+}
+
+.logo{
+    width:70px;
+    height:70px;
+    margin:auto;
+    display:block;
+    margin-bottom:20px;
+}
+
+h1{
+    text-align:center;
+    color:#0F766E;
+    font-size:32px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#6B7280;
+    margin-top:10px;
+    margin-bottom:40px;
+    line-height:1.6;
+}
+
+.portal-card{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:white;
+    padding:18px;
+    margin-bottom:18px;
+    border-radius:20px;
+    text-decoration:none;
+    color:#1F2937;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    transition:.3s;
+}
+
+.portal-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+}
+
+.icon{
+    width:60px;
+    height:60px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    color:white;
+    flex-shrink:0;
+}
+
+.buyer{
+    background:#0F766E;
+}
+
+.supplier{
+    background:#D97706;
+}
+
+.logistics{
+    background:#2563EB;
+}
+
+.government{
+    background:#4F46E5;
+}
+
+.fintech{
+    background:#16A34A;
+}
+
+.info{
+    flex:1;
+}
+
+.info h3{
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.info p{
+    color:#6B7280;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.arrow{
+    color:#9CA3AF;
+    font-size:18px;
+}
+
+/* Institution Access Section */
+.institution-access {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 2px solid #E5E7EB;
+}
+
+.institution-access p {
+    color: #6B7280;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+#moreRoles {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #0F766E;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+    border: none;
+}
+
+#moreRoles:hover {
+    background: #0D6B64;
+    transform: translateY(-2px);
+}
+
+#moreRoles i {
+    margin-left: 8px;
+    transition: 0.3s;
+}
+
+/* Checkbox hack */
+.toggle-checkbox {
+    display: none;
+}
+
+.hidden-roles {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #E5E7EB;
+}
+
+.toggle-checkbox:checked ~ .hidden-roles {
+    display: block;
+}
+
+.toggle-checkbox:checked ~ .institution-access #moreRoles i {
+    transform: rotate(180deg);
+}
+
+/* Subtle animation for hidden roles */
+.hidden-roles .portal-card {
+    animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Back button */
+.back{
+    display:block;
+    text-align:center;
+    margin-top:30px;
+    color:#0F766E;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.back i{
+    margin-right:6px;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:20px 0 0;
+    font-size:14px;
+    color:#6B7280;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="assets/images/logo.png" class="logo">
+
+<h1>Select Your Portal</h1>
+
+<p class="subtitle">
+Choose how you want to access Mobile Procure.<br>
+You can switch portals later.
+</p>
+
+<!-- Main visible roles (3) -->
+<a href="buyer/dashboard.html" class="portal-card">
+    <div class="icon buyer">
+        <i class="fa-solid fa-cart-shopping"></i>
+    </div>
+    <div class="info">
+        <h3>Buyer Portal</h3>
+        <p>Purchase livestock, manage procurement and track orders.</p>
+    </div>
+    <div class="arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</a>
+
+<a href="supplier/dashboard.html" class="portal-card">
+    <div class="icon supplier">
+        <i class="fa-solid fa-cow"></i>
+    </div>
+    <div class="info">
+        <h3>Supplier Portal</h3>
+        <p>Manage livestock inventory, receive bids and fulfill orders.</p>
+    </div>
+    <div class="arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</a>
+
+<a href="logistics/dashboard.html" class="portal-card">
+    <div class="icon logistics">
+        <i class="fa-solid fa-truck-fast"></i>
+    </div>
+    <div class="info">
+        <h3>Logistics Portal</h3>
+        <p>Manage deliveries, tracking and QR verification.</p>
+    </div>
+    <div class="arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</a>
+
+<!-- Checkbox for toggle -->
+<input type="checkbox" id="toggleRoles" class="toggle-checkbox">
+
+<!-- Institution Access Section -->
+<div class="institution-access">
+    <p>Need institutional access?</p>
+    <label for="toggleRoles" id="moreRoles">
+        Choose More
+        <i class="fa-solid fa-chevron-down"></i>
+    </label>
+</div>
+
+<!-- Hidden Roles (2) -->
+<div class="hidden-roles">
+
+    <a href="government/dashboard.html" class="portal-card">
+        <div class="icon government">
+            <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <div class="info">
+            <h3>Government Portal</h3>
+            <p>Compliance, audits, livestock traceability and reporting.</p>
+        </div>
+        <div class="arrow">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+    </a>
+
+    <a href="fintech/dashboard.html" class="portal-card">
+        <div class="icon fintech">
+            <i class="fa-solid fa-building"></i>
+        </div>
+        <div class="info">
+            <h3>Fintech Portal</h3>
+            <p>Escrow management, payments, settlements and dispute resolution.</p>
+        </div>
+        <div class="arrow">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+    </a>
+
+</div>
+
+<a href="index.html" class="back">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back
+</a>
+
+<footer>
+    Mobile Procure &copy; 2026
+</footer>
+
+</div>
+
+</body>
+</html>

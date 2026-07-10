@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Escrow</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:95px;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.hero{
+margin:0 20px;
+padding:25px;
+border-radius:22px;
+background:linear-gradient(135deg,#15803D,#22C55E);
+color:white;
+}
+
+.hero small{
+opacity:.9;
+}
+
+.hero h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.hero p{
+opacity:.95;
+}
+
+.container{
+padding:20px;
+}
+
+.section-title{
+font-size:20px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+/* Summary */
+
+.summary{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+
+.summary-card{
+background:#fff;
+padding:18px;
+border-radius:18px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.summary-card i{
+color:#15803D;
+font-size:22px;
+margin-bottom:10px;
+}
+
+.summary-card h3{
+font-size:24px;
+margin-bottom:4px;
+}
+
+.summary-card p{
+font-size:13px;
+color:#6B7280;
+}
+
+/* Escrow Card */
+
+.escrow-card{
+background:#fff;
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.order-id{
+font-weight:600;
+font-size:16px;
+}
+
+.badge{
+background:#DCFCE7;
+color:#166534;
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.amount{
+font-size:30px;
+font-weight:700;
+color:#15803D;
+margin:12px 0;
+}
+
+.info{
+margin:6px 0;
+font-size:14px;
+color:#4B5563;
+}
+
+.progress{
+margin:18px 0;
+}
+
+.progress label{
+font-size:13px;
+font-weight:600;
+}
+
+.bar{
+height:8px;
+background:#E5E7EB;
+border-radius:20px;
+margin-top:8px;
+overflow:hidden;
+}
+
+.fill{
+width:80%;
+height:100%;
+background:#22C55E;
+}
+
+.documents{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:18px;
+}
+
+.doc{
+background:#F3F4F6;
+padding:8px 14px;
+border-radius:20px;
+font-size:12px;
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.actions button{
+border:none;
+padding:13px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.actions button:hover{
+transform:translateY(-2px);
+}
+
+.release{
+background:#15803D;
+color:white;
+}
+
+.release:hover{
+background:#0D6B64;
+}
+
+.hold{
+background:#F59E0B;
+color:white;
+}
+
+.hold:hover{
+background:#D97706;
+}
+
+.refund{
+background:#DC2626;
+color:white;
+}
+
+.refund:hover{
+background:#B91C1C;
+}
+
+.view{
+background:#E5E7EB;
+color:#1F2937;
+}
+
+.view:hover{
+background:#D1D5DB;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-decoration:none;
+font-size:12px;
+gap:5px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#15803D;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>Escrow</h3>
+
+<p>Secure payment management</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="hero">
+
+<small>Escrow Overview</small>
+
+<h2>$3.96M</h2>
+
+<p>Total funds managed in escrow</p>
+
+</div>
+
+<div class="container">
+
+<div class="summary">
+
+<div class="summary-card">
+
+<i class="fa-solid fa-vault"></i>
+
+<h3>$2.48M</h3>
+
+<p>Locked Funds</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+<h3>$520K</h3>
+
+<p>Pending Release</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>$182K</h3>
+
+<p>Disputed Funds</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<h3>$780K</h3>
+
+<p>Released Today</p>
+
+</div>
+
+</div>
+
+<h3 class="section-title">Active Escrow Accounts</h3>
+
+<div class="escrow-card">
+
+<div class="top">
+
+<span class="order-id">MP-2026-000128</span>
+
+<span class="badge">Funds Locked</span>
+
+</div>
+
+<div class="amount">$63,950</div>
+
+<p class="info"><strong>Buyer:</strong> African Beef Imports</p>
+
+<p class="info"><strong>Supplier:</strong> Mpundu Cattle Ranch</p>
+
+<p class="info"><strong>Payment:</strong> Bank Transfer</p>
+
+<p class="info"><strong>Shipment:</strong> Delivered</p>
+
+<p class="info"><strong>Government:</strong> Clearance Verified</p>
+
+<div class="progress">
+
+<label>Escrow Progress</label>
+
+<div class="bar">
+
+<div class="fill"></div>
+
+</div>
+
+</div>
+
+<div class="documents">
+
+<span class="doc">Vet Certificate</span>
+
+<span class="doc">Export Permit</span>
+
+<span class="doc">Customs</span>
+
+<span class="doc">Proof of Delivery</span>
+
+</div>
+
+<div class="actions">
+
+<button class="release">Release Funds</button>
+
+<button class="hold">Hold Funds</button>
+
+<button class="refund">Refund Buyer</button>
+
+<button class="view">View Documents</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="transactions.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Transactions
+
+</a>
+
+<a href="escrow.html" class="active">
+
+<i class="fa-solid fa-vault"></i>
+
+Escrow
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-building-columns"></i>
+
+Settlements
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

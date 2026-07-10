@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Fintech Dashboard</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:100px;
+color:#1F2937;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.hero{
+margin:0 20px;
+padding:25px;
+border-radius:22px;
+background:linear-gradient(135deg,#15803D,#22C55E);
+color:white;
+}
+
+.hero small{
+opacity:.9;
+}
+
+.hero h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.hero p{
+opacity:.95;
+}
+
+.container{
+padding:0 20px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+
+.stat-card i{
+font-size:24px;
+color:#15803D;
+margin-bottom:10px;
+}
+
+.stat-card h3{
+font-size:24px;
+margin-bottom:5px;
+}
+
+.stat-card p{
+font-size:14px;
+color:#6B7280;
+}
+
+.section{
+margin:25px 0 15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.section h2{
+font-size:20px;
+}
+
+.quick-actions{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.quick-actions a{
+background:white;
+padding:20px;
+border-radius:18px;
+text-align:center;
+text-decoration:none;
+color:#1F2937;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.quick-actions a:hover{
+transform:translateY(-3px);
+}
+
+.quick-actions i{
+font-size:28px;
+color:#15803D;
+margin-bottom:10px;
+}
+
+.quick-actions h4{
+font-size:15px;
+font-weight:600;
+}
+
+.activity{
+background:white;
+padding:18px;
+border-radius:18px;
+margin-top:15px;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+
+.activity-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+}
+
+.badge{
+padding:6px 14px;
+border-radius:20px;
+background:#DCFCE7;
+color:#166534;
+font-size:12px;
+font-weight:600;
+}
+
+.badge.released{
+background:#FEF3C7;
+color:#D97706;
+}
+
+.activity p{
+margin:5px 0;
+font-size:14px;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#15803D;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>Fintech Portal</h3>
+
+<p>Escrow & Payment Management</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="hero">
+
+<small>Escrow Management</small>
+
+<h2>$21.2M</h2>
+
+<p>Total funds processed this month</p>
+
+</div>
+
+<div class="container">
+
+<div class="stats">
+
+<div class="stat-card">
+
+<i class="fa-solid fa-vault"></i>
+
+<h3>$2.48M</h3>
+
+<p>Funds Locked</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+<h3>$18.7M</h3>
+
+<p>Funds Released</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fa-solid fa-building-columns"></i>
+
+<h3>46</h3>
+
+<p>Pending Settlements</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>8</h3>
+
+<p>Open Disputes</p>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Quick Access</h2>
+
+</div>
+
+<div class="quick-actions">
+
+<a href="escrow.html">
+
+<i class="fa-solid fa-vault"></i>
+
+<h4>Escrow</h4>
+
+</a>
+
+<a href="transactions.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+<h4>Transactions</h4>
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-building-columns"></i>
+
+<h4>Settlements</h4>
+
+</a>
+
+<a href="disputes.html">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h4>Disputes</h4>
+
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>Recent Escrow Activity</h2>
+
+</div>
+
+<div class="activity">
+
+<div class="activity-top">
+
+<strong>MP-2026-000128</strong>
+
+<span class="badge">Funds Locked</span>
+
+</div>
+
+<p><strong>Buyer:</strong> African Beef Imports</p>
+
+<p><strong>Supplier:</strong> Mpundu Cattle Ranch</p>
+
+<p><strong>Amount:</strong> $63,950</p>
+
+</div>
+
+<div class="activity">
+
+<div class="activity-top">
+
+<strong>MP-2026-000117</strong>
+
+<span class="badge released">Funds Released</span>
+
+</div>
+
+<p><strong>Buyer:</strong> Lusaka Meat Processors</p>
+
+<p><strong>Supplier:</strong> Northern Livestock Cooperative</p>
+
+<p><strong>Amount:</strong> $41,200</p>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html" class="active">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="transactions.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Transactions
+
+</a>
+
+<a href="escrow.html">
+
+<i class="fa-solid fa-vault"></i>
+
+Escrow
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-building-columns"></i>
+
+Settlements
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

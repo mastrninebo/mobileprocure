@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Fintech Profile</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+color:#1F2937;
+padding-bottom:95px;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.hero{
+margin:0 20px;
+padding:25px;
+border-radius:22px;
+background:linear-gradient(135deg,#15803D,#22C55E);
+color:white;
+}
+
+.hero small{
+opacity:.9;
+}
+
+.hero h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.hero p{
+opacity:.95;
+}
+
+.container{
+padding:20px;
+}
+
+.profile-card{
+background:white;
+border-radius:20px;
+padding:25px;
+text-align:center;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+margin-bottom:20px;
+}
+
+.avatar{
+width:90px;
+height:90px;
+margin:auto;
+border-radius:50%;
+background:#DCFCE7;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+color:#15803D;
+margin-bottom:15px;
+}
+
+.profile-card h3{
+margin-bottom:6px;
+}
+
+.profile-card p{
+color:#6B7280;
+font-size:14px;
+}
+
+.section-title{
+font-size:18px;
+font-weight:600;
+margin:20px 0 12px;
+}
+
+.menu{
+background:white;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+
+.menu a{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 20px;
+text-decoration:none;
+color:#1F2937;
+border-bottom:1px solid #F3F4F6;
+transition:0.3s;
+}
+
+.menu a:hover{
+background:#F9FAFB;
+padding-left:24px;
+}
+
+.menu a:last-child{
+border-bottom:none;
+}
+
+.menu-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.menu-left i{
+width:24px;
+text-align:center;
+color:#15803D;
+}
+
+.status{
+display:inline-block;
+padding:4px 10px;
+border-radius:20px;
+background:#DCFCE7;
+color:#166534;
+font-size:12px;
+font-weight:600;
+}
+
+/* Logout Button as Link */
+.button-secondary{
+display:block;
+width:100%;
+margin-top:25px;
+padding:15px;
+border-radius:12px;
+background:#DC2626;
+color:white;
+font-size:16px;
+font-weight:600;
+text-align:center;
+text-decoration:none;
+transition:0.3s;
+border:none;
+cursor:pointer;
+}
+
+.button-secondary:hover{
+background:#B91C1C;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(220,38,38,.3);
+}
+
+.button-secondary i{
+margin-right:10px;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#15803D;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>Profile</h3>
+
+<p>Fintech Partner Settings</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="hero">
+
+<small>Account Overview</small>
+
+<h2>Licensed Partner</h2>
+
+<p>Escrow & Payment Service Provider</p>
+
+</div>
+
+<div class="container">
+
+<div class="profile-card">
+
+<div class="avatar">
+
+<i class="fa-solid fa-building-columns"></i>
+
+</div>
+
+<h3>Licensed Fintech Partner</h3>
+
+<p>Escrow & Payment Service Provider</p>
+
+<br>
+
+<span class="status">System Online</span>
+
+</div>
+
+<h3 class="section-title">Organization</h3>
+
+<div class="menu">
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-building"></i>
+
+Organization Details
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-landmark"></i>
+
+Settlement Accounts
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-credit-card"></i>
+
+Payment Methods
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+</div>
+
+<h3 class="section-title">System</h3>
+
+<div class="menu">
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-plug"></i>
+
+API & Integrations
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-bell"></i>
+
+Notifications
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Security
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+<a href="#">
+
+<div class="menu-left">
+
+<i class="fa-solid fa-circle-info"></i>
+
+About Mobile Procure
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+</div>
+
+<!-- Logout as Link -->
+<a href="../index.html" class="button-secondary">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+</a>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="transactions.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Transactions
+
+</a>
+
+<a href="escrow.html">
+
+<i class="fa-solid fa-vault"></i>
+
+Escrow
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-building-columns"></i>
+
+Settlements
+
+</a>
+
+<a href="profile.html" class="active">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>

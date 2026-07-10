@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Transactions</title>
+
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+padding-bottom:90px;
+color:#1F2937;
+}
+
+header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.profile img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.profile h3{
+font-size:20px;
+}
+
+.profile p{
+font-size:13px;
+color:#6B7280;
+}
+
+.notify{
+width:45px;
+height:45px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.hero{
+margin:0 20px;
+padding:25px;
+border-radius:22px;
+background:linear-gradient(135deg,#15803D,#22C55E);
+color:white;
+}
+
+.hero small{
+opacity:.9;
+}
+
+.hero h2{
+font-size:34px;
+margin:10px 0;
+}
+
+.hero p{
+opacity:.95;
+}
+
+.container{
+padding:20px;
+}
+
+.search-box{
+background:#fff;
+padding:14px 18px;
+border-radius:14px;
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.search-box input{
+border:none;
+outline:none;
+width:100%;
+font-size:15px;
+background:none;
+}
+
+.filters{
+display:flex;
+gap:10px;
+overflow-x:auto;
+margin-bottom:20px;
+padding-bottom:5px;
+}
+
+.filters button{
+border:none;
+padding:10px 18px;
+border-radius:25px;
+background:#E5E7EB;
+cursor:pointer;
+font-weight:500;
+white-space:nowrap;
+transition:0.3s;
+}
+
+.filters button:hover{
+background:#D1D5DB;
+}
+
+.filters .active{
+background:#15803D;
+color:white;
+}
+
+.transaction{
+background:#fff;
+padding:18px;
+border-radius:18px;
+margin-bottom:18px;
+box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.order-id{
+font-weight:600;
+font-size:16px;
+}
+
+.badge{
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.locked{
+background:#DCFCE7;
+color:#166534;
+}
+
+.released{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.disputed{
+background:#FEE2E2;
+color:#B91C1C;
+}
+
+.transaction p{
+font-size:14px;
+margin:5px 0;
+color:#4B5563;
+}
+
+.amount{
+font-size:22px;
+font-weight:700;
+color:#15803D;
+margin-top:12px;
+}
+
+.view-btn{
+display:inline-block;
+margin-top:15px;
+padding:10px 18px;
+border-radius:10px;
+background:#15803D;
+color:white;
+text-decoration:none;
+font-size:14px;
+transition:0.3s;
+}
+
+.view-btn:hover{
+background:#0D6B64;
+transform:translateY(-2px);
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.bottom-nav a{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+text-decoration:none;
+font-size:12px;
+color:#9CA3AF;
+}
+
+.bottom-nav a.active{
+color:#15803D;
+font-weight:600;
+}
+
+.bottom-nav i{
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="profile">
+
+<img src="../assets/images/profile.jpg">
+
+<div>
+
+<h3>Transactions</h3>
+
+<p>Monitor all payment transactions</p>
+
+</div>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+</div>
+
+</header>
+
+<div class="hero">
+
+<small>Transaction Overview</small>
+
+<h2>$189.3K</h2>
+
+<p>Total transaction volume this month</p>
+
+</div>
+
+<div class="container">
+
+<div class="search-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input type="text" placeholder="Search Order ID or Buyer">
+
+</div>
+
+<div class="filters">
+
+<button class="active">All</button>
+
+<button>Locked</button>
+
+<button>Released</button>
+
+<button>Pending</button>
+
+<button>Disputed</button>
+
+</div>
+
+<div class="transaction">
+
+<div class="top">
+
+<span class="order-id">MP-2026-000128</span>
+
+<span class="badge locked">Funds Locked</span>
+
+</div>
+
+<p><strong>Buyer:</strong> African Beef Imports</p>
+
+<p><strong>Supplier:</strong> Mpundu Cattle Ranch</p>
+
+<p><strong>Payment Method:</strong> Bank Transfer</p>
+
+<div class="amount">$63,950</div>
+
+<a href="escrow.html" class="view-btn">View Escrow</a>
+
+</div>
+
+<div class="transaction">
+
+<div class="top">
+
+<span class="order-id">MP-2026-000117</span>
+
+<span class="badge released">Released</span>
+
+</div>
+
+<p><strong>Buyer:</strong> Lusaka Meat Processors</p>
+
+<p><strong>Supplier:</strong> Northern Livestock Cooperative</p>
+
+<p><strong>Payment Method:</strong> Mobile Money</p>
+
+<div class="amount">$41,200</div>
+
+<a href="settlements.html" class="view-btn">View Settlement</a>
+
+</div>
+
+<div class="transaction">
+
+<div class="top">
+
+<span class="order-id">MP-2026-000103</span>
+
+<span class="badge pending">Pending</span>
+
+</div>
+
+<p><strong>Buyer:</strong> Copperbelt Exporters</p>
+
+<p><strong>Supplier:</strong> Green Valley Farms</p>
+
+<p><strong>Payment Method:</strong> Cryptocurrency</p>
+
+<div class="amount">$27,800</div>
+
+<a href="escrow.html" class="view-btn">Review</a>
+
+</div>
+
+<div class="transaction">
+
+<div class="top">
+
+<span class="order-id">MP-2026-000095</span>
+
+<span class="badge disputed">Disputed</span>
+
+</div>
+
+<p><strong>Buyer:</strong> Global Meats Ltd</p>
+
+<p><strong>Supplier:</strong> Southern Cattle Co.</p>
+
+<p><strong>Payment Method:</strong> Debit Card</p>
+
+<div class="amount">$56,400</div>
+
+<a href="disputes.html" class="view-btn">Open Case</a>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="transactions.html" class="active">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Transactions
+
+</a>
+
+<a href="escrow.html">
+
+<i class="fa-solid fa-vault"></i>
+
+Escrow
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-building-columns"></i>
+
+Settlements
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
