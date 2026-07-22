@@ -203,6 +203,11 @@ font-size:20px;
 
 <body>
 
+<script type="module">
+    import { requireBuyer } from '../assets/js/buyer-page.js';
+    await requireBuyer();
+</script>
+
 <header>
 
 <h2>My Orders</h2>
@@ -213,20 +218,20 @@ font-size:20px;
 
 <div class="search">
 
-<input type="text" placeholder="Search Order ID or Supplier...">
+<input id="orderSearch" type="search" placeholder="Search Order ID or Supplier..." autocomplete="off">
 
 </div>
 
 <div class="filters">
 
-<button class="active">All</button>
-<button>Pending</button>
-<button>In Transit</button>
-<button>Delivered</button>
+<button class="active" type="button" data-status="all">All</button>
+<button type="button" data-status="pending">Pending</button>
+<button type="button" data-status="in_transit">In Transit</button>
+<button type="button" data-status="delivered">Delivered</button>
 
 </div>
 
-<div class="container">
+<div class="container" id="ordersContainer">
 
 <div class="order-card">
 
@@ -333,6 +338,127 @@ Receipt
 </div>
 
 </div>
+
+<script type="module">
+    import { supabase } from '../assets/js/supabase-client.js';
+    import { requireBuyer } from '../assets/js/buyer-page.js';
+
+    const ordersContainer = document.getElementById('ordersContainer');
+    const searchInput = document.getElementById('orderSearch');
+    const filterButtons = [...document.querySelectorAll('.filters button')];
+    let orders = [];
+    let activeStatus = 'all';
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('en-ZM', {
+            style: 'currency', currency: 'ZMW', maximumFractionDigits: 2
+        }).format(Number(amount || 0));
+    }
+
+    function statusClass(status) {
+        if (['completed', 'delivered'].includes(status)) return 'completed';
+        if (['in_transit', 'shipped'].includes(status)) return 'transit';
+        return 'pending';
+    }
+
+    function labelForStatus(status) {
+        return String(status || 'pending').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function renderOrders() {
+        const term = searchInput.value.trim().toLowerCase();
+        const visibleOrders = orders.filter(order => {
+            const supplier = order.supplier?.company_name || order.supplier?.full_name || '';
+            const matchesSearch = !term || order.order_number?.toLowerCase().includes(term) || supplier.toLowerCase().includes(term);
+            const matchesStatus = activeStatus === 'all' || order.status === activeStatus ||
+                (activeStatus === 'in_transit' && order.status === 'shipped');
+            return matchesSearch && matchesStatus;
+        });
+
+        ordersContainer.replaceChildren();
+
+        if (!visibleOrders.length) {
+            const empty = document.createElement('div');
+            empty.className = 'order-card';
+            empty.textContent = orders.length ? 'No orders match your search.' : 'You have not placed any orders yet.';
+            ordersContainer.append(empty);
+            return;
+        }
+
+        visibleOrders.forEach(order => {
+            const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Supplier pending';
+            const card = document.createElement('article');
+            card.className = 'order-card';
+
+            const top = document.createElement('div');
+            top.className = 'top';
+            const orderId = document.createElement('div');
+            orderId.className = 'order-id';
+            orderId.textContent = order.order_number || 'Order';
+            const badge = document.createElement('div');
+            badge.className = `badge ${statusClass(order.status)}`;
+            badge.textContent = labelForStatus(order.status);
+            top.append(orderId, badge);
+
+            const info = document.createElement('div');
+            info.className = 'info';
+            [['Supplier', supplierName], ['Total', formatCurrency(order.total_amount)], ['Order date', order.order_date ? new Date(order.order_date).toLocaleDateString('en-ZM') : '—'], ['Escrow', order.status === 'completed' ? 'Released' : 'Protected']]
+                .forEach(([label, value]) => {
+                    const box = document.createElement('div');
+                    box.className = 'box';
+                    const small = document.createElement('small');
+                    small.textContent = label;
+                    const strong = document.createElement('strong');
+                    strong.textContent = value;
+                    box.append(small, strong);
+                    info.append(box);
+                });
+
+            const actions = document.createElement('div');
+            actions.className = 'actions';
+            const tracking = document.createElement('a');
+            tracking.className = 'primary';
+            tracking.href = `tracking.html?order=${encodeURIComponent(order.id)}`;
+            tracking.textContent = 'Track Shipment';
+            const details = document.createElement('a');
+            details.className = 'secondary';
+            details.href = `order-review.html?order=${encodeURIComponent(order.id)}`;
+            details.textContent = 'View Details';
+            actions.append(tracking, details);
+            card.append(top, info, actions);
+            ordersContainer.append(card);
+        });
+    }
+
+    async function loadOrders() {
+        const user = await requireBuyer();
+        if (!user) return;
+
+        const { data, error } = await supabase
+            .from('orders')
+            .select('id, order_number, total_amount, status, order_date, supplier:supplier_id(full_name, company_name)')
+            .eq('buyer_id', user.id)
+            .order('order_date', { ascending: false });
+
+        if (error) {
+            console.error('Unable to load buyer orders:', error);
+            ordersContainer.textContent = 'Unable to load orders. Please try again.';
+            return;
+        }
+
+        orders = data || [];
+        renderOrders();
+    }
+
+    searchInput.addEventListener('input', renderOrders);
+    filterButtons.forEach(button => button.addEventListener('click', () => {
+        activeStatus = button.dataset.status;
+        filterButtons.forEach(item => item.classList.toggle('active', item === button));
+        renderOrders();
+    }));
+
+    loadOrders();
+</script>
 
 <div class="bottom-nav">
 

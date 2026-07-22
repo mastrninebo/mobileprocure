@@ -18,7 +18,7 @@ The project currently focuses on the front-end experience: linked HTML screens, 
 
 ## Key capabilities
 
-- Role-based portal entry for buyer, supplier, logistics, government, and fintech users.
+- Role selection for buyer, supplier, logistics, government, and fintech portals, followed by a role-aware login screen.
 - Livestock marketplace, catalogue, listing details, order placement, review, and escrow-payment screens.
 - Supplier inventory, livestock onboarding, bid/order management, certificate upload, and payment views.
 - Logistics delivery management, shipment tracking, delivery details, completed deliveries, and QR-scan interface.
@@ -31,9 +31,9 @@ The project currently focuses on the front-end experience: linked HTML screens, 
 
 | Area | Purpose | Main screens |
 | --- | --- | --- |
-| Landing | Introduces the product and its trust, verification, tracking, and certificate concepts. | `index.html`, `continue-as.html` |
-| Buyer | Browse livestock and complete the buyer side of a procurement transaction. | Dashboard, marketplace, catalogue, livestock details, place order, review, escrow payment, success, orders, tracking, wallet, profile |
-| Supplier | Publish livestock and manage fulfilment. | Dashboard, inventory, add livestock, bids, orders, order details, certificate upload, payments, profile |
+| Landing and access | Introduces the product, lets a visitor choose a portal, and presents a portal-specific login experience. | `index.html`, `continue-as.html`, `login.html` |
+| Buyer | Browse livestock and complete the buyer side of a procurement transaction. | Dashboard, marketplace, catalogue, livestock details, supplier profile, new request, preferred quotes, place order, review, escrow payment, success, orders, order details, tracking, wallet, profile |
+| Supplier | Publish livestock and manage fulfilment. | Dashboard, livestock, inventory, add livestock, bids, orders, order details, certificate upload, payments, profile |
 | Logistics | Coordinate and verify delivery. | Dashboard, deliveries, delivery details, live tracking, QR scan, completed deliveries, profile |
 | Government | Monitor the ecosystem and regulatory compliance. | Dashboard, reports, audits, compliance, transactions, analytics, profile |
 | Fintech | Support escrow and settlement operations. | Dashboard, transactions, escrow, settlements, disputes, profile |
@@ -46,13 +46,14 @@ The project currently focuses on the front-end experience: linked HTML screens, 
 The primary demonstration flow is:
 
 1. Open the landing page and select **Get Started**.
-2. Choose a role from the portal-selection screen.
-3. For a buyer journey, open the buyer dashboard or marketplace, select livestock, then continue through order placement, review, escrow payment, and payment confirmation.
-4. Use supplier screens to review inventory, fulfil orders, and upload veterinary documents.
-5. Use logistics screens to manage a delivery, inspect tracking information, and access the QR-verification interface.
-6. Use the fintech and government portals to view the corresponding escrow, settlement, dispute, reporting, audit, and compliance perspectives.
+2. Choose a buyer, supplier, logistics, government, or fintech portal. Government and fintech appear under **Choose More**.
+3. The selection is stored in the browser with `localStorage`, then the login page presents the selected portal's title, icon, and guidance. Government and fintech hide self-registration and indicate that accounts are administrator-created.
+4. For a buyer journey, open the buyer dashboard or marketplace directly, select livestock, then continue through order placement, review, escrow payment, and payment confirmation.
+5. Use supplier screens to review inventory, fulfil orders, and upload veterinary documents.
+6. Use logistics screens to manage a delivery, inspect tracking information, and access the QR-verification interface.
+7. Use the fintech and government portals to view the corresponding escrow, settlement, dispute, reporting, audit, and compliance perspectives.
 
-Because authentication is not implemented, the role links that point to `login.html` are visual placeholders. For a working screen-by-screen demo, open the portal dashboards directly (for example `buyer/dashboard.html`).
+The login form currently has no submission handler or authentication backend. It is a portal-aware UI screen only; for a working screen-by-screen demo, open portal dashboards directly (for example `buyer/dashboard.html`).
 
 ## Technology
 
@@ -117,8 +118,8 @@ mobileprocure/
 
 This is a **UI prototype**, not a secured procurement system. In particular:
 
-- There is no real authentication, authorization, account registration, or session management.
-- The login and registration pages are placeholders, and some navigation links are intentionally illustrative.
+- There is no real authentication, authorization, account registration, or session management. The portal selector only stores `selectedRole` in browser-local storage so `login.html` can tailor its presentation.
+- The login form, registration page, password-recovery link, and account-creation link are not connected to working workflows; some navigation links are intentionally illustrative.
 - Screens use static content; they do not persist user actions or retrieve live livestock, order, certificate, tracking, or payment data.
 - Escrow, payment, QR scanning, logistics tracking, verification, reporting, and dispute actions are represented in the UI only; they are not integrated with external services.
 - `assets/data/*.json` and `assets/js/*.js` exist as extension points but are currently empty.

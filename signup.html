@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Create Account</title>
+
+<link rel="icon" href="assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:450px;
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo img{
+width:85px;
+margin-bottom:10px;
+}
+
+.logo h1{
+color:#0D7377;
+font-size:28px;
+}
+
+.logo p{
+color:#6B7280;
+font-size:14px;
+}
+
+.card{
+background:#fff;
+padding:30px;
+border-radius:22px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.portal{
+display:flex;
+align-items:center;
+gap:15px;
+background:#F0FDFA;
+padding:15px;
+border-radius:15px;
+margin-bottom:25px;
+}
+
+.portal-icon{
+width:55px;
+height:55px;
+border-radius:50%;
+background:#0D7377;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+}
+
+.portal h3{
+font-size:18px;
+margin-bottom:4px;
+}
+
+.portal p{
+font-size:13px;
+color:#6B7280;
+}
+
+.input-group{
+margin-bottom:18px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
+font-weight:500;
+color:#374151;
+}
+
+.input-box{
+display:flex;
+align-items:center;
+border:1px solid #D1D5DB;
+border-radius:12px;
+padding:13px;
+}
+
+.input-box i{
+margin-right:10px;
+color:#9CA3AF;
+}
+
+.input-box input,
+.input-box select{
+border:none;
+outline:none;
+width:100%;
+font-size:15px;
+background:none;
+}
+
+.checkbox{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin:20px 0;
+font-size:14px;
+color:#4B5563;
+}
+
+.checkbox input{
+margin-top:3px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#0D7377;
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#095A5C;
+}
+
+.login{
+margin-top:25px;
+text-align:center;
+}
+
+.login p{
+margin-bottom:12px;
+color:#6B7280;
+font-size:14px;
+}
+
+.login a{
+display:inline-block;
+padding:12px 28px;
+border:2px solid #0D7377;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+color:#0D7377;
+transition:.3s;
+}
+
+.login a:hover{
+background:#0D7377;
+color:#fff;
+}
+
+.restricted{
+display:none;
+background:#FEF3C7;
+border-left:5px solid #F59E0B;
+padding:18px;
+border-radius:12px;
+margin-bottom:20px;
+color:#92400E;
+}
+
+.restricted h3{
+margin-bottom:10px;
+}
+
+.back{
+margin-top:20px;
+text-align:center;
+}
+
+.back a{
+text-decoration:none;
+color:#0D7377;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+
+<img src="assets/images/logo.png" alt="Logo">
+
+<h1>Mobile Procure</h1>
+
+<p>Create your account</p>
+
+</div>
+
+<div class="card">
+
+<div id="restrictedMessage" class="restricted">
+
+<h3>Registration Restricted</h3>
+
+<p id="restrictedText"></p>
+
+</div>
+
+<div id="signupForm">
+
+<div class="portal">
+
+<div class="portal-icon">
+
+<i id="portalIcon" class="fa-solid fa-user"></i>
+
+</div>
+
+<div>
+
+<h3 id="portalTitle">Create Account</h3>
+
+<p id="portalSubtitle">Complete the form below.</p>
+
+</div>
+
+</div>
+
+<form>
+
+<div class="input-group">
+
+<label>Full Name</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-user"></i>
+
+<input type="text" placeholder="Enter full name">
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Business / Company Name</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-building"></i>
+
+<input type="text" placeholder="Optional">
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-envelope"></i>
+
+<input type="email" placeholder="Enter email">
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Phone Number</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-phone"></i>
+
+<input type="tel" placeholder="+260">
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Province</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<select>
+
+<option>Select Province</option>
+
+<option>Central</option>
+
+<option>Copperbelt</option>
+
+<option>Eastern</option>
+
+<option>Luapula</option>
+
+<option>Lusaka</option>
+
+<option>Muchinga</option>
+
+<option>Northern</option>
+
+<option>North-Western</option>
+
+<option>Southern</option>
+
+<option>Western</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-lock"></i>
+
+<input type="password" placeholder="Create password">
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Confirm Password</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-lock"></i>
+
+<input type="password" placeholder="Confirm password">
+
+</div>
+
+</div>
+
+<div class="checkbox">
+
+<input type="checkbox">
+
+<span>I agree to the Terms & Conditions and Privacy Policy.</span>
+
+</div>
+
+<button id="signupButton">
+
+Create Account
+
+</button>
+
+</form>
+
+</div>
+
+<div class="login">
+
+<p>Already have an account?</p>
+
+<a href="login.html">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+ Login
+
+</a>
+
+</div>
+
+<div class="back">
+
+<a href="continue-as.html">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+ Choose Another Portal
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const role = localStorage.getItem("selectedRole") || "buyer";
+
+const portalTitle = document.getElementById("portalTitle");
+const portalSubtitle = document.getElementById("portalSubtitle");
+const portalIcon = document.getElementById("portalIcon");
+const signupButton = document.getElementById("signupButton");
+
+const restrictedMessage = document.getElementById("restrictedMessage");
+const restrictedText = document.getElementById("restrictedText");
+const signupForm = document.getElementById("signupForm");
+
+const roles = {
+
+buyer:{
+title:"Buyer Portal",
+subtitle:"Register to purchase livestock.",
+button:"Create Buyer Account",
+icon:"fa-cart-shopping"
+},
+
+supplier:{
+title:"Supplier Portal",
+subtitle:"Register your livestock business.",
+button:"Create Supplier Account",
+icon:"fa-cow"
+},
+
+logistics:{
+title:"Logistics Portal",
+subtitle:"Register your logistics company.",
+button:"Register Logistics Company",
+icon:"fa-truck-fast"
+},
+
+government:{
+restricted:true,
+message:"Government accounts are created and managed by the Mobile Procure System Administrator."
+},
+
+fintech:{
+restricted:true,
+message:"Fintech institutions are onboarded by Mobile Procure after approval and partnership verification."
+}
+
+};
+
+const current = roles[role];
+
+if(current.restricted){
+
+signupForm.style.display="none";
+restrictedMessage.style.display="block";
+restrictedText.innerText=current.message;
+
+}else{
+
+portalTitle.innerText=current.title;
+portalSubtitle.innerText=current.subtitle;
+signupButton.innerText=current.button;
+
+portalIcon.className="fa-solid "+current.icon;
+
+}
+
+</script>
+
+</body>
+</html>

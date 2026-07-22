@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Procure | Login</title>
+
+<link rel="icon" href="assets/images/logo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#F5F7FA;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:430px;
+}
+
+.logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo img{
+width:85px;
+margin-bottom:10px;
+}
+
+.logo h1{
+font-size:28px;
+color:#0D7377;
+}
+
+.logo p{
+color:#6B7280;
+font-size:14px;
+margin-top:5px;
+}
+
+.card{
+background:#fff;
+padding:30px;
+border-radius:22px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.portal{
+display:flex;
+align-items:center;
+gap:15px;
+background:#F0FDFA;
+padding:15px;
+border-radius:15px;
+margin-bottom:25px;
+}
+
+.portal-icon{
+width:55px;
+height:55px;
+border-radius:50%;
+background:#0D7377;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+}
+
+.portal h3{
+font-size:18px;
+margin-bottom:4px;
+}
+
+.portal p{
+font-size:13px;
+color:#6B7280;
+}
+
+.input-group{
+margin-bottom:18px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
+font-weight:500;
+}
+
+.input-box{
+display:flex;
+align-items:center;
+border:1px solid #D1D5DB;
+border-radius:12px;
+padding:13px;
+background:#fff;
+}
+
+.input-box i{
+color:#9CA3AF;
+margin-right:10px;
+}
+
+.input-box input{
+border:none;
+outline:none;
+width:100%;
+font-size:15px;
+}
+
+.error-message {
+    background: #FEE2E2;
+    color: #991B1B;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: none;
+    border: 1px solid #FECACA;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.success-message {
+    background: #D1FAE5;
+    color: #065F46;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: none;
+    border: 1px solid #A7F3D0;
+}
+
+.success-message.show {
+    display: block;
+}
+
+.forgot{
+text-align:right;
+margin:10px 0 25px;
+}
+
+.forgot a{
+text-decoration:none;
+color:#0D7377;
+font-size:14px;
+}
+
+button{
+width:100%;
+border:none;
+padding:15px;
+border-radius:12px;
+background:#0D7377;
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition: background 0.3s;
+}
+
+button:hover{
+background:#0a5d60;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+button .spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto;
+}
+
+button.loading .spinner {
+    display: inline-block;
+}
+
+button.loading .btn-text {
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.signup{
+margin-top:25px;
+text-align:center;
+}
+
+.signup p{
+margin-bottom:12px;
+font-size:14px;
+color:#6B7280;
+}
+
+.signup a{
+display:inline-block;
+text-decoration:none;
+padding:13px 28px;
+border:2px solid #0D7377;
+border-radius:12px;
+color:#0D7377;
+font-weight:600;
+transition:.3s;
+}
+
+.signup a:hover{
+background:#0D7377;
+color:#fff;
+}
+
+.info-box{
+margin-top:20px;
+padding:15px;
+border-radius:12px;
+background:#FEF3C7;
+display:none;
+font-size:14px;
+color:#92400E;
+}
+
+.back{
+text-align:center;
+margin-top:20px;
+}
+
+.back a{
+text-decoration:none;
+color:#0D7377;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+
+<img src="assets/images/logo.png" alt="Mobile Procure Logo">
+
+<h1>Mobile Procure</h1>
+
+<p>Secure Livestock Trade Platform</p>
+
+</div>
+
+<div class="card">
+
+<div class="portal">
+
+<div class="portal-icon">
+
+<i id="portalIcon" class="fa-solid fa-user"></i>
+
+</div>
+
+<div>
+
+<h3 id="portalTitle">Portal Login</h3>
+
+<p id="portalSubtitle">Sign in to continue.</p>
+
+</div>
+
+</div>
+
+<!-- Error Message -->
+<div id="errorMessage" class="error-message">
+    <i class="fa-solid fa-exclamation-circle"></i>
+    <span id="errorText">Invalid credentials</span>
+</div>
+
+<!-- Success Message -->
+<div id="successMessage" class="success-message">
+    <i class="fa-solid fa-check-circle"></i>
+    <span id="successText">Success!</span>
+</div>
+
+<form id="loginForm">
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-envelope"></i>
+
+<input type="email" id="emailInput" placeholder="Enter your email" required>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<div class="input-box">
+
+<i class="fa-solid fa-lock"></i>
+
+<input type="password" id="passwordInput" placeholder="Enter your password" required>
+
+</div>
+
+</div>
+
+<div class="forgot">
+
+<a href="forgot-password.html">Forgot Password?</a>
+
+</div>
+
+<button id="loginButton">
+    <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> Login</span>
+    <span class="spinner"></span>
+</button>
+
+</form>
+
+<div class="signup" id="signupSection">
+
+<p>Don't have an account?</p>
+
+<a href="signup.html">Create Account</a>
+
+</div>
+
+<div class="info-box" id="adminMessage">
+
+This portal is restricted. Government and Fintech accounts are created by the Mobile Procure System Administrator.
+
+</div>
+
+<div class="back">
+
+<a href="continue-as.html">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Choose another portal
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ============================================ -->
+<!-- SUPABASE AUTH SCRIPT -->
+<!-- ============================================ -->
+<script type="module">
+    import { supabase, signIn, getCurrentUser, getRoleRedirect } from './assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginBtn = document.getElementById('loginButton');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const successMessage = document.getElementById('successMessage');
+    const successText = document.getElementById('successText');
+    const signupSection = document.getElementById('signupSection');
+    const adminMessage = document.getElementById('adminMessage');
+    const portalIcon = document.getElementById('portalIcon');
+    const portalTitle = document.getElementById('portalTitle');
+    const portalSubtitle = document.getElementById('portalSubtitle');
+    
+    // ============================================
+    // GET PORTAL FROM localStorage (with fallback)
+    // ============================================
+    let role = localStorage.getItem('selectedRole');
+    
+    // If no role is set, default to 'buyer' for testing
+    if (!role) {
+        role = 'buyer';
+        localStorage.setItem('selectedRole', 'buyer');
+        console.log('No role found, defaulted to buyer');
+    }
+    
+    const portals = {
+        buyer: {
+            title: 'Buyer Portal',
+            subtitle: 'Purchase livestock from verified suppliers.',
+            icon: 'fa-cart-shopping',
+            restricted: false
+        },
+        supplier: {
+            title: 'Supplier Portal',
+            subtitle: 'Sell livestock and manage inventory.',
+            icon: 'fa-cow',
+            restricted: false
+        },
+        logistics: {
+            title: 'Logistics Portal',
+            subtitle: 'Manage deliveries and fleet operations.',
+            icon: 'fa-truck-fast',
+            restricted: false
+        },
+        government: {
+            title: 'Government Portal',
+            subtitle: 'Regulatory access only.',
+            icon: 'fa-building-columns',
+            restricted: true
+        },
+        fintech: {
+            title: 'Fintech Portal',
+            subtitle: 'Secure escrow and payment management.',
+            icon: 'fa-building',
+            restricted: true
+        }
+    };
+    
+    const current = portals[role] || portals['buyer'];
+    
+    // Update portal display
+    portalTitle.innerText = current.title;
+    portalSubtitle.innerText = current.subtitle;
+    portalIcon.className = 'fa-solid ' + current.icon;
+    
+    // Hide signup for restricted portals
+    if (current.restricted) {
+        signupSection.style.display = 'none';
+        adminMessage.style.display = 'block';
+    }
+    
+    // ============================================
+    // CHECK IF ALREADY LOGGED IN (WITH ROLE CHECK)
+    // ============================================
+    async function checkExistingSession() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const portalRole = localStorage.getItem('selectedRole');
+                const userRole = user.profile.role;
+                
+                // Only redirect if the user's role matches the selected portal
+                // OR if no portal is selected, use the user's role
+                if (!portalRole || userRole === portalRole) {
+                    const redirectUrl = getRoleRedirect(userRole);
+                    window.location.href = redirectUrl;
+                }
+                // Otherwise, let the user login with the selected portal
+            }
+        } catch (error) {
+            console.log('No existing session');
+        }
+    }
+    
+    // Check on page load with a small delay to prevent flash
+    setTimeout(() => {
+        checkExistingSession();
+    }, 100);
+    
+    // ============================================
+    // FORM SUBMISSION
+    // ============================================
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear previous messages
+        errorMessage.classList.remove('show');
+        successMessage.classList.remove('show');
+        
+        // Get values
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        
+        // Validate
+        if (!email || !password) {
+            showError('Please enter both email and password');
+            return;
+        }
+        
+        // Show loading state
+        loginBtn.classList.add('loading');
+        loginBtn.disabled = true;
+        
+        try {
+            // Sign in with Supabase
+            const { user, session } = await signIn(email, password);
+            
+            // Get user profile
+            const userWithProfile = await getCurrentUser();
+            
+            if (!userWithProfile || !userWithProfile.profile) {
+                showError('User profile not found. Please contact support.');
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+                return;
+            }
+            
+            // Get user role and portal role
+            const userRole = userWithProfile.profile.role;
+            const portalRole = localStorage.getItem('selectedRole');
+            
+            // If no portal is selected, use the user's role from their profile
+            if (!portalRole) {
+                localStorage.setItem('selectedRole', userRole);
+                showSuccess(`Welcome back, ${userWithProfile.profile.full_name}! (${userRole})`);
+                
+                setTimeout(() => {
+                    const redirectUrl = getRoleRedirect(userRole);
+                    window.location.href = redirectUrl;
+                }, 1500);
+                return;
+            }
+            
+            // If portal is selected, verify it matches the user's role
+            if (userRole !== portalRole) {
+                showError(`This account is registered as a ${userRole}, not ${portalRole}. Please select the correct portal.`);
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+                return;
+            }
+            
+            // All good - successful login
+            showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
+            
+            setTimeout(() => {
+                const redirectUrl = getRoleRedirect(userRole);
+                window.location.href = redirectUrl;
+            }, 1500);
+            
+        } catch (error) {
+            console.error('Login error:', error);
+            showError(error.message || 'Invalid email or password');
+            loginBtn.classList.remove('loading');
+            loginBtn.disabled = false;
+        }
+    });
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.add('show');
+        successMessage.classList.remove('show');
+    }
+    
+    function showSuccess(message) {
+        successText.textContent = message;
+        successMessage.classList.add('show');
+        errorMessage.classList.remove('show');
+    }
+    
+    // ============================================
+    // KEYBOARD SHORTCUT: Enter to submit
+    // ============================================
+    passwordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            form.dispatchEvent(new Event('submit'));
+        }
+    });
+</script>
+
+</body>
+</html>

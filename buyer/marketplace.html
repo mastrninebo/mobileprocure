@@ -334,6 +334,11 @@ font-size:20px;
 
 <body>
 
+<script type="module">
+    import { requireBuyer } from '../assets/js/buyer-page.js';
+    await requireBuyer();
+</script>
+
 <header>
 
 <h2>Marketplace</h2>
@@ -346,7 +351,7 @@ font-size:20px;
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
-<input
+<input id="marketplaceSearch"
 type="text"
 placeholder="Search livestock...">
 
@@ -354,21 +359,21 @@ placeholder="Search livestock...">
 
 <div class="categories">
 
-<div class="category active">All</div>
+<div class="category active" data-category="all">All</div>
 
-<div class="category">Cattle</div>
+<div class="category" data-category="cattle">Cattle</div>
 
-<div class="category">Goats</div>
+<div class="category" data-category="goats">Goats</div>
 
-<div class="category">Sheep</div>
+<div class="category" data-category="sheep">Sheep</div>
 
-<div class="category">Pigs</div>
+<div class="category" data-category="pigs">Pigs</div>
 
-<div class="category">Poultry</div>
+<div class="category" data-category="poultry">Poultry</div>
 
 </div>
 
-<div class="products">
+<div class="products" id="productsContainer">
 
 <div class="card">
 
@@ -518,6 +523,113 @@ View Details
 </div>
 
 </div>
+
+<script type="module">
+    import { supabase } from '../assets/js/supabase-client.js';
+    import { requireBuyer } from '../assets/js/buyer-page.js';
+
+    const productsContainer = document.getElementById('productsContainer');
+    const searchInput = document.getElementById('marketplaceSearch');
+    const categories = [...document.querySelectorAll('.category')];
+    let items = [];
+    let activeCategory = 'all';
+
+    function imageFor(item) {
+        if (Array.isArray(item.images) && item.images[0]) return item.images[0];
+        const category = String(item.category || '').toLowerCase();
+        return category.includes('sheep') ? '../assets/images/sheep.jpg' : '../assets/images/cattle.jpg';
+    }
+
+    function renderItems() {
+        const query = searchInput.value.trim().toLowerCase();
+        const visibleItems = items.filter(item => {
+            const searchable = [item.category, item.breed, item.description].filter(Boolean).join(' ').toLowerCase();
+            return (activeCategory === 'all' || String(item.category || '').toLowerCase() === activeCategory) &&
+                (!query || searchable.includes(query));
+        });
+
+        productsContainer.replaceChildren();
+        if (!visibleItems.length) {
+            const message = document.createElement('p');
+            message.textContent = 'No livestock listings match your search.';
+            message.style.cssText = 'text-align:center;color:#6B7280;padding:30px 0;';
+            productsContainer.append(message);
+            return;
+        }
+
+        visibleItems.forEach(item => {
+            const card = document.createElement('article');
+            card.className = 'card';
+            const image = document.createElement('div');
+            image.className = 'image';
+            const img = document.createElement('img');
+            img.src = imageFor(item);
+            img.alt = item.breed || item.category || 'Livestock listing';
+            image.append(img);
+
+            const details = document.createElement('div');
+            details.className = 'details';
+            const badges = document.createElement('div');
+            badges.className = 'badges';
+            ['Verified supplier', item.certification_status === 'certified' ? 'Certified' : 'Escrow protected'].forEach(label => {
+                const badge = document.createElement('span');
+                badge.className = 'badge';
+                badge.textContent = label;
+                badges.append(badge);
+            });
+            const title = document.createElement('h3');
+            title.textContent = item.breed || item.category || 'Livestock';
+            const location = document.createElement('p');
+            location.className = 'location';
+            location.textContent = item.location_name || 'Location available on request';
+            const info = document.createElement('div');
+            info.className = 'info';
+            [[item.quantity || 0, 'Available'], [`ZMW ${Number(item.price_per_unit || 0).toLocaleString()}`, `Per ${item.unit || 'unit'}`], [item.weight_kg ? `${item.weight_kg} kg` : '—', 'Average weight']]
+                .forEach(([value, label]) => {
+                    const metric = document.createElement('div');
+                    const strong = document.createElement('h4');
+                    strong.textContent = value;
+                    const small = document.createElement('small');
+                    small.textContent = label;
+                    metric.append(strong, small);
+                    info.append(metric);
+                });
+            const link = document.createElement('a');
+            link.className = 'btn';
+            link.href = `livestock-details.html?item=${encodeURIComponent(item.id)}`;
+            link.textContent = 'View Details';
+            details.append(badges, title, location, info, link);
+            card.append(image, details);
+            productsContainer.append(card);
+        });
+    }
+
+    async function loadMarketplace() {
+        const user = await requireBuyer();
+        if (!user) return;
+        const { data, error } = await supabase
+            .from('inventory_items')
+            .select('id, category, breed, quantity, unit, price_per_unit, weight_kg, description, images, certification_status, is_available')
+            .eq('is_available', true)
+            .gt('quantity', 0)
+            .order('created_at', { ascending: false });
+        if (error) {
+            console.error('Unable to load marketplace listings:', error);
+            productsContainer.textContent = 'Unable to load livestock listings. Please try again.';
+            return;
+        }
+        items = data || [];
+        renderItems();
+    }
+
+    searchInput.addEventListener('input', renderItems);
+    categories.forEach(category => category.addEventListener('click', () => {
+        activeCategory = category.dataset.category;
+        categories.forEach(item => item.classList.toggle('active', item === category));
+        renderItems();
+    }));
+    loadMarketplace();
+</script>
 
 <div class="bottom-nav">
 

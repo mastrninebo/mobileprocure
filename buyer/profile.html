@@ -169,6 +169,11 @@ text-decoration:none;
 border-radius:14px;
 font-weight:600;
 margin-top:15px;
+transition:0.3s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
 }
 
 .primary{
@@ -176,9 +181,17 @@ background:#0F766E;
 color:white;
 }
 
+.primary:hover{
+background:#0D6B64;
+}
+
 .secondary{
 background:#DC2626;
 color:white;
+}
+
+.secondary:hover{
+background:#b91c1c;
 }
 
 .bottom-nav{
@@ -191,6 +204,7 @@ justify-content:space-around;
 background:white;
 padding:15px 0;
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
+z-index:1000;
 }
 
 .bottom-nav a{
@@ -212,215 +226,311 @@ font-weight:600;
 font-size:20px;
 }
 
+.loading-spinner {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6B7280;
+}
+
+.loading-spinner i {
+    font-size: 40px;
+    color: #0F766E;
+    margin-bottom: 15px;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- Session Protection Script -->
+<script type="module">
+    import { getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    async function protectPage() {
+        try {
+            const user = await getCurrentUser();
+            if (!user || !user.profile) {
+                window.location.href = '/mobileprocure/login.html';
+                return;
+            }
+            
+            if (user.profile.role !== 'buyer') {
+                window.location.href = '/mobileprocure/unauthorized.html';
+                return;
+            }
+            
+            window.currentUser = user;
+            
+        } catch (error) {
+            console.error('Auth check error:', error);
+            window.location.href = '/mobileprocure/login.html';
+        }
+    }
+    
+    await protectPage();
+</script>
+
 <header>
-
-<h2>Buyer Profile</h2>
-
-<a href="#">
-<i class="fa-solid fa-pen"></i>
-</a>
-
+    <h2>Buyer Profile</h2>
+    <a href="#">
+        <i class="fa-solid fa-pen"></i>
+    </a>
 </header>
 
 <div class="container">
 
-<div class="profile-card">
+    <div class="profile-card" id="profileCard">
+        <div class="avatar" id="userAvatar">
+            <span id="userInitial">J</span>
+        </div>
+        <h2 id="userName">Loading...</h2>
+        <p id="userRole">Buyer</p>
+        <span class="badge">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="verificationStatus">Verified</span>
+        </span>
+    </div>
 
-<div class="avatar">
-<i class="fa-solid fa-user"></i>
-</div>
+    <div class="stats">
+        <div class="stat">
+            <h3 id="orderCount">0</h3>
+            <p>Orders</p>
+        </div>
+        <div class="stat">
+            <h3 id="supplierCount">0</h3>
+            <p>Suppliers</p>
+        </div>
+        <div class="stat">
+            <h3 id="totalSpend">$0</h3>
+            <p>Total Spend</p>
+        </div>
+    </div>
 
-<h2>James Mpundu</h2>
+    <div class="section">
+        <h3>Business Information</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-building"></i>
+                Company
+            </div>
+            <div class="right" id="companyName">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-location-dot"></i>
+                Country
+            </div>
+            <div class="right" id="userCountry">Zambia</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-envelope"></i>
+                Email
+            </div>
+            <div class="right" id="userEmail">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-phone"></i>
+                Phone
+            </div>
+            <div class="right" id="userPhone">-</div>
+        </div>
+    </div>
 
-<p>Buyer • African Beef Imports Ltd.</p>
+    <div class="section">
+        <h3>Payment & Account</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-wallet"></i>
+                Preferred Payment
+            </div>
+            <div class="right">Escrow (Bank Transfer)</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-credit-card"></i>
+                Payment Methods
+            </div>
+            <div class="right">3 Saved</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-repeat"></i>
+                Current Role
+            </div>
+            <div class="right" id="userRoleDisplay">Buyer</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-shield-halved"></i>
+                Account Status
+            </div>
+            <div class="right" id="accountStatus">Verified</div>
+        </div>
+    </div>
 
-<span class="badge">
-<i class="fa-solid fa-circle-check"></i>
- Verified Buyer
-</span>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-<h3>18</h3>
-<p>Orders</p>
-</div>
-
-<div class="stat">
-<h3>7</h3>
-<p>Suppliers</p>
-</div>
-
-<div class="stat">
-<h3>$186K</h3>
-<p>Total Spend</p>
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Business Information</h3>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-building"></i>
-Company
-</div>
-<div class="right">
-African Beef Imports
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-location-dot"></i>
-Country
-</div>
-<div class="right">
-South Africa
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-envelope"></i>
-Email
-</div>
-<div class="right">
-buyer@abimports.com
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-phone"></i>
-Phone
-</div>
-<div class="right">
-+27 11 234 5678
-</div>
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Payment & Account</h3>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-wallet"></i>
-Preferred Payment
-</div>
-<div class="right">
-Escrow (Bank Transfer)
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-credit-card"></i>
-Payment Methods
-</div>
-<div class="right">
-3 Saved
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-repeat"></i>
-Current Role
-</div>
-<div class="right">
-Buyer
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-shield-halved"></i>
-Account Status
-</div>
-<div class="right">
-Verified
-</div>
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Account Actions</h3>
-
-<a href="#" class="button primary">
-Edit Profile
-</a>
-
-<a href="../login.html" class="button primary">
-Switch Role
-</a>
-
-<a href="../index.html" class="button secondary">
-Logout
-</a>
-
-</div>
+    <div class="section">
+        <h3>Account Actions</h3>
+        <a href="#" class="button primary">
+            Edit Profile
+        </a>
+        <a href="/mobileprocure/continue-as.html" class="button primary">
+            Switch Role
+        </a>
+        <a href="http://localhost/mobileprocure/continue-as.html" class="button secondary" id="logoutBtn">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 
 </div>
 
 <div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="marketplace.html">
-
-<i class="fa-solid fa-store"></i>
-
-Marketplace
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-box"></i>
-
-Orders
-
-</a>
-
-<a href="catalog.html">
-
-<i class="fa-solid fa-book"></i>
-
-Catalog
-
-</a>
-
-<a class="active" href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+    <a href="marketplace.html">
+        <i class="fa-solid fa-store"></i>
+        Marketplace
+    </a>
+    <a href="orders.html">
+        <i class="fa-solid fa-box"></i>
+        Orders
+    </a>
+    <a href="catalog.html">
+        <i class="fa-solid fa-book"></i>
+        Catalog
+    </a>
+    <a class="active" href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 </div>
+
+<!-- Main Script -->
+<script type="module">
+    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const userName = document.getElementById('userName');
+    const userInitial = document.getElementById('userInitial');
+    const userRole = document.getElementById('userRole');
+    const userEmail = document.getElementById('userEmail');
+    const userPhone = document.getElementById('userPhone');
+    const companyName = document.getElementById('companyName');
+    const userCountry = document.getElementById('userCountry');
+    const userRoleDisplay = document.getElementById('userRoleDisplay');
+    const accountStatus = document.getElementById('accountStatus');
+    const verificationStatus = document.getElementById('verificationStatus');
+    const orderCount = document.getElementById('orderCount');
+    const supplierCount = document.getElementById('supplierCount');
+    const totalSpend = document.getElementById('totalSpend');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // ============================================
+    // LOAD USER DATA
+    // ============================================
+    async function loadUserData() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const profile = user.profile;
+                
+                // Update profile info
+                userName.textContent = profile.full_name || 'User';
+                userInitial.textContent = (profile.full_name || 'U').charAt(0).toUpperCase();
+                userRole.textContent = profile.role || 'Buyer';
+                userEmail.textContent = profile.email || '-';
+                userPhone.textContent = profile.phone || '-';
+                companyName.textContent = profile.company_name || '-';
+                userRoleDisplay.textContent = profile.role || 'Buyer';
+                
+                // Update status
+                const isVerified = profile.is_verified !== false;
+                verificationStatus.textContent = isVerified ? 'Verified' : 'Pending';
+                accountStatus.textContent = isVerified ? 'Verified' : 'Pending Verification';
+                
+                // Load stats
+                await loadStats(user.id);
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD STATS
+    // ============================================
+    async function loadStats(userId) {
+        try {
+            // Get order count and total spend
+            const { data: orders, error: orderError } = await supabase
+                .from('orders')
+                .select('id, total_amount')
+                .eq('buyer_id', userId);
+            
+            if (!orderError && orders) {
+                orderCount.textContent = orders.length;
+                
+                // Calculate total spend
+                const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
+                totalSpend.textContent = `$${total.toLocaleString()}`;
+            }
+            
+            // Get unique supplier count
+            const { data: suppliers, error: supplierError } = await supabase
+                .from('orders')
+                .select('supplier_id')
+                .eq('buyer_id', userId);
+            
+            if (!supplierError && suppliers) {
+                const uniqueSuppliers = new Set(suppliers.map(o => o.supplier_id));
+                supplierCount.textContent = uniqueSuppliers.size;
+            }
+            
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+    
+    // ============================================
+    // LOGOUT
+    // ============================================
+    async function handleLogout(e) {
+        e.preventDefault();
+        
+        try {
+            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+            logoutBtn.style.opacity = '0.6';
+            logoutBtn.style.cursor = 'not-allowed';
+            
+            await signOut();
+            localStorage.clear();
+            window.location.href = '/mobileprocure/continue-as.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+            logoutBtn.style.opacity = '1';
+            logoutBtn.style.cursor = 'pointer';
+            alert('Error logging out. Please try again.');
+        }
+    }
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    loadUserData();
+</script>
 
 </body>
 </html>
