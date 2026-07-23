@@ -69,14 +69,14 @@ export async function getUserRole() {
 // Redirect based on role (XAMPP path)
 export function getRoleRedirect(role) {
     const roleMap = {
-        'buyer': '/mobileprocure/buyer/dashboard.html',
-        'supplier': '/mobileprocure/supplier/dashboard.html',
-        'logistics': '/mobileprocure/logistics/dashboard.html',
-        'government': '/mobileprocure/government/dashboard.html',
-        'fintech': '/mobileprocure/fintech/dashboard.html',
-        'veterinary': '/mobileprocure/veterinary/dashboard.html',
-        'admin': '/mobileprocure/admin/dashboard.html',
-        'customs': '/mobileprocure/customs/dashboard.html'
+        'buyer': 'buyer/dashboard.html',
+        'supplier': 'supplier/dashboard.html',
+        'logistics': 'logistics/dashboard.html',
+        'government': 'government/dashboard.html',
+        'fintech': 'fintech/dashboard.html',
+        'veterinary': 'veterinary/dashboard.html',
+        'admin': 'admin/dashboard.html',
+        'customs': 'customs/dashboard.html'
     };
     return roleMap[role] || '/mobileprocure/index.html';
 }
