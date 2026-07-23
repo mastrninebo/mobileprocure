@@ -67,6 +67,7 @@ h1{
     color:#1F2937;
     box-shadow:0 8px 20px rgba(0,0,0,.06);
     transition:.3s;
+    cursor:pointer;
 }
 
 .portal-card:hover,
@@ -214,6 +215,23 @@ h1{
     margin-right:6px;
 }
 
+/* Demo Mode Badge */
+.demo-badge {
+    text-align: center;
+    margin-top: 25px;
+    padding: 12px;
+    background: #f0fdf4;
+    border-radius: 12px;
+    border: 2px solid #15803D;
+    color: #15803D;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.demo-badge i {
+    margin-right: 8px;
+}
+
 /* Footer */
 footer{
     text-align:center;
@@ -238,6 +256,14 @@ footer{
 Choose how you want to access Mobile Procure.<br>
 You can switch portals later.
 </p>
+
+<!-- Demo Mode Badge 
+<div class="demo-badge">
+    <i class="fa-solid fa-flask"></i>
+    Demo Mode - Bypassing Login
+</div> -->
+    
+<br>
 
 <!-- Main visible roles (3) -->
 <div class="role-card" onclick="selectRole('buyer')">
@@ -334,9 +360,29 @@ You can switch portals later.
 </div>
 
 <script>
-function selectRole(role){
-    localStorage.setItem("selectedRole",role);
-    window.location.href="login.html";
+// ============================================
+// SELECT ROLE - DIRECT DASHBOARD (DEMO MODE)
+// ============================================
+
+function selectRole(role) {
+    localStorage.setItem("selectedRole", role);
+    
+    // ✅ DEMO MODE: Skip login, go directly to dashboard
+    console.log(`🔓 Demo mode: Going directly to ${role} dashboard`);
+    
+    const dashboardMap = {
+        'buyer': 'buyer/dashboard.html',
+        'supplier': 'supplier/dashboard.html',
+        'logistics': 'logistics/dashboard.html',
+        'government': 'government/dashboard.html',
+        'fintech': 'fintech/dashboard.html',
+        'veterinary': 'veterinary/dashboard.html',
+        'admin': 'admin/dashboard.html',
+        'customs': 'customs/dashboard.html'
+    };
+    
+    const dashboardUrl = dashboardMap[role] || 'index.html';
+    window.location.href = dashboardUrl;
 }
 </script>
 
