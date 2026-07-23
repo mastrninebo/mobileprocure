@@ -38,6 +38,7 @@ box-shadow:0 3px 15px rgba(0,0,0,.05);
 
 header h2{
 font-size:22px;
+color:#0F766E;
 }
 
 header a{
@@ -112,6 +113,11 @@ color:#0F766E;
 margin-bottom:6px;
 }
 
+.stat p{
+font-size:13px;
+color:#6B7280;
+}
+
 .section{
 background:white;
 padding:22px;
@@ -162,6 +168,11 @@ border-radius:14px;
 text-decoration:none;
 font-weight:600;
 margin-top:15px;
+transition:0.3s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
 }
 
 .primary{
@@ -169,9 +180,17 @@ background:#0F766E;
 color:white;
 }
 
+.primary:hover{
+background:#0D6B64;
+}
+
 .secondary{
 background:#EF4444;
 color:white;
+}
+
+.secondary:hover{
+background:#DC2626;
 }
 
 .bottom-nav{
@@ -184,6 +203,7 @@ justify-content:space-around;
 background:white;
 padding:15px 0;
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
+z-index:1000;
 }
 
 .bottom-nav a{
@@ -205,259 +225,325 @@ font-weight:600;
 font-size:20px;
 }
 
+.loading-spinner {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6B7280;
+}
+
+.loading-spinner i {
+    font-size: 40px;
+    color: #0F766E;
+    margin-bottom: 15px;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- Session Protection Script -->
+<script type="module">
+    import { getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    async function protectPage() {
+        try {
+            const user = await getCurrentUser();
+            if (!user || !user.profile) {
+                window.location.href = '/mobileprocure/login.html';
+                return;
+            }
+            
+            if (user.profile.role !== 'supplier') {
+                window.location.href = '/mobileprocure/unauthorized.html';
+                return;
+            }
+            
+            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
+            window.currentUser = user;
+            
+        } catch (error) {
+            console.error('Auth check error:', error);
+            window.location.href = '/mobileprocure/login.html';
+        }
+    }
+    
+    await protectPage();
+</script>
+
 <header>
-
-<h2>Supplier Profile</h2>
-
-<a href="#">
-
-<i class="fa-solid fa-pen"></i>
-
-</a>
-
+    <h2>Supplier Profile</h2>
+    <a href="#">
+        <i class="fa-solid fa-pen"></i>
+    </a>
 </header>
 
 <div class="container">
 
-<div class="profile-card">
-
-<div class="avatar">
-
-<i class="fa-solid fa-user"></i>
-
-</div>
-
-<h2>Mpundu Cattle Ranch</h2>
-
-<p>Central Province, Zambia</p>
-
-<span class="badge">
-
-<i class="fa-solid fa-circle-check"></i>
-
-Verified Supplier
-
-</span>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-
-<h3>127</h3>
-
-<p>Orders</p>
-
-</div>
-
-<div class="stat">
-
-<h3>4.9★</h3>
-
-<p>Rating</p>
-
-</div>
-
-<div class="stat">
-
-<h3>$148K</h3>
-
-<p>Earnings</p>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Business Information</h3>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-building"></i>
-
-Business Name
-
-</div>
-
-<div class="right">
-
-Mpundu Cattle Ranch
-
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Location
-
-</div>
-
-<div class="right">
-
-Chisamba
-
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-id-card"></i>
-
-PACRA Status
-
-</div>
-
-<div class="right">
-
-Verified
-
-</div>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Documents</h3>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-file-lines"></i>
-
-Veterinary Licence
-
-</div>
-
-<div class="right">
-
-Valid
-
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-file-shield"></i>
-
-Export Permit
-
-</div>
-
-<div class="right">
-
-Active
-
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-receipt"></i>
-
-Tax Status
-
-</div>
-
-<div class="right">
-
-Compliant
-
-</div>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Account</h3>
-
-<a href="#" class="button primary">
-
-Edit Profile
-
-</a>
-
-<a href="../index.html" class="button secondary">
-
-Logout
-
-</a>
-
-</div>
+    <div class="profile-card" id="profileCard">
+        <div class="avatar" id="userAvatar">
+            <span id="userInitial">S</span>
+        </div>
+        <h2 id="userName">Loading...</h2>
+        <p id="userLocation">Zambia</p>
+        <span class="badge" id="verificationBadge">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="verificationStatus">Verified Supplier</span>
+        </span>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <h3 id="orderCount">0</h3>
+            <p>Orders</p>
+        </div>
+        <div class="stat">
+            <h3 id="rating">0★</h3>
+            <p>Rating</p>
+        </div>
+        <div class="stat">
+            <h3 id="earnings">$0</h3>
+            <p>Earnings</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Business Information</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-building"></i>
+                Business Name
+            </div>
+            <div class="right" id="businessName">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-location-dot"></i>
+                Location
+            </div>
+            <div class="right" id="businessLocation">Zambia</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-id-card"></i>
+                PACRA Status
+            </div>
+            <div class="right" id="pacraStatus">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-envelope"></i>
+                Email
+            </div>
+            <div class="right" id="userEmail">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-phone"></i>
+                Phone
+            </div>
+            <div class="right" id="userPhone">-</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Documents</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-file-lines"></i>
+                Veterinary Licence
+            </div>
+            <div class="right" id="vetLicence">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-file-shield"></i>
+                Export Permit
+            </div>
+            <div class="right" id="exportPermit">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-receipt"></i>
+                Tax Status
+            </div>
+            <div class="right" id="taxStatus">-</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Account</h3>
+        <a href="#" class="button primary">
+            Edit Profile
+        </a>
+        <a href="#" class="button secondary" id="logoutBtn">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 
 </div>
 
 <div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="inventory.html">
-
-<i class="fa-solid fa-boxes-stacked"></i>
-
-Inventory
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-clipboard-list"></i>
-
-Orders
-
-</a>
-
-<a href="payments.html">
-
-<i class="fa-solid fa-wallet"></i>
-
-Escrow
-
-</a>
-
-<a href="profile.html" class="active">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+    <a href="inventory.html">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        Inventory
+    </a>
+    <a href="orders.html">
+        <i class="fa-solid fa-clipboard-list"></i>
+        Orders
+    </a>
+    <a href="payments.html">
+        <i class="fa-solid fa-wallet"></i>
+        Escrow
+    </a>
+    <a href="profile.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 </div>
+
+<!-- Main Script -->
+<script type="module">
+    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const userName = document.getElementById('userName');
+    const userInitial = document.getElementById('userInitial');
+    const userLocation = document.getElementById('userLocation');
+    const userEmail = document.getElementById('userEmail');
+    const userPhone = document.getElementById('userPhone');
+    const businessName = document.getElementById('businessName');
+    const businessLocation = document.getElementById('businessLocation');
+    const pacraStatus = document.getElementById('pacraStatus');
+    const verificationStatus = document.getElementById('verificationStatus');
+    const verificationBadge = document.getElementById('verificationBadge');
+    const orderCount = document.getElementById('orderCount');
+    const rating = document.getElementById('rating');
+    const earnings = document.getElementById('earnings');
+    const vetLicence = document.getElementById('vetLicence');
+    const exportPermit = document.getElementById('exportPermit');
+    const taxStatus = document.getElementById('taxStatus');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // ============================================
+    // LOAD USER DATA
+    // ============================================
+    async function loadUserData() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const profile = user.profile;
+                
+                // Basic info
+                userName.textContent = profile.full_name || 'Supplier';
+                userInitial.textContent = (profile.full_name || 'S').charAt(0).toUpperCase();
+                userEmail.textContent = profile.email || '-';
+                userPhone.textContent = profile.phone || '-';
+                businessName.textContent = profile.company_name || '-';
+                
+                // Location
+                const location = profile.location || profile.city || 'Zambia';
+                userLocation.textContent = location;
+                businessLocation.textContent = location;
+                
+                // Verification status
+                if (profile.is_verified) {
+                    verificationStatus.textContent = 'Verified Supplier';
+                    verificationBadge.className = 'badge';
+                    verificationBadge.style.background = '#DCFCE7';
+                    verificationBadge.style.color = '#166534';
+                } else {
+                    verificationStatus.textContent = 'Pending Verification';
+                    verificationBadge.className = 'badge';
+                    verificationBadge.style.background = '#FEF3C7';
+                    verificationBadge.style.color = '#92400E';
+                }
+                
+                // PACRA Status (from registration_number or custom field)
+                pacraStatus.textContent = profile.is_verified ? 'Verified' : 'Pending';
+                
+                // Document statuses (from profile fields or defaults)
+                vetLicence.textContent = profile.is_verified ? 'Valid' : 'Pending';
+                exportPermit.textContent = profile.is_verified ? 'Active' : 'Inactive';
+                taxStatus.textContent = profile.is_verified ? 'Compliant' : 'Pending';
+                
+                // Load stats
+                await loadStats(user.id);
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD STATS
+    // ============================================
+    async function loadStats(userId) {
+        try {
+            // Get orders for this supplier
+            const { data: orders, error } = await supabase
+                .from('orders')
+                .select('id, total_amount, status')
+                .eq('supplier_id', userId);
+            
+            if (!error && orders) {
+                // Total orders
+                orderCount.textContent = orders.length;
+                
+                // Total earnings (completed orders only)
+                const completedOrders = orders.filter(o => o.status === 'completed');
+                const totalEarnings = completedOrders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
+                earnings.textContent = `$${totalEarnings.toLocaleString()}`;
+                
+                // Rating (placeholder - would need a ratings table)
+                const avgRating = 4.9; // Placeholder
+                rating.textContent = `${avgRating}★`;
+            }
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+    
+    // ============================================
+    // LOGOUT
+    // ============================================
+    async function handleLogout(e) {
+        e.preventDefault();
+        
+        try {
+            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+            logoutBtn.style.opacity = '0.6';
+            logoutBtn.style.cursor = 'not-allowed';
+            
+            await signOut();
+            localStorage.clear();
+            window.location.href = '/mobileprocure/continue-as.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+            logoutBtn.style.opacity = '1';
+            logoutBtn.style.cursor = 'pointer';
+            alert('Error logging out. Please try again.');
+        }
+    }
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    loadUserData();
+</script>
 
 </body>
 </html>

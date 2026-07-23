@@ -36,13 +36,20 @@ align-items:center;
 display:flex;
 align-items:center;
 gap:15px;
+cursor:pointer;
 }
 
-.profile img{
-width:55px;
-height:55px;
-border-radius:50%;
-object-fit:cover;
+.profile .avatar-placeholder {
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#0F766E;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:600;
 }
 
 .profile h3{
@@ -63,6 +70,24 @@ justify-content:center;
 align-items:center;
 border-radius:15px;
 box-shadow:0 5px 15px rgba(0,0,0,.05);
+position:relative;
+cursor:pointer;
+}
+
+.notify .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #dc2626;
+    color: white;
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
 }
 
 .summary{
@@ -88,6 +113,10 @@ font-size:34px;
 margin:10px 0;
 }
 
+.summary p{
+opacity:.95;
+}
+
 .section{
 
 margin:30px 20px 15px;
@@ -102,6 +131,12 @@ align-items:center;
 
 .section h2{
 font-size:20px;
+}
+
+.section a{
+text-decoration:none;
+color:#0F766E;
+font-weight:600;
 }
 
 .stats{
@@ -193,7 +228,13 @@ font-size:13px;
 color:#6B7280;
 
 margin-bottom:6px;
+}
 
+.delivery .no-data {
+    text-align: center;
+    padding: 15px 0;
+    color: #6B7280;
+    font-size: 14px;
 }
 
 .status{
@@ -224,6 +265,22 @@ color:#92400E;
 
 }
 
+.delivered{
+
+background:#DCFCE7;
+
+color:#166534;
+
+}
+
+.pending{
+
+background:#F3F4F6;
+
+color:#6B7280;
+
+}
+
 .progress{
 
 height:8px;
@@ -246,6 +303,20 @@ height:100%;
 
 background:#0F766E;
 
+border-radius:10px;
+
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6B7280;
+}
+
+.loading-spinner i {
+    font-size: 40px;
+    color: #0F766E;
+    margin-bottom: 15px;
 }
 
 .bottom-nav{
@@ -267,6 +338,7 @@ justify-content:space-around;
 padding:15px 0;
 
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
+z-index:1000;
 
 }
 
@@ -308,195 +380,356 @@ font-size:20px;
 
 <body>
 
+<!-- Session Protection Script -->
+<script type="module">
+    import { getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    async function protectPage() {
+        try {
+            const user = await getCurrentUser();
+            if (!user || !user.profile) {
+                window.location.href = '/mobileprocure/login.html';
+                return;
+            }
+            
+            if (user.profile.role !== 'logistics') {
+                window.location.href = '/mobileprocure/unauthorized.html';
+                return;
+            }
+            
+            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
+            window.currentUser = user;
+            
+        } catch (error) {
+            console.error('Auth check error:', error);
+            window.location.href = '/mobileprocure/login.html';
+        }
+    }
+    
+    await protectPage();
+</script>
+
 <header>
-
-<div class="profile">
-
-<img src="../assets/images/profile.jpg">
-
-<div>
-
-<h3>ZamFreight Logistics</h3>
-
-<p>Licensed Logistics Partner</p>
-
-</div>
-
-</div>
-
-<div class="notify">
-
-<i class="fa-regular fa-bell"></i>
-
-</div>
-
+    <div class="profile" onclick="window.location.href='profile.html'">
+        <div class="avatar-placeholder" id="userAvatar">
+            <span id="userInitial">L</span>
+        </div>
+        <div>
+            <h3 id="userName">Hello, Logistics</h3>
+            <p id="userStatus">Licensed Logistics Partner</p>
+        </div>
+    </div>
+    <div class="notify">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge" id="notificationBadge">0</span>
+    </div>
 </header>
 
 <div class="summary">
-
-<small>Today's Deliveries</small>
-
-<h2>14</h2>
-
-<p>9 Active • 3 At Border • 2 Completed</p>
-
+    <small>Today's Deliveries</small>
+    <h2 id="todayDeliveries">0</h2>
+    <p id="deliverySummary">0 Active • 0 In Transit • 0 Completed</p>
 </div>
 
 <div class="section">
-
-<h2>Fleet Overview</h2>
-
+    <h2>Fleet Overview</h2>
 </div>
 
 <div class="stats">
-
-<div class="stat">
-
-<i class="fa-solid fa-truck"></i>
-
-<h3>18</h3>
-
-<p>Available Trucks</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-route"></i>
-
-<h3>9</h3>
-
-<p>Active Routes</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-warehouse"></i>
-
-<h3>3</h3>
-
-<p>Border Clearance</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-circle-check"></i>
-
-<h3>72</h3>
-
-<p>Completed This Month</p>
-
-</div>
-
+    <div class="stat">
+        <i class="fa-solid fa-truck"></i>
+        <h3 id="availableTrucks">0</h3>
+        <p>Available Trucks</p>
+    </div>
+    <div class="stat">
+        <i class="fa-solid fa-route"></i>
+        <h3 id="activeRoutes">0</h3>
+        <p>Active Routes</p>
+    </div>
+    <div class="stat">
+        <i class="fa-solid fa-warehouse"></i>
+        <h3 id="borderClearance">0</h3>
+        <p>Border Clearance</p>
+    </div>
+    <div class="stat">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3 id="completedMonth">0</h3>
+        <p>Completed This Month</p>
+    </div>
 </div>
 
 <div class="section">
-
-<h2>Assigned Deliveries</h2>
-
+    <h2>Assigned Deliveries</h2>
+    <a href="deliveries.html">See All</a>
 </div>
 
-<div class="delivery">
-
-<div class="delivery-header">
-
-<h4>Order MP-2026-000128</h4>
-
-<div class="status transit">
-
-In Transit
-
-</div>
-
-</div>
-
-<p><strong>Livestock:</strong> 200 Angus Bulls</p>
-
-<p><strong>Route:</strong> Chisamba → Johannesburg</p>
-
-<p><strong>Driver:</strong> Brian Phiri</p>
-
-<div class="progress">
-
-<span style="width:65%;"></span>
-
-</div>
-
-</div>
-
-<div class="delivery">
-
-<div class="delivery-header">
-
-<h4>Order MP-2026-000129</h4>
-
-<div class="status border">
-
-At Kasumbalesa Border
-
-</div>
-
-</div>
-
-<p><strong>Livestock:</strong> 150 Boer Goats</p>
-
-<p><strong>Route:</strong> Choma → Lubumbashi</p>
-
-<p><strong>Driver:</strong> Joseph Banda</p>
-
-<div class="progress">
-
-<span style="width:45%;"></span>
-
-</div>
-
+<div id="deliveriesContainer">
+    <div class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading your deliveries...</p>
+    </div>
 </div>
 
 <div class="bottom-nav">
-
-<a class="active" href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="deliveries.html">
-
-<i class="fa-solid fa-truck-fast"></i>
-
-Deliveries
-
-</a>
-
-<a href="tracking.html">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Tracking
-
-</a>
-
-<a href="qr-scan.html">
-
-<i class="fa-solid fa-qrcode"></i>
-
-QR Scan
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
+    <a class="active" href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+    <a href="deliveries.html">
+        <i class="fa-solid fa-truck-fast"></i>
+        Deliveries
+    </a>
+    <a href="tracking.html">
+        <i class="fa-solid fa-location-dot"></i>
+        Tracking
+    </a>
+    <a href="qr-scan.html">
+        <i class="fa-solid fa-qrcode"></i>
+        QR Scan
+    </a>
+    <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 </div>
+
+<!-- Main Script -->
+<script type="module">
+    import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const userName = document.getElementById('userName');
+    const userInitial = document.getElementById('userInitial');
+    const userStatus = document.getElementById('userStatus');
+    const todayDeliveries = document.getElementById('todayDeliveries');
+    const deliverySummary = document.getElementById('deliverySummary');
+    const availableTrucks = document.getElementById('availableTrucks');
+    const activeRoutes = document.getElementById('activeRoutes');
+    const borderClearance = document.getElementById('borderClearance');
+    const completedMonth = document.getElementById('completedMonth');
+    const deliveriesContainer = document.getElementById('deliveriesContainer');
+    const notificationBadge = document.getElementById('notificationBadge');
+    
+    // ============================================
+    // LOAD USER DATA
+    // ============================================
+    async function loadUserData() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const profile = user.profile;
+                userName.textContent = `Hello, ${profile.full_name}`;
+                userInitial.textContent = profile.full_name.charAt(0).toUpperCase();
+                
+                if (profile.is_verified) {
+                    userStatus.textContent = 'Licensed Logistics Partner ✓';
+                } else {
+                    userStatus.textContent = 'Pending Verification ⏳';
+                }
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD DELIVERY STATS
+    // ============================================
+    async function loadStats() {
+        try {
+            const user = await getCurrentUser();
+            if (!user) return;
+            
+            // Get all deliveries assigned to this logistics provider
+            const { data: deliveries, error } = await supabase
+                .from('deliveries')
+                .select('id, status, updated_at')
+                .eq('logistics_provider_id', user.id);
+            
+            if (!error && deliveries) {
+                // Count by status
+                const active = deliveries.filter(d => d.status === 'assigned').length;
+                const inTransit = deliveries.filter(d => d.status === 'in_transit').length;
+                const completed = deliveries.filter(d => d.status === 'delivered').length;
+                const border = deliveries.filter(d => d.status === 'border').length;
+                
+                // Today's deliveries (updated today)
+                const today = new Date().toDateString();
+                const todayDeliveriesCount = deliveries.filter(d => 
+                    new Date(d.updated_at).toDateString() === today
+                ).length;
+                
+                todayDeliveries.textContent = todayDeliveriesCount || 0;
+                deliverySummary.textContent = `${active} Active • ${inTransit} In Transit • ${completed} Completed`;
+                
+                // Fleet stats (placeholder - would come from logistics_profiles)
+                availableTrucks.textContent = '18'; // Placeholder
+                activeRoutes.textContent = active + inTransit;
+                borderClearance.textContent = border || 0;
+                completedMonth.textContent = completed;
+            }
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD ASSIGNED DELIVERIES
+    // ============================================
+    async function loadDeliveries() {
+        try {
+            const user = await getCurrentUser();
+            if (!user) return;
+            
+            const { data: deliveries, error } = await supabase
+                .from('deliveries')
+                .select(`
+                    id,
+                    tracking_number,
+                    status,
+                    estimated_delivery,
+                    order:order_id (
+                        order_number,
+                        total_amount,
+                        buyer:buyer_id (full_name, company_name)
+                    )
+                `)
+                .eq('logistics_provider_id', user.id)
+                .in('status', ['assigned', 'in_transit', 'border'])
+                .order('estimated_delivery', { ascending: true })
+                .limit(5);
+            
+            if (error) {
+                console.error('Error loading deliveries:', error);
+                showNoDeliveries('Error loading deliveries. Please try again.');
+                return;
+            }
+            
+            if (!deliveries || deliveries.length === 0) {
+                showNoDeliveries('No assigned deliveries. Check back later!');
+                return;
+            }
+            
+            renderDeliveries(deliveries);
+            
+        } catch (error) {
+            console.error('Error:', error);
+            showNoDeliveries('Unable to load deliveries. Please refresh.');
+        }
+    }
+    
+    // ============================================
+    // RENDER DELIVERIES
+    // ============================================
+    function renderDeliveries(deliveries) {
+        deliveriesContainer.innerHTML = '';
+        
+        deliveries.forEach(delivery => {
+            const deliveryDiv = document.createElement('div');
+            deliveryDiv.className = 'delivery';
+            
+            const statusClass = getStatusClass(delivery.status);
+            const orderNumber = delivery.order?.order_number || 'Order';
+            const buyerName = delivery.order?.buyer?.company_name || 
+                             delivery.order?.buyer?.full_name || 'Unknown Buyer';
+            
+            // Calculate progress percentage based on status
+            let progress = 0;
+            switch(delivery.status) {
+                case 'assigned': progress = 25; break;
+                case 'in_transit': progress = 65; break;
+                case 'border': progress = 45; break;
+                case 'delivered': progress = 100; break;
+                default: progress = 0;
+            }
+            
+            deliveryDiv.innerHTML = `
+                <div class="delivery-header">
+                    <h4>${orderNumber}</h4>
+                    <div class="status ${statusClass}">
+                        ${delivery.status || 'pending'}
+                    </div>
+                </div>
+                <p><strong>Buyer:</strong> ${buyerName}</p>
+                <p><strong>Tracking:</strong> ${delivery.tracking_number || 'N/A'}</p>
+                ${delivery.estimated_delivery ? `<p><strong>Est. Delivery:</strong> ${new Date(delivery.estimated_delivery).toLocaleDateString()}</p>` : ''}
+                <div class="progress">
+                    <span style="width:${progress}%;"></span>
+                </div>
+            `;
+            
+            deliveriesContainer.appendChild(deliveryDiv);
+        });
+    }
+    
+    // ============================================
+    // SHOW NO DELIVERIES
+    // ============================================
+    function showNoDeliveries(message) {
+        deliveriesContainer.innerHTML = `
+            <div class="delivery">
+                <div class="no-data">
+                    <i class="fa-solid fa-truck-fast" style="font-size:32px;color:#9CA3AF;margin-bottom:10px;display:block;"></i>
+                    <p style="color:#6B7280;font-size:14px;">${message}</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    // ============================================
+    // GET STATUS CLASS
+    // ============================================
+    function getStatusClass(status) {
+        const statusMap = {
+            'pending': 'pending',
+            'assigned': 'pending',
+            'in_transit': 'transit',
+            'border': 'border',
+            'delivered': 'delivered',
+            'failed': 'pending'
+        };
+        return statusMap[status] || 'pending';
+    }
+    
+    // ============================================
+    // LOAD NOTIFICATIONS
+    // ============================================
+    async function loadNotifications() {
+        try {
+            const user = await getCurrentUser();
+            if (!user) return;
+            
+            const { count, error } = await supabase
+                .from('deliveries')
+                .select('*', { count: 'exact', head: true })
+                .eq('logistics_provider_id', user.id)
+                .in('status', ['assigned', 'in_transit']);
+            
+            if (!error && count > 0) {
+                notificationBadge.textContent = count > 9 ? '9+' : count;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error loading notifications:', error);
+        }
+    }
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    async function init() {
+        await loadUserData();
+        await loadStats();
+        await loadDeliveries();
+        await loadNotifications();
+    }
+    
+    init();
+</script>
 
 </body>
 </html>

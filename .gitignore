@@ -3,7 +3,7 @@
 # ============================================
 
 # Supabase config with real keys (DO NOT COMMIT!)
-assets/js/supabase-config.js
+# assets/js/supabase-config.js
 
 # ============================================
 # Environment Files

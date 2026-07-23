@@ -39,13 +39,20 @@ align-items:center;
 display:flex;
 align-items:center;
 gap:15px;
+cursor:pointer;
 }
 
-.profile img{
-width:55px;
-height:55px;
-border-radius:50%;
-object-fit:cover;
+.profile .avatar-placeholder {
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#15803D;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:600;
 }
 
 .profile h3{
@@ -66,6 +73,24 @@ align-items:center;
 background:white;
 border-radius:15px;
 box-shadow:0 5px 15px rgba(0,0,0,.05);
+position:relative;
+cursor:pointer;
+}
+
+.notify .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #dc2626;
+    color: white;
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
 }
 
 .hero{
@@ -129,6 +154,7 @@ font-size:14px;
 font-size:18px;
 font-weight:600;
 margin:20px 0 12px;
+color:#1F2937;
 }
 
 .menu{
@@ -180,7 +206,6 @@ font-size:12px;
 font-weight:600;
 }
 
-/* Logout Button as Link */
 .button-secondary{
 display:block;
 width:100%;
@@ -218,6 +243,7 @@ display:flex;
 justify-content:space-around;
 padding:15px 0;
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
+z-index:1000;
 }
 
 .bottom-nav a{
@@ -245,221 +271,291 @@ font-size:20px;
 
 <body>
 
+<!-- Session Protection Script -->
+<script type="module">
+    import { getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    async function protectPage() {
+        try {
+            const user = await getCurrentUser();
+            if (!user || !user.profile) {
+                window.location.href = '/mobileprocure/login.html';
+                return;
+            }
+            
+            if (user.profile.role !== 'fintech') {
+                window.location.href = '/mobileprocure/unauthorized.html';
+                return;
+            }
+            
+            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
+            window.currentUser = user;
+            
+        } catch (error) {
+            console.error('Auth check error:', error);
+            window.location.href = '/mobileprocure/login.html';
+        }
+    }
+    
+    await protectPage();
+</script>
+
 <header>
-
-<div class="profile">
-
-<img src="../assets/images/profile.jpg">
-
-<div>
-
-<h3>Profile</h3>
-
-<p>Fintech Partner Settings</p>
-
-</div>
-
-</div>
-
-<div class="notify">
-
-<i class="fa-regular fa-bell"></i>
-
-</div>
-
+    <div class="profile" onclick="window.location.href='profile.html'">
+        <div class="avatar-placeholder" id="userAvatar">
+            <span id="userInitial">F</span>
+        </div>
+        <div>
+            <h3 id="userName">Profile</h3>
+            <p id="userStatus">Fintech Partner Settings</p>
+        </div>
+    </div>
+    <div class="notify">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge" id="notificationBadge">0</span>
+    </div>
 </header>
 
 <div class="hero">
-
-<small>Account Overview</small>
-
-<h2>Licensed Partner</h2>
-
-<p>Escrow & Payment Service Provider</p>
-
+    <small>Account Overview</small>
+    <h2 id="accountStatus">Licensed Partner</h2>
+    <p id="accountDescription">Escrow & Payment Service Provider</p>
 </div>
 
 <div class="container">
 
-<div class="profile-card">
-
-<div class="avatar">
-
-<i class="fa-solid fa-building-columns"></i>
-
-</div>
-
-<h3>Licensed Fintech Partner</h3>
-
-<p>Escrow & Payment Service Provider</p>
-
-<br>
-
-<span class="status">System Online</span>
-
-</div>
-
-<h3 class="section-title">Organization</h3>
-
-<div class="menu">
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-building"></i>
-
-Organization Details
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-landmark"></i>
-
-Settlement Accounts
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-credit-card"></i>
-
-Payment Methods
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-</div>
-
-<h3 class="section-title">System</h3>
-
-<div class="menu">
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-plug"></i>
-
-API & Integrations
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-bell"></i>
-
-Notifications
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-Security
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-<a href="#">
-
-<div class="menu-left">
-
-<i class="fa-solid fa-circle-info"></i>
-
-About Mobile Procure
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</a>
-
-</div>
-
-<!-- Logout as Link -->
-<a href="../index.html" class="button-secondary">
-    <i class="fa-solid fa-right-from-bracket"></i>
-    Logout
-</a>
+    <div class="profile-card">
+        <div class="avatar">
+            <span id="profileInitial" style="font-size:38px;font-weight:600;">F</span>
+        </div>
+        <h3 id="profileName">Licensed Fintech Partner</h3>
+        <p id="profileEmail">fintech@mobileprocure.com</p>
+        <br>
+        <span class="status" id="profileStatus">System Online</span>
+    </div>
+
+    <h3 class="section-title">Organization</h3>
+    <div class="menu">
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-building"></i>
+                Organization Details
+            </div>
+            <div class="right" id="orgDetails">-</div>
+        </a>
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-landmark"></i>
+                Settlement Accounts
+            </div>
+            <div class="right" id="settlementAccounts">-</div>
+        </a>
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-credit-card"></i>
+                Payment Methods
+            </div>
+            <div class="right" id="paymentMethods">-</div>
+        </a>
+    </div>
+
+    <h3 class="section-title">System</h3>
+    <div class="menu">
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-plug"></i>
+                API & Integrations
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-bell"></i>
+                Notifications
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-shield-halved"></i>
+                Security
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        <a href="#">
+            <div class="menu-left">
+                <i class="fa-solid fa-circle-info"></i>
+                About Mobile Procure
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <!-- Logout Button -->
+    <a href="#" class="button-secondary" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
 
 </div>
 
 <div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="transactions.html">
-
-<i class="fa-solid fa-money-bill-transfer"></i>
-
-Transactions
-
-</a>
-
-<a href="escrow.html">
-
-<i class="fa-solid fa-vault"></i>
-
-Escrow
-
-</a>
-
-<a href="settlements.html">
-
-<i class="fa-solid fa-building-columns"></i>
-
-Settlements
-
-</a>
-
-<a href="profile.html" class="active">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+    <a href="transactions.html">
+        <i class="fa-solid fa-money-bill-transfer"></i>
+        Transactions
+    </a>
+    <a href="escrow.html">
+        <i class="fa-solid fa-vault"></i>
+        Escrow
+    </a>
+    <a href="settlements.html">
+        <i class="fa-solid fa-building-columns"></i>
+        Settlements
+    </a>
+    <a href="profile.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 </div>
+
+<!-- Main Script -->
+<script type="module">
+    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const userName = document.getElementById('userName');
+    const userInitial = document.getElementById('userInitial');
+    const userStatus = document.getElementById('userStatus');
+    const accountStatus = document.getElementById('accountStatus');
+    const accountDescription = document.getElementById('accountDescription');
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.getElementById('profileEmail');
+    const profileInitial = document.getElementById('profileInitial');
+    const profileStatus = document.getElementById('profileStatus');
+    const orgDetails = document.getElementById('orgDetails');
+    const settlementAccounts = document.getElementById('settlementAccounts');
+    const paymentMethods = document.getElementById('paymentMethods');
+    const notificationBadge = document.getElementById('notificationBadge');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // ============================================
+    // LOAD USER DATA
+    // ============================================
+    async function loadUserData() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const profile = user.profile;
+                
+                // Header
+                userName.textContent = `Profile`;
+                userInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
+                
+                // Hero
+                if (profile.is_verified) {
+                    accountStatus.textContent = 'Licensed Partner';
+                    accountDescription.textContent = 'Escrow & Payment Service Provider ✓';
+                } else {
+                    accountStatus.textContent = 'Pending Verification';
+                    accountDescription.textContent = 'Escrow & Payment Service Provider ⏳';
+                }
+                
+                // Profile Card
+                profileName.textContent = profile.full_name || 'Licensed Fintech Partner';
+                profileEmail.textContent = profile.email || 'fintech@mobileprocure.com';
+                profileInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
+                
+                // Status
+                if (profile.is_verified) {
+                    profileStatus.textContent = 'System Online';
+                    profileStatus.style.background = '#DCFCE7';
+                    profileStatus.style.color = '#166534';
+                } else {
+                    profileStatus.textContent = 'Pending Verification';
+                    profileStatus.style.background = '#FEF3C7';
+                    profileStatus.style.color = '#92400E';
+                }
+                
+                // User Status
+                if (profile.is_verified) {
+                    userStatus.textContent = 'Fintech Partner Settings ✓';
+                } else {
+                    userStatus.textContent = 'Pending Verification ⏳';
+                }
+                
+                // Organization Details
+                orgDetails.textContent = profile.company_name || 'Not specified';
+                settlementAccounts.textContent = profile.is_verified ? '3 Active' : 'Pending';
+                paymentMethods.textContent = profile.is_verified ? '5 Configured' : 'Pending';
+                
+                // Load notifications
+                await loadNotifications();
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD NOTIFICATIONS
+    // ============================================
+    async function loadNotifications() {
+        try {
+            const { count, error } = await supabase
+                .from('escrow_transactions')
+                .select('*', { count: 'exact', head: true })
+                .in('status', ['pending', 'disputed']);
+            
+            if (!error && count > 0) {
+                notificationBadge.textContent = count > 9 ? '9+' : count;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error loading notifications:', error);
+        }
+    }
+    
+    // ============================================
+    // LOGOUT
+    // ============================================
+    async function handleLogout(e) {
+        e.preventDefault();
+        
+        try {
+            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+            logoutBtn.style.opacity = '0.6';
+            logoutBtn.style.cursor = 'not-allowed';
+            
+            await signOut();
+            localStorage.clear();
+            window.location.href = '/mobileprocure/continue-as.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            logoutBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Logout';
+            logoutBtn.style.opacity = '1';
+            logoutBtn.style.cursor = 'pointer';
+            alert('Error logging out. Please try again.');
+        }
+    }
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    loadUserData();
+</script>
 
 </body>
 </html>

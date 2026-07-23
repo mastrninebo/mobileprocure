@@ -38,6 +38,7 @@ box-shadow:0 3px 15px rgba(0,0,0,.05);
 
 header h2{
 font-size:22px;
+color:#1E40AF;
 }
 
 header a{
@@ -168,6 +169,11 @@ text-decoration:none;
 border-radius:14px;
 font-weight:600;
 margin-top:15px;
+transition:0.3s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
 }
 
 .primary{
@@ -175,9 +181,17 @@ background:#1E40AF;
 color:white;
 }
 
+.primary:hover{
+background:#1A3599;
+}
+
 .secondary{
 background:#DC2626;
 color:white;
+}
+
+.secondary:hover{
+background:#B91C1C;
 }
 
 .bottom-nav{
@@ -190,6 +204,7 @@ justify-content:space-around;
 background:white;
 padding:15px 0;
 box-shadow:0 -5px 20px rgba(0,0,0,.08);
+z-index:1000;
 }
 
 .bottom-nav a{
@@ -217,235 +232,334 @@ font-size:20px;
 
 <body>
 
+<!-- Session Protection Script -->
+<script type="module">
+    import { getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    async function protectPage() {
+        try {
+            const user = await getCurrentUser();
+            if (!user || !user.profile) {
+                window.location.href = '/mobileprocure/login.html';
+                return;
+            }
+            
+            if (user.profile.role !== 'government') {
+                window.location.href = '/mobileprocure/unauthorized.html';
+                return;
+            }
+            
+            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
+            window.currentUser = user;
+            
+        } catch (error) {
+            console.error('Auth check error:', error);
+            window.location.href = '/mobileprocure/login.html';
+        }
+    }
+    
+    await protectPage();
+</script>
+
 <header>
-
-<h2>Government Profile</h2>
-
-<a href="#">
-
-<i class="fa-solid fa-pen"></i>
-
-</a>
-
+    <h2>Government Profile</h2>
+    <a href="#">
+        <i class="fa-solid fa-pen"></i>
+    </a>
 </header>
 
 <div class="container">
 
-<div class="profile-card">
+    <div class="profile-card" id="profileCard">
+        <div class="avatar" id="userAvatar">
+            <span id="userInitial">G</span>
+        </div>
+        <h2 id="userName">Loading...</h2>
+        <p id="userTitle">Trade Compliance Officer</p>
+        <span class="badge" id="verificationBadge">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="verificationStatus">Verified Government Officer</span>
+        </span>
+    </div>
 
-<div class="avatar">
+    <div class="stats">
+        <div class="stat">
+            <h3 id="auditCount">0</h3>
+            <p>Audits</p>
+        </div>
+        <div class="stat">
+            <h3 id="reportCount">0</h3>
+            <p>Reports</p>
+        </div>
+        <div class="stat">
+            <h3 id="openCases">0</h3>
+            <p>Open Cases</p>
+        </div>
+    </div>
 
-<i class="fa-solid fa-user-shield"></i>
+    <div class="section">
+        <h3>Officer Information</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-building-columns"></i>
+                Department
+            </div>
+            <div class="right" id="department">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-id-badge"></i>
+                Employee ID
+            </div>
+            <div class="right" id="employeeId">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-location-dot"></i>
+                Region
+            </div>
+            <div class="right" id="officerRegion">Zambia</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-user-lock"></i>
+                Access Level
+            </div>
+            <div class="right" id="accessLevel">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-envelope"></i>
+                Email
+            </div>
+            <div class="right" id="userEmail">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-phone"></i>
+                Phone
+            </div>
+            <div class="right" id="userPhone">-</div>
+        </div>
+    </div>
 
-</div>
+    <div class="section">
+        <h3>System Access</h3>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-chart-column"></i>
+                National Reports
+            </div>
+            <div class="right" id="nationalReports">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-shield-halved"></i>
+                Audit Management
+            </div>
+            <div class="right" id="auditManagement">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-clipboard-check"></i>
+                Compliance Review
+            </div>
+            <div class="right" id="complianceReview">-</div>
+        </div>
+        <div class="item">
+            <div class="left">
+                <i class="fa-solid fa-bell"></i>
+                Notifications
+            </div>
+            <div class="right" id="notificationsStatus">-</div>
+        </div>
+    </div>
 
-<h2>Sarah Mwansa</h2>
-
-<p>Senior Trade Compliance Officer</p>
-
-<span class="badge">
-
-<i class="fa-solid fa-circle-check"></i>
-
-Verified Government Officer
-
-</span>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-
-<h3>428</h3>
-
-<p>Audits</p>
-
-</div>
-
-<div class="stat">
-
-<h3>156</h3>
-
-<p>Reports</p>
-
-</div>
-
-<div class="stat">
-
-<h3>12</h3>
-
-<p>Open Cases</p>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Officer Information</h3>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-building-columns"></i>
-Department
-</div>
-<div class="right">
-Ministry of Commerce
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-id-badge"></i>
-Employee ID
-</div>
-<div class="right">
-MC-2026-0148
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-location-dot"></i>
-Region
-</div>
-<div class="right">
-Lusaka Province
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-user-lock"></i>
-Access Level
-</div>
-<div class="right">
-Administrator
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-clock"></i>
-Last Login
-</div>
-<div class="right">
-Today • 08:14 AM
-</div>
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>System Access</h3>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-chart-column"></i>
-National Reports
-</div>
-<div class="right">
-Granted
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-shield-halved"></i>
-Audit Management
-</div>
-<div class="right">
-Granted
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-clipboard-check"></i>
-Compliance Review
-</div>
-<div class="right">
-Granted
-</div>
-</div>
-
-<div class="item">
-<div class="left">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</div>
-<div class="right">
-Enabled
-</div>
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Account</h3>
-
-<a href="#" class="button primary">
-
-Edit Profile
-
-</a>
-
-<a href="../index.html" class="button secondary">
-
-Logout
-
-</a>
-
-</div>
+    <div class="section">
+        <h3>Account</h3>
+        <a href="#" class="button primary">
+            Edit Profile
+        </a>
+        <a href="#" class="button secondary" id="logoutBtn">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 
 </div>
 
 <div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="reports.html">
-
-<i class="fa-solid fa-chart-column"></i>
-
-Reports
-
-</a>
-
-<a href="audits.html">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-Audits
-
-</a>
-
-<a href="compliance.html">
-
-<i class="fa-solid fa-clipboard-check"></i>
-
-Compliance
-
-</a>
-
-<a href="profile.html" class="active">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
+    <a href="reports.html">
+        <i class="fa-solid fa-chart-column"></i>
+        Reports
+    </a>
+    <a href="audits.html">
+        <i class="fa-solid fa-shield-halved"></i>
+        Audits
+    </a>
+    <a href="compliance.html">
+        <i class="fa-solid fa-clipboard-check"></i>
+        Compliance
+    </a>
+    <a href="profile.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
 </div>
+
+<!-- Main Script -->
+<script type="module">
+    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
+    
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const userName = document.getElementById('userName');
+    const userInitial = document.getElementById('userInitial');
+    const userTitle = document.getElementById('userTitle');
+    const userEmail = document.getElementById('userEmail');
+    const userPhone = document.getElementById('userPhone');
+    const department = document.getElementById('department');
+    const employeeId = document.getElementById('employeeId');
+    const officerRegion = document.getElementById('officerRegion');
+    const accessLevel = document.getElementById('accessLevel');
+    const verificationStatus = document.getElementById('verificationStatus');
+    const verificationBadge = document.getElementById('verificationBadge');
+    const auditCount = document.getElementById('auditCount');
+    const reportCount = document.getElementById('reportCount');
+    const openCases = document.getElementById('openCases');
+    const nationalReports = document.getElementById('nationalReports');
+    const auditManagement = document.getElementById('auditManagement');
+    const complianceReview = document.getElementById('complianceReview');
+    const notificationsStatus = document.getElementById('notificationsStatus');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // ============================================
+    // LOAD USER DATA
+    // ============================================
+    async function loadUserData() {
+        try {
+            const user = await getCurrentUser();
+            if (user && user.profile) {
+                const profile = user.profile;
+                
+                // Basic info
+                userName.textContent = profile.full_name || 'Government Officer';
+                userInitial.textContent = (profile.full_name || 'G').charAt(0).toUpperCase();
+                userEmail.textContent = profile.email || '-';
+                userPhone.textContent = profile.phone || '-';
+                
+                // Title/Position
+                userTitle.textContent = profile.title || 'Trade Compliance Officer';
+                
+                // Department
+                department.textContent = profile.department || 'Ministry of Commerce';
+                
+                // Employee ID (from profile or generated)
+                employeeId.textContent = profile.employee_id || `MC-${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}`;
+                
+                // Region
+                officerRegion.textContent = profile.region || profile.location || 'Lusaka Province';
+                
+                // Access Level
+                accessLevel.textContent = profile.access_level || 'Administrator';
+                
+                // Verification status
+                if (profile.is_verified) {
+                    verificationStatus.textContent = 'Verified Government Officer';
+                    verificationBadge.className = 'badge';
+                    verificationBadge.style.background = '#DBEAFE';
+                    verificationBadge.style.color = '#1E40AF';
+                } else {
+                    verificationStatus.textContent = 'Pending Verification';
+                    verificationBadge.className = 'badge';
+                    verificationBadge.style.background = '#FEF3C7';
+                    verificationBadge.style.color = '#92400E';
+                }
+                
+                // System Access
+                const isAdmin = profile.is_verified && (profile.access_level === 'Administrator' || profile.role === 'admin');
+                nationalReports.textContent = isAdmin ? 'Granted' : 'Limited';
+                auditManagement.textContent = isAdmin ? 'Granted' : 'Limited';
+                complianceReview.textContent = isAdmin ? 'Granted' : 'Limited';
+                notificationsStatus.textContent = 'Enabled';
+                
+                // Load stats
+                await loadStats();
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // ============================================
+    // LOAD STATS
+    // ============================================
+    async function loadStats() {
+        try {
+            // Get total orders (for audit count)
+            const { count: orderCount, error: orderError } = await supabase
+                .from('orders')
+                .select('*', { count: 'exact', head: true });
+            
+            if (!orderError) {
+                auditCount.textContent = orderCount || 0;
+            }
+            
+            // Get report count (from custom reports table or placeholder)
+            reportCount.textContent = 156; // Placeholder
+            
+            // Get open cases (disputed orders)
+            const { count: disputeCount, error: disputeError } = await supabase
+                .from('orders')
+                .select('*', { count: 'exact', head: true })
+                .eq('status', 'disputed');
+            
+            if (!disputeError) {
+                openCases.textContent = disputeCount || 0;
+            }
+            
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+    
+    // ============================================
+    // LOGOUT
+    // ============================================
+    async function handleLogout(e) {
+        e.preventDefault();
+        
+        try {
+            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+            logoutBtn.style.opacity = '0.6';
+            logoutBtn.style.cursor = 'not-allowed';
+            
+            await signOut();
+            localStorage.clear();
+            window.location.href = '/mobileprocure/continue-as.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+            logoutBtn.style.opacity = '1';
+            logoutBtn.style.cursor = 'pointer';
+            alert('Error logging out. Please try again.');
+        }
+    }
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    loadUserData();
+</script>
 
 </body>
 </html>
