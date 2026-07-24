@@ -377,10 +377,10 @@ font-size:20px;
         <a href="#" class="button primary">
             Edit Profile
         </a>
-        <a href="/mobileprocure/continue-as.html" class="button primary">
+        <a href="/continue-as.html" class="button primary">
             Switch Role
         </a>
-        <a href="http://localhost/mobileprocure/continue-as.html" class="button secondary" id="logoutBtn">
+        <a href="/continue-as.html" class="button secondary" id="logoutBtn">
             <i class="fa-solid fa-sign-out-alt"></i> Logout
         </a>
     </div>
@@ -511,7 +511,7 @@ font-size:20px;
             
             await signOut();
             localStorage.clear();
-            window.location.href = '/mobileprocure/continue-as.html';
+            window.location.href = '/continue-as.html';
         } catch (error) {
             console.error('Logout error:', error);
             logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
