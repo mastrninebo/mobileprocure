@@ -6,6 +6,32 @@ compatibility_date = "2024-01-01"
 directory = "./"
 binding = "ASSETS"
 
+[assets.exclude]
+patterns = [
+    "node_modules/**",
+    "*.log",
+    ".git/**",
+    ".gitignore",
+    "package.json",
+    "package-lock.json",
+    "bun.lockb",
+    "wrangler.toml",
+    "src/**",
+    "*.md"
+]
+
+[assets.include]
+patterns = [
+    "*.html",
+    "*.css",
+    "*.js",
+    "*.png",
+    "*.jpg",
+    "*.svg",
+    "*.ico",
+    "*.json"
+]
+
 [vars]
 SUPABASE_URL = "https://hrxudtmskbukikucufqw.supabase.co"
 SUPABASE_ANON_KEY = "sb_publishable_0XXmjurmrLAp3aTo0OfBng_sxJg82Vl"
