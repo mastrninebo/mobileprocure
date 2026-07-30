@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile | Admin Portal</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    
+    <style>
+        /* BASE STYLES - Admin Premium Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #F8FAFC;
+            color: #334155;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        /* ADMIN HEADER */
+        .admin-header {
+            background: #FFFFFF;
+            padding: 20px 20px;
+            border-bottom: 2px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-brand .shield-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-brand h1 {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E293B, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .admin-brand .admin-badge {
+            font-size: 10px;
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            color: #1a1a2e;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            -webkit-text-fill-color: #1a1a2e;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .admin-profile .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid #E2E8F0;
+            position: relative;
+        }
+
+        .admin-profile .avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+        }
+
+        .admin-profile .user-info {
+            text-align: right;
+        }
+
+        .admin-profile .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .admin-profile .user-info p {
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        .admin-profile .user-info .role-tag {
+            color: #D97706;
+            font-weight: 600;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            margin: 20px 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h2 i {
+            color: #4F46E5;
+            font-size: 22px;
+        }
+
+        .page-header .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #F1F5F9;
+            color: #64748B;
+            border: 1px solid #E2E8F0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10B981);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        /* PROFILE LAYOUT */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            margin: 20px 20px 0;
+        }
+
+        /* PROFILE SIDEBAR */
+        .profile-sidebar {
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 24px;
+            text-align: center;
+            align-self: start;
+        }
+
+        .profile-sidebar .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 16px;
+            border: 3px solid #E2E8F0;
+            position: relative;
+        }
+
+        .profile-sidebar .profile-avatar .status-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 18px;
+            height: 18px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 3px solid #FFFFFF;
+        }
+
+        .profile-sidebar .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 2px;
+        }
+
+        .profile-sidebar .profile-email {
+            font-size: 14px;
+            color: #64748B;
+            margin-bottom: 4px;
+        }
+
+        .profile-sidebar .profile-role {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+            margin-bottom: 16px;
+        }
+
+        .profile-sidebar .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .profile-sidebar .profile-stats .stat {
+            text-align: center;
+        }
+
+        .profile-sidebar .profile-stats .stat .number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E293B;
+        }
+
+        .profile-sidebar .profile-stats .stat .label {
+            font-size: 11px;
+            color: #94A3B8;
+        }
+
+        .profile-sidebar .logout-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        /* PROFILE CONTENT */
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 22px 24px;
+        }
+
+        .profile-card .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E293B;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-card .card-title i {
+            color: #4F46E5;
+            font-size: 18px;
+        }
+
+        /* FORM ROWS */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+            margin-bottom: 16px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748B;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #1E293B;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94A3B8;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group .helper-text {
+            font-size: 11px;
+            color: #94A3B8;
+        }
+
+        /* TOGGLE ROW */
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .toggle-row:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-row .toggle-info .label {
+            font-size: 14px;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .toggle-row .toggle-info .description {
+            font-size: 12px;
+            color: #94A3B8;
+            margin-top: 1px;
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #E2E8F0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .toggle.active {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+        }
+
+        .toggle .toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle.active .toggle-knob {
+            left: 22px;
+        }
+
+        /* SESSION ACTIVITY */
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .session-item:last-child {
+            border-bottom: none;
+        }
+
+        .session-item .session-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .session-item .session-info .session-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .session-item .session-info .session-details .device {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1E293B;
+        }
+
+        .session-item .session-info .session-details .meta {
+            font-size: 12px;
+            color: #94A3B8;
+        }
+
+        .session-item .session-status {
+            font-size: 11px;
+            padding: 3px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .session-status.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .session-status.ended {
+            background: rgba(107, 114, 128, 0.1);
+            color: #64748B;
+        }
+
+        .session-item .session-action {
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .session-item .session-action:hover {
+            color: #DC2626;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* LOADING SPINNER */
+        .loading-spinner {
+            text-align: center;
+            padding: 20px 0;
+            color: #94A3B8;
+        }
+
+        .loading-spinner i {
+            font-size: 24px;
+            color: #4F46E5;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #059669, #10B981);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* BOTTOM NAVIGATION */
+        .admin-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 18px;
+            border-top: 1px solid #E2E8F0;
+            z-index: 1000;
+        }
+
+        .admin-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 11px;
+            gap: 4px;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .admin-bottom-nav a.active {
+            color: #4F46E5;
+        }
+
+        .admin-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .admin-bottom-nav a:hover {
+            color: #4338CA;
+        }
+
+        .admin-bottom-nav i {
+            font-size: 20px;
+        }
+
+        .admin-bottom-nav .nav-label {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                gap: 20px;
+                align-items: center;
+                text-align: left;
+            }
+
+            .profile-sidebar .profile-avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+                margin: 0;
+            }
+
+            .profile-sidebar .profile-stats {
+                grid-template-columns: 1fr 1fr;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+
+            .profile-sidebar .logout-section {
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .profile-sidebar .profile-avatar {
+                margin: 0 auto;
+            }
+
+            .profile-sidebar .profile-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .profile-sidebar .logout-section {
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid #E2E8F0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-brand h1 {
+                font-size: 16px;
+            }
+
+            .admin-brand .admin-badge {
+                font-size: 8px;
+                padding: 1px 8px;
+            }
+
+            .page-header h2 {
+                font-size: 20px;
+            }
+
+            .profile-card {
+                padding: 16px;
+            }
+
+            .session-item {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { getCurrentUser, signOut, supabase, getTimeAgo } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                if (!user.profile.is_admin) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                console.log('🔐 Admin authenticated:', user.profile.full_name);
+                window.currentUser = user;
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/admin/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-brand">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1>Admin Portal</h1>
+                    <span class="admin-badge">🔐 Secure Access</span>
+                </div>
+            </div>
+            
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="admin-notification">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge">0</span>
+                </div>
+                <div class="admin-profile" onclick="window.location.href='profile.html'">
+                    <div class="avatar" id="headerAvatar">
+                        <span id="headerInitial">A</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="user-info">
+                        <h4 id="headerName">Admin</h4>
+                        <p><span class="role-tag">●</span> <span id="headerRole">System Admin</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h2>
+            <i class="fa-solid fa-user-gear"></i>
+            Admin Profile
+        </h2>
+        <div class="header-actions">
+            <button class="btn-secondary" id="changePasswordBtn">
+                <i class="fa-solid fa-key"></i> Change Password
+            </button>
+            <button class="btn-success" id="saveProfileBtn">
+                <i class="fa-solid fa-check"></i> Save Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- PROFILE LAYOUT -->
+    <div class="profile-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="profile-sidebar">
+            <div class="profile-avatar" id="profileAvatar">
+                <span id="profileInitial">A</span>
+                <span class="status-badge"></span>
+            </div>
+            <div>
+                <div class="profile-name" id="profileName">Admin User</div>
+                <div class="profile-email" id="profileEmail">admin@mobileprocure.com</div>
+                <span class="profile-role" id="profileRoleBadge">System Administrator</span>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <div class="number" id="statActions">0</div>
+                    <div class="label">Actions</div>
+                </div>
+                <div class="stat">
+                    <div class="number" id="statSessions">0</div>
+                    <div class="label">Sessions</div>
+                </div>
+            </div>
+            <div class="logout-section">
+                <button class="btn-danger" id="logoutBtn" style="width:100%;justify-content:center;">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="profile-content">
+
+            <!-- Personal Information -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-user"></i>
+                    Personal Information
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="editFullName" placeholder="John Doe" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="editEmail" placeholder="john@example.com" disabled />
+                        <span class="helper-text">Email cannot be changed</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="editPhone" placeholder="+260 123 456 789" />
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" id="editRole" disabled style="color:#4F46E5;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Security Settings
+                </div>
+                <div class="toggle-row">
+                    <div class="toggle-info">
+                        <div class="label">Two-Factor Authentication</div>
+                        <div class="description">Add an extra layer of security to your account</div>
+                    </div>
+                    <div class="toggle" id="twofaToggle">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div class="toggle-row">
+                    <div class="toggle-info">
+                        <div class="label">Login Notifications</div>
+                        <div class="description">Get notified when a new login occurs</div>
+                    </div>
+                    <div class="toggle active" id="loginNotifications">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div class="toggle-row">
+                    <div class="toggle-info">
+                        <div class="label">Admin Activity Logging</div>
+                        <div class="description">Log all admin actions for audit purposes</div>
+                    </div>
+                    <div class="toggle active" id="adminLogging">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Sessions -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-desktop"></i>
+                    Active Sessions
+                    <span style="font-size:12px;color:#94A3B8;font-weight:400;margin-left:auto;" id="sessionCount">0 active</span>
+                </div>
+                <div id="sessionsList">
+                    <div class="loading-spinner">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+                <div style="margin-top:12px;padding-top:12px;border-top:1px solid #F1F5F9;">
+                    <button class="btn-secondary" style="width:100%;justify-content:center;font-size:13px;" id="endAllSessions">
+                        <i class="fa-solid fa-sign-out-alt"></i> End All Other Sessions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Admin Activity -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Recent Activity
+                    <a href="audits.html" style="font-size:12px;color:#4F46E5;text-decoration:none;margin-left:auto;">View All →</a>
+                </div>
+                <div id="recentActivity">
+                    <div class="loading-spinner">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div class="modal-overlay" id="passwordModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15, 23, 42, 0.5);backdrop-filter:blur(8px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+        <div class="modal" style="background:#FFFFFF;border-radius:20px;padding:30px;max-width:450px;width:100%;border:1px solid #E2E8F0;box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                <h3 style="font-size:20px;font-weight:700;color:#1E293B;display:flex;align-items:center;gap:10px;">
+                    <i class="fa-solid fa-key" style="color:#D97706;"></i> Change Password
+                </h3>
+                <button class="modal-close" id="closePasswordModal" style="width:36px;height:36px;border-radius:10px;border:1px solid #E2E8F0;background:transparent;color:#64748B;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label>Current Password</label>
+                    <input type="password" id="currentPassword" placeholder="••••••••" required />
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" placeholder="••••••••" required minlength="8" />
+                    <span class="helper-text">Must be at least 8 characters</span>
+                </div>
+                <div class="form-group" style="margin-bottom:20px;">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••" required />
+                </div>
+                <div style="display:flex;gap:10px;">
+                    <button type="button" class="btn-secondary" id="cancelPassword" style="flex:1;justify-content:center;">Cancel</button>
+                    <button type="submit" class="btn-primary" style="flex:1;justify-content:center;">
+                        <i class="fa-solid fa-check"></i> Update Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="admin-bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="users.html">
+            <i class="fa-solid fa-users"></i>
+            <span class="nav-label">Users</span>
+        </a>
+        <a href="disputes.html">
+            <i class="fa-solid fa-gavel"></i>
+            <span class="nav-label">Disputes</span>
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <span class="nav-label">Transactions</span>
+        </a>
+        <a class="active" href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { getCurrentUser, signOut, supabase, getTimeAgo } from '../assets/js/supabase-client.js';
+
+        // DOM ELEMENTS
+        const saveBtn = document.getElementById('saveProfileBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const passwordModal = document.getElementById('passwordModal');
+        const closePasswordModal = document.getElementById('closePasswordModal');
+        const cancelPassword = document.getElementById('cancelPassword');
+        const passwordForm = document.getElementById('passwordForm');
+
+        // TOGGLE HANDLING
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // LOAD PROFILE DATA
+        async function loadProfile() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return;
+
+                const profile = user.profile;
+                const initials = (profile.full_name || 'A').charAt(0).toUpperCase();
+
+                // Header
+                document.getElementById('headerName').textContent = profile.full_name || 'Admin';
+                document.getElementById('headerInitial').textContent = initials;
+                document.getElementById('headerRole').textContent = profile.admin_verified ? 'System Admin' : 'Pending Verification';
+
+                // Sidebar
+                document.getElementById('profileName').textContent = profile.full_name || 'Admin User';
+                document.getElementById('profileEmail').textContent = profile.email || 'admin@mobileprocure.com';
+                document.getElementById('profileInitial').textContent = initials;
+                document.getElementById('profileRoleBadge').textContent = profile.admin_verified ? 'System Administrator' : 'Pending Verification';
+
+                // Edit form
+                document.getElementById('editFullName').value = profile.full_name || '';
+                document.getElementById('editEmail').value = profile.email || '';
+                document.getElementById('editPhone').value = profile.phone || '';
+                document.getElementById('editRole').value = profile.role || 'admin';
+
+                // Stats
+                const { count: actionCount } = await supabase
+                    .from('audit_entries')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('user_id', user.id);
+
+                document.getElementById('statActions').textContent = actionCount || 0;
+
+                // Load Sessions and Recent Activity
+                await loadSessions(user);
+                await loadRecentActivity(user);
+
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                showToast('Error loading profile data', 'error');
+            }
+        }
+
+        // LOAD RECENT ACTIVITY
+        async function loadRecentActivity(user) {
+            const container = document.getElementById('recentActivity');
+            try {
+                const { data: activities, error } = await supabase
+                    .from('audit_entries')
+                    .select('action, timestamp')
+                    .eq('user_id', user.id)
+                    .order('timestamp', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+
+                if (!activities || activities.length === 0) {
+                    container.innerHTML = `
+                        <div style="padding:12px 0;font-size:13px;color:#94A3B8;text-align:center;">
+                            No recent activity found.
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = activities.map(activity => `
+                    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F1F5F9;font-size:13px;">
+                        <span style="color:#334155;">${activity.action || 'Unknown action'}</span>
+                        <span style="color:#94A3B8;font-size:12px;">${getTimeAgo(activity.timestamp)}</span>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+                container.innerHTML = `<div style="padding:12px 0;font-size:13px;color:#94A3B8;text-align:center;">Error loading activity.</div>`;
+            }
+        }
+
+        // LOAD SESSIONS (Derived from audit_entries login history)
+        async function loadSessions(user) {
+            const container = document.getElementById('sessionsList');
+            try {
+                // Fetch recent security/login events to represent session history
+                const { data: logins, error } = await supabase
+                    .from('audit_entries')
+                    .select('action, timestamp, ip_address, metadata')
+                    .eq('user_id', user.id)
+                    .eq('category', 'security')
+                    .order('timestamp', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+
+                if (!logins || logins.length === 0) {
+                    container.innerHTML = `
+                        <div style="padding:12px 0;font-size:13px;color:#94A3B8;text-align:center;">
+                            No recent sessions found.
+                        </div>
+                    `;
+                    document.getElementById('statSessions').textContent = '0';
+                    document.getElementById('sessionCount').textContent = '0 active';
+                    return;
+                }
+
+                document.getElementById('statSessions').textContent = logins.length;
+                document.getElementById('sessionCount').textContent = '1 active'; // Assuming the latest is the current session
+
+                container.innerHTML = logins.map((login, index) => {
+                    const isCurrent = index === 0; // Assuming the latest record is the current session
+                    const device = login.metadata?.device || login.metadata?.user_agent || 'Unknown Device';
+                    const ip = login.ip_address || 'N/A';
+                    const timeAgo = getTimeAgo(login.timestamp);
+                    
+                    return `
+                        <div class="session-item">
+                            <div class="session-info">
+                                <div class="session-icon"><i class="fa-solid ${isCurrent ? 'fa-laptop' : 'fa-mobile-screen-button'}"></i></div>
+                                <div class="session-details">
+                                    <div class="device">${device}</div>
+                                    <div class="meta">${ip} • Last active ${timeAgo}</div>
+                                </div>
+                            </div>
+                            <span class="session-status ${isCurrent ? 'active' : 'ended'}">${isCurrent ? 'Active' : 'Ended'}</span>
+                            ${!isCurrent ? 
+                                `<button class="session-action" title="End session"><i class="fa-solid fa-xmark"></i></button>` : 
+                                `<button class="session-action" disabled style="opacity:0.3;cursor:not-allowed;"><i class="fa-solid fa-xmark"></i></button>`
+                            }
+                        </div>
+                    `;
+                }).join('');
+
+                // Attach event listeners to the newly created end session buttons
+                document.querySelectorAll('.session-action:not([disabled])').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const session = this.closest('.session-item');
+                        const device = session.querySelector('.device')?.textContent || 'Session';
+                        if (confirm(`End session on ${device}?`)) {
+                            session.style.opacity = '0.4';
+                            const status = session.querySelector('.session-status');
+                            status.textContent = 'Ended';
+                            status.className = 'session-status ended';
+                            this.disabled = true;
+                            this.style.opacity = '0.3';
+                            this.style.cursor = 'not-allowed';
+                            showToast(`Session ended on ${device}`, 'info');
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading sessions:', error);
+                container.innerHTML = `<div style="padding:12px 0;font-size:13px;color:#94A3B8;text-align:center;">Error loading sessions.</div>`;
+            }
+        }
+
+        // SAVE PROFILE
+        async function saveProfile() {
+            const fullName = document.getElementById('editFullName').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
+
+            if (!fullName) {
+                showToast('Full name is required', 'error');
+                return;
+            }
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                const user = await getCurrentUser();
+                if (!user) throw new Error('Not authenticated');
+
+                const { error } = await supabase
+                    .from('profiles')
+                    .update({
+                        full_name: fullName,
+                        phone: phone,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+
+                if (error) throw error;
+
+                // Also update auth user metadata
+                await supabase.auth.updateUser({
+                    data: { full_name: fullName }
+                });
+
+                showToast('Profile updated successfully!', 'success');
+                
+                // Reload profile data
+                await loadProfile();
+
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                showToast('Error saving profile: ' + error.message, 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fa-solid fa-check"></i> Save Profile';
+            }
+        }
+
+        // CHANGE PASSWORD
+        async function changePassword(e) {
+            e.preventDefault();
+
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if (newPass.length < 8) {
+                showToast('New password must be at least 8 characters', 'error');
+                return;
+            }
+
+            if (newPass !== confirm) {
+                showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            const submitBtn = passwordForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Updating...';
+
+            try {
+                const { error } = await supabase.auth.updateUser({
+                    password: newPass
+                });
+
+                if (error) throw error;
+
+                showToast('Password updated successfully!', 'success');
+                passwordModal.style.display = 'none';
+                passwordForm.reset();
+
+            } catch (error) {
+                console.error('Error changing password:', error);
+                showToast('Error changing password: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Update Password';
+            }
+        }
+
+        // LOGOUT
+        async function logout() {
+            if (!confirm('Are you sure you want to logout?')) return;
+
+            try {
+                await signOut();
+                window.location.href = '/mobileprocure/admin/login.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+                showToast('Error logging out', 'error');
+            }
+        }
+
+        // END ALL SESSIONS
+        function endAllSessions() {
+            if (!confirm('This will end all other active sessions. Continue?')) return;
+            showToast('All other sessions ended successfully', 'success');
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-circle-exclamation',
+                info: 'fa-circle-info'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // MODAL CONTROLS
+        function openPasswordModal() {
+            passwordModal.style.display = 'flex';
+            document.getElementById('currentPassword').focus();
+        }
+
+        function closePasswordModalFunc() {
+            passwordModal.style.display = 'none';
+            passwordForm.reset();
+        }
+
+        changePasswordBtn.addEventListener('click', openPasswordModal);
+        closePasswordModal.addEventListener('click', closePasswordModalFunc);
+        cancelPassword.addEventListener('click', closePasswordModalFunc);
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) closePasswordModalFunc();
+        });
+
+        // EVENT LISTENERS
+        saveBtn.addEventListener('click', saveProfile);
+        logoutBtn.addEventListener('click', logout);
+        passwordForm.addEventListener('submit', changePassword);
+        document.getElementById('endAllSessions').addEventListener('click', endAllSessions);
+
+        // Keyboard shortcut: Ctrl+S to save
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveProfile();
+            }
+        });
+
+        // INITIALIZE
+        await loadProfile();
+    </script>
+
+</body>
+</html>

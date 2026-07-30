@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Mobile Procure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #F8FAFC;
+            color: #334155;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header .shield {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .login-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1E293B;
+        }
+
+        .login-header p {
+            color: #64748B;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748B;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            color: #1E293B;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #94A3B8;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 18px;
+            display: none;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .login-footer a {
+            color: #4F46E5;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .login-footer a:hover {
+            color: #4338CA;
+        }
+
+        .security-badge {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #94A3B8;
+        }
+
+        .security-badge i {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="shield">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h1>Admin Access</h1>
+            <p>Secure portal for system administrators</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="errorText">Invalid credentials</span>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="admin@mobileprocure.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password" />
+            </div>
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fa-solid fa-lock"></i> Login to Admin
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <a href="/mobileprocure/login.html">← Return to main portal</a>
+        </div>
+
+        <div class="security-badge">
+            <i class="fa-solid fa-shield"></i>
+            Encrypted & Secure Connection
+        </div>
+    </div>
+
+    <!-- SUPABASE LOGIN SCRIPT -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { signIn, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+
+        // Check if already logged in as admin
+        async function checkExistingSession() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile && user.profile.is_admin) {
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.log('No existing session');
+            }
+        }
+        checkExistingSession();
+
+        // Handle login
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showError('Please enter both email and password');
+                return;
+            }
+
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+            hideError();
+
+            try {
+                // Attempt login
+                const result = await signIn(email, password);
+                
+                if (!result || !result.user) {
+                    showError('Invalid credentials. Please try again.');
+                    return;
+                }
+
+                // Get user with profile
+                const userWithProfile = await getCurrentUser();
+                
+                if (!userWithProfile || !userWithProfile.profile) {
+                    showError('User profile not found. Please contact support.');
+                    await supabase.auth.signOut();
+                    return;
+                }
+
+                // Check if user is admin
+                if (!userWithProfile.profile.is_admin) {
+                    showError('Access denied. Admin privileges required.');
+                    await supabase.auth.signOut();
+                    return;
+                }
+
+                // Check if admin is verified
+                if (!userWithProfile.profile.admin_verified) {
+                    showError('Admin account not verified. Please contact support.');
+                    await supabase.auth.signOut();
+                    return;
+                }
+
+                // Check if account is active
+                if (!userWithProfile.profile.is_active) {
+                    showError('Account is disabled. Please contact support.');
+                    await supabase.auth.signOut();
+                    return;
+                }
+
+                // Login successful
+                localStorage.setItem('adminName', userWithProfile.profile.full_name || 'Admin');
+                localStorage.setItem('adminLoggedIn', 'true');
+
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showError(error.message || 'Connection error. Please try again.');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Login to Admin';
+            }
+        });
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !loginBtn.disabled) {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+
+</body>
+</html>

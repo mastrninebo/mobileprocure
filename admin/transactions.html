@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management | Admin Portal</title>
+    <title>Transactions | Admin Portal</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     <link rel="icon" href="../assets/images/logo.png" type="image/png">
     
     <style>
-        /* BASE STYLES - Same as dashboard */
+        /* BASE STYLES - Admin Premium Theme */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             min-height: 100vh;
         }
 
-        /* ADMIN HEADER (same as dashboard) */
+        /* ADMIN HEADER */
         .admin-header {
             background: #FFFFFF;
             padding: 20px 20px;
@@ -140,6 +140,43 @@
             font-weight: 600;
         }
 
+        .admin-notification {
+            width: 45px;
+            height: 45px;
+            background: #F1F5F9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748B;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .admin-notification:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .admin-notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #EF4444;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
         /* PAGE HEADER */
         .page-header {
             margin: 20px 20px 0;
@@ -160,7 +197,7 @@
         }
 
         .page-header h2 i {
-            color: #4F46E5;
+            color: #059669;
             font-size: 22px;
         }
 
@@ -204,6 +241,32 @@
             color: #94A3B8;
         }
 
+        .page-header .date-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-header .date-range input {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: #1E293B;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .page-header .date-range input:focus {
+            border-color: #4F46E5;
+            background: #FFFFFF;
+        }
+
+        .page-header .date-range input::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, #4F46E5, #7C3AED);
             color: white;
@@ -244,6 +307,42 @@
             color: #1E293B;
         }
 
+        /* STATS ROW */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 20px 0;
+        }
+
+        .stat-mini {
+            background: #FFFFFF;
+            padding: 16px 18px;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .stat-mini .label {
+            font-size: 11px;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .stat-mini .value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-top: 4px;
+        }
+
+        .stat-mini .value.green { color: #059669; }
+        .stat-mini .value.yellow { color: #D97706; }
+        .stat-mini .value.blue { color: #4F46E5; }
+        .stat-mini .value.purple { color: #7C3AED; }
+
         /* FILTER TABS */
         .filter-tabs {
             margin: 20px 20px 0;
@@ -272,9 +371,9 @@
         }
 
         .filter-tab.active {
-            color: #4F46E5;
-            background: rgba(79, 70, 229, 0.1);
-            border-color: rgba(79, 70, 229, 0.2);
+            color: #059669;
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.2);
         }
 
         .filter-tab .count {
@@ -287,12 +386,12 @@
         }
 
         .filter-tab.active .count {
-            background: rgba(79, 70, 229, 0.2);
-            color: #4F46E5;
+            background: rgba(16, 185, 129, 0.2);
+            color: #059669;
         }
 
-        /* USERS TABLE */
-        .users-table-container {
+        /* TRANSACTIONS TABLE */
+        .transactions-container {
             margin: 20px 20px 0;
             background: #FFFFFF;
             border-radius: 16px;
@@ -301,17 +400,17 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .users-table {
+        .transactions-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .users-table thead {
+        .transactions-table thead {
             background: #F8FAFC;
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .users-table th {
+        .transactions-table th {
             padding: 14px 18px;
             text-align: left;
             font-size: 11px;
@@ -321,174 +420,108 @@
             color: #64748B;
         }
 
-        .users-table td {
+        .transactions-table td {
             padding: 14px 18px;
             border-bottom: 1px solid #F1F5F9;
             font-size: 14px;
+            vertical-align: middle;
             color: #334155;
         }
 
-        .users-table tr:hover td {
+        .transactions-table tr:hover td {
             background: #F8FAFC;
         }
 
-        .users-table .user-cell {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .users-table .user-cell .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 14px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .users-table .user-cell .user-name {
-            font-weight: 600;
-            color: #1E293B;
-        }
-
-        .users-table .user-cell .user-email {
+        .transactions-table .tx-id {
+            font-family: 'Courier New', monospace;
             font-size: 12px;
             color: #64748B;
-            display: block;
         }
 
-        .role-badge {
+        .transactions-table .tx-amount {
+            font-weight: 700;
+            color: #D97706;
+        }
+
+        .transactions-table .tx-amount.credit {
+            color: #059669;
+        }
+
+        .transactions-table .tx-amount.debit {
+            color: #DC2626;
+        }
+
+        .tx-type {
             padding: 4px 12px;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-transform: capitalize;
         }
 
-        .role-badge.admin {
-            background: rgba(239, 68, 68, 0.1);
-            color: #DC2626;
-        }
-
-        .role-badge.buyer {
-            background: rgba(79, 70, 229, 0.1);
-            color: #4F46E5;
-        }
-
-        .role-badge.supplier {
+        .tx-type.payment {
             background: rgba(16, 185, 129, 0.1);
             color: #059669;
         }
 
-        .role-badge.logistics {
+        .tx-type.refund {
             background: rgba(245, 158, 11, 0.1);
             color: #D97706;
         }
 
-        .role-badge.government {
-            background: rgba(139, 92, 246, 0.1);
+        .tx-type.fee {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .tx-type.escrow {
+            background: rgba(124, 58, 237, 0.1);
             color: #7C3AED;
         }
 
-        .role-badge.fintech {
-            background: rgba(236, 72, 153, 0.1);
-            color: #DB2777;
-        }
-
-        .role-badge.veterinary {
-            background: rgba(52, 211, 153, 0.1);
-            color: #10B981;
-        }
-
-        .role-badge.customs {
-            background: rgba(251, 191, 36, 0.1);
-            color: #D97706;
-        }
-
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .status-badge.active {
-            background: rgba(16, 185, 129, 0.1);
-            color: #059669;
-        }
-
-        .status-badge.inactive {
+        .tx-type.withdrawal {
             background: rgba(239, 68, 68, 0.1);
             color: #DC2626;
         }
 
-        .status-badge.pending {
+        .tx-status {
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tx-status.completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .tx-status.pending {
             background: rgba(245, 158, 11, 0.1);
             color: #D97706;
         }
 
-        .status-badge.suspended {
+        .tx-status.failed {
             background: rgba(239, 68, 68, 0.1);
             color: #DC2626;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 6px;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn.edit {
+        .tx-status.processing {
             background: rgba(79, 70, 229, 0.1);
             color: #4F46E5;
         }
 
-        .action-btn.edit:hover {
-            background: rgba(79, 70, 229, 0.2);
+        .tx-method {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #64748B;
         }
 
-        .action-btn.status-toggle {
-            background: rgba(16, 185, 129, 0.1);
-            color: #059669;
-        }
-
-        .action-btn.status-toggle:hover {
-            background: rgba(16, 185, 129, 0.2);
-        }
-
-        .action-btn.status-toggle.suspend {
-            background: rgba(239, 68, 68, 0.1);
-            color: #DC2626;
-        }
-
-        .action-btn.status-toggle.suspend:hover {
-            background: rgba(239, 68, 68, 0.2);
-        }
-
-        .action-btn.delete {
-            background: rgba(239, 68, 68, 0.1);
-            color: #DC2626;
-        }
-
-        .action-btn.delete:hover {
-            background: rgba(239, 68, 68, 0.2);
+        .tx-method i {
+            font-size: 16px;
+            color: #94A3B8;
         }
 
         /* PAGINATION */
@@ -541,7 +574,7 @@
             border-color: rgba(79, 70, 229, 0.2);
         }
 
-        /* MODAL */
+        /* TRANSACTION DETAIL MODAL */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -565,7 +598,7 @@
             background: #FFFFFF;
             border-radius: 20px;
             padding: 30px;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             border: 1px solid #E2E8F0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -590,7 +623,7 @@
         }
 
         .modal-header h3 i {
-            color: #4F46E5;
+            color: #059669;
         }
 
         .modal-close {
@@ -612,66 +645,35 @@
             color: #1E293B;
         }
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #64748B;
-            margin-bottom: 6px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px 14px;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            color: #1E293B;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #4F46E5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: #94A3B8;
-        }
-
-        .form-group select option {
-            background: #FFFFFF;
-            color: #1E293B;
-        }
-
-        .form-actions {
+        .modal .detail-row {
             display: flex;
-            gap: 10px;
-            margin-top: 24px;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #F1F5F9;
         }
 
-        .form-actions .btn-primary {
-            flex: 1;
-            justify-content: center;
+        .modal .detail-row .label {
+            color: #64748B;
+            font-size: 13px;
         }
 
-        .form-actions .btn-secondary {
-            flex: 1;
-            justify-content: center;
+        .modal .detail-row .value {
+            color: #1E293B;
+            font-weight: 500;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .modal .detail-row .value.amount {
+            color: #D97706;
+            font-size: 16px;
+            font-weight: 700;
         }
 
         /* LOADING SPINNER */
         .loading-spinner {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #94A3B8;
         }
 
@@ -683,75 +685,19 @@
 
         .no-data {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #94A3B8;
         }
 
         .no-data i {
-            font-size: 40px;
+            font-size: 48px;
             color: #4F46E5;
             margin-bottom: 15px;
             display: block;
+            opacity: 0.5;
         }
 
-        /* BOTTOM NAVIGATION */
-        .admin-bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0 18px;
-            border-top: 1px solid #E2E8F0;
-            z-index: 1000;
-        }
-
-        .admin-bottom-nav a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            font-size: 11px;
-            gap: 4px;
-            color: #94A3B8;
-            transition: all 0.3s ease;
-            padding: 4px 8px;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .admin-bottom-nav a.active {
-            color: #4F46E5;
-        }
-
-        .admin-bottom-nav a.active::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #7C3AED);
-            border-radius: 0 0 4px 4px;
-        }
-
-        .admin-bottom-nav a:hover {
-            color: #4338CA;
-        }
-
-        .admin-bottom-nav i {
-            font-size: 20px;
-        }
-
-        .admin-bottom-nav .nav-label {
-            font-weight: 500;
-        }
-
-        /* NOTIFICATION TOAST */
+        /* TOAST NOTIFICATION */
         .toast {
             position: fixed;
             top: 80px;
@@ -793,6 +739,63 @@
             }
         }
 
+        /* BOTTOM NAVIGATION */
+        .admin-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 18px;
+            border-top: 1px solid #E2E8F0;
+            z-index: 1000;
+        }
+
+        .admin-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 11px;
+            gap: 4px;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .admin-bottom-nav a.active {
+            color: #059669;
+        }
+
+        .admin-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #059669, #10B981);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .admin-bottom-nav a:hover {
+            color: #10B981;
+        }
+
+        .admin-bottom-nav i {
+            font-size: 20px;
+        }
+
+        .admin-bottom-nav .nav-label {
+            font-weight: 500;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .page-header {
@@ -808,17 +811,20 @@
                 width: 100%;
             }
 
-            .users-table-container {
+            .page-header .date-range {
+                flex-wrap: wrap;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .transactions-container {
                 overflow-x: auto;
             }
 
-            .users-table {
-                min-width: 700px;
-            }
-
-            .modal {
-                padding: 20px;
-                margin: 10px;
+            .transactions-table {
+                min-width: 800px;
             }
         }
 
@@ -830,6 +836,15 @@
             .admin-brand .admin-badge {
                 font-size: 8px;
                 padding: 1px 8px;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-mini .value {
+                font-size: 18px;
             }
 
             .filter-tabs {
@@ -860,7 +875,7 @@
     </script>
 
     <script type="module">
-        import { getCurrentUser, getAdminUsers, createAdminUser, updateUserStatus, signOut, supabase } from '../assets/js/supabase-client.js';
+        import { getCurrentUser, getAdminTransactions, supabase, formatCurrency, getTimeAgo } from '../assets/js/supabase-client.js';
         
         async function protectPage() {
             try {
@@ -906,6 +921,10 @@
             </div>
             
             <div style="display:flex;align-items:center;gap:12px;">
+                <div class="admin-notification" id="notificationBtn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </div>
                 <div class="admin-profile" onclick="window.location.href='profile.html'">
                     <div class="avatar" id="userAvatar">
                         <span id="userInitial">A</span>
@@ -923,20 +942,45 @@
     <!-- PAGE HEADER -->
     <div class="page-header">
         <h2>
-            <i class="fa-solid fa-users-gear"></i>
-            User Management
+            <i class="fa-solid fa-money-bill-wave"></i>
+            Transaction Monitoring
         </h2>
         <div class="header-actions">
             <div class="search-box">
                 <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search users..." />
+                <input type="text" id="searchInput" placeholder="Search transactions..." />
             </div>
-            <button class="btn-primary" id="addUserBtn">
-                <i class="fa-solid fa-plus"></i> Add User
-            </button>
+            <div class="date-range">
+                <input type="date" id="dateFrom" />
+                <span style="color:#64748B;">to</span>
+                <input type="date" id="dateTo" />
+            </div>
             <button class="btn-secondary" id="exportBtn">
                 <i class="fa-solid fa-download"></i> Export
             </button>
+            <button class="btn-primary" id="refreshBtn">
+                <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+        <div class="stat-mini">
+            <div class="label">Total Volume</div>
+            <div class="value green" id="totalVolume">$0</div>
+        </div>
+        <div class="stat-mini">
+            <div class="label">Transactions</div>
+            <div class="value blue" id="totalTransactions">0</div>
+        </div>
+        <div class="stat-mini">
+            <div class="label">Avg. Transaction</div>
+            <div class="value yellow" id="avgTransaction">$0</div>
+        </div>
+        <div class="stat-mini">
+            <div class="label">Pending</div>
+            <div class="value purple" id="pendingCount">0</div>
         </div>
     </div>
 
@@ -945,45 +989,33 @@
         <button class="filter-tab active" data-filter="all">
             All <span class="count" id="allCount">0</span>
         </button>
-        <button class="filter-tab" data-filter="admin">
-            Admins <span class="count" id="adminCount">0</span>
+        <button class="filter-tab" data-filter="completed">
+            Completed <span class="count" id="completedCount">0</span>
         </button>
-        <button class="filter-tab" data-filter="buyer">
-            Buyers <span class="count" id="buyerCount">0</span>
+        <button class="filter-tab" data-filter="pending">
+            Pending <span class="count" id="pendingCountTab">0</span>
         </button>
-        <button class="filter-tab" data-filter="supplier">
-            Suppliers <span class="count" id="supplierCount">0</span>
+        <button class="filter-tab" data-filter="processing">
+            Processing <span class="count" id="processingCount">0</span>
         </button>
-        <button class="filter-tab" data-filter="logistics">
-            Logistics <span class="count" id="logisticsCount">0</span>
-        </button>
-        <button class="filter-tab" data-filter="government">
-            Government <span class="count" id="governmentCount">0</span>
-        </button>
-        <button class="filter-tab" data-filter="fintech">
-            Fintech <span class="count" id="fintechCount">0</span>
-        </button>
-        <button class="filter-tab" data-filter="veterinary">
-            Veterinary <span class="count" id="veterinaryCount">0</span>
-        </button>
-        <button class="filter-tab" data-filter="customs">
-            Customs <span class="count" id="customsCount">0</span>
+        <button class="filter-tab" data-filter="failed">
+            Failed <span class="count" id="failedCount">0</span>
         </button>
     </div>
 
-    <!-- USERS TABLE -->
-    <div class="users-table-container">
+    <!-- TRANSACTIONS TABLE -->
+    <div class="transactions-container">
         <div id="tableContent">
             <div class="loading-spinner">
                 <i class="fa-solid fa-spinner fa-spin"></i>
-                <p>Loading users...</p>
+                <p>Loading transactions...</p>
             </div>
         </div>
 
         <!-- Pagination -->
         <div class="pagination">
             <div class="info">
-                Showing <strong id="startRange">0</strong> - <strong id="endRange">0</strong> of <strong id="totalUsers">0</strong> users
+                Showing <strong id="startRange">0</strong> - <strong id="endRange">0</strong> of <strong id="totalItems">0</strong> transactions
             </div>
             <div class="controls">
                 <button id="prevPage" disabled>
@@ -997,51 +1029,18 @@
         </div>
     </div>
 
-    <!-- ADD USER MODAL -->
-    <div class="modal-overlay" id="addUserModal">
+    <!-- DETAIL MODAL -->
+    <div class="modal-overlay" id="detailModal">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-user-plus"></i> Add New User</h3>
+                <h3><i class="fa-solid fa-receipt"></i> Transaction Details</h3>
                 <button class="modal-close" id="closeModal">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <form id="addUserForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="userFullName" placeholder="John Doe" required />
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="userEmail" placeholder="john@example.com" required />
-                </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="userRole" required>
-                        <option value="buyer">Buyer</option>
-                        <option value="supplier">Supplier</option>
-                        <option value="logistics">Logistics</option>
-                        <option value="government">Government</option>
-                        <option value="fintech">Fintech</option>
-                        <option value="veterinary">Veterinary</option>
-                        <option value="customs">Customs</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Temporary Password</label>
-                    <input type="password" id="userPassword" placeholder="••••••••" required minlength="8" />
-                    <div style="font-size:12px;color:#64748B;margin-top:4px;">
-                        Must be at least 8 characters
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" id="cancelModal">Cancel</button>
-                    <button type="submit" class="btn-primary">
-                        <i class="fa-solid fa-check"></i> Create User
-                    </button>
-                </div>
-            </form>
+            <div id="detailContent">
+                <!-- Populated by JavaScript -->
+            </div>
         </div>
     </div>
 
@@ -1051,7 +1050,7 @@
             <i class="fa-solid fa-house"></i>
             <span class="nav-label">Home</span>
         </a>
-        <a class="active" href="users.html">
+        <a href="users.html">
             <i class="fa-solid fa-users"></i>
             <span class="nav-label">Users</span>
         </a>
@@ -1059,7 +1058,7 @@
             <i class="fa-solid fa-gavel"></i>
             <span class="nav-label">Disputes</span>
         </a>
-        <a href="transactions.html">
+        <a class="active" href="transactions.html">
             <i class="fa-solid fa-money-bill-wave"></i>
             <span class="nav-label">Transactions</span>
         </a>
@@ -1071,179 +1070,211 @@
 
     <!-- MAIN SCRIPT -->
     <script type="module">
-        import { getCurrentUser, getAdminUsers, createAdminUser, updateUserStatus, supabase } from '../assets/js/supabase-client.js';
+        import { getCurrentUser, getAdminTransactions, supabase, formatCurrency, getTimeAgo } from '../assets/js/supabase-client.js';
 
         // STATE
-        let allUsers = [];
-        let filteredUsers = [];
+        let allTransactions = [];
+        let filteredTransactions = [];
         let currentFilter = 'all';
         let currentPage = 1;
-        const pageSize = 10;
+        const pageSize = 15;
         let searchTerm = '';
+        let dateFrom = '';
+        let dateTo = '';
 
         // DOM ELEMENTS
         const tableContent = document.getElementById('tableContent');
         const searchInput = document.getElementById('searchInput');
-        const addUserBtn = document.getElementById('addUserBtn');
+        const dateFromInput = document.getElementById('dateFrom');
+        const dateToInput = document.getElementById('dateTo');
         const exportBtn = document.getElementById('exportBtn');
-        const addUserModal = document.getElementById('addUserModal');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const detailModal = document.getElementById('detailModal');
         const closeModal = document.getElementById('closeModal');
-        const cancelModal = document.getElementById('cancelModal');
-        const addUserForm = document.getElementById('addUserForm');
-        const userFullName = document.getElementById('userFullName');
-        const userEmail = document.getElementById('userEmail');
-        const userRole = document.getElementById('userRole');
-        const userPassword = document.getElementById('userPassword');
-        const prevPage = document.getElementById('prevPage');
-        const nextPage = document.getElementById('nextPage');
+        const detailContent = document.getElementById('detailContent');
+        const notificationBadge = document.getElementById('notificationBadge');
 
-        // LOAD USERS
-        async function loadUsers() {
+        // LOAD TRANSACTIONS
+        async function loadTransactions() {
             try {
-                const result = await getAdminUsers(currentPage, pageSize, currentFilter, searchTerm);
-                allUsers = result.users || [];
-                filteredUsers = allUsers;
-                
-                updateFilterCounts();
-                renderPage(result);
+                const transactions = await getAdminTransactions(100, currentFilter === 'all' ? null : currentFilter);
+                allTransactions = transactions || [];
+                applyFilters();
 
             } catch (error) {
-                console.error('Error loading users:', error);
+                console.error('Error loading transactions:', error);
                 tableContent.innerHTML = `
                     <div class="no-data">
                         <i class="fa-solid fa-circle-exclamation"></i>
-                        <p>Error loading users. Please try again.</p>
+                        <p>Error loading transactions. Please try again.</p>
                     </div>
                 `;
             }
+        }
+
+        // APPLY FILTERS
+        function applyFilters() {
+            let filtered = allTransactions;
+
+            // Apply search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(t => 
+                    t.id?.toLowerCase().includes(term) ||
+                    t.reference?.toLowerCase().includes(term) ||
+                    t.from_user?.full_name?.toLowerCase().includes(term) ||
+                    t.to_user?.full_name?.toLowerCase().includes(term) ||
+                    t.from_user?.email?.toLowerCase().includes(term) ||
+                    t.type?.toLowerCase().includes(term)
+                );
+            }
+
+            // Apply date range
+            if (dateFrom) {
+                filtered = filtered.filter(t => t.created_at >= dateFrom);
+            }
+            if (dateTo) {
+                const endDate = new Date(dateTo);
+                endDate.setHours(23, 59, 59);
+                filtered = filtered.filter(t => new Date(t.created_at) <= endDate);
+            }
+
+            filteredTransactions = filtered;
+            updateStats();
+            updateFilterCounts();
+            renderPage();
+        }
+
+        // UPDATE STATS
+        function updateStats() {
+            const total = filteredTransactions.reduce((sum, t) => sum + (t.amount || 0), 0);
+            const count = filteredTransactions.length;
+            const avg = count > 0 ? total / count : 0;
+            const pending = filteredTransactions.filter(t => t.status === 'pending').length;
+
+            document.getElementById('totalVolume').textContent = formatCurrency(total);
+            document.getElementById('totalTransactions').textContent = count;
+            document.getElementById('avgTransaction').textContent = formatCurrency(avg);
+            document.getElementById('pendingCount').textContent = pending;
         }
 
         // UPDATE FILTER COUNTS
         function updateFilterCounts() {
-            const roles = ['all', 'admin', 'buyer', 'supplier', 'logistics', 'government', 'fintech', 'veterinary', 'customs'];
+            const statuses = ['all', 'completed', 'pending', 'processing', 'failed'];
             
-            roles.forEach(role => {
-                const count = role === 'all' 
-                    ? allUsers.length 
-                    : allUsers.filter(u => u.role === role).length;
+            statuses.forEach(status => {
+                const count = status === 'all' 
+                    ? allTransactions.length 
+                    : allTransactions.filter(t => t.status === status).length;
                 
-                const element = document.getElementById(`${role}Count`);
+                const element = document.getElementById(`${status}Count`);
                 if (element) element.textContent = count;
             });
+
+            // Update notification badge with pending count
+            const pendingCount = allTransactions.filter(t => t.status === 'pending').length;
+            if (pendingCount > 0) {
+                notificationBadge.textContent = pendingCount > 9 ? '9+' : pendingCount;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
         }
 
         // RENDER PAGE
-        function renderPage(result) {
-            const totalPages = Math.ceil(result.total / pageSize);
+        function renderPage() {
+            const totalPages = Math.ceil(filteredTransactions.length / pageSize);
             if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
             
             const start = (currentPage - 1) * pageSize;
-            const end = Math.min(start + pageSize, result.total);
+            const end = Math.min(start + pageSize, filteredTransactions.length);
+            const pageItems = filteredTransactions.slice(start, end);
 
-            if (result.users.length === 0) {
+            if (pageItems.length === 0) {
                 tableContent.innerHTML = `
                     <div class="no-data">
-                        <i class="fa-solid fa-users-slash"></i>
-                        <p>No users found</p>
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <p>No transactions found</p>
                         <p style="font-size:13px;color:#64748B;margin-top:4px;">
-                            ${searchTerm ? 'Try adjusting your search or filters.' : 'Start by adding your first user.'}
+                            ${searchTerm || dateFrom || dateTo ? 'Try adjusting your filters.' : 'No transactions have been recorded yet.'}
                         </p>
                     </div>
                 `;
             } else {
-                renderUsersTable(result.users);
+                renderTable(pageItems);
             }
 
             // Update pagination
-            document.getElementById('startRange').textContent = result.total > 0 ? start + 1 : 0;
+            document.getElementById('startRange').textContent = filteredTransactions.length > 0 ? start + 1 : 0;
             document.getElementById('endRange').textContent = end;
-            document.getElementById('totalUsers').textContent = result.total;
+            document.getElementById('totalItems').textContent = filteredTransactions.length;
 
-            prevPage.disabled = currentPage === 1;
-            nextPage.disabled = currentPage === totalPages || totalPages === 0;
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
         }
 
-        // RENDER USERS TABLE
-        function renderUsersTable(users) {
-            const roleColors = {
-                admin: 'admin',
-                buyer: 'buyer',
-                supplier: 'supplier',
-                logistics: 'logistics',
-                government: 'government',
-                fintech: 'fintech',
-                veterinary: 'veterinary',
-                customs: 'customs'
+        // RENDER TABLE
+        function renderTable(transactions) {
+            const typeIcons = {
+                payment: 'fa-arrow-right',
+                refund: 'fa-arrow-left',
+                fee: 'fa-percent',
+                escrow: 'fa-lock',
+                withdrawal: 'fa-arrow-up'
             };
 
-            const avatarColors = [
-                '#4F46E5', '#7C3AED', '#EC4899', '#EF4444',
-                '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6'
-            ];
-
             let html = `
-                <table class="users-table">
+                <table class="transactions-table">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Role</th>
+                            <th>Transaction</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Type</th>
+                            <th>Amount</th>
                             <th>Status</th>
-                            <th>Joined</th>
-                            <th>Actions</th>
+                            <th>Date</th>
+                            <th style="text-align:center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
             `;
 
-            users.forEach((user, index) => {
-                const avatarColor = avatarColors[index % avatarColors.length];
-                const initials = (user.full_name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                const joined = new Date(user.created_at).toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric' 
-                });
-                const status = user.is_active ? 'active' : 'inactive';
-                const isSuspended = status === 'inactive';
+            transactions.forEach(tx => {
+                const amount = tx.amount || 0;
+                const isCredit = tx.type === 'payment' || tx.type === 'escrow';
+                const amountClass = isCredit ? 'credit' : 'debit';
+                const icon = typeIcons[tx.type] || 'fa-circle';
+                const fromName = tx.from_user?.full_name || 'System';
+                const toName = tx.to_user?.full_name || 'System';
+                const date = new Date(tx.created_at).toLocaleString();
 
                 html += `
                     <tr>
                         <td>
-                            <div class="user-cell">
-                                <div class="user-avatar" style="background:${avatarColor}">
-                                    ${initials}
-                                </div>
-                                <div>
-                                    <div class="user-name">${user.full_name || 'Unknown'}</div>
-                                    <span class="user-email">${user.email}</span>
-                                </div>
-                            </div>
+                            <div class="tx-id">#${tx.id.slice(0, 8)}</div>
+                            <div style="font-size:11px;color:#64748B;">${tx.reference || 'N/A'}</div>
                         </td>
+                        <td style="font-size:13px;">${fromName}</td>
+                        <td style="font-size:13px;">${toName}</td>
                         <td>
-                            <span class="role-badge ${roleColors[user.role] || 'buyer'}">
-                                ${user.role || 'buyer'}
+                            <span class="tx-type ${tx.type}">
+                                <i class="fa-solid ${icon}" style="font-size:10px;"></i>
+                                ${tx.type || 'unknown'}
                             </span>
                         </td>
+                        <td class="tx-amount ${amountClass}">${formatCurrency(amount)}</td>
                         <td>
-                            <span class="status-badge ${status}">
-                                ${status.charAt(0).toUpperCase() + status.slice(1)}
+                            <span class="tx-status ${tx.status}">
+                                ${tx.status || 'pending'}
                             </span>
                         </td>
-                        <td style="color:#64748B;font-size:13px;">${joined}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="action-btn edit" onclick="editUser('${user.id}')" title="Edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="action-btn status-toggle ${isSuspended ? '' : 'suspend'}" 
-                                        onclick="toggleStatus('${user.id}')" 
-                                        title="${isSuspended ? 'Activate' : 'Suspend'}">
-                                    <i class="fa-solid ${isSuspended ? 'fa-play' : 'fa-pause'}"></i>
-                                </button>
-                                <button class="action-btn delete" onclick="deleteUser('${user.id}')" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
+                        <td style="font-size:12px;color:#94A3B8;">${date}</td>
+                        <td style="text-align:center;">
+                            <button class="action-btn" onclick="openDetailModal('${tx.id}')" 
+                                    style="background:rgba(79,70,229,0.1);color:#4F46E5;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;transition:all 0.3s ease;">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
                         </td>
                     </tr>
                 `;
@@ -1257,93 +1288,93 @@
             tableContent.innerHTML = html;
         }
 
-        // FILTER TABS
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                currentFilter = this.dataset.filter;
-                currentPage = 1;
-                loadUsers();
-            });
+        // DETAIL MODAL
+        window.openDetailModal = function(txId) {
+            const tx = allTransactions.find(t => t.id === txId);
+            if (!tx) return;
+
+            const amount = tx.amount || 0;
+            const fromName = tx.from_user?.full_name || 'System';
+            const toName = tx.to_user?.full_name || 'System';
+            const fromEmail = tx.from_user?.email || '';
+            const toEmail = tx.to_user?.email || '';
+
+            detailContent.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">Transaction ID</span>
+                    <span class="value">#${tx.id.slice(0, 12)}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Reference</span>
+                    <span class="value">${tx.reference || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Type</span>
+                    <span class="value"><span class="tx-type ${tx.type}">${tx.type || 'unknown'}</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Amount</span>
+                    <span class="value amount">${formatCurrency(amount)}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Status</span>
+                    <span class="value"><span class="tx-status ${tx.status}">${tx.status || 'pending'}</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">From</span>
+                    <span class="value">${fromName} ${fromEmail ? `<span style="color:#64748B;font-size:12px;">(${fromEmail})</span>` : ''}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">To</span>
+                    <span class="value">${toName} ${toEmail ? `<span style="color:#64748B;font-size:12px;">(${toEmail})</span>` : ''}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Created</span>
+                    <span class="value" style="color:#94A3B8;font-size:12px;">${new Date(tx.created_at).toLocaleString()}</span>
+                </div>
+                ${tx.completed_at ? `
+                <div class="detail-row" style="border-bottom:none;">
+                    <span class="label">Completed</span>
+                    <span class="value" style="color:#94A3B8;font-size:12px;">${new Date(tx.completed_at).toLocaleString()}</span>
+                </div>
+                ` : ''}
+                ${tx.metadata ? `
+                <div style="margin-top:16px;padding-top:16px;border-top:1px solid #E2E8F0;">
+                    <div style="font-size:12px;color:#64748B;margin-bottom:6px;">Metadata</div>
+                    <pre style="background:#F8FAFC;padding:12px;border-radius:10px;font-size:12px;color:#64748B;overflow-x:auto;white-space:pre-wrap;word-break:break-all;font-family:monospace;">${JSON.stringify(tx.metadata, null, 2)}</pre>
+                </div>
+                ` : ''}
+            `;
+
+            detailModal.classList.add('active');
+        };
+
+        // MODAL CONTROLS
+        closeModal.addEventListener('click', () => {
+            detailModal.classList.remove('active');
         });
 
-        // SEARCH
-        searchInput.addEventListener('input', function() {
-            searchTerm = this.value;
-            currentPage = 1;
-            loadUsers();
+        detailModal.addEventListener('click', (e) => {
+            if (e.target === detailModal) detailModal.classList.remove('active');
         });
 
-        // PAGINATION
-        prevPage.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                loadUsers();
-            }
-        });
-
-        nextPage.addEventListener('click', () => {
-            currentPage++;
-            loadUsers();
-        });
-
-        // MODAL HANDLING
-        function openModal() {
-            addUserModal.classList.add('active');
-        }
-
-        function closeModalFunc() {
-            addUserModal.classList.remove('active');
-            addUserForm.reset();
-        }
-
-        addUserBtn.addEventListener('click', openModal);
-        closeModal.addEventListener('click', closeModalFunc);
-        cancelModal.addEventListener('click', closeModalFunc);
-        addUserModal.addEventListener('click', (e) => {
-            if (e.target === addUserModal) closeModalFunc();
-        });
-
-        // ADD USER
-        addUserForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const fullName = userFullName.value.trim();
-            const email = userEmail.value.trim();
-            const role = userRole.value;
-            const password = userPassword.value;
-
-            try {
-                const result = await createAdminUser(email, password, fullName, role);
-                
-                if (result.success) {
-                    showToast('User created successfully!', 'success');
-                    closeModalFunc();
-                    await loadUsers();
-                }
-
-            } catch (error) {
-                console.error('Error creating user:', error);
-                showToast(error.message || 'Error creating user', 'error');
-            }
-        });
-
-        // EXPORT USERS
+        // EXPORT TRANSACTIONS
         exportBtn.addEventListener('click', function() {
-            if (filteredUsers.length === 0) {
-                showToast('No users to export', 'error');
+            if (filteredTransactions.length === 0) {
+                showToast('No transactions to export', 'error');
                 return;
             }
 
-            const headers = ['Full Name', 'Email', 'Role', 'Status', 'Company', 'Joined'];
-            const rows = filteredUsers.map(user => [
-                user.full_name || '',
-                user.email || '',
-                user.role || '',
-                user.is_active ? 'Active' : 'Inactive',
-                user.company_name || '',
-                new Date(user.created_at).toLocaleDateString()
+            const headers = ['ID', 'Reference', 'Type', 'Amount', 'Status', 'From', 'To', 'Date'];
+            const rows = filteredTransactions.map(t => [
+                t.id.slice(0, 8),
+                t.reference || '',
+                t.type || '',
+                t.amount || 0,
+                t.status || '',
+                t.from_user?.full_name || 'System',
+                t.to_user?.full_name || 'System',
+                new Date(t.created_at).toLocaleString()
             ]);
 
             let csv = headers.join(',') + '\n';
@@ -1355,64 +1386,12 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `users_${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `transactions_${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
             URL.revokeObjectURL(url);
 
-            showToast(`Exported ${filteredUsers.length} users`, 'success');
+            showToast(`Exported ${filteredTransactions.length} transactions`, 'success');
         });
-
-        // GLOBAL FUNCTIONS (for inline onclick)
-        window.editUser = function(userId) {
-            showToast('Edit functionality coming soon', 'info');
-        };
-
-        window.toggleStatus = async function(userId) {
-            const user = allUsers.find(u => u.id === userId);
-            if (!user) return;
-
-            const newStatus = !user.is_active;
-            const action = newStatus ? 'activate' : 'suspend';
-
-            if (confirm(`Are you sure you want to ${action} ${user.full_name || 'this user'}?`)) {
-                try {
-                    await updateUserStatus(userId, newStatus);
-                    showToast(`User ${action}d successfully`, 'success');
-                    await loadUsers();
-
-                } catch (error) {
-                    console.error('Error toggling status:', error);
-                    showToast('Error updating user status', 'error');
-                }
-            }
-        };
-
-        window.deleteUser = async function(userId) {
-            const user = allUsers.find(u => u.id === userId);
-            if (!user) return;
-
-            if (confirm(`⚠️ Are you sure you want to delete ${user.full_name || 'this user'}? This cannot be undone.`)) {
-                try {
-                    const { error } = await supabase.auth.admin.deleteUser(userId);
-                    
-                    if (error) {
-                        await supabase
-                            .from('profiles')
-                            .update({ is_active: false })
-                            .eq('id', userId);
-                        showToast('User deactivated (delete requires admin rights)', 'info');
-                    } else {
-                        showToast('User deleted successfully', 'success');
-                    }
-                    
-                    await loadUsers();
-
-                } catch (error) {
-                    console.error('Error deleting user:', error);
-                    showToast('Error deleting user', 'error');
-                }
-            }
-        };
 
         // TOAST NOTIFICATION
         function showToast(message, type = 'info') {
@@ -1440,16 +1419,76 @@
             }, 4000);
         }
 
+        // FILTER TABS
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                currentPage = 1;
+                loadTransactions();
+            });
+        });
+
+        // SEARCH
+        searchInput.addEventListener('input', function() {
+            searchTerm = this.value;
+            currentPage = 1;
+            applyFilters();
+        });
+
+        // DATE RANGE
+        dateFromInput.addEventListener('change', function() {
+            dateFrom = this.value;
+            currentPage = 1;
+            applyFilters();
+        });
+
+        dateToInput.addEventListener('change', function() {
+            dateTo = this.value;
+            currentPage = 1;
+            applyFilters();
+        });
+
+        // REFRESH
+        refreshBtn.addEventListener('click', async function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+            this.disabled = true;
+            
+            await loadTransactions();
+            
+            this.innerHTML = originalText;
+            this.disabled = false;
+            showToast('Transactions refreshed', 'success');
+        });
+
+        // PAGINATION
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredTransactions.length / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage();
+            }
+        });
+
         // AUTO REFRESH
         function startAutoRefresh() {
             setInterval(() => {
-                loadUsers();
-            }, 60000);
+                loadTransactions();
+            }, 30000);
         }
 
         // INITIALIZE
         async function init() {
-            await loadUsers();
+            await loadTransactions();
             startAutoRefresh();
         }
 

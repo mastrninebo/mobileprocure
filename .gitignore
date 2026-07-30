@@ -51,3 +51,9 @@ Thumbs.db
 *.bak
 *.backup
 *.old
+
+node_modules/
+.env
+.DS_Store
+*.log
+wrangler.toml.local

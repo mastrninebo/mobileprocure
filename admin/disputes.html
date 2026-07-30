@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispute Management | Admin Portal</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    
+    <style>
+        /* BASE STYLES - Admin Premium Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #F8FAFC;
+            color: #334155;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        /* ADMIN HEADER */
+        .admin-header {
+            background: #FFFFFF;
+            padding: 20px 20px;
+            border-bottom: 2px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-brand .shield-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-brand h1 {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E293B, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .admin-brand .admin-badge {
+            font-size: 10px;
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            color: #1a1a2e;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            -webkit-text-fill-color: #1a1a2e;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .admin-profile .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid #E2E8F0;
+            position: relative;
+        }
+
+        .admin-profile .avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+        }
+
+        .admin-profile .user-info {
+            text-align: right;
+        }
+
+        .admin-profile .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .admin-profile .user-info p {
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        .admin-profile .user-info .role-tag {
+            color: #D97706;
+            font-weight: 600;
+        }
+
+        .admin-notification {
+            width: 45px;
+            height: 45px;
+            background: #F1F5F9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748B;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .admin-notification:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .admin-notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #EF4444;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            margin: 20px 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h2 i {
+            color: #DC2626;
+            font-size: 22px;
+        }
+
+        .page-header .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .page-header .search-box {
+            display: flex;
+            align-items: center;
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .page-header .search-box:focus-within {
+            border-color: #4F46E5;
+            background: #FFFFFF;
+        }
+
+        .page-header .search-box i {
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .page-header .search-box input {
+            background: transparent;
+            border: none;
+            padding: 10px 12px;
+            color: #1E293B;
+            font-size: 14px;
+            outline: none;
+            width: 200px;
+        }
+
+        .page-header .search-box input::placeholder {
+            color: #94A3B8;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-secondary {
+            background: #F1F5F9;
+            color: #64748B;
+            border: 1px solid #E2E8F0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10B981);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        /* FILTER TABS */
+        .filter-tabs {
+            margin: 20px 20px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .filter-tab {
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748B;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover {
+            color: #1E293B;
+            background: #F1F5F9;
+        }
+
+        .filter-tab.active {
+            color: #DC2626;
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .filter-tab .count {
+            background: #E2E8F0;
+            padding: 1px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin-left: 5px;
+            color: #64748B;
+        }
+
+        .filter-tab.active .count {
+            background: rgba(239, 68, 68, 0.2);
+            color: #DC2626;
+        }
+
+        /* DISPUTES LIST */
+        .disputes-container {
+            margin: 20px 20px 0;
+        }
+
+        .dispute-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dispute-card:hover {
+            background: #FFFFFF;
+            border-color: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .dispute-card .dispute-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .dispute-card .dispute-id {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dispute-card .dispute-id .order-ref {
+            font-size: 12px;
+            color: #64748B;
+            font-weight: 400;
+        }
+
+        .dispute-card .dispute-status {
+            padding: 4px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .dispute-status.open {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .dispute-status.under_review {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .dispute-status.resolved {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .dispute-status.rejected {
+            background: rgba(107, 114, 128, 0.1);
+            color: #64748B;
+        }
+
+        .dispute-card .dispute-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .dispute-card .dispute-body .detail {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .dispute-card .dispute-body .detail .label {
+            font-size: 11px;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .dispute-card .dispute-body .detail .value {
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .dispute-card .dispute-body .detail .value.amount {
+            font-weight: 700;
+            color: #D97706;
+        }
+
+        .dispute-card .dispute-reason {
+            background: #F8FAFC;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border-left: 3px solid #EF4444;
+        }
+
+        .dispute-card .dispute-reason .reason-label {
+            font-size: 11px;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .dispute-card .dispute-reason .reason-text {
+            font-size: 14px;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .dispute-card .dispute-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .dispute-card .dispute-actions .action-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dispute-card .dispute-actions .action-btn.resolve {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .dispute-card .dispute-actions .action-btn.resolve:hover {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .dispute-card .dispute-actions .action-btn.reject {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .dispute-card .dispute-actions .action-btn.reject:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .dispute-card .dispute-actions .action-btn.review {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .dispute-card .dispute-actions .action-btn.review:hover {
+            background: rgba(79, 70, 229, 0.2);
+        }
+
+        .dispute-card .dispute-actions .action-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .dispute-card .dispute-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid #E2E8F0;
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .dispute-card .dispute-footer .party {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dispute-card .dispute-footer .party .party-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* DETAIL MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h3 i {
+            color: #DC2626;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            background: transparent;
+            color: #64748B;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #F1F5F9;
+            color: #1E293B;
+        }
+
+        .modal .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .modal .detail-row .label {
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .modal .detail-row .value {
+            color: #1E293B;
+            font-weight: 500;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .modal .detail-row .value.amount {
+            color: #D97706;
+        }
+
+        .modal .resolution-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .modal .resolution-section label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+
+        .modal .resolution-section textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            color: #1E293B;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .modal .resolution-section textarea:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .modal .resolution-section textarea::placeholder {
+            color: #94A3B8;
+        }
+
+        .modal .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal .modal-actions .btn-primary {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .modal .modal-actions .btn-secondary {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* LOADING SPINNER */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94A3B8;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #4F46E5;
+            margin-bottom: 15px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94A3B8;
+        }
+
+        .no-data i {
+            font-size: 48px;
+            color: #4F46E5;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #059669, #10B981);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* BOTTOM NAVIGATION */
+        .admin-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 18px;
+            border-top: 1px solid #E2E8F0;
+            z-index: 1000;
+        }
+
+        .admin-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 11px;
+            gap: 4px;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .admin-bottom-nav a.active {
+            color: #DC2626;
+        }
+
+        .admin-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #DC2626, #EF4444);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .admin-bottom-nav a:hover {
+            color: #F87171;
+        }
+
+        .admin-bottom-nav i {
+            font-size: 20px;
+        }
+
+        .admin-bottom-nav .nav-label {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .page-header .header-actions {
+                flex-direction: column;
+            }
+
+            .page-header .search-box input {
+                width: 100%;
+            }
+
+            .dispute-card .dispute-body {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .dispute-card .dispute-actions {
+                flex-direction: column;
+            }
+
+            .dispute-card .dispute-actions .action-btn {
+                justify-content: center;
+            }
+
+            .modal {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-brand h1 {
+                font-size: 16px;
+            }
+
+            .admin-brand .admin-badge {
+                font-size: 8px;
+                padding: 1px 8px;
+            }
+
+            .filter-tabs {
+                gap: 4px;
+            }
+
+            .filter-tab {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .page-header h2 {
+                font-size: 20px;
+            }
+
+            .dispute-card .dispute-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { getCurrentUser, getAdminDisputes, resolveAdminDispute, supabase } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                if (!user.profile.is_admin) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                console.log('🔐 Admin authenticated:', user.profile.full_name);
+                window.currentUser = user;
+                
+                // Update header
+                document.getElementById('userName').textContent = user.profile.full_name || 'Admin';
+                document.getElementById('userInitial').textContent = (user.profile.full_name || 'A').charAt(0).toUpperCase();
+                document.getElementById('userRole').textContent = user.profile.admin_verified ? 'System Admin' : 'Pending Verification';
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/admin/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-brand">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1>Admin Portal</h1>
+                    <span class="admin-badge">🔐 Secure Access</span>
+                </div>
+            </div>
+            
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="admin-notification" id="notificationBtn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </div>
+                <div class="admin-profile" onclick="window.location.href='profile.html'">
+                    <div class="avatar" id="userAvatar">
+                        <span id="userInitial">A</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="user-info">
+                        <h4 id="userName">Admin</h4>
+                        <p><span class="role-tag">●</span> <span id="userRole">System Admin</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h2>
+            <i class="fa-solid fa-scale-balanced"></i>
+            Dispute Management
+        </h2>
+        <div class="header-actions">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search disputes..." />
+            </div>
+            <button class="btn-secondary" id="exportBtn">
+                <i class="fa-solid fa-download"></i> Export
+            </button>
+        </div>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all">
+            All <span class="count" id="allCount">0</span>
+        </button>
+        <button class="filter-tab" data-filter="open">
+            Open <span class="count" id="openCount">0</span>
+        </button>
+        <button class="filter-tab" data-filter="under_review">
+            Under Review <span class="count" id="reviewCount">0</span>
+        </button>
+        <button class="filter-tab" data-filter="resolved">
+            Resolved <span class="count" id="resolvedCount">0</span>
+        </button>
+        <button class="filter-tab" data-filter="rejected">
+            Rejected <span class="count" id="rejectedCount">0</span>
+        </button>
+    </div>
+
+    <!-- DISPUTES LIST -->
+    <div class="disputes-container" id="disputesContainer">
+        <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading disputes...</p>
+        </div>
+    </div>
+
+    <!-- DETAIL MODAL -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-scale-balanced"></i> Dispute Details</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="detailContent">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="admin-bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="users.html">
+            <i class="fa-solid fa-users"></i>
+            <span class="nav-label">Users</span>
+        </a>
+        <a class="active" href="disputes.html">
+            <i class="fa-solid fa-gavel"></i>
+            <span class="nav-label">Disputes</span>
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <span class="nav-label">Transactions</span>
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { getCurrentUser, getAdminDisputes, resolveAdminDispute, supabase, getTimeAgo } from '../assets/js/supabase-client.js';
+
+        // STATE
+        let allDisputes = [];
+        let filteredDisputes = [];
+        let currentFilter = 'all';
+        let searchTerm = '';
+        let selectedDispute = null;
+
+        // DOM ELEMENTS
+        const disputesContainer = document.getElementById('disputesContainer');
+        const searchInput = document.getElementById('searchInput');
+        const exportBtn = document.getElementById('exportBtn');
+        const detailModal = document.getElementById('detailModal');
+        const closeModal = document.getElementById('closeModal');
+        const detailContent = document.getElementById('detailContent');
+        const notificationBadge = document.getElementById('notificationBadge');
+
+        // LOAD DISPUTES
+        async function loadDisputes() {
+            try {
+                const disputes = await getAdminDisputes(currentFilter === 'all' ? null : currentFilter);
+                allDisputes = disputes || [];
+                applyFilters();
+
+            } catch (error) {
+                console.error('Error loading disputes:', error);
+                disputesContainer.innerHTML = `
+                    <div class="no-data">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Error loading disputes. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // APPLY FILTERS
+        function applyFilters() {
+            let filtered = allDisputes;
+
+            // Apply search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(d => 
+                    d.id?.toLowerCase().includes(term) ||
+                    d.order?.order_number?.toLowerCase().includes(term) ||
+                    d.raised_by_user?.full_name?.toLowerCase().includes(term) ||
+                    d.raised_by_user?.email?.toLowerCase().includes(term) ||
+                    d.reason?.toLowerCase().includes(term)
+                );
+            }
+
+            filteredDisputes = filtered;
+            updateFilterCounts();
+            renderDisputes();
+        }
+
+        // UPDATE FILTER COUNTS
+        function updateFilterCounts() {
+            const statuses = ['all', 'open', 'under_review', 'resolved', 'rejected'];
+            
+            statuses.forEach(status => {
+                const count = status === 'all' 
+                    ? allDisputes.length 
+                    : allDisputes.filter(d => d.status === status).length;
+                
+                const element = document.getElementById(`${status}Count`);
+                if (element) element.textContent = count;
+            });
+
+            // Update notification badge with open disputes count
+            const openCount = allDisputes.filter(d => d.status === 'open' || d.status === 'under_review').length;
+            if (openCount > 0) {
+                notificationBadge.textContent = openCount > 9 ? '9+' : openCount;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+        }
+
+        // RENDER DISPUTES
+        function renderDisputes() {
+            if (filteredDisputes.length === 0) {
+                disputesContainer.innerHTML = `
+                    <div class="no-data">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <p>No disputes found</p>
+                        <p style="font-size:13px;color:#64748B;margin-top:4px;">
+                            ${searchTerm ? 'Try adjusting your search or filters.' : 'All clear! No disputes to resolve.'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            disputesContainer.innerHTML = '';
+            filteredDisputes.forEach(dispute => {
+                const card = createDisputeCard(dispute);
+                disputesContainer.appendChild(card);
+            });
+        }
+
+        // CREATE DISPUTE CARD
+        function createDisputeCard(dispute) {
+            const card = document.createElement('div');
+            card.className = 'dispute-card';
+
+            const statusDisplay = dispute.status.replace('_', ' ').toUpperCase();
+            const statusClass = dispute.status;
+            const orderRef = dispute.order?.order_number || 'N/A';
+            const amount = dispute.order?.total_amount || 0;
+            const raisedBy = dispute.raised_by_user?.full_name || 'Unknown User';
+            const raisedEmail = dispute.raised_by_user?.email || '';
+            const timeAgo = getTimeAgo(dispute.created_at);
+
+            // Get avatar color
+            const colors = ['#4F46E5', '#7C3AED', '#EC4899', '#EF4444', '#F59E0B', '#10B981', '#3B82F6'];
+            const avatarColor = colors[Math.floor(Math.random() * colors.length)];
+            const initials = raisedBy.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+            const isResolved = dispute.status === 'resolved' || dispute.status === 'rejected';
+
+            card.innerHTML = `
+                <div class="dispute-header">
+                    <div class="dispute-id">
+                        <span>#${dispute.id.slice(0, 8)}</span>
+                        <span class="order-ref">Order: ${orderRef}</span>
+                    </div>
+                    <span class="dispute-status ${statusClass}">${statusDisplay}</span>
+                </div>
+
+                <div class="dispute-body">
+                    <div class="detail">
+                        <span class="label">Raised By</span>
+                        <span class="value">${raisedBy}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Amount</span>
+                        <span class="value amount">$${amount.toLocaleString()}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Order Status</span>
+                        <span class="value">${dispute.order?.status || 'N/A'}</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Raised</span>
+                        <span class="value" style="color:#94A3B8;font-size:13px;">${timeAgo}</span>
+                    </div>
+                </div>
+
+                <div class="dispute-reason">
+                    <div class="reason-label">Reason for Dispute</div>
+                    <div class="reason-text">${dispute.reason || 'No reason provided'}</div>
+                </div>
+
+                ${dispute.resolution_notes ? `
+                    <div class="dispute-reason" style="border-left-color:#10B981;">
+                        <div class="reason-label" style="color:#059669;">Resolution Notes</div>
+                        <div class="reason-text">${dispute.resolution_notes}</div>
+                    </div>
+                ` : ''}
+
+                <div class="dispute-actions">
+                    ${!isResolved ? `
+                        <button class="action-btn review" onclick="openDetailModal('${dispute.id}')">
+                            <i class="fa-solid fa-eye"></i> Review
+                        </button>
+                        <button class="action-btn resolve" onclick="resolveDispute('${dispute.id}')">
+                            <i class="fa-solid fa-check"></i> Resolve
+                        </button>
+                        <button class="action-btn reject" onclick="rejectDispute('${dispute.id}')">
+                            <i class="fa-solid fa-xmark"></i> Reject
+                        </button>
+                    ` : `
+                        <button class="action-btn review" onclick="openDetailModal('${dispute.id}')">
+                            <i class="fa-solid fa-eye"></i> View Details
+                        </button>
+                    `}
+                </div>
+
+                <div class="dispute-footer">
+                    <div class="party">
+                        <div class="party-avatar" style="background:${avatarColor}">${initials}</div>
+                        <span>${raisedBy}</span>
+                        <span style="color:#64748B;font-size:11px;">${raisedEmail}</span>
+                    </div>
+                    <span>${new Date(dispute.created_at).toLocaleString()}</span>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // DETAIL MODAL
+        window.openDetailModal = function(disputeId) {
+            const dispute = allDisputes.find(d => d.id === disputeId);
+            if (!dispute) return;
+
+            selectedDispute = dispute;
+            
+            const orderRef = dispute.order?.order_number || 'N/A';
+            const amount = dispute.order?.total_amount || 0;
+            const raisedBy = dispute.raised_by_user?.full_name || 'Unknown';
+            const raisedEmail = dispute.raised_by_user?.email || '';
+            const supplier = dispute.order?.supplier?.full_name || 'N/A';
+            const buyer = dispute.order?.buyer?.full_name || 'N/A';
+
+            detailContent.innerHTML = `
+                <div class="detail-row">
+                    <span class="label">Dispute ID</span>
+                    <span class="value">#${dispute.id.slice(0, 8)}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Order</span>
+                    <span class="value">${orderRef}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Amount</span>
+                    <span class="value amount">$${amount.toLocaleString()}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Status</span>
+                    <span class="value">
+                        <span class="dispute-status ${dispute.status}">
+                            ${dispute.status.replace('_', ' ').toUpperCase()}
+                        </span>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Raised By</span>
+                    <span class="value">${raisedBy} <span style="color:#64748B;font-size:12px;">(${raisedEmail})</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Buyer</span>
+                    <span class="value">${buyer}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Supplier</span>
+                    <span class="value">${supplier}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Raised</span>
+                    <span class="value" style="color:#94A3B8;">${new Date(dispute.created_at).toLocaleString()}</span>
+                </div>
+                <div class="detail-row" style="border-bottom:none;padding-bottom:4px;">
+                    <span class="label">Reason</span>
+                </div>
+                <div style="background:#F8FAFC;padding:12px 16px;border-radius:10px;border-left:3px solid #EF4444;margin-bottom:12px;">
+                    <p style="color:#334155;font-size:14px;line-height:1.5;">${dispute.reason || 'No reason provided'}</p>
+                </div>
+
+                ${dispute.resolution_notes ? `
+                    <div class="detail-row" style="border-bottom:none;padding-bottom:4px;margin-top:12px;">
+                        <span class="label">Resolution Notes</span>
+                    </div>
+                    <div style="background:rgba(16,185,129,0.1);padding:12px 16px;border-radius:10px;border-left:3px solid #10B981;margin-bottom:12px;">
+                        <p style="color:#334155;font-size:14px;line-height:1.5;">${dispute.resolution_notes}</p>
+                    </div>
+                ` : ''}
+
+                ${dispute.resolved_by_user ? `
+                    <div class="detail-row">
+                        <span class="label">Resolved By</span>
+                        <span class="value">${dispute.resolved_by_user.full_name || 'Unknown'}</span>
+                    </div>
+                    <div class="detail-row" style="border-bottom:none;">
+                        <span class="label">Resolved At</span>
+                        <span class="value" style="color:#94A3B8;">${new Date(dispute.resolved_at).toLocaleString()}</span>
+                    </div>
+                ` : ''}
+
+                ${dispute.status !== 'resolved' && dispute.status !== 'rejected' ? `
+                    <div class="resolution-section">
+                        <label>Resolution Notes</label>
+                        <textarea id="resolutionNotes" placeholder="Add notes about how this dispute was resolved..."></textarea>
+                        <div class="modal-actions">
+                            <button class="btn-success" onclick="resolveWithNotes('${dispute.id}')">
+                                <i class="fa-solid fa-check"></i> Resolve
+                            </button>
+                            <button class="btn-danger" onclick="rejectWithNotes('${dispute.id}')">
+                                <i class="fa-solid fa-xmark"></i> Reject
+                            </button>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+
+            detailModal.classList.add('active');
+        };
+
+        // MODAL CONTROLS
+        closeModal.addEventListener('click', () => {
+            detailModal.classList.remove('active');
+        });
+
+        detailModal.addEventListener('click', (e) => {
+            if (e.target === detailModal) detailModal.classList.remove('active');
+        });
+
+        // RESOLVE DISPUTE
+        window.resolveDispute = async function(disputeId) {
+            if (!confirm('Are you sure you want to resolve this dispute?')) return;
+            await processDispute(disputeId, 'resolved', 'Dispute resolved by administrator.');
+        };
+
+        window.rejectDispute = async function(disputeId) {
+            if (!confirm('Are you sure you want to reject this dispute?')) return;
+            await processDispute(disputeId, 'rejected', 'Dispute rejected by administrator.');
+        };
+
+        window.resolveWithNotes = async function(disputeId) {
+            const notes = document.getElementById('resolutionNotes')?.value;
+            if (!notes || !notes.trim()) {
+                showToast('Please add resolution notes', 'error');
+                return;
+            }
+            await processDispute(disputeId, 'resolved', notes);
+        };
+
+        window.rejectWithNotes = async function(disputeId) {
+            const notes = document.getElementById('resolutionNotes')?.value;
+            if (!notes || !notes.trim()) {
+                showToast('Please add rejection notes', 'error');
+                return;
+            }
+            await processDispute(disputeId, 'rejected', notes);
+        };
+
+        async function processDispute(disputeId, status, notes) {
+            try {
+                await resolveAdminDispute(disputeId, status, notes);
+                showToast(`Dispute ${status} successfully`, 'success');
+                detailModal.classList.remove('active');
+                await loadDisputes();
+
+            } catch (error) {
+                console.error('Error processing dispute:', error);
+                showToast('Error processing dispute: ' + error.message, 'error');
+            }
+        }
+
+        // EXPORT DISPUTES
+        exportBtn.addEventListener('click', function() {
+            if (filteredDisputes.length === 0) {
+                showToast('No disputes to export', 'error');
+                return;
+            }
+
+            const headers = ['Dispute ID', 'Order', 'Raised By', 'Status', 'Amount', 'Reason', 'Raised Date'];
+            const rows = filteredDisputes.map(d => [
+                d.id.slice(0, 8),
+                d.order?.order_number || 'N/A',
+                d.raised_by_user?.full_name || 'Unknown',
+                d.status,
+                d.order?.total_amount || 0,
+                d.reason || '',
+                new Date(d.created_at).toLocaleDateString()
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `disputes_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast(`Exported ${filteredDisputes.length} disputes`, 'success');
+        });
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-circle-exclamation',
+                info: 'fa-circle-info'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // FILTER TABS
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                loadDisputes();
+            });
+        });
+
+        // SEARCH
+        searchInput.addEventListener('input', function() {
+            searchTerm = this.value;
+            applyFilters();
+        });
+
+        // AUTO REFRESH
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadDisputes();
+            }, 60000);
+        }
+
+        // INITIALIZE
+        async function init() {
+            await loadDisputes();
+            startAutoRefresh();
+        }
+
+        init();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Mobile Procure</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    
+    <style>
+        /* BASE STYLES - Admin Premium Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #F8FAFC;
+            color: #334155;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        /* ADMIN HEADER */
+        .admin-header {
+            background: #FFFFFF;
+            padding: 20px 20px;
+            border-bottom: 2px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-brand .shield-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-brand h1 {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E293B, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .admin-brand .admin-badge {
+            font-size: 10px;
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            color: #1a1a2e;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            -webkit-text-fill-color: #1a1a2e;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .admin-profile .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid #E2E8F0;
+            position: relative;
+        }
+
+        .admin-profile .avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+        }
+
+        .admin-profile .user-info {
+            text-align: right;
+        }
+
+        .admin-profile .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .admin-profile .user-info p {
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        .admin-profile .user-info .role-tag {
+            color: #D97706;
+            font-weight: 600;
+        }
+
+        .admin-notification {
+            width: 45px;
+            height: 45px;
+            background: #F1F5F9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748B;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .admin-notification:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .admin-notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #EF4444;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* HERO BANNER */
+        .admin-hero {
+            margin: 20px 20px 0;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #EEF2FF 50%, #E0E7FF 100%);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #E2E8F0;
+        }
+
+        .admin-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .admin-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .admin-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-hero .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-hero .hero-left small {
+            color: #64748B;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .admin-hero .hero-left h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1E293B;
+            margin: 8px 0 4px;
+            letter-spacing: -1px;
+        }
+
+        .admin-hero .hero-left p {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .admin-hero .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .admin-hero .hero-stat {
+            text-align: center;
+        }
+
+        .admin-hero .hero-stat .number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #4F46E5;
+        }
+
+        .admin-hero .hero-stat .label {
+            font-size: 12px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .admin-hero .hero-right {
+            background: #FFFFFF;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-hero .hero-right .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1E293B;
+            font-size: 13px;
+        }
+
+        .admin-hero .hero-right .status-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* SECTION HEADERS */
+        .admin-section {
+            margin: 30px 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E293B;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-section h2 i {
+            color: #4F46E5;
+            font-size: 16px;
+        }
+
+        .admin-section a {
+            text-decoration: none;
+            color: #4F46E5;
+            font-weight: 600;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .admin-section a:hover {
+            color: #4338CA;
+        }
+
+        /* STATS GRID */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 0 20px;
+        }
+
+        .admin-stat-card {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED, #4F46E5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .admin-stat-card:hover {
+            background: #FFFFFF;
+            transform: translateY(-2px);
+            border-color: rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .admin-stat-card .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .admin-stat-card .stat-icon.blue {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .admin-stat-card .stat-icon.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .admin-stat-card .stat-icon.yellow {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .admin-stat-card .stat-icon.purple {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+        }
+
+        .admin-stat-card .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1E293B;
+            letter-spacing: -0.5px;
+        }
+
+        .admin-stat-card .stat-label {
+            font-size: 13px;
+            color: #64748B;
+            margin-top: 2px;
+        }
+
+        .admin-stat-card .stat-change {
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .stat-change.up {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .stat-change.down {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .stat-change.neutral {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        /* QUICK ACTIONS - Streamlined */
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 0 20px;
+        }
+
+        .admin-action-card {
+            background: #FFFFFF;
+            padding: 20px 16px;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #334155;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-action-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            transition: width 0.3s ease;
+        }
+
+        .admin-action-card:hover::after {
+            width: 60%;
+        }
+
+        .admin-action-card:hover {
+            background: #FFFFFF;
+            transform: translateY(-3px);
+            border-color: rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .admin-action-card .action-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 22px;
+        }
+
+        .admin-action-card .action-icon.blue {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .admin-action-card .action-icon.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .admin-action-card .action-icon.yellow {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .admin-action-card .action-icon.purple {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+        }
+
+        .admin-action-card .action-icon.red {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .admin-action-card .action-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1E293B;
+        }
+
+        .admin-action-card .action-sub {
+            font-size: 11px;
+            color: #64748B;
+            margin-top: 2px;
+        }
+
+        .admin-action-card .action-badge {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        /* ACTIVITY LIST */
+        .admin-activity {
+            margin: 0 20px;
+        }
+
+        .admin-activity-item {
+            background: #FFFFFF;
+            padding: 16px 18px;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .admin-activity-item:hover {
+            background: #F8FAFC;
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-activity-item .activity-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .admin-activity-item .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.order {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .activity-icon.user {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .activity-icon.dispute {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .activity-icon.payment {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .admin-activity-item .activity-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+            margin-bottom: 2px;
+        }
+
+        .admin-activity-item .activity-info p {
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .admin-activity-item .activity-info .time {
+            font-size: 11px;
+            color: #94A3B8;
+        }
+
+        .admin-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+            flex-shrink: 0;
+        }
+
+        .admin-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .admin-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .admin-badge.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .admin-badge.info {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .admin-badge.primary {
+            background: #F1F5F9;
+            color: #1E293B;
+        }
+
+        /* LOADING SPINNER */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94A3B8;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #4F46E5;
+            margin-bottom: 15px;
+        }
+
+        /* BOTTOM NAVIGATION */
+        .admin-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 18px;
+            border-top: 1px solid #E2E8F0;
+            z-index: 1000;
+        }
+
+        .admin-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 11px;
+            gap: 4px;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .admin-bottom-nav a.active {
+            color: #4F46E5;
+        }
+
+        .admin-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .admin-bottom-nav a:hover {
+            color: #4338CA;
+        }
+
+        .admin-bottom-nav i {
+            font-size: 20px;
+        }
+
+        .admin-bottom-nav .nav-label {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .admin-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .admin-actions {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .admin-hero .hero-top {
+                flex-wrap: nowrap;
+            }
+
+            .admin-activity-item {
+                padding: 18px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-brand h1 {
+                font-size: 16px;
+            }
+
+            .admin-brand .admin-badge {
+                font-size: 8px;
+                padding: 1px 8px;
+            }
+
+            .admin-hero .hero-left h2 {
+                font-size: 28px;
+            }
+
+            .admin-hero .hero-stats {
+                gap: 15px;
+            }
+
+            .admin-hero .hero-stat .number {
+                font-size: 22px;
+            }
+
+            .admin-profile .user-info h4 {
+                font-size: 13px;
+            }
+
+            .admin-profile .user-info p {
+                font-size: 10px;
+            }
+
+            .admin-stat-card .stat-number {
+                font-size: 22px;
+            }
+
+            .admin-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-activity-item .activity-info h4 {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { getCurrentUser, getAdminStats, signOut, supabase, formatCurrency, getTimeAgo } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                if (!user.profile.is_admin) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                console.log('🔐 Admin authenticated:', user.profile.full_name);
+                window.currentUser = user;
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/admin/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-brand">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1>Admin Portal</h1>
+                    <span class="admin-badge">🔐 Secure Access</span>
+                </div>
+            </div>
+            
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="admin-notification" id="notificationBtn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </div>
+                <div class="admin-profile" onclick="window.location.href='profile.html'">
+                    <div class="avatar" id="userAvatar">
+                        <span id="userInitial">A</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="user-info">
+                        <h4 id="userName">Admin</h4>
+                        <p><span class="role-tag">●</span> <span id="userRole">System Admin</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <div class="admin-hero">
+        <div class="admin-hero-content">
+            <div class="hero-top">
+                <div class="hero-left">
+                    <small>📊 Platform Overview</small>
+                    <h2 id="totalRevenue">$0</h2>
+                    <p id="systemStatus">Loading system status...</p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="number" id="todayOrders">-</div>
+                            <div class="label">Today's Orders</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="number" id="activeUsers">-</div>
+                            <div class="label">Active Users</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="number" id="pendingActions">-</div>
+                            <div class="label">Pending Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="status-indicator">
+                        <span class="dot"></span>
+                        <span>All systems <strong style="color:#059669;">operational</strong></span>
+                    </div>
+                    <div style="margin-top:8px;font-size:12px;color:#94A3B8;">
+                        <i class="fa-regular fa-clock"></i> Last updated: <span id="lastUpdated">Just now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS GRID -->
+    <div class="admin-section">
+        <h2><i class="fa-solid fa-chart-simple"></i> Key Metrics</h2>
+    </div>
+
+    <div class="admin-stats">
+        <div class="admin-stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-number" id="totalUsers">-</div>
+            <div class="stat-label">Total Users</div>
+            <span class="stat-change neutral" id="userChange">Loading...</span>
+        </div>
+        <div class="admin-stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-shopping-cart"></i></div>
+            <div class="stat-number" id="totalOrders">-</div>
+            <div class="stat-label">Total Orders</div>
+            <span class="stat-change neutral" id="orderChange">Loading...</span>
+        </div>
+        <div class="admin-stat-card">
+            <div class="stat-icon yellow"><i class="fa-solid fa-gavel"></i></div>
+            <div class="stat-number" id="activeDisputes">-</div>
+            <div class="stat-label">Active Disputes</div>
+            <span class="stat-change neutral" id="disputeChange">0 pending</span>
+        </div>
+        <div class="admin-stat-card">
+            <div class="stat-icon purple"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="stat-number" id="totalTransactions">-</div>
+            <div class="stat-label">Transactions</div>
+            <span class="stat-change neutral" id="transactionChange">This month</span>
+        </div>
+    </div>
+
+    <!-- QUICK ACTIONS - Streamlined (5 core actions) -->
+    <div class="admin-section">
+        <h2><i class="fa-solid fa-bolt"></i> Quick Actions</h2>
+    </div>
+
+    <div class="admin-actions">
+        <a href="users.html" class="admin-action-card">
+            <div class="action-icon blue"><i class="fa-solid fa-users-gear"></i></div>
+            <div class="action-title">User Management</div>
+            <div class="action-sub">Manage users &amp; roles</div>
+        </a>
+        <a href="disputes.html" class="admin-action-card">
+            <div class="action-icon red"><i class="fa-solid fa-scale-balanced"></i></div>
+            <div class="action-title">Dispute Resolution</div>
+            <div class="action-sub">Review &amp; resolve disputes</div>
+            <span class="action-badge" id="disputeBadge">0 pending</span>
+        </a>
+        <a href="transactions.html" class="admin-action-card">
+            <div class="action-icon green"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <div class="action-title">Transactions</div>
+            <div class="action-sub">Monitor all payments</div>
+        </a>
+        <a href="audits.html" class="admin-action-card">
+            <div class="action-icon purple"><i class="fa-solid fa-clipboard-list"></i></div>
+            <div class="action-title">Audit Trail</div>
+            <div class="action-sub">System activity log</div>
+        </a>
+        <a href="settings.html" class="admin-action-card">
+            <div class="action-icon yellow"><i class="fa-solid fa-gear"></i></div>
+            <div class="action-title">System Settings</div>
+            <div class="action-sub">Platform configuration</div>
+        </a>
+    </div>
+
+    <!-- RECENT ACTIVITY -->
+    <div class="admin-section">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</h2>
+        <a href="audits.html">View All →</a>
+    </div>
+
+    <div class="admin-activity" id="activityContainer">
+        <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading recent activity...</p>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="admin-bottom-nav">
+        <a class="active" href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="users.html">
+            <i class="fa-solid fa-users"></i>
+            <span class="nav-label">Users</span>
+        </a>
+        <a href="disputes.html">
+            <i class="fa-solid fa-gavel"></i>
+            <span class="nav-label">Disputes</span>
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <span class="nav-label">Transactions</span>
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
+    <!-- MAIN SCRIPT - WITH SUPABASE DATA -->
+    <script type="module">
+        import { getCurrentUser, getAdminStats, signOut, supabase, formatCurrency, getTimeAgo } from '../assets/js/supabase-client.js';
+
+        // DOM ELEMENTS
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userRole = document.getElementById('userRole');
+        const totalRevenue = document.getElementById('totalRevenue');
+        const systemStatus = document.getElementById('systemStatus');
+        const totalUsers = document.getElementById('totalUsers');
+        const totalOrders = document.getElementById('totalOrders');
+        const activeDisputes = document.getElementById('activeDisputes');
+        const totalTransactions = document.getElementById('totalTransactions');
+        const todayOrders = document.getElementById('todayOrders');
+        const activeUsers = document.getElementById('activeUsers');
+        const pendingActions = document.getElementById('pendingActions');
+        const disputeBadge = document.getElementById('disputeBadge');
+        const disputeChange = document.getElementById('disputeChange');
+        const userChange = document.getElementById('userChange');
+        const orderChange = document.getElementById('orderChange');
+        const transactionChange = document.getElementById('transactionChange');
+        const activityContainer = document.getElementById('activityContainer');
+        const notificationBadge = document.getElementById('notificationBadge');
+        const lastUpdated = document.getElementById('lastUpdated');
+
+        let previousStats = {};
+
+        // LOAD USER DATA
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    const profile = user.profile;
+                    userName.textContent = profile.full_name || 'Admin';
+                    userInitial.textContent = (profile.full_name || 'A').charAt(0).toUpperCase();
+                    userRole.textContent = profile.admin_verified ? 'System Admin' : 'Pending Verification';
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // LOAD STATISTICS
+        async function loadStats() {
+            try {
+                const stats = await getAdminStats();
+                
+                // Store previous for change calculations
+                if (Object.keys(previousStats).length === 0) {
+                    previousStats = stats;
+                }
+                
+                // Update main numbers
+                totalUsers.textContent = stats.totalUsers.toLocaleString();
+                totalOrders.textContent = stats.totalOrders.toLocaleString();
+                activeDisputes.textContent = stats.activeDisputes.toLocaleString();
+                totalRevenue.textContent = formatCurrency(stats.totalRevenue);
+                todayOrders.textContent = stats.todayOrders.toLocaleString();
+                activeUsers.textContent = stats.totalUsers.toLocaleString();
+                pendingActions.textContent = stats.activeDisputes.toLocaleString();
+                totalTransactions.textContent = stats.totalOrders.toLocaleString(); // Using orders as proxy
+                
+                // Update dispute badge
+                if (stats.activeDisputes > 0) {
+                    disputeBadge.textContent = `${stats.activeDisputes} pending`;
+                    disputeBadge.style.display = 'inline-block';
+                } else {
+                    disputeBadge.textContent = '0 pending';
+                }
+                disputeChange.textContent = `${stats.activeDisputes} pending`;
+                disputeChange.className = `stat-change ${stats.activeDisputes > 0 ? 'down' : 'neutral'}`;
+                
+                // Update user change
+                if (previousStats.totalUsers !== stats.totalUsers) {
+                    const diff = stats.totalUsers - previousStats.totalUsers;
+                    userChange.textContent = diff > 0 ? `↑ ${diff}` : diff < 0 ? `↓ ${Math.abs(diff)}` : 'No change';
+                    userChange.className = `stat-change ${diff > 0 ? 'up' : diff < 0 ? 'down' : 'neutral'}`;
+                }
+                
+                // Update order change
+                if (previousStats.totalOrders !== stats.totalOrders) {
+                    const diff = stats.totalOrders - previousStats.totalOrders;
+                    orderChange.textContent = diff > 0 ? `↑ ${diff}` : diff < 0 ? `↓ ${Math.abs(diff)}` : 'No change';
+                    orderChange.className = `stat-change ${diff > 0 ? 'up' : diff < 0 ? 'down' : 'neutral'}`;
+                }
+                
+                // Update transaction change
+                transactionChange.textContent = formatCurrency(stats.totalRevenue);
+                transactionChange.className = 'stat-change neutral';
+                
+                // Update system status
+                systemStatus.textContent = 'System operating at 100% capacity';
+                
+                // Update last updated
+                const now = new Date();
+                lastUpdated.textContent = now.toLocaleTimeString();
+                
+                previousStats = stats;
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                systemStatus.textContent = 'Error loading stats. Please refresh.';
+            }
+        }
+
+        // LOAD RECENT ACTIVITY
+        async function loadRecentActivity() {
+            try {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id,
+                        order_number,
+                        total_amount,
+                        status,
+                        created_at,
+                        buyer:buyer_id (full_name, company_name)
+                    `)
+                    .order('created_at', { ascending: false })
+                    .limit(8);
+
+                if (error) {
+                    console.error('Error loading activity:', error);
+                    showNoActivity('Error loading activity data.');
+                    return;
+                }
+
+                if (!orders || orders.length === 0) {
+                    showNoActivity('No recent activity to display.');
+                    return;
+                }
+
+                renderActivity(orders);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showNoActivity('Unable to load activity. Please refresh.');
+            }
+        }
+
+        // RENDER ACTIVITY
+        function renderActivity(orders) {
+            activityContainer.innerHTML = '';
+
+            orders.forEach(order => {
+                const item = document.createElement('div');
+                item.className = 'admin-activity-item';
+
+                const statusMap = {
+                    'pending': 'warning',
+                    'confirmed': 'info',
+                    'escrow_funded': 'primary',
+                    'shipped': 'info',
+                    'delivered': 'success',
+                    'completed': 'success',
+                    'disputed': 'danger',
+                    'cancelled': 'danger'
+                };
+
+                const iconMap = {
+                    'pending': 'order',
+                    'confirmed': 'order',
+                    'escrow_funded': 'payment',
+                    'shipped': 'order',
+                    'delivered': 'order',
+                    'completed': 'order',
+                    'disputed': 'dispute',
+                    'cancelled': 'dispute'
+                };
+
+                const statusClass = statusMap[order.status] || 'warning';
+                const iconClass = iconMap[order.status] || 'order';
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown';
+                const timeAgo = getTimeAgo(order.created_at);
+
+                item.innerHTML = `
+                    <div class="activity-left">
+                        <div class="activity-icon ${iconClass}">
+                            <i class="fa-solid ${iconClass === 'order' ? 'fa-box' : iconClass === 'payment' ? 'fa-credit-card' : 'fa-scale-balanced'}"></i>
+                        </div>
+                        <div class="activity-info">
+                            <h4>${order.order_number || 'Order'}</h4>
+                            <p>${buyerName} • ${formatCurrency(order.total_amount || 0)}</p>
+                            <span class="time">${timeAgo}</span>
+                        </div>
+                    </div>
+                    <span class="admin-badge ${statusClass}">${order.status || 'pending'}</span>
+                `;
+
+                activityContainer.appendChild(item);
+            });
+        }
+
+        // SHOW NO ACTIVITY
+        function showNoActivity(message) {
+            activityContainer.innerHTML = `
+                <div class="admin-activity-item" style="justify-content:center;padding:30px;text-align:center;">
+                    <div>
+                        <i class="fa-solid fa-inbox" style="font-size:32px;color:#94A3B8;margin-bottom:10px;display:block;"></i>
+                        <p style="color:#64748B;font-size:14px;">${message}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // LOAD NOTIFICATIONS
+        async function loadNotifications() {
+            try {
+                const { count: pendingDisputes } = await supabase
+                    .from('disputes')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'open');
+
+                const { count: pendingOrders } = await supabase
+                    .from('orders')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'pending');
+
+                const total = (pendingDisputes || 0) + (pendingOrders || 0);
+
+                if (total > 0) {
+                    notificationBadge.textContent = total > 9 ? '9+' : total;
+                    notificationBadge.style.display = 'flex';
+                } else {
+                    notificationBadge.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+
+        // LOGOUT
+        async function handleLogout() {
+            if (!confirm('Are you sure you want to logout?')) return;
+            
+            try {
+                await signOut();
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+                alert('Error logging out. Please try again.');
+            }
+        }
+
+        // AUTO REFRESH
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadStats();
+                loadRecentActivity();
+                loadNotifications();
+            }, 30000);
+        }
+
+        // INITIALIZE
+        async function init() {
+            await loadUserData();
+            await loadStats();
+            await loadRecentActivity();
+            await loadNotifications();
+            startAutoRefresh();
+        }
+
+        // Add logout listener
+        document.querySelector('.admin-profile')?.addEventListener('click', function(e) {
+            if (e.target.closest('.logout-btn')) return;
+            window.location.href = 'profile.html';
+        });
+
+        // Add logout button if it exists
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', handleLogout);
+        }
+
+        init();
+    </script>
+
+</body>
+</html>

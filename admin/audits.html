@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Trail | Admin Portal</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    
+    <style>
+        /* BASE STYLES - Admin Premium Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #F8FAFC;
+            color: #334155;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        /* ADMIN HEADER */
+        .admin-header {
+            background: #FFFFFF;
+            padding: 20px 20px;
+            border-bottom: 2px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-brand .shield-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-brand h1 {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E293B, #4F46E5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .admin-brand .admin-badge {
+            font-size: 10px;
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            color: #1a1a2e;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            -webkit-text-fill-color: #1a1a2e;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .admin-profile .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid #E2E8F0;
+            position: relative;
+        }
+
+        .admin-profile .avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+        }
+
+        .admin-profile .user-info {
+            text-align: right;
+        }
+
+        .admin-profile .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E293B;
+        }
+
+        .admin-profile .user-info p {
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        .admin-profile .user-info .role-tag {
+            color: #D97706;
+            font-weight: 600;
+        }
+
+        .admin-notification {
+            width: 45px;
+            height: 45px;
+            background: #F1F5F9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748B;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .admin-notification:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        .admin-notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #EF4444;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            margin: 20px 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h2 i {
+            color: #7C3AED;
+            font-size: 22px;
+        }
+
+        .page-header .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .page-header .search-box {
+            display: flex;
+            align-items: center;
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .page-header .search-box:focus-within {
+            border-color: #4F46E5;
+            background: #FFFFFF;
+        }
+
+        .page-header .search-box i {
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .page-header .search-box input {
+            background: transparent;
+            border: none;
+            padding: 10px 12px;
+            color: #1E293B;
+            font-size: 14px;
+            outline: none;
+            width: 200px;
+        }
+
+        .page-header .search-box input::placeholder {
+            color: #94A3B8;
+        }
+
+        .page-header .date-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-header .date-range input {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: #1E293B;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .page-header .date-range input:focus {
+            border-color: #4F46E5;
+            background: #FFFFFF;
+        }
+
+        .page-header .date-range input::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-secondary {
+            background: #F1F5F9;
+            color: #64748B;
+            border: 1px solid #E2E8F0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #E2E8F0;
+            color: #1E293B;
+        }
+
+        /* CATEGORY FILTERS */
+        .category-filters {
+            margin: 20px 20px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .category-filter {
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748B;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-filter:hover {
+            color: #1E293B;
+            background: #F1F5F9;
+        }
+
+        .category-filter.active {
+            color: #7C3AED;
+            background: rgba(124, 58, 237, 0.1);
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .category-filter .count {
+            background: #E2E8F0;
+            padding: 1px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        .category-filter.active .count {
+            background: rgba(124, 58, 237, 0.2);
+            color: #7C3AED;
+        }
+
+        .category-filter .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* AUDIT LOG */
+        .audit-container {
+            margin: 20px 20px 0;
+        }
+
+        .audit-item {
+            background: #FFFFFF;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .audit-item:hover {
+            background: #FFFFFF;
+            border-color: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .audit-item .audit-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .audit-icon.security {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .audit-icon.user {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .audit-icon.order {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .audit-icon.escrow {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .audit-icon.logistics {
+            background: rgba(236, 72, 153, 0.1);
+            color: #DB2777;
+        }
+
+        .audit-icon.customs {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7C3AED;
+        }
+
+        .audit-icon.admin {
+            background: rgba(124, 58, 237, 0.1);
+            color: #9333EA;
+        }
+
+        .audit-icon.system {
+            background: rgba(107, 114, 128, 0.1);
+            color: #64748B;
+        }
+
+        .audit-item .audit-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .audit-item .audit-content .audit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .audit-item .audit-content .audit-action {
+            font-weight: 600;
+            color: #1E293B;
+            font-size: 14px;
+        }
+
+        .audit-item .audit-content .audit-action .entity {
+            color: #64748B;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        .audit-item .audit-content .audit-details {
+            font-size: 13px;
+            color: #64748B;
+            line-height: 1.5;
+        }
+
+        .audit-item .audit-content .audit-details .highlight {
+            color: #1E293B;
+            font-weight: 500;
+        }
+
+        .audit-item .audit-content .audit-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #94A3B8;
+            flex-wrap: wrap;
+        }
+
+        .audit-item .audit-content .audit-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .audit-item .audit-content .audit-meta i {
+            font-size: 11px;
+        }
+
+        .audit-item .audit-badge {
+            padding: 3px 12px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .audit-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .audit-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .audit-badge.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+        }
+
+        .audit-badge.info {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+
+        .audit-badge.neutral {
+            background: #F1F5F9;
+            color: #64748B;
+        }
+
+        /* EXPANDABLE CHANGES */
+        .audit-changes {
+            margin-top: 8px;
+            padding: 10px 14px;
+            background: #F8FAFC;
+            border-radius: 8px;
+            border: 1px solid #F1F5F9;
+            display: none;
+        }
+
+        .audit-changes.expanded {
+            display: block;
+        }
+
+        .audit-changes .change-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .audit-changes .change-item:last-child {
+            border-bottom: none;
+        }
+
+        .audit-changes .change-item .field {
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .audit-changes .change-item .old-value {
+            color: #DC2626;
+            text-decoration: line-through;
+        }
+
+        .audit-changes .change-item .new-value {
+            color: #059669;
+        }
+
+        .audit-changes .change-item .arrow {
+            color: #94A3B8;
+        }
+
+        .show-changes-btn {
+            background: transparent;
+            border: none;
+            color: #4F46E5;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .show-changes-btn:hover {
+            color: #4338CA;
+        }
+
+        /* LOADING SPINNER */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94A3B8;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #4F46E5;
+            margin-bottom: 15px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94A3B8;
+        }
+
+        .no-data i {
+            font-size: 48px;
+            color: #4F46E5;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #059669, #10B981);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #4F46E5, #6366F1);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* BOTTOM NAVIGATION */
+        .admin-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 18px;
+            border-top: 1px solid #E2E8F0;
+            z-index: 1000;
+        }
+
+        .admin-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 11px;
+            gap: 4px;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .admin-bottom-nav a.active {
+            color: #7C3AED;
+        }
+
+        .admin-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #7C3AED, #A78BFA);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .admin-bottom-nav a:hover {
+            color: #9333EA;
+        }
+
+        .admin-bottom-nav i {
+            font-size: 20px;
+        }
+
+        .admin-bottom-nav .nav-label {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .page-header .header-actions {
+                flex-direction: column;
+            }
+
+            .page-header .search-box input {
+                width: 100%;
+            }
+
+            .page-header .date-range {
+                flex-wrap: wrap;
+            }
+
+            .audit-item {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .audit-item .audit-badge {
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-brand h1 {
+                font-size: 16px;
+            }
+
+            .admin-brand .admin-badge {
+                font-size: 8px;
+                padding: 1px 8px;
+            }
+
+            .category-filters {
+                gap: 4px;
+            }
+
+            .category-filter {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .page-header h2 {
+                font-size: 20px;
+            }
+
+            .audit-item .audit-content .audit-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { getCurrentUser, getAdminAuditLogs, getTimeAgo } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                if (!user.profile.is_admin) {
+                    window.location.href = '/mobileprocure/admin/login.html';
+                    return;
+                }
+                
+                console.log('🔐 Admin authenticated:', user.profile.full_name);
+                window.currentUser = user;
+                
+                // Update header
+                document.getElementById('userName').textContent = user.profile.full_name || 'Admin';
+                document.getElementById('userInitial').textContent = (user.profile.full_name || 'A').charAt(0).toUpperCase();
+                document.getElementById('userRole').textContent = user.profile.admin_verified ? 'System Admin' : 'Pending Verification';
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/admin/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-brand">
+                <div class="shield-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1>Admin Portal</h1>
+                    <span class="admin-badge">🔐 Secure Access</span>
+                </div>
+            </div>
+            
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div class="admin-notification" id="notificationBtn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="notificationBadge">0</span>
+                </div>
+                <div class="admin-profile" onclick="window.location.href='profile.html'">
+                    <div class="avatar" id="userAvatar">
+                        <span id="userInitial">A</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="user-info">
+                        <h4 id="userName">Admin</h4>
+                        <p><span class="role-tag">●</span> <span id="userRole">System Admin</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h2>
+            <i class="fa-solid fa-clipboard-list"></i>
+            Audit Trail
+        </h2>
+        <div class="header-actions">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search audit log..." />
+            </div>
+            <div class="date-range">
+                <input type="date" id="dateFrom" />
+                <span style="color:#64748B;">to</span>
+                <input type="date" id="dateTo" />
+            </div>
+            <button class="btn-secondary" id="exportBtn">
+                <i class="fa-solid fa-download"></i> Export
+            </button>
+            <button class="btn-primary" id="refreshBtn">
+                <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- CATEGORY FILTERS -->
+    <div class="category-filters" id="categoryFilters">
+        <button class="category-filter active" data-category="all">
+            <span class="dot" style="background:#7C3AED;"></span>
+            All <span class="count" id="allCount">0</span>
+        </button>
+        <button class="category-filter" data-category="security">
+            <span class="dot" style="background:#DC2626;"></span>
+            Security <span class="count" id="securityCount">0</span>
+        </button>
+        <button class="category-filter" data-category="user">
+            <span class="dot" style="background:#059669;"></span>
+            User <span class="count" id="userCount">0</span>
+        </button>
+        <button class="category-filter" data-category="order">
+            <span class="dot" style="background:#4F46E5;"></span>
+            Order <span class="count" id="orderCount">0</span>
+        </button>
+        <button class="category-filter" data-category="escrow">
+            <span class="dot" style="background:#D97706;"></span>
+            Escrow <span class="count" id="escrowCount">0</span>
+        </button>
+        <button class="category-filter" data-category="logistics">
+            <span class="dot" style="background:#DB2777;"></span>
+            Logistics <span class="count" id="logisticsCount">0</span>
+        </button>
+        <button class="category-filter" data-category="customs">
+            <span class="dot" style="background:#7C3AED;"></span>
+            Customs <span class="count" id="customsCount">0</span>
+        </button>
+        <button class="category-filter" data-category="admin">
+            <span class="dot" style="background:#9333EA;"></span>
+            Admin <span class="count" id="adminCount">0</span>
+        </button>
+        <button class="category-filter" data-category="system">
+            <span class="dot" style="background:#64748B;"></span>
+            System <span class="count" id="systemCount">0</span>
+        </button>
+    </div>
+
+    <!-- AUDIT LOG -->
+    <div class="audit-container" id="auditContainer">
+        <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading audit log...</p>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="admin-bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="users.html">
+            <i class="fa-solid fa-users"></i>
+            <span class="nav-label">Users</span>
+        </a>
+        <a href="disputes.html">
+            <i class="fa-solid fa-gavel"></i>
+            <span class="nav-label">Disputes</span>
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <span class="nav-label">Transactions</span>
+        </a>
+        <a class="active" href="audits.html">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span class="nav-label">Audits</span>
+        </a>
+    </nav>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { getCurrentUser, getAdminAuditLogs, getTimeAgo } from '../assets/js/supabase-client.js';
+
+        // STATE
+        let allAudits = [];
+        let filteredAudits = [];
+        let currentCategory = 'all';
+        let searchTerm = '';
+        let dateFrom = '';
+        let dateTo = '';
+        let expandedItems = new Set();
+
+        // DOM ELEMENTS
+        const auditContainer = document.getElementById('auditContainer');
+        const searchInput = document.getElementById('searchInput');
+        const dateFromInput = document.getElementById('dateFrom');
+        const dateToInput = document.getElementById('dateTo');
+        const exportBtn = document.getElementById('exportBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const notificationBadge = document.getElementById('notificationBadge');
+
+        // LOAD AUDIT LOGS
+        async function loadAudits() {
+            try {
+                const audits = await getAdminAuditLogs(currentCategory === 'all' ? null : currentCategory, 100);
+                allAudits = audits || [];
+                applyFilters();
+
+            } catch (error) {
+                console.error('Error loading audits:', error);
+                auditContainer.innerHTML = `
+                    <div class="no-data">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Error loading audit log. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // APPLY FILTERS
+        function applyFilters() {
+            let filtered = allAudits;
+
+            // Apply search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(a => 
+                    a.action?.toLowerCase().includes(term) ||
+                    a.entity_type?.toLowerCase().includes(term) ||
+                    a.entity_id?.toLowerCase().includes(term) ||
+                    a.user?.full_name?.toLowerCase().includes(term) ||
+                    a.user?.email?.toLowerCase().includes(term) ||
+                    a.ip_address?.toLowerCase().includes(term) ||
+                    a.category?.toLowerCase().includes(term)
+                );
+            }
+
+            // Apply date range
+            if (dateFrom) {
+                filtered = filtered.filter(a => a.timestamp >= dateFrom);
+            }
+            if (dateTo) {
+                const endDate = new Date(dateTo);
+                endDate.setHours(23, 59, 59);
+                filtered = filtered.filter(a => new Date(a.timestamp) <= endDate);
+            }
+
+            filteredAudits = filtered;
+            updateFilterCounts();
+            renderAudits();
+        }
+
+        // UPDATE FILTER COUNTS
+        function updateFilterCounts() {
+            const categories = ['all', 'security', 'user', 'order', 'escrow', 'logistics', 'customs', 'admin', 'system'];
+            
+            categories.forEach(cat => {
+                const count = cat === 'all' 
+                    ? allAudits.length 
+                    : allAudits.filter(a => a.category === cat).length;
+                
+                const element = document.getElementById(`${cat}Count`);
+                if (element) element.textContent = count;
+            });
+
+            // Update notification badge
+            const securityCount = allAudits.filter(a => a.category === 'security').length;
+            if (securityCount > 0) {
+                notificationBadge.textContent = securityCount > 9 ? '9+' : securityCount;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+        }
+
+        // RENDER AUDITS
+        function renderAudits() {
+            if (filteredAudits.length === 0) {
+                auditContainer.innerHTML = `
+                    <div class="no-data">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <p>No audit entries found</p>
+                        <p style="font-size:13px;color:#94A3B8;margin-top:4px;">
+                            ${searchTerm || dateFrom || dateTo ? 'Try adjusting your filters.' : 'Audit log is currently empty.'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            auditContainer.innerHTML = '';
+            filteredAudits.forEach(audit => {
+                const item = createAuditItem(audit);
+                auditContainer.appendChild(item);
+            });
+        }
+
+        // CREATE AUDIT ITEM
+        function createAuditItem(audit) {
+            const item = document.createElement('div');
+            item.className = 'audit-item';
+
+            const iconMap = {
+                security: 'fa-shield-halved',
+                user: 'fa-user',
+                order: 'fa-shopping-cart',
+                escrow: 'fa-lock',
+                logistics: 'fa-truck',
+                customs: 'fa-passport',
+                admin: 'fa-user-gear',
+                system: 'fa-server'
+            };
+
+            const icon = iconMap[audit.category] || 'fa-circle';
+            const categoryClass = audit.category || 'system';
+            const userName = audit.user?.full_name || 'System';
+            const userEmail = audit.user?.email || '';
+            const timeAgo = getTimeAgo(audit.timestamp);
+            const entityDisplay = audit.entity_type ? `${audit.entity_type} #${audit.entity_id?.slice(0, 8) || 'N/A'}` : 'N/A';
+
+            // Determine badge style based on action
+            let badgeClass = 'neutral';
+            let badgeText = 'Info';
+            
+            const actionLower = audit.action?.toLowerCase() || '';
+            if (actionLower.includes('delete') || actionLower.includes('remove') || actionLower.includes('failed')) {
+                badgeClass = 'danger';
+                badgeText = 'Critical';
+            } else if (actionLower.includes('update') || actionLower.includes('edit') || actionLower.includes('change')) {
+                badgeClass = 'warning';
+                badgeText = 'Modified';
+            } else if (actionLower.includes('create') || actionLower.includes('add') || actionLower.includes('success')) {
+                badgeClass = 'success';
+                badgeText = 'Created';
+            } else if (actionLower.includes('login') || actionLower.includes('auth') || actionLower.includes('access')) {
+                badgeClass = 'info';
+                badgeText = 'Access';
+            }
+
+            const hasChanges = audit.changes && Object.keys(audit.changes).length > 0;
+            const itemId = audit.id;
+
+            item.innerHTML = `
+                <div class="audit-icon ${categoryClass}">
+                    <i class="fa-solid ${icon}"></i>
+                </div>
+                <div class="audit-content">
+                    <div class="audit-header">
+                        <div>
+                            <span class="audit-action">
+                                ${audit.action || 'Unknown action'}
+                                <span class="entity">on ${entityDisplay}</span>
+                            </span>
+                        </div>
+                        <span class="audit-badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                    <div class="audit-details">
+                        By <span class="highlight">${userName}</span>
+                        ${userEmail ? `(${userEmail})` : ''}
+                        ${audit.metadata ? `• ${formatMetadataPreview(audit.metadata)}` : ''}
+                    </div>
+                    ${hasChanges ? `
+                        <button class="show-changes-btn" onclick="toggleChanges('${itemId}')">
+                            <i class="fa-solid fa-chevron-down"></i> View changes
+                        </button>
+                        <div class="audit-changes" id="changes-${itemId}">
+                            ${formatChanges(audit.changes)}
+                        </div>
+                    ` : ''}
+                    <div class="audit-meta">
+                        <span><i class="fa-regular fa-clock"></i> ${timeAgo}</span>
+                        ${audit.ip_address ? `<span><i class="fa-solid fa-network-wired"></i> ${audit.ip_address}</span>` : ''}
+                        <span><i class="fa-regular fa-folder"></i> ${audit.category || 'uncategorized'}</span>
+                    </div>
+                </div>
+            `;
+
+            return item;
+        }
+
+        // TOGGLE CHANGES
+        window.toggleChanges = function(id) {
+            const element = document.getElementById(`changes-${id}`);
+            if (element) {
+                element.classList.toggle('expanded');
+                const btn = element.parentElement.querySelector('.show-changes-btn');
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    if (element.classList.contains('expanded')) {
+                        icon.className = 'fa-solid fa-chevron-up';
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Hide changes';
+                    } else {
+                        icon.className = 'fa-solid fa-chevron-down';
+                        btn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> View changes';
+                    }
+                }
+            }
+        };
+
+        // FORMAT CHANGES
+        function formatChanges(changes) {
+            if (!changes) return '';
+            
+            let html = '';
+            for (const [key, value] of Object.entries(changes)) {
+                if (typeof value === 'object') {
+                    html += `
+                        <div class="change-item">
+                            <span class="field">${key}:</span>
+                            <span style="color:#64748B;font-size:12px;">${JSON.stringify(value)}</span>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="change-item">
+                            <span class="field">${key}:</span>
+                            <span class="old-value">${value.old || 'null'}</span>
+                            <span class="arrow">→</span>
+                            <span class="new-value">${value.new || 'null'}</span>
+                        </div>
+                    `;
+                }
+            }
+            return html;
+        }
+
+        // FORMAT METADATA PREVIEW
+        function formatMetadataPreview(metadata) {
+            if (typeof metadata === 'string') {
+                try {
+                    const parsed = JSON.parse(metadata);
+                    return Object.keys(parsed).join(', ');
+                } catch {
+                    return metadata;
+                }
+            }
+            if (typeof metadata === 'object') {
+                return Object.keys(metadata).join(', ');
+            }
+            return '';
+        }
+
+        // CATEGORY FILTERS
+        document.querySelectorAll('.category-filter').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+                loadAudits();
+            });
+        });
+
+        // SEARCH
+        searchInput.addEventListener('input', function() {
+            searchTerm = this.value;
+            applyFilters();
+        });
+
+        // DATE RANGE
+        dateFromInput.addEventListener('change', function() {
+            dateFrom = this.value;
+            applyFilters();
+        });
+
+        dateToInput.addEventListener('change', function() {
+            dateTo = this.value;
+            applyFilters();
+        });
+
+        // REFRESH
+        refreshBtn.addEventListener('click', async function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+            this.disabled = true;
+            
+            await loadAudits();
+            
+            this.innerHTML = originalText;
+            this.disabled = false;
+            showToast('Audit log refreshed', 'success');
+        });
+
+        // EXPORT
+        exportBtn.addEventListener('click', function() {
+            if (filteredAudits.length === 0) {
+                showToast('No audit entries to export', 'error');
+                return;
+            }
+
+            const headers = ['Timestamp', 'Category', 'Action', 'Entity Type', 'Entity ID', 'User', 'Email', 'IP Address', 'Metadata'];
+            const rows = filteredAudits.map(a => [
+                new Date(a.timestamp).toLocaleString(),
+                a.category || '',
+                a.action || '',
+                a.entity_type || '',
+                a.entity_id || '',
+                a.user?.full_name || 'System',
+                a.user?.email || '',
+                a.ip_address || '',
+                JSON.stringify(a.metadata || {})
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.map(v => `"${v.replace(/"/g, '""')}"`).join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `audit_log_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast(`Exported ${filteredAudits.length} audit entries`, 'success');
+        });
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-circle-exclamation',
+                info: 'fa-circle-info'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // AUTO REFRESH
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadAudits();
+            }, 60000);
+        }
+
+        // INITIALIZE
+        async function init() {
+            await loadAudits();
+            startAutoRefresh();
+        }
+
+        init();
+    </script>
+
+</body>
+</html>
