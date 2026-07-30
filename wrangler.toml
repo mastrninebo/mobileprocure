@@ -3,7 +3,11 @@ main = "src/index.js"
 compatibility_date = "2024-01-01"
 
 [vars]
-SUPABASE_URL = "https://your-project-id.supabase.co"
-SUPABASE_ANON_KEY = "your-supabase-anon-key"
-ADMIN_SECRET = "your-admin-secret-key"
-SESSION_DURATION = "1800"
+SUPABASE_URL = "https://hrxudtmskbukikucufqw.supabase.co"
+SUPABASE_ANON_KEY = "sb_publishable_0XXmjurmrLAp3aTo0OfBng_sxJg82Vl"
+
+[build]
+command = "npm install"
+
+[build.upload]
+format = "modules"
