@@ -1,0 +1,6 @@
+node_modules
+workerd
+bun.lockb
+package.json
+wrangler.toml
+.git
