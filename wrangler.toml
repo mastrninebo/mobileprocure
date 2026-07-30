@@ -3,34 +3,8 @@ main = "src/index.js"
 compatibility_date = "2024-01-01"
 
 [assets]
-directory = "./"
+directory = "./public"
 binding = "ASSETS"
-
-[assets.exclude]
-patterns = [
-    "node_modules/**",
-    "*.log",
-    ".git/**",
-    ".gitignore",
-    "package.json",
-    "package-lock.json",
-    "bun.lockb",
-    "wrangler.toml",
-    "src/**",
-    "*.md"
-]
-
-[assets.include]
-patterns = [
-    "*.html",
-    "*.css",
-    "*.js",
-    "*.png",
-    "*.jpg",
-    "*.svg",
-    "*.ico",
-    "*.json"
-]
 
 [vars]
 SUPABASE_URL = "https://hrxudtmskbukikucufqw.supabase.co"
