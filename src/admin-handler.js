@@ -124,7 +124,7 @@ async function handleAdminLogin(request, env) {
             .from('profiles')
             .select('id, full_name, email, is_admin, admin_verified, is_active')
             .eq('id', data.user.id)
-            .single();
+            .maybeSingle();
 
         if (profileError || !profile || !profile.is_admin || !profile.admin_verified || !profile.is_active) {
             await supabase.auth.signOut();
@@ -132,6 +132,16 @@ async function handleAdminLogin(request, env) {
         }
 
         const sessionToken = generateSessionToken();
+
+        await supabase
+            .from('admin_sessions')
+            .insert([{
+                user_id: profile.id,
+                session_token: sessionToken,
+                expires_at: new Date(Date.now() + SESSION_DURATION * 1000).toISOString(),
+                is_active: true
+            }]);
+
         const cookie = `${ADMIN_COOKIE_NAME}=${sessionToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${SESSION_DURATION}`;
 
         return jsonResponse({
@@ -140,6 +150,7 @@ async function handleAdminLogin(request, env) {
         }, 200, { 'Set-Cookie': cookie });
 
     } catch (error) {
+        console.error('Login error:', error);
         return jsonResponse({ success: false, message: 'Server error' }, 500);
     }
 }
@@ -157,9 +168,17 @@ async function verifyAdminAuth(request, env) {
             .select('user_id, expires_at, is_active')
             .eq('session_token', token)
             .eq('is_active', true)
-            .single();
+            .maybeSingle();
 
-        if (sessionError || !session || new Date(session.expires_at) < new Date()) {
+        if (sessionError || !session) {
+            return { authorized: false };
+        }
+
+        if (new Date(session.expires_at) < new Date()) {
+            await supabase
+                .from('admin_sessions')
+                .update({ is_active: false })
+                .eq('session_token', token);
             return { authorized: false };
         }
 
@@ -167,7 +186,7 @@ async function verifyAdminAuth(request, env) {
             .from('profiles')
             .select('id, full_name, email, is_admin, admin_verified, is_active')
             .eq('id', session.user_id)
-            .single();
+            .maybeSingle();
 
         if (!profile || !profile.is_admin || !profile.admin_verified || !profile.is_active) {
             return { authorized: false };
@@ -176,6 +195,7 @@ async function verifyAdminAuth(request, env) {
         return { authorized: true, user: profile };
 
     } catch (error) {
+        console.error('Verify auth error:', error);
         return { authorized: false };
     }
 }
