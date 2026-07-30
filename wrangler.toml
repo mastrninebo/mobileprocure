@@ -2,12 +2,10 @@ name = "mobileprocure"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 
+[assets]
+directory = "./"
+binding = "ASSETS"
+
 [vars]
 SUPABASE_URL = "https://hrxudtmskbukikucufqw.supabase.co"
 SUPABASE_ANON_KEY = "sb_publishable_0XXmjurmrLAp3aTo0OfBng_sxJg82Vl"
-
-[build]
-command = "npm install"
-
-[build.upload]
-format = "modules"
