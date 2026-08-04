@@ -1,536 +1,895 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Buyer Profile</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Mobile Procure | Buyer Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+            color: #0F766E;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        header a {
+            color: #0F766E;
+            font-size: 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .container {
+            padding: 20px;
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .profile-card {
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+        }
 
-header h2{
-font-size:22px;
-color:#0F766E;
-}
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #0F766E;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            margin-bottom: 18px;
+        }
 
-header a{
-color:#0F766E;
-font-size:20px;
-text-decoration:none;
-}
+        .profile-card h2 {
+            margin-bottom: 5px;
+        }
 
-.container{
-padding:20px;
-}
+        .profile-card p {
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
 
-.profile-card{
-background:white;
-border-radius:22px;
-padding:30px;
-text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-margin-bottom:20px;
-}
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #D1FAE5;
+            color: #065F46;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
 
-.avatar{
-width:110px;
-height:110px;
-border-radius:50%;
-background:#0F766E;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:45px;
-color:white;
-margin-bottom:18px;
-}
+        .badge.pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
 
-.profile-card h2{
-margin-bottom:5px;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
 
-.profile-card p{
-color:#6B7280;
-margin-bottom:15px;
-}
+        .stat {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.badge{
-display:inline-block;
-padding:8px 18px;
-background:#D1FAE5;
-color:#065F46;
-border-radius:30px;
-font-size:13px;
-font-weight:600;
-}
+        .stat h3 {
+            color: #0F766E;
+            margin-bottom: 5px;
+        }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-margin:20px 0;
-}
+        .stat p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.stat{
-background:white;
-padding:18px;
-border-radius:18px;
-text-align:center;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .section {
+            background: white;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.stat h3{
-color:#0F766E;
-margin-bottom:5px;
-}
+        .section h3 {
+            margin-bottom: 18px;
+            color: #0F766E;
+        }
 
-.stat p{
-font-size:13px;
-color:#6B7280;
-}
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ECECEC;
+        }
 
-.section{
-background:white;
-padding:22px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .item:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
 
-.section h3{
-margin-bottom:18px;
-color:#0F766E;
-}
+        .left {
+            display: flex;
+            align-items: center;
+        }
 
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #ECECEC;
-}
+        .left i {
+            width: 25px;
+            margin-right: 10px;
+            color: #0F766E;
+        }
 
-.item:last-child{
-border:none;
-padding-bottom:0;
-}
+        .right {
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-.left{
-display:flex;
-align-items:center;
-}
+        .button {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
 
-.left i{
-width:25px;
-margin-right:10px;
-color:#0F766E;
-}
+        .button:hover {
+            transform: translateY(-2px);
+        }
 
-.right{
-color:#6B7280;
-font-size:14px;
-font-weight:500;
-}
+        .primary {
+            background: #0F766E;
+            color: white;
+        }
 
-.button{
-display:block;
-text-align:center;
-padding:15px;
-text-decoration:none;
-border-radius:14px;
-font-weight:600;
-margin-top:15px;
-transition:0.3s;
-}
+        .primary:hover {
+            background: #0D6B64;
+        }
 
-.button:hover {
-    transform: translateY(-2px);
-}
+        .secondary {
+            background: #DC2626;
+            color: white;
+        }
 
-.primary{
-background:#0F766E;
-color:white;
-}
+        .secondary:hover {
+            background: #b91c1c;
+        }
 
-.primary:hover{
-background:#0D6B64;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.secondary{
-background:#DC2626;
-color:white;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
-.secondary:hover{
-background:#b91c1c;
-}
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-z-index:1000;
-}
+        .bottom-nav i {
+            font-size: 20px;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        /* Modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .modal-overlay.active {
+            display: flex;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
 
-.loading-spinner {
-    text-align: center;
-    padding: 40px 20px;
-    color: #6B7280;
-}
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
 
-.loading-spinner i {
-    font-size: 40px;
-    color: #0F766E;
-    margin-bottom: 15px;
-}
+        .modal-header h3 {
+            font-size: 20px;
+            color: #1F2937;
+        }
 
-</style>
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.3s;
+        }
 
+        .modal-close:hover {
+            color: #1F2937;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #0F766E;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal-actions .button {
+            margin-top: 0;
+            flex: 1;
+        }
+
+        .btn-secondary-modal {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .btn-secondary-modal:hover {
+            background: #D1D5DB;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+        }
+
+        .toast.success {
+            background: #065F46;
+        }
+
+        .toast.error {
+            background: #991B1B;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Session Protection Script -->
-<script type="module">
-    import { getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    async function protectPage() {
-        try {
-            const user = await getCurrentUser();
-            if (!user || !user.profile) {
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        // Session protection
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/login.html';
+                    return;
+                }
+                if (user.profile.role !== 'buyer') {
+                    window.location.href = '/mobileprocure/unauthorized.html';
+                    return;
+                }
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
                 window.location.href = '/mobileprocure/login.html';
-                return;
             }
-            
-            if (user.profile.role !== 'buyer') {
-                window.location.href = '/mobileprocure/unauthorized.html';
-                return;
-            }
-            
-            window.currentUser = user;
-            
-        } catch (error) {
-            console.error('Auth check error:', error);
-            window.location.href = '/mobileprocure/login.html';
         }
-    }
-    
-    await protectPage();
-</script>
 
-<header>
-    <h2>Buyer Profile</h2>
-    <a href="#">
-        <i class="fa-solid fa-pen"></i>
-    </a>
-</header>
+        await protectPage();
 
-<div class="container">
+        // DOM elements
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userRole = document.getElementById('userRole');
+        const userEmail = document.getElementById('userEmail');
+        const userPhone = document.getElementById('userPhone');
+        const companyName = document.getElementById('companyName');
+        const userCountry = document.getElementById('userCountry');
+        const userRoleDisplay = document.getElementById('userRoleDisplay');
+        const accountStatus = document.getElementById('accountStatus');
+        const verificationStatus = document.getElementById('verificationStatus');
+        const orderCount = document.getElementById('orderCount');
+        const supplierCount = document.getElementById('supplierCount');
+        const totalSpend = document.getElementById('totalSpend');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const editBtn = document.getElementById('editBtn');
 
-    <div class="profile-card" id="profileCard">
-        <div class="avatar" id="userAvatar">
-            <span id="userInitial">J</span>
-        </div>
-        <h2 id="userName">Loading...</h2>
-        <p id="userRole">Buyer</p>
-        <span class="badge">
-            <i class="fa-solid fa-circle-check"></i>
-            <span id="verificationStatus">Verified</span>
-        </span>
-    </div>
+        // Modal elements
+        const modalOverlay = document.getElementById('editModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const editForm = document.getElementById('editForm');
+        const editFullName = document.getElementById('editFullName');
+        const editPhone = document.getElementById('editPhone');
+        const editCompany = document.getElementById('editCompany');
+        const editCountry = document.getElementById('editCountry');
+        const editCity = document.getElementById('editCity');
+        const editProvince = document.getElementById('editProvince');
+        const editBio = document.getElementById('editBio');
 
-    <div class="stats">
-        <div class="stat">
-            <h3 id="orderCount">0</h3>
-            <p>Orders</p>
-        </div>
-        <div class="stat">
-            <h3 id="supplierCount">0</h3>
-            <p>Suppliers</p>
-        </div>
-        <div class="stat">
-            <h3 id="totalSpend">$0</h3>
-            <p>Total Spend</p>
-        </div>
-    </div>
+        // Toast elements
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
 
-    <div class="section">
-        <h3>Business Information</h3>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-building"></i>
-                Company
-            </div>
-            <div class="right" id="companyName">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-location-dot"></i>
-                Country
-            </div>
-            <div class="right" id="userCountry">Zambia</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-envelope"></i>
-                Email
-            </div>
-            <div class="right" id="userEmail">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-phone"></i>
-                Phone
-            </div>
-            <div class="right" id="userPhone">-</div>
-        </div>
-    </div>
+        let currentUser = null;
 
-    <div class="section">
-        <h3>Payment & Account</h3>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-wallet"></i>
-                Preferred Payment
-            </div>
-            <div class="right">Escrow (Bank Transfer)</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-credit-card"></i>
-                Payment Methods
-            </div>
-            <div class="right">3 Saved</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-repeat"></i>
-                Current Role
-            </div>
-            <div class="right" id="userRoleDisplay">Buyer</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-shield-halved"></i>
-                Account Status
-            </div>
-            <div class="right" id="accountStatus">Verified</div>
-        </div>
-    </div>
+        // Load user data
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    currentUser = user;
+                    const profile = user.profile;
 
-    <div class="section">
-        <h3>Account Actions</h3>
-        <a href="#" class="button primary">
-            Edit Profile
-        </a>
-        <a href="/continue-as.html" class="button primary">
-            Switch Role
-        </a>
-        <a href="/continue-as.html" class="button secondary" id="logoutBtn">
-            <i class="fa-solid fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
+                    userName.textContent = profile.full_name || 'User';
+                    userInitial.textContent = (profile.full_name || 'U').charAt(0).toUpperCase();
+                    userRole.textContent = profile.role || 'Buyer';
+                    userEmail.textContent = profile.email || '-';
+                    userPhone.textContent = profile.phone || '-';
+                    companyName.textContent = profile.company_name || '-';
+                    userRoleDisplay.textContent = profile.role || 'Buyer';
 
-</div>
+                    const isVerified = profile.is_verified === true;
+                    verificationStatus.textContent = isVerified ? 'Verified' : 'Pending';
+                    verificationStatus.parentElement.className = 'badge' + (isVerified ? '' : ' pending');
+                    accountStatus.textContent = isVerified ? 'Verified' : 'Pending Verification';
 
-<div class="bottom-nav">
-    <a href="dashboard.html">
-        <i class="fa-solid fa-house"></i>
-        Home
-    </a>
-    <a href="marketplace.html">
-        <i class="fa-solid fa-store"></i>
-        Marketplace
-    </a>
-    <a href="orders.html">
-        <i class="fa-solid fa-box"></i>
-        Orders
-    </a>
-    <a href="catalog.html">
-        <i class="fa-solid fa-book"></i>
-        Catalog
-    </a>
-    <a class="active" href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </a>
-</div>
+                    await loadUserProfile(user.id);
+                    await loadStats(user.id);
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
 
-<!-- Main Script -->
-<script type="module">
-    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
-    const userName = document.getElementById('userName');
-    const userInitial = document.getElementById('userInitial');
-    const userRole = document.getElementById('userRole');
-    const userEmail = document.getElementById('userEmail');
-    const userPhone = document.getElementById('userPhone');
-    const companyName = document.getElementById('companyName');
-    const userCountry = document.getElementById('userCountry');
-    const userRoleDisplay = document.getElementById('userRoleDisplay');
-    const accountStatus = document.getElementById('accountStatus');
-    const verificationStatus = document.getElementById('verificationStatus');
-    const orderCount = document.getElementById('orderCount');
-    const supplierCount = document.getElementById('supplierCount');
-    const totalSpend = document.getElementById('totalSpend');
-    const logoutBtn = document.getElementById('logoutBtn');
-    
-    // ============================================
-    // LOAD USER DATA
-    // ============================================
-    async function loadUserData() {
-        try {
-            const user = await getCurrentUser();
-            if (user && user.profile) {
+        // Load user profile
+        async function loadUserProfile(userId) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('country, city, province, bio')
+                    .eq('user_id', userId)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    userCountry.textContent = data.country || 'Zambia';
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+
+        // Load stats
+        async function loadStats(userId) {
+            try {
+                const { data: orders, error: orderError } = await supabase
+                    .from('orders')
+                    .select('id, total_amount')
+                    .eq('buyer_id', userId);
+
+                if (!orderError && orders) {
+                    orderCount.textContent = orders.length;
+                    const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
+                    totalSpend.textContent = `$${total.toLocaleString()}`;
+                }
+
+                const { data: suppliers, error: supplierError } = await supabase
+                    .from('orders')
+                    .select('supplier_id')
+                    .eq('buyer_id', userId);
+
+                if (!supplierError && suppliers) {
+                    const uniqueSuppliers = new Set(suppliers.map(o => o.supplier_id));
+                    supplierCount.textContent = uniqueSuppliers.size;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Open modal with current data
+        async function openEditModal() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return;
+
                 const profile = user.profile;
-                
-                // Update profile info
-                userName.textContent = profile.full_name || 'User';
-                userInitial.textContent = (profile.full_name || 'U').charAt(0).toUpperCase();
-                userRole.textContent = profile.role || 'Buyer';
-                userEmail.textContent = profile.email || '-';
-                userPhone.textContent = profile.phone || '-';
-                companyName.textContent = profile.company_name || '-';
-                userRoleDisplay.textContent = profile.role || 'Buyer';
-                
-                // Update status
-                const isVerified = profile.is_verified !== false;
-                verificationStatus.textContent = isVerified ? 'Verified' : 'Pending';
-                accountStatus.textContent = isVerified ? 'Verified' : 'Pending Verification';
-                
-                // Load stats
-                await loadStats(user.id);
-            }
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD STATS
-    // ============================================
-    async function loadStats(userId) {
-        try {
-            // Get order count and total spend
-            const { data: orders, error: orderError } = await supabase
-                .from('orders')
-                .select('id, total_amount')
-                .eq('buyer_id', userId);
-            
-            if (!orderError && orders) {
-                orderCount.textContent = orders.length;
-                
-                // Calculate total spend
-                const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
-                totalSpend.textContent = `$${total.toLocaleString()}`;
-            }
-            
-            // Get unique supplier count
-            const { data: suppliers, error: supplierError } = await supabase
-                .from('orders')
-                .select('supplier_id')
-                .eq('buyer_id', userId);
-            
-            if (!supplierError && suppliers) {
-                const uniqueSuppliers = new Set(suppliers.map(o => o.supplier_id));
-                supplierCount.textContent = uniqueSuppliers.size;
-            }
-            
-        } catch (error) {
-            console.error('Error loading stats:', error);
-        }
-    }
-    
-    // ============================================
-    // LOGOUT
-    // ============================================
-    async function handleLogout(e) {
-        e.preventDefault();
-        
-        try {
-            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
-            logoutBtn.style.opacity = '0.6';
-            logoutBtn.style.cursor = 'not-allowed';
-            
-            await signOut();
-            localStorage.clear();
-            window.location.href = '/continue-as.html';
-        } catch (error) {
-            console.error('Logout error:', error);
-            logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
-            logoutBtn.style.opacity = '1';
-            logoutBtn.style.cursor = 'pointer';
-            alert('Error logging out. Please try again.');
-        }
-    }
-    
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
-    logoutBtn.addEventListener('click', handleLogout);
-    
-    // ============================================
-    // INITIALIZE
-    // ============================================
-    loadUserData();
-</script>
+                editFullName.value = profile.full_name || '';
+                editPhone.value = profile.phone || '';
+                editCompany.value = profile.company_name || '';
 
+                // Load user_profiles data
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('country, city, province, bio')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    editCountry.value = data.country || 'Zambia';
+                    editCity.value = data.city || '';
+                    editProvince.value = data.province || '';
+                    editBio.value = data.bio || '';
+                }
+
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (error) {
+                console.error('Error opening modal:', error);
+                showToast('Error loading edit data', 'error');
+            }
+        }
+
+        // Close modal
+        function closeEditModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            editForm.reset();
+        }
+
+        // Handle form submission
+        async function handleEditSubmit(e) {
+            e.preventDefault();
+
+            const user = await getCurrentUser();
+            if (!user) return;
+
+            const fullName = editFullName.value.trim();
+            const phone = editPhone.value.trim();
+            const company = editCompany.value.trim();
+            const country = editCountry.value;
+            const city = editCity.value.trim();
+            const province = editProvince.value;
+            const bio = editBio.value.trim();
+
+            if (!fullName) {
+                showToast('Full name is required', 'error');
+                return;
+            }
+
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            try {
+                // Update profiles table
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .update({
+                        full_name: fullName,
+                        phone: phone || null,
+                        company_name: company || null,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+
+                if (profileError) throw profileError;
+
+                // Update user_profiles table
+                const { error: userProfileError } = await supabase
+                    .from('user_profiles')
+                    .update({
+                        country: country || 'Zambia',
+                        city: city || null,
+                        province: province || null,
+                        bio: bio || null,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('user_id', user.id);
+
+                if (userProfileError) throw userProfileError;
+
+                showToast('Profile updated successfully!', 'success');
+                closeEditModal();
+
+                // Reload data
+                await loadUserData();
+
+            } catch (error) {
+                console.error('Update error:', error);
+                showToast('Error updating profile: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Changes';
+            }
+        }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Logout
+        async function handleLogout(e) {
+            e.preventDefault();
+
+            try {
+                logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+                logoutBtn.style.opacity = '0.6';
+                logoutBtn.style.cursor = 'not-allowed';
+
+                await signOut();
+                localStorage.clear();
+                window.location.href = '/continue-as.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+                logoutBtn.style.opacity = '1';
+                logoutBtn.style.cursor = 'pointer';
+                showToast('Error logging out. Please try again.', 'error');
+            }
+        }
+
+        // Switch role redirect
+        function switchRole(e) {
+            e.preventDefault();
+            window.location.href = '/continue-as.html';
+        }
+
+        // Event listeners
+        logoutBtn.addEventListener('click', handleLogout);
+        editBtn.addEventListener('click', openEditModal);
+        closeModal.addEventListener('click', closeEditModal);
+        cancelModal.addEventListener('click', closeEditModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeEditModal();
+        });
+        editForm.addEventListener('submit', handleEditSubmit);
+
+        // Switch role button
+        document.querySelector('.button.primary:nth-of-type(2)')?.addEventListener('click', switchRole);
+
+        // Initialize
+        loadUserData();
+    </script>
+
+    <header>
+        <h2>Buyer Profile</h2>
+        <a id="editBtn" title="Edit Profile">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+    </header>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="avatar" id="userAvatar">
+                <span id="userInitial">J</span>
+            </div>
+            <h2 id="userName">Loading...</h2>
+            <p id="userRole">Buyer</p>
+            <span class="badge">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="verificationStatus">Verified</span>
+            </span>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <h3 id="orderCount">0</h3>
+                <p>Orders</p>
+            </div>
+            <div class="stat">
+                <h3 id="supplierCount">0</h3>
+                <p>Suppliers</p>
+            </div>
+            <div class="stat">
+                <h3 id="totalSpend">$0</h3>
+                <p>Total Spend</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Business Information</h3>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-building"></i>
+                    Company
+                </div>
+                <div class="right" id="companyName">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Country
+                </div>
+                <div class="right" id="userCountry">Zambia</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-envelope"></i>
+                    Email
+                </div>
+                <div class="right" id="userEmail">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-phone"></i>
+                    Phone
+                </div>
+                <div class="right" id="userPhone">-</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Payment & Account</h3>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-repeat"></i>
+                    Current Role
+                </div>
+                <div class="right" id="userRoleDisplay">Buyer</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Account Status
+                </div>
+                <div class="right" id="accountStatus">Verified</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Account Actions</h3>
+            <button class="button primary" id="editBtn2">
+                Edit Profile
+            </button>
+            <a href="/continue-as.html" class="button primary">
+                Switch Role
+            </a>
+            <button class="button secondary" id="logoutBtn">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="editFullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="editPhone" placeholder="+260 123 456 789">
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="editCompany" placeholder="Enter company name">
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="editCountry">
+                        <option value="Zambia">Zambia</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Mozambique">Mozambique</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="DRC">DRC</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="editCity" placeholder="Enter city">
+                </div>
+                <div class="form-group">
+                    <label>Province</label>
+                    <select id="editProvince">
+                        <option value="">Select Province</option>
+                        <option value="Central">Central</option>
+                        <option value="Copperbelt">Copperbelt</option>
+                        <option value="Eastern">Eastern</option>
+                        <option value="Luapula">Luapula</option>
+                        <option value="Lusaka">Lusaka</option>
+                        <option value="Muchinga">Muchinga</option>
+                        <option value="Northern">Northern</option>
+                        <option value="North-Western">North-Western</option>
+                        <option value="Southern">Southern</option>
+                        <option value="Western">Western</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="editBio" placeholder="Tell buyers about your business..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="button btn-secondary-modal" id="cancelModal">Cancel</button>
+                    <button type="submit" class="button primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="marketplace.html">
+            <i class="fa-solid fa-store"></i>
+            Marketplace
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-box"></i>
+            Orders
+        </a>
+        <a href="catalog.html">
+            <i class="fa-solid fa-book"></i>
+            Catalog
+        </a>
+        <a class="active" href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 </body>
 </html>
