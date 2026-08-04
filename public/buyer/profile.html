@@ -410,7 +410,7 @@
     <script type="module">
         import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
 
-        // Session protection
+        // SESSION PROTECTION
         async function protectPage() {
             try {
                 const user = await getCurrentUser();
@@ -431,7 +431,7 @@
 
         await protectPage();
 
-        // DOM elements
+        // DOM ELEMENTS
         const userName = document.getElementById('userName');
         const userInitial = document.getElementById('userInitial');
         const userRole = document.getElementById('userRole');
@@ -447,8 +447,10 @@
         const totalSpend = document.getElementById('totalSpend');
         const logoutBtn = document.getElementById('logoutBtn');
         const editBtn = document.getElementById('editBtn');
+        const editBtn2 = document.getElementById('editBtn2');
+        const switchRoleBtn = document.getElementById('switchRoleBtn');
 
-        // Modal elements
+        // MODAL ELEMENTS
         const modalOverlay = document.getElementById('editModal');
         const closeModal = document.getElementById('closeModal');
         const cancelModal = document.getElementById('cancelModal');
@@ -461,13 +463,13 @@
         const editProvince = document.getElementById('editProvince');
         const editBio = document.getElementById('editBio');
 
-        // Toast elements
+        // TOAST ELEMENTS
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toastMessage');
 
         let currentUser = null;
 
-        // Load user data
+        // LOAD USER DATA
         async function loadUserData() {
             try {
                 const user = await getCurrentUser();
@@ -496,7 +498,7 @@
             }
         }
 
-        // Load user profile
+        // LOAD USER PROFILE (Extra details)
         async function loadUserProfile(userId) {
             try {
                 const { data, error } = await supabase
@@ -513,27 +515,20 @@
             }
         }
 
-        // Load stats
+        // LOAD STATS
         async function loadStats(userId) {
             try {
                 const { data: orders, error: orderError } = await supabase
                     .from('orders')
-                    .select('id, total_amount')
+                    .select('id, total_amount, supplier_id')
                     .eq('buyer_id', userId);
 
                 if (!orderError && orders) {
                     orderCount.textContent = orders.length;
                     const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
                     totalSpend.textContent = `$${total.toLocaleString()}`;
-                }
-
-                const { data: suppliers, error: supplierError } = await supabase
-                    .from('orders')
-                    .select('supplier_id')
-                    .eq('buyer_id', userId);
-
-                if (!supplierError && suppliers) {
-                    const uniqueSuppliers = new Set(suppliers.map(o => o.supplier_id));
+                    
+                    const uniqueSuppliers = new Set(orders.map(o => o.supplier_id));
                     supplierCount.textContent = uniqueSuppliers.size;
                 }
             } catch (error) {
@@ -541,18 +536,21 @@
             }
         }
 
-        // Open modal with current data
+        // OPEN MODAL
         async function openEditModal() {
             try {
                 const user = await getCurrentUser();
-                if (!user || !user.profile) return;
+                if (!user || !user.profile) {
+                    showToast('Session expired. Please log in again.', 'error');
+                    return;
+                }
 
                 const profile = user.profile;
                 editFullName.value = profile.full_name || '';
                 editPhone.value = profile.phone || '';
                 editCompany.value = profile.company_name || '';
 
-                // Load user_profiles data
+                // Fetch user_profiles data
                 const { data, error } = await supabase
                     .from('user_profiles')
                     .select('country, city, province, bio')
@@ -564,6 +562,12 @@
                     editCity.value = data.city || '';
                     editProvince.value = data.province || '';
                     editBio.value = data.bio || '';
+                } else {
+                    // Defaults if no profile exists yet
+                    editCountry.value = 'Zambia';
+                    editCity.value = '';
+                    editProvince.value = '';
+                    editBio.value = '';
                 }
 
                 modalOverlay.classList.add('active');
@@ -574,19 +578,22 @@
             }
         }
 
-        // Close modal
+        // CLOSE MODAL
         function closeEditModal() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
             editForm.reset();
         }
 
-        // Handle form submission
+        // HANDLE FORM SUBMISSION
         async function handleEditSubmit(e) {
             e.preventDefault();
 
             const user = await getCurrentUser();
-            if (!user) return;
+            if (!user) {
+                showToast('Session expired. Please log in again.', 'error');
+                return;
+            }
 
             const fullName = editFullName.value.trim();
             const phone = editPhone.value.trim();
@@ -606,7 +613,7 @@
             submitBtn.textContent = 'Saving...';
 
             try {
-                // Update profiles table
+                // 1. Update profiles table
                 const { error: profileError } = await supabase
                     .from('profiles')
                     .update({
@@ -619,24 +626,24 @@
 
                 if (profileError) throw profileError;
 
-                // Update user_profiles table
+                // 2. Upsert user_profiles table (Creates or Updates safely)
                 const { error: userProfileError } = await supabase
                     .from('user_profiles')
-                    .update({
+                    .upsert({
+                        user_id: user.id,
                         country: country || 'Zambia',
                         city: city || null,
                         province: province || null,
                         bio: bio || null,
                         updated_at: new Date().toISOString()
-                    })
-                    .eq('user_id', user.id);
+                    }, { onConflict: 'user_id' });
 
                 if (userProfileError) throw userProfileError;
 
                 showToast('Profile updated successfully!', 'success');
                 closeEditModal();
 
-                // Reload data
+                // Reload data to reflect changes on the page
                 await loadUserData();
 
             } catch (error) {
@@ -648,7 +655,7 @@
             }
         }
 
-        // Toast notification
+        // TOAST NOTIFICATION
         function showToast(message, type = 'success') {
             toastMessage.textContent = message;
             toast.className = 'toast ' + type + ' show';
@@ -657,7 +664,7 @@
             }, 4000);
         }
 
-        // Logout
+        // LOGOUT
         async function handleLogout(e) {
             e.preventDefault();
 
@@ -678,15 +685,16 @@
             }
         }
 
-        // Switch role redirect
+        // SWITCH ROLE REDIRECT
         function switchRole(e) {
             e.preventDefault();
             window.location.href = '/continue-as.html';
         }
 
-        // Event listeners
+        // EVENT LISTENERS
         logoutBtn.addEventListener('click', handleLogout);
         editBtn.addEventListener('click', openEditModal);
+        editBtn2.addEventListener('click', openEditModal);
         closeModal.addEventListener('click', closeEditModal);
         cancelModal.addEventListener('click', closeEditModal);
         modalOverlay.addEventListener('click', (e) => {
@@ -694,10 +702,12 @@
         });
         editForm.addEventListener('submit', handleEditSubmit);
 
-        // Switch role button
-        document.querySelector('.button.primary:nth-of-type(2)')?.addEventListener('click', switchRole);
+        // Safely attach switch role listener
+        if (switchRoleBtn) {
+            switchRoleBtn.addEventListener('click', switchRole);
+        }
 
-        // Initialize
+        // INITIALIZE
         loadUserData();
     </script>
 
@@ -788,13 +798,15 @@
 
         <div class="section">
             <h3>Account Actions</h3>
-            <button class="button primary" id="editBtn2">
+            <!-- Added type="button" to prevent accidental form submissions -->
+            <button type="button" class="button primary" id="editBtn2">
                 Edit Profile
             </button>
-            <a href="/continue-as.html" class="button primary">
+            <!-- Added id="switchRoleBtn" to fix the JS selector issue -->
+            <a href="/continue-as.html" class="button primary" id="switchRoleBtn">
                 Switch Role
             </a>
-            <button class="button secondary" id="logoutBtn">
+            <button type="button" class="button secondary" id="logoutBtn">
                 <i class="fa-solid fa-sign-out-alt"></i> Logout
             </button>
         </div>
@@ -805,7 +817,7 @@
         <div class="modal">
             <div class="modal-header">
                 <h3>Edit Profile</h3>
-                <button class="modal-close" id="closeModal">&times;</button>
+                <button type="button" class="modal-close" id="closeModal">&times;</button>
             </div>
             <form id="editForm">
                 <div class="form-group">
