@@ -1,502 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mobile Procure | Create Account</title>
-
-<link rel="icon" href="assets/images/logo.png" type="image/png">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#F5F7FA;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
-}
-
-.container{
-width:100%;
-max-width:450px;
-}
-
-.logo{
-text-align:center;
-margin-bottom:20px;
-}
-
-.logo img{
-width:85px;
-margin-bottom:10px;
-}
-
-.logo h1{
-color:#0D7377;
-font-size:28px;
-}
-
-.logo p{
-color:#6B7280;
-font-size:14px;
-}
-
-.card{
-background:#fff;
-padding:30px;
-border-radius:22px;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
-
-.portal{
-display:flex;
-align-items:center;
-gap:15px;
-background:#F0FDFA;
-padding:15px;
-border-radius:15px;
-margin-bottom:25px;
-}
-
-.portal-icon{
-width:55px;
-height:55px;
-border-radius:50%;
-background:#0D7377;
-color:#fff;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:22px;
-}
-
-.portal h3{
-font-size:18px;
-margin-bottom:4px;
-}
-
-.portal p{
-font-size:13px;
-color:#6B7280;
-}
-
-.input-group{
-margin-bottom:18px;
-}
-
-.input-group label{
-display:block;
-margin-bottom:8px;
-font-size:14px;
-font-weight:500;
-color:#374151;
-}
-
-.input-box{
-display:flex;
-align-items:center;
-border:1px solid #D1D5DB;
-border-radius:12px;
-padding:13px;
-}
-
-.input-box i{
-margin-right:10px;
-color:#9CA3AF;
-}
-
-.input-box input,
-.input-box select{
-border:none;
-outline:none;
-width:100%;
-font-size:15px;
-background:none;
-}
-
-.checkbox{
-display:flex;
-align-items:flex-start;
-gap:10px;
-margin:20px 0;
-font-size:14px;
-color:#4B5563;
-}
-
-.checkbox input{
-margin-top:3px;
-}
-
-button{
-width:100%;
-padding:15px;
-border:none;
-border-radius:12px;
-background:#0D7377;
-color:#fff;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-transition:.3s;
-}
-
-button:hover{
-background:#095A5C;
-}
-
-.login{
-margin-top:25px;
-text-align:center;
-}
-
-.login p{
-margin-bottom:12px;
-color:#6B7280;
-font-size:14px;
-}
-
-.login a{
-display:inline-block;
-padding:12px 28px;
-border:2px solid #0D7377;
-border-radius:12px;
-text-decoration:none;
-font-weight:600;
-color:#0D7377;
-transition:.3s;
-}
-
-.login a:hover{
-background:#0D7377;
-color:#fff;
-}
-
-.restricted{
-display:none;
-background:#FEF3C7;
-border-left:5px solid #F59E0B;
-padding:18px;
-border-radius:12px;
-margin-bottom:20px;
-color:#92400E;
-}
-
-.restricted h3{
-margin-bottom:10px;
-}
-
-.back{
-margin-top:20px;
-text-align:center;
-}
-
-.back a{
-text-decoration:none;
-color:#0D7377;
-font-size:14px;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Create Account</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #F5F7FA; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { width: 100%; max-width: 500px; }
+        .logo { text-align: center; margin-bottom: 20px; }
+        .logo img { width: 85px; margin-bottom: 10px; }
+        .logo h1 { color: #0D7377; font-size: 28px; }
+        .logo p { color: #6B7280; font-size: 14px; }
+        .card { background: #fff; padding: 30px; border-radius: 22px; box-shadow: 0 8px 25px rgba(0,0,0,.08); }
+        .portal { display: flex; align-items: center; gap: 15px; background: #F0FDFA; padding: 15px; border-radius: 15px; margin-bottom: 25px; }
+        .portal-icon { width: 55px; height: 55px; border-radius: 50%; background: #0D7377; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 22px; }
+        .portal h3 { font-size: 18px; margin-bottom: 4px; }
+        .portal p { font-size: 13px; color: #6B7280; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: #374151; }
+        .input-box { display: flex; align-items: center; border: 1px solid #D1D5DB; border-radius: 12px; padding: 12px 14px; }
+        .input-box i { margin-right: 10px; color: #9CA3AF; width: 18px; }
+        .input-box input, .input-box select { border: none; outline: none; width: 100%; font-size: 14px; background: none; }
+        .input-box select { color: #6B7280; }
+        .checkbox { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; font-size: 14px; color: #4B5563; }
+        .checkbox input { margin-top: 3px; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #0D7377; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: .3s; }
+        button:hover { background: #095A5C; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login { margin-top: 20px; text-align: center; }
+        .login p { margin-bottom: 10px; color: #6B7280; font-size: 14px; }
+        .login a { display: inline-block; padding: 10px 28px; border: 2px solid #0D7377; border-radius: 12px; text-decoration: none; font-weight: 600; color: #0D7377; transition: .3s; }
+        .login a:hover { background: #0D7377; color: #fff; }
+        .restricted { display: none; background: #FEF3C7; border-left: 5px solid #F59E0B; padding: 18px; border-radius: 12px; margin-bottom: 20px; color: #92400E; }
+        .restricted h3 { margin-bottom: 10px; }
+        .back { margin-top: 20px; text-align: center; }
+        .back a { text-decoration: none; color: #0D7377; font-size: 14px; }
+        .error-message { background: #FEE2E2; color: #DC2626; padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 15px; display: none; border: 1px solid #FECACA; }
+        .success-message { background: #DCFCE7; color: #16A34A; padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 15px; display: none; border: 1px solid #BBF7D0; }
+        .error-message.show, .success-message.show { display: block; }
+        .role-specific { display: none; }
+        .role-specific.active { display: block; }
+        .role-specific .input-group { margin-bottom: 15px; }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
+    <div class="logo">
+        <img src="assets/images/logo.png" alt="Logo">
+        <h1>Mobile Procure</h1>
+        <p>Create your account</p>
+    </div>
 
-<div class="logo">
+    <div class="card">
 
-<img src="assets/images/logo.png" alt="Logo">
+        <div id="restrictedMessage" class="restricted">
+            <h3>Registration Restricted</h3>
+            <p id="restrictedText"></p>
+        </div>
 
-<h1>Mobile Procure</h1>
+        <div id="signupForm">
+            <div class="portal">
+                <div class="portal-icon"><i id="portalIcon" class="fa-solid fa-user"></i></div>
+                <div>
+                    <h3 id="portalTitle">Create Account</h3>
+                    <p id="portalSubtitle">Complete the form below.</p>
+                </div>
+            </div>
 
-<p>Create your account</p>
+            <div id="errorMessage" class="error-message"><span id="errorText">Error message</span></div>
+            <div id="successMessage" class="success-message"><span id="successText">Success!</span></div>
 
+            <form id="signupFormElement">
+                <!-- Hidden role field -->
+                <input type="hidden" id="userRole" value="buyer">
+
+                <!-- Common fields -->
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="fullName" placeholder="Enter full name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter email" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="tel" id="phone" placeholder="+260 123 456 789">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Province</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <select id="province">
+                            <option value="">Select Province</option>
+                            <option value="Central">Central</option>
+                            <option value="Copperbelt">Copperbelt</option>
+                            <option value="Eastern">Eastern</option>
+                            <option value="Luapula">Luapula</option>
+                            <option value="Lusaka">Lusaka</option>
+                            <option value="Muchinga">Muchinga</option>
+                            <option value="Northern">Northern</option>
+                            <option value="North-Western">North-Western</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Western">Western</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Company / Business Name (for suppliers & logistics) -->
+                <div class="role-specific" id="companyFields">
+                    <div class="input-group">
+                        <label>Business / Company Name</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-building"></i>
+                            <input type="text" id="companyName" placeholder="Enter business name">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Tax ID (TPIN)</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <input type="text" id="taxId" placeholder="Enter Tax ID">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Registration Number</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-registered"></i>
+                            <input type="text" id="regNumber" placeholder="Enter registration number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password fields -->
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Create password" required minlength="8">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+                    </div>
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="termsCheckbox" required>
+                    <span>I agree to the Terms & Conditions and Privacy Policy.</span>
+                </div>
+
+                <button type="submit" id="signupButton">Create Account</button>
+            </form>
+        </div>
+
+        <div class="login">
+            <p>Already have an account?</p>
+            <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        </div>
+
+        <div class="back">
+            <a href="continue-as.html"><i class="fa-solid fa-arrow-left"></i> Choose Another Portal</a>
+        </div>
+    </div>
 </div>
 
-<div class="card">
-
-<div id="restrictedMessage" class="restricted">
-
-<h3>Registration Restricted</h3>
-
-<p id="restrictedText"></p>
-
-</div>
-
-<div id="signupForm">
-
-<div class="portal">
-
-<div class="portal-icon">
-
-<i id="portalIcon" class="fa-solid fa-user"></i>
-
-</div>
-
-<div>
-
-<h3 id="portalTitle">Create Account</h3>
-
-<p id="portalSubtitle">Complete the form below.</p>
-
-</div>
-
-</div>
-
-<form>
-
-<div class="input-group">
-
-<label>Full Name</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-user"></i>
-
-<input type="text" placeholder="Enter full name">
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Business / Company Name</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-building"></i>
-
-<input type="text" placeholder="Optional">
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Email Address</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-envelope"></i>
-
-<input type="email" placeholder="Enter email">
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Phone Number</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-phone"></i>
-
-<input type="tel" placeholder="+260">
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Province</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<select>
-
-<option>Select Province</option>
-
-<option>Central</option>
-
-<option>Copperbelt</option>
-
-<option>Eastern</option>
-
-<option>Luapula</option>
-
-<option>Lusaka</option>
-
-<option>Muchinga</option>
-
-<option>Northern</option>
-
-<option>North-Western</option>
-
-<option>Southern</option>
-
-<option>Western</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Password</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-lock"></i>
-
-<input type="password" placeholder="Create password">
-
-</div>
-
-</div>
-
-<div class="input-group">
-
-<label>Confirm Password</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-lock"></i>
-
-<input type="password" placeholder="Confirm password">
-
-</div>
-
-</div>
-
-<div class="checkbox">
-
-<input type="checkbox">
-
-<span>I agree to the Terms & Conditions and Privacy Policy.</span>
-
-</div>
-
-<button id="signupButton">
-
-Create Account
-
-</button>
-
-</form>
-
-</div>
-
-<div class="login">
-
-<p>Already have an account?</p>
-
-<a href="login.html">
-
-<i class="fa-solid fa-right-to-bracket"></i>
-
- Login
-
-</a>
-
-</div>
-
-<div class="back">
-
-<a href="continue-as.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
- Choose Another Portal
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const role = localStorage.getItem("selectedRole") || "buyer";
-
-const portalTitle = document.getElementById("portalTitle");
-const portalSubtitle = document.getElementById("portalSubtitle");
-const portalIcon = document.getElementById("portalIcon");
-const signupButton = document.getElementById("signupButton");
-
-const restrictedMessage = document.getElementById("restrictedMessage");
-const restrictedText = document.getElementById("restrictedText");
-const signupForm = document.getElementById("signupForm");
-
-const roles = {
-
-buyer:{
-title:"Buyer Portal",
-subtitle:"Register to purchase livestock.",
-button:"Create Buyer Account",
-icon:"fa-cart-shopping"
-},
-
-supplier:{
-title:"Supplier Portal",
-subtitle:"Register your livestock business.",
-button:"Create Supplier Account",
-icon:"fa-cow"
-},
-
-logistics:{
-title:"Logistics Portal",
-subtitle:"Register your logistics company.",
-button:"Register Logistics Company",
-icon:"fa-truck-fast"
-},
-
-government:{
-restricted:true,
-message:"Government accounts are created and managed by the Mobile Procure System Administrator."
-},
-
-fintech:{
-restricted:true,
-message:"Fintech institutions are onboarded by Mobile Procure after approval and partnership verification."
-}
-
-};
-
-const current = roles[role];
-
-if(current.restricted){
-
-signupForm.style.display="none";
-restrictedMessage.style.display="block";
-restrictedText.innerText=current.message;
-
-}else{
-
-portalTitle.innerText=current.title;
-portalSubtitle.innerText=current.subtitle;
-signupButton.innerText=current.button;
-
-portalIcon.className="fa-solid "+current.icon;
-
-}
-
+<script type="importmap">
+    {
+        "imports": {
+            "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+        }
+    }
+</script>
+
+<script type="module">
+    import { createClient } from '@supabase/supabase-js';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../assets/js/supabase-config.js';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const role = localStorage.getItem("selectedRole") || "buyer";
+    document.getElementById('userRole').value = role;
+
+    const portalTitle = document.getElementById("portalTitle");
+    const portalSubtitle = document.getElementById("portalSubtitle");
+    const portalIcon = document.getElementById("portalIcon");
+    const signupButton = document.getElementById("signupButton");
+    const restrictedMessage = document.getElementById("restrictedMessage");
+    const restrictedText = document.getElementById("restrictedText");
+    const signupForm = document.getElementById("signupForm");
+    const companyFields = document.getElementById("companyFields");
+
+    const roles = {
+        buyer: {
+            title: "Buyer Portal",
+            subtitle: "Register to purchase livestock.",
+            button: "Create Buyer Account",
+            icon: "fa-cart-shopping"
+        },
+        supplier: {
+            title: "Supplier Portal",
+            subtitle: "Register your livestock business.",
+            button: "Create Supplier Account",
+            icon: "fa-cow",
+            showCompany: true
+        },
+        logistics: {
+            title: "Logistics Portal",
+            subtitle: "Register your logistics company.",
+            button: "Register Logistics Company",
+            icon: "fa-truck-fast",
+            showCompany: true
+        },
+        government: {
+            restricted: true,
+            message: "Government accounts are created and managed by the System Administrator."
+        },
+        fintech: {
+            restricted: true,
+            message: "Fintech institutions are onboarded by Mobile Procure after approval."
+        },
+        veterinary: {
+            restricted: true,
+            message: "Veterinary accounts are created and managed by the System Administrator."
+        },
+        customs: {
+            restricted: true,
+            message: "Customs accounts are created and managed by the System Administrator."
+        }
+    };
+
+    const current = roles[role];
+
+    if (current.restricted) {
+        signupForm.style.display = "none";
+        restrictedMessage.style.display = "block";
+        restrictedText.innerText = current.message;
+    } else {
+        portalTitle.innerText = current.title;
+        portalSubtitle.innerText = current.subtitle;
+        signupButton.innerText = current.button;
+        portalIcon.className = "fa-solid " + current.icon;
+
+        if (current.showCompany) {
+            companyFields.classList.add('active');
+        }
+    }
+
+    // Handle signup
+    const form = document.getElementById('signupFormElement');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const successMessage = document.getElementById('successMessage');
+    const successText = document.getElementById('successText');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        errorMessage.classList.remove('show');
+        successMessage.classList.remove('show');
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const province = document.getElementById('province').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const userRole = document.getElementById('userRole').value;
+        const companyName = document.getElementById('companyName').value.trim();
+        const taxId = document.getElementById('taxId').value.trim();
+        const regNumber = document.getElementById('regNumber').value.trim();
+
+        if (!fullName || !email || !password) {
+            showError('Please fill in all required fields.');
+            return;
+        }
+
+        if (password.length < 8) {
+            showError('Password must be at least 8 characters.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showError('Passwords do not match.');
+            return;
+        }
+
+        const checkbox = document.getElementById('termsCheckbox');
+        if (!checkbox.checked) {
+            showError('Please agree to the Terms & Conditions.');
+            return;
+        }
+
+        signupButton.disabled = true;
+        signupButton.textContent = 'Creating account...';
+
+        try {
+            // 1. Create auth user
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: fullName,
+                        role: userRole
+                    }
+                }
+            });
+
+            if (authError) throw authError;
+
+            if (!authData.user) {
+                throw new Error('User creation failed');
+            }
+
+            // 2. Create profile
+            const profileData = {
+                id: authData.user.id,
+                email: email,
+                full_name: fullName,
+                phone: phone || null,
+                role: userRole,
+                company_name: companyName || null,
+                tax_id: taxId || null,
+                registration_number: regNumber || null,
+                is_active: true,
+                is_verified: false
+            };
+
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .insert([profileData]);
+
+            if (profileError) throw profileError;
+
+            // 3. Create user_profile
+            const userProfileData = {
+                user_id: authData.user.id,
+                province: province || null,
+                country: 'Zambia'
+            };
+
+            const { error: userProfileError } = await supabase
+                .from('user_profiles')
+                .insert([userProfileData]);
+
+            if (userProfileError) {
+                console.warn('User profile creation failed:', userProfileError);
+            }
+
+            // 4. Create role-specific profile
+            if (userRole === 'supplier') {
+                const { error: supplierError } = await supabase
+                    .from('supplier_profiles')
+                    .insert([{
+                        user_id: authData.user.id,
+                        business_type: null,
+                        farm_size_hectares: null,
+                        livestock_capacity: null,
+                        is_approved: false
+                    }]);
+
+                if (supplierError) {
+                    console.warn('Supplier profile creation failed:', supplierError);
+                }
+            } else if (userRole === 'logistics') {
+                const { error: logisticsError } = await supabase
+                    .from('logistics_profiles')
+                    .insert([{
+                        user_id: authData.user.id,
+                        fleet_size: 0,
+                        is_approved: false
+                    }]);
+
+                if (logisticsError) {
+                    console.warn('Logistics profile creation failed:', logisticsError);
+                }
+            } else if (userRole === 'buyer') {
+                const { error: buyerError } = await supabase
+                    .from('buyer_profiles')
+                    .insert([{
+                        user_id: authData.user.id,
+                        credit_limit: null,
+                        credit_used: 0
+                    }]);
+
+                if (buyerError) {
+                    console.warn('Buyer profile creation failed:', buyerError);
+                }
+            }
+
+            // Success!
+            successText.textContent = 'Account created successfully! You can now login.';
+            successMessage.classList.add('show');
+            form.reset();
+
+            // Redirect after 3 seconds
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 3000);
+
+        } catch (error) {
+            console.error('Signup error:', error);
+            showError(error.message || 'An error occurred during signup.');
+        } finally {
+            signupButton.disabled = false;
+            signupButton.textContent = current.button || 'Create Account';
+        }
+    });
+
+    function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.add('show');
+    }
 </script>
 
 </body>
