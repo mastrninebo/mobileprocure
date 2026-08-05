@@ -806,6 +806,7 @@
                         company_name: company || null,
                         tax_id: taxId || null,
                         registration_number: regNumber || null,
+                        profile_completed: true, // Mark profile as completed
                         updated_at: new Date().toISOString()
                     })
                     .eq('id', user.id);

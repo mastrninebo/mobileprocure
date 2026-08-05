@@ -403,6 +403,16 @@
             adminMessage.style.display = 'block';
         }
 
+        // HELPER: REDIRECT WITH PROFILE CHECK FLAG
+        // Redirects user to their dashboard and appends ?checkProfile=true 
+        // so the dashboard knows to trigger the profile completion modal.
+        function redirectToDashboard(userRole) {
+            const redirectUrl = getRoleRedirect(userRole);
+            const url = new URL(redirectUrl, window.location.origin);
+            url.searchParams.set('checkProfile', 'true');
+            window.location.href = url.toString();
+        }
+
         // CHECK EXISTING SESSION
         async function checkExistingSession() {
             try {
@@ -411,8 +421,7 @@
                     const portalRole = localStorage.getItem('selectedRole');
                     const userRole = user.profile.role;
                     if (!portalRole || userRole === portalRole) {
-                        const redirectUrl = getRoleRedirect(userRole);
-                        window.location.href = redirectUrl;
+                        redirectToDashboard(userRole);
                     }
                 }
             } catch (error) {
@@ -472,7 +481,7 @@
                 if (!portalRole) {
                     localStorage.setItem('selectedRole', userRole);
                     showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
-                    setTimeout(() => { window.location.href = getRoleRedirect(userRole); }, 1500);
+                    setTimeout(() => { redirectToDashboard(userRole); }, 1500);
                     return;
                 }
 
@@ -486,7 +495,7 @@
 
                 // Successful Login
                 showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
-                setTimeout(() => { window.location.href = getRoleRedirect(userRole); }, 1500);
+                setTimeout(() => { redirectToDashboard(userRole); }, 1500);
 
             } catch (error) {
                 console.error('Login error:', error);
