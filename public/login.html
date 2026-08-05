@@ -414,18 +414,23 @@
         // CHECK EXISTING SESSION
         async function checkExistingSession() {
             try {
-                const user = await getCurrentUser();
-                if (user && user.profile) {
-                    const portalRole = localStorage.getItem('selectedRole');
-                    if (!portalRole) {
-                        redirectToDashboard(user.profile.role);
-                    } else {
-                        // Verify role via RPC before auto-redirecting
-                        const { data: roles } = await supabase.rpc('get_user_roles', { uid: user.id });
-                        const userRoles = roles ? roles.map(r => r.role) : [];
-                        if (userRoles.includes(portalRole)) {
-                            redirectToDashboard(portalRole);
-                        }
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) return;
+
+                const portalRole = localStorage.getItem('selectedRole');
+                if (!portalRole) {
+                    const userWithProfile = await getCurrentUser();
+                    if (userWithProfile?.profile) {
+                        redirectToDashboard(userWithProfile.profile.role);
+                    }
+                } else {
+                    // Verify role via RPC before auto-redirecting
+                    const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                    if (error) console.error('Session RPC error:', error);
+                    
+                    const userRoles = roles ? roles.map(r => r.role) : [];
+                    if (userRoles.includes(portalRole)) {
+                        redirectToDashboard(portalRole);
                     }
                 }
             } catch (error) {
@@ -478,14 +483,27 @@
                     return;
                 }
 
+                // Safely get the authentication ID directly from the Supabase session
+                const { data: { user: authUser } } = await supabase.auth.getUser();
+                const userId = authUser?.id;
+
+                if (!userId) {
+                    showError('Could not verify user identity. Please try again.');
+                    await supabase.auth.signOut();
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    return;
+                }
+
                 const portalRole = localStorage.getItem('selectedRole');
 
                 // Fetch all roles the user possesses using our secure database function
                 const { data: userRolesData, error: rolesError } = await supabase
-                    .rpc('get_user_roles', { uid: userWithProfile.id });
+                    .rpc('get_user_roles', { uid: userId });
 
-                if (rolesError || !userRolesData) {
-                    showError('Error verifying user permissions. Please contact support.');
+                if (rolesError) {
+                    console.error('RPC Error:', rolesError);
+                    showError('Error verifying user permissions: ' + rolesError.message);
                     await supabase.auth.signOut();
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
