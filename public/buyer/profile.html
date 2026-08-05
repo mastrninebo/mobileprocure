@@ -55,6 +55,12 @@
             text-align: center;
             box-shadow: 0 8px 20px rgba(0,0,0,.05);
             margin-bottom: 20px;
+            position: relative;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         .avatar {
@@ -62,13 +68,35 @@
             height: 110px;
             border-radius: 50%;
             background: #0F766E;
-            margin: auto;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 45px;
             color: white;
             margin-bottom: 18px;
+        }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 20px;
+            right: -5px;
+            background: #0F766E;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .avatar-edit-btn:hover {
+            background: #0D6B64;
+            transform: scale(1.1);
         }
 
         .profile-card h2 {
@@ -93,6 +121,22 @@
         .badge.pending {
             background: #FEF3C7;
             color: #92400E;
+        }
+
+        .view-details-btn {
+            display: inline-block;
+            margin-top: 12px;
+            background: none;
+            border: none;
+            color: #0F766E;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .view-details-btn:hover {
+            color: #0D6B64;
         }
 
         .stats {
@@ -161,6 +205,11 @@
             color: #6B7280;
             font-size: 14px;
             font-weight: 500;
+        }
+
+        .right.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
         }
 
         .button {
@@ -232,7 +281,7 @@
             font-size: 20px;
         }
 
-        /* Modal styles */
+        /* MODAL STYLES */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -256,7 +305,7 @@
             background: white;
             border-radius: 24px;
             padding: 30px;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -268,6 +317,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F3F4F6;
         }
 
         .modal-header h3 {
@@ -289,13 +340,22 @@
             color: #1F2937;
         }
 
+        .modal-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0F766E;
+            margin: 20px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ECECEC;
+        }
+
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-size: 14px;
             font-weight: 500;
             color: #374151;
@@ -305,30 +365,47 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 14px;
+            padding: 11px 14px;
             border: 1px solid #D1D5DB;
             border-radius: 12px;
             font-size: 14px;
             outline: none;
             transition: border-color 0.3s;
             font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: #0F766E;
+            background: white;
+        }
+
+        .form-group .hint {
+            display: block;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .modal-actions {
             display: flex;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #F3F4F6;
         }
 
         .modal-actions .button {
@@ -383,16 +460,46 @@
             }
         }
 
-        .loading-spinner {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6B7280;
+        /* PERSONAL INFO DETAILS MODAL */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
 
-        .loading-spinner i {
-            font-size: 40px;
-            color: #0F766E;
-            margin-bottom: 15px;
+        .details-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .details-item .details-label {
+            font-size: 12px;
+            color: #9CA3AF;
+            font-weight: 500;
+        }
+
+        .details-item .details-value {
+            font-size: 14px;
+            color: #1F2937;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .details-item .details-value.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -431,7 +538,7 @@
 
         await protectPage();
 
-        // DOM ELEMENTS
+        // DOM ELEMENTS - PROFILE DISPLAY
         const userName = document.getElementById('userName');
         const userInitial = document.getElementById('userInitial');
         const userRole = document.getElementById('userRole');
@@ -442,6 +549,13 @@
         const userRoleDisplay = document.getElementById('userRoleDisplay');
         const accountStatus = document.getElementById('accountStatus');
         const verificationStatus = document.getElementById('verificationStatus');
+        const userTaxId = document.getElementById('userTaxId');
+        const userRegNumber = document.getElementById('userRegNumber');
+        const userAddress = document.getElementById('userAddress');
+        const userCity = document.getElementById('userCity');
+        const userProvince = document.getElementById('userProvince');
+        const userBio = document.getElementById('userBio');
+        const userLanguage = document.getElementById('userLanguage');
         const orderCount = document.getElementById('orderCount');
         const supplierCount = document.getElementById('supplierCount');
         const totalSpend = document.getElementById('totalSpend');
@@ -449,8 +563,9 @@
         const editBtn = document.getElementById('editBtn');
         const editBtn2 = document.getElementById('editBtn2');
         const switchRoleBtn = document.getElementById('switchRoleBtn');
+        const viewDetailsBtn = document.getElementById('viewDetailsBtn');
 
-        // MODAL ELEMENTS
+        // DOM ELEMENTS - EDIT MODAL
         const modalOverlay = document.getElementById('editModal');
         const closeModal = document.getElementById('closeModal');
         const cancelModal = document.getElementById('cancelModal');
@@ -459,9 +574,18 @@
         const editPhone = document.getElementById('editPhone');
         const editCompany = document.getElementById('editCompany');
         const editCountry = document.getElementById('editCountry');
+        const editAddress = document.getElementById('editAddress');
         const editCity = document.getElementById('editCity');
         const editProvince = document.getElementById('editProvince');
         const editBio = document.getElementById('editBio');
+        const editTaxId = document.getElementById('editTaxId');
+        const editRegNumber = document.getElementById('editRegNumber');
+        const editLanguage = document.getElementById('editLanguage');
+
+        // DOM ELEMENTS - DETAILS MODAL
+        const detailsModal = document.getElementById('detailsModal');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsContent = document.getElementById('detailsContent');
 
         // TOAST ELEMENTS
         const toast = document.getElementById('toast');
@@ -485,6 +609,11 @@
                     companyName.textContent = profile.company_name || '-';
                     userRoleDisplay.textContent = profile.role || 'Buyer';
 
+                    userTaxId.textContent = profile.tax_id || 'Not provided';
+                    userTaxId.className = 'right' + (profile.tax_id ? '' : ' not-provided');
+                    userRegNumber.textContent = profile.registration_number || 'Not provided';
+                    userRegNumber.className = 'right' + (profile.registration_number ? '' : ' not-provided');
+
                     const isVerified = profile.is_verified === true;
                     verificationStatus.textContent = isVerified ? 'Verified' : 'Pending';
                     verificationStatus.parentElement.className = 'badge' + (isVerified ? '' : ' pending');
@@ -498,17 +627,26 @@
             }
         }
 
-        // LOAD USER PROFILE (Extra details)
+        // LOAD USER PROFILE
         async function loadUserProfile(userId) {
             try {
                 const { data, error } = await supabase
                     .from('user_profiles')
-                    .select('country, city, province, bio')
+                    .select('*')
                     .eq('user_id', userId)
                     .maybeSingle();
 
                 if (!error && data) {
                     userCountry.textContent = data.country || 'Zambia';
+                    userAddress.textContent = data.address_line1 || 'Not provided';
+                    userAddress.className = 'right' + (data.address_line1 ? '' : ' not-provided');
+                    userCity.textContent = data.city || 'Not provided';
+                    userCity.className = 'right' + (data.city ? '' : ' not-provided');
+                    userProvince.textContent = data.province || 'Not provided';
+                    userProvince.className = 'right' + (data.province ? '' : ' not-provided');
+                    userBio.textContent = data.bio || 'Not provided';
+                    userBio.className = 'right' + (data.bio ? '' : ' not-provided');
+                    userLanguage.textContent = data.preferred_language || 'en';
                 }
             } catch (error) {
                 console.error('Error loading user profile:', error);
@@ -536,7 +674,7 @@
             }
         }
 
-        // OPEN MODAL
+        // OPEN EDIT MODAL
         async function openEditModal() {
             try {
                 const user = await getCurrentUser();
@@ -549,25 +687,29 @@
                 editFullName.value = profile.full_name || '';
                 editPhone.value = profile.phone || '';
                 editCompany.value = profile.company_name || '';
+                editTaxId.value = profile.tax_id || '';
+                editRegNumber.value = profile.reg_number || '';
 
-                // Fetch user_profiles data
                 const { data, error } = await supabase
                     .from('user_profiles')
-                    .select('country, city, province, bio')
+                    .select('*')
                     .eq('user_id', user.id)
                     .maybeSingle();
 
                 if (!error && data) {
                     editCountry.value = data.country || 'Zambia';
+                    editAddress.value = data.address_line1 || '';
                     editCity.value = data.city || '';
                     editProvince.value = data.province || '';
                     editBio.value = data.bio || '';
+                    editLanguage.value = data.preferred_language || 'en';
                 } else {
-                    // Defaults if no profile exists yet
                     editCountry.value = 'Zambia';
+                    editAddress.value = '';
                     editCity.value = '';
                     editProvince.value = '';
                     editBio.value = '';
+                    editLanguage.value = 'en';
                 }
 
                 modalOverlay.classList.add('active');
@@ -578,11 +720,49 @@
             }
         }
 
-        // CLOSE MODAL
+        // CLOSE EDIT MODAL
         function closeEditModal() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
-            editForm.reset();
+        }
+
+        // OPEN DETAILS MODAL
+        function openDetailsModal() {
+            if (!currentUser) return;
+            
+            const profile = currentUser.profile;
+            const userProf = currentUser.userProfiles || {};
+            
+            const fields = [
+                { label: 'Full Name', value: profile.full_name || 'Not provided' },
+                { label: 'Email', value: profile.email || 'Not provided' },
+                { label: 'Phone', value: profile.phone || 'Not provided' },
+                { label: 'Company', value: profile.company_name || 'Not provided' },
+                { label: 'Tax ID (TPIN)', value: profile.tax_id || 'Not provided' },
+                { label: 'Registration Number', value: profile.registration_number || 'Not provided' },
+                { label: 'Country', value: userProf.country || 'Not provided' },
+                { label: 'Address', value: userProf.address_line1 || 'Not provided' },
+                { label: 'City', value: userProf.city || 'Not provided' },
+                { label: 'Province', value: userProf.province || 'Not provided' },
+                { label: 'Bio', value: userProf.bio || 'Not provided' },
+                { label: 'Preferred Language', value: userProf.preferred_language || 'en' }
+            ];
+            
+            detailsContent.innerHTML = fields.map(field => `
+                <div class="details-item">
+                    <div class="details-label">${field.label}</div>
+                    <div class="details-value ${field.value === 'Not provided' ? 'not-provided' : ''}">${field.value}</div>
+                </div>
+            `).join('');
+            
+            detailsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // CLOSE DETAILS MODAL
+        function closeDetailsModalFunc() {
+            detailsModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
         // HANDLE FORM SUBMISSION
@@ -599,9 +779,13 @@
             const phone = editPhone.value.trim();
             const company = editCompany.value.trim();
             const country = editCountry.value;
+            const address = editAddress.value.trim();
             const city = editCity.value.trim();
             const province = editProvince.value;
             const bio = editBio.value.trim();
+            const taxId = editTaxId.value.trim();
+            const regNumber = editRegNumber.value.trim();
+            const language = editLanguage.value;
 
             if (!fullName) {
                 showToast('Full name is required', 'error');
@@ -613,28 +797,32 @@
             submitBtn.textContent = 'Saving...';
 
             try {
-                // 1. Update profiles table
+                // Update profiles table
                 const { error: profileError } = await supabase
                     .from('profiles')
                     .update({
                         full_name: fullName,
                         phone: phone || null,
                         company_name: company || null,
+                        tax_id: taxId || null,
+                        registration_number: regNumber || null,
                         updated_at: new Date().toISOString()
                     })
                     .eq('id', user.id);
 
                 if (profileError) throw profileError;
 
-                // 2. Upsert user_profiles table (Creates or Updates safely)
+                // Upsert user_profiles table
                 const { error: userProfileError } = await supabase
                     .from('user_profiles')
                     .upsert({
                         user_id: user.id,
                         country: country || 'Zambia',
+                        address_line1: address || null,
                         city: city || null,
                         province: province || null,
                         bio: bio || null,
+                        preferred_language: language || 'en',
                         updated_at: new Date().toISOString()
                     }, { onConflict: 'user_id' });
 
@@ -642,8 +830,6 @@
 
                 showToast('Profile updated successfully!', 'success');
                 closeEditModal();
-
-                // Reload data to reflect changes on the page
                 await loadUserData();
 
             } catch (error) {
@@ -702,7 +888,13 @@
         });
         editForm.addEventListener('submit', handleEditSubmit);
 
-        // Safely attach switch role listener
+        // Details modal listeners
+        viewDetailsBtn.addEventListener('click', openDetailsModal);
+        closeDetailsModal.addEventListener('click', closeDetailsModalFunc);
+        detailsModal.addEventListener('click', (e) => {
+            if (e.target === detailsModal) closeDetailsModalFunc();
+        });
+
         if (switchRoleBtn) {
             switchRoleBtn.addEventListener('click', switchRole);
         }
@@ -719,9 +911,15 @@
     </header>
 
     <div class="container">
+        <!-- Profile Card -->
         <div class="profile-card">
-            <div class="avatar" id="userAvatar">
-                <span id="userInitial">J</span>
+            <div class="avatar-wrapper">
+                <div class="avatar" id="userAvatar">
+                    <span id="userInitial">J</span>
+                </div>
+                <div class="avatar-edit-btn" title="Change Photo">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
             </div>
             <h2 id="userName">Loading...</h2>
             <p id="userRole">Buyer</p>
@@ -729,8 +927,13 @@
                 <i class="fa-solid fa-circle-check"></i>
                 <span id="verificationStatus">Verified</span>
             </span>
+            <br>
+            <button class="view-details-btn" id="viewDetailsBtn">
+                <i class="fa-solid fa-eye"></i> View Personal Information
+            </button>
         </div>
 
+        <!-- Stats -->
         <div class="stats">
             <div class="stat">
                 <h3 id="orderCount">0</h3>
@@ -746,6 +949,7 @@
             </div>
         </div>
 
+        <!-- Business Information -->
         <div class="section">
             <h3>Business Information</h3>
             <div class="item">
@@ -757,10 +961,17 @@
             </div>
             <div class="item">
                 <div class="left">
-                    <i class="fa-solid fa-location-dot"></i>
-                    Country
+                    <i class="fa-solid fa-file-invoice"></i>
+                    Tax ID (TPIN)
                 </div>
-                <div class="right" id="userCountry">Zambia</div>
+                <div class="right" id="userTaxId">Not provided</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-registered"></i>
+                    Registration Number
+                </div>
+                <div class="right" id="userRegNumber">Not provided</div>
             </div>
             <div class="item">
                 <div class="left">
@@ -776,10 +987,53 @@
                 </div>
                 <div class="right" id="userPhone">-</div>
             </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Country
+                </div>
+                <div class="right" id="userCountry">Zambia</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-address-book"></i>
+                    Address
+                </div>
+                <div class="right" id="userAddress">Not provided</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-city"></i>
+                    City
+                </div>
+                <div class="right" id="userCity">Not provided</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-map-pin"></i>
+                    Province
+                </div>
+                <div class="right" id="userProvince">Not provided</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-align-left"></i>
+                    Bio
+                </div>
+                <div class="right" id="userBio">Not provided</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-language"></i>
+                    Preferred Language
+                </div>
+                <div class="right" id="userLanguage">en</div>
+            </div>
         </div>
 
+        <!-- Account -->
         <div class="section">
-            <h3>Payment & Account</h3>
+            <h3>Account</h3>
             <div class="item">
                 <div class="left">
                     <i class="fa-solid fa-repeat"></i>
@@ -796,13 +1050,12 @@
             </div>
         </div>
 
+        <!-- Account Actions -->
         <div class="section">
             <h3>Account Actions</h3>
-            <!-- Added type="button" to prevent accidental form submissions -->
             <button type="button" class="button primary" id="editBtn2">
                 Edit Profile
             </button>
-            <!-- Added id="switchRoleBtn" to fix the JS selector issue -->
             <a href="/continue-as.html" class="button primary" id="switchRoleBtn">
                 Switch Role
             </a>
@@ -820,18 +1073,63 @@
                 <button type="button" class="modal-close" id="closeModal">&times;</button>
             </div>
             <form id="editForm">
+                <!-- Personal Information Section -->
+                <div class="modal-section-title">Personal Information</div>
+                
                 <div class="form-group">
-                    <label>Full Name</label>
+                    <label>Full Name <span style="color:#EF4444;">*</span></label>
                     <input type="text" id="editFullName" placeholder="Enter your full name" required>
                 </div>
+                
                 <div class="form-group">
                     <label>Phone Number</label>
                     <input type="tel" id="editPhone" placeholder="+260 123 456 789">
                 </div>
+                
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="editBio" placeholder="Tell buyers about yourself..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Language</label>
+                        <select id="editLanguage">
+                            <option value="en">English</option>
+                            <option value="ny">Nyanja</option>
+                            <option value="bem">Bemba</option>
+                            <option value="tum">Tumbuka</option>
+                            <option value="lozi">Lozi</option>
+                            <option value="kaonde">Kaonde</option>
+                            <option value="lunda">Lunda</option>
+                            <option value="luvale">Luvale</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Business Information Section -->
+                <div class="modal-section-title">Business Information</div>
+                
                 <div class="form-group">
                     <label>Company Name</label>
                     <input type="text" id="editCompany" placeholder="Enter company name">
                 </div>
+                
+                <div class="form-group">
+                    <label>Tax ID (TPIN)</label>
+                    <input type="text" id="editTaxId" placeholder="Enter Tax ID (optional)">
+                    <span class="hint">Required for registered businesses and cross-border transactions</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Registration Number</label>
+                    <input type="text" id="editRegNumber" placeholder="Enter registration number (optional)">
+                    <span class="hint">For registered companies only</span>
+                </div>
+
+                <!-- Address Information Section -->
+                <div class="modal-section-title">Address Information</div>
+                
                 <div class="form-group">
                     <label>Country</label>
                     <select id="editCountry">
@@ -844,35 +1142,58 @@
                         <option value="Other">Other</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>City</label>
-                    <input type="text" id="editCity" placeholder="Enter city">
+                    <label>Address Line 1</label>
+                    <input type="text" id="editAddress" placeholder="Enter street address">
                 </div>
-                <div class="form-group">
-                    <label>Province</label>
-                    <select id="editProvince">
-                        <option value="">Select Province</option>
-                        <option value="Central">Central</option>
-                        <option value="Copperbelt">Copperbelt</option>
-                        <option value="Eastern">Eastern</option>
-                        <option value="Luapula">Luapula</option>
-                        <option value="Lusaka">Lusaka</option>
-                        <option value="Muchinga">Muchinga</option>
-                        <option value="Northern">Northern</option>
-                        <option value="North-Western">North-Western</option>
-                        <option value="Southern">Southern</option>
-                        <option value="Western">Western</option>
-                    </select>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="editCity" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                        <label>Province</label>
+                        <select id="editProvince">
+                            <option value="">Select Province</option>
+                            <option value="Central">Central</option>
+                            <option value="Copperbelt">Copperbelt</option>
+                            <option value="Eastern">Eastern</option>
+                            <option value="Luapula">Luapula</option>
+                            <option value="Lusaka">Lusaka</option>
+                            <option value="Muchinga">Muchinga</option>
+                            <option value="Northern">Northern</option>
+                            <option value="North-Western">North-Western</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Western">Western</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Bio</label>
-                    <textarea id="editBio" placeholder="Tell buyers about your business..."></textarea>
-                </div>
+
                 <div class="modal-actions">
                     <button type="button" class="button btn-secondary-modal" id="cancelModal">Cancel</button>
                     <button type="submit" class="button primary">Save Changes</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- View Personal Information Details Modal -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user"></i> Personal Information</h3>
+                <button type="button" class="modal-close" id="closeDetailsModal">&times;</button>
+            </div>
+            <div class="details-grid" id="detailsContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <button type="button" class="button primary" id="editFromDetailsBtn" style="display:inline-block;width:auto;padding:10px 30px;">
+                    Edit Profile
+                </button>
+            </div>
         </div>
     </div>
 
@@ -903,5 +1224,19 @@
             Profile
         </a>
     </div>
+
+    <script>
+        // Connect the "Edit Profile" button in the details modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const editFromDetailsBtn = document.getElementById('editFromDetailsBtn');
+            if (editFromDetailsBtn) {
+                editFromDetailsBtn.addEventListener('click', function() {
+                    document.getElementById('detailsModal').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('editBtn2').click();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
