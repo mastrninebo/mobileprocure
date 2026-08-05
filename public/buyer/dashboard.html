@@ -233,6 +233,38 @@
             margin-bottom: 15px;
         }
 
+        /* BECOME SUPPLIER CTA */
+        .cta-card {
+            margin: 0 20px 25px;
+            background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+            border: 2px dashed #0F766E;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+        .cta-card h3 {
+            color: #0F766E;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .cta-card p {
+            color: #115E59;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        .cta-btn {
+            background: #0F766E;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cta-btn:hover { background: #0D5C56; }
+        .cta-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
         /* BOTTOM NAVIGATION */
         .bottom-nav {
             position: fixed;
@@ -352,6 +384,20 @@
         </a>
     </div>
 
+    <!-- BECOME A SUPPLIER CTA -->
+    <div id="supplierCtaSection" style="display: none;">
+        <div class="section">
+            <h2>Grow Your Business</h2>
+        </div>
+        <div class="cta-card">
+            <h3>Want to sell livestock too?</h3>
+            <p>Upgrade your account to a Supplier profile and start listing your animals to thousands of buyers today.</p>
+            <button id="becomeSupplierBtn" class="cta-btn">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Supplier
+            </button>
+        </div>
+    </div>
+
     <!-- RECENT ORDERS -->
     <div class="section">
         <h2>Recent Orders</h2>
@@ -437,7 +483,67 @@
         const ordersContainer = document.getElementById('ordersContainer');
         const notificationBadge = document.getElementById('notificationBadge');
         const walletBtn = document.getElementById('walletBtn');
+        const supplierCtaSection = document.getElementById('supplierCtaSection');
+        const becomeSupplierBtn = document.getElementById('becomeSupplierBtn');
         
+        // CHECK USER ROLES (Multi-role logic)
+        async function checkUserRole() {
+            try {
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                const { data: rolesData, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) {
+                    console.error('Error fetching roles:', error);
+                    return;
+                }
+                
+                const roles = rolesData ? rolesData.map(r => r.role) : [];
+                
+                // If they are ONLY a buyer, show the "Become a Supplier" CTA
+                if (roles.includes('buyer') && !roles.includes('supplier')) {
+                    supplierCtaSection.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error checking user role:', error);
+            }
+        }
+
+        // BECOME A SUPPLIER LOGIC
+        becomeSupplierBtn.addEventListener('click', async () => {
+            becomeSupplierBtn.disabled = true;
+            becomeSupplierBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
+
+            try {
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                // Insert a new row into supplier_profiles
+                const { error } = await supabase
+                    .from('supplier_profiles')
+                    .insert([{ 
+                        user_id: user.id, 
+                        is_approved: false, 
+                        total_orders_completed: 0, 
+                        average_rating: 0.00 
+                    }]);
+
+                if (error) throw error;
+
+                alert('Success! Your supplier account is ready.');
+                
+                // Switch the active role in localStorage and redirect
+                localStorage.setItem('selectedRole', 'supplier');
+                window.location.href = '/supplier/dashboard.html';
+
+            } catch (error) {
+                console.error('Error becoming a supplier:', error);
+                alert('Error creating supplier profile: ' + error.message);
+                becomeSupplierBtn.disabled = false;
+                becomeSupplierBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Supplier';
+            }
+        });
+
         // LOAD USER DATA
         async function loadUserData() {
             try {
@@ -577,6 +683,7 @@
         // INITIALIZE DASHBOARD
         async function init() {
             await loadUserData();
+            await checkUserRole(); // Check if we should show the CTA
             await loadOrders();
             await loadNotifications();
         }

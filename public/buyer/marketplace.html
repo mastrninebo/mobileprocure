@@ -1,679 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Marketplace | Mobile Procure</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#F5F7FA;
-padding-bottom:90px;
-}
-
-header{
-
-padding:20px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-header h2{
-color:#0F766E;
-}
-
-.search{
-
-margin:0 20px 20px;
-
-background:white;
-
-border-radius:15px;
-
-padding:14px 18px;
-
-display:flex;
-align-items:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-
-}
-
-.search input{
-
-flex:1;
-border:none;
-outline:none;
-font-size:15px;
-margin-left:10px;
-
-}
-
-.categories{
-
-display:flex;
-overflow:auto;
-gap:12px;
-
-padding:0 20px 20px;
-
-scrollbar-width:none;
-
-}
-
-.categories::-webkit-scrollbar{
-display:none;
-}
-
-.category{
-
-padding:10px 18px;
-
-background:white;
-
-border-radius:25px;
-
-white-space:nowrap;
-
-font-size:14px;
-
-cursor:pointer;
-
-box-shadow:0 4px 10px rgba(0,0,0,.05);
-
-}
-
-.category.active{
-
-background:#0F766E;
-
-color:white;
-
-}
-
-.products{
-
-padding:0 20px;
-
-display:grid;
-
-gap:20px;
-
-}
-
-.card{
-
-background:white;
-
-border-radius:22px;
-
-overflow:hidden;
-
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-
-}
-
-.image{
-
-position:relative;
-
-}
-
-.image img{
-
-width:100%;
-height:210px;
-object-fit:cover;
-
-}
-
-.favorite{
-
-position:absolute;
-
-right:15px;
-top:15px;
-
-width:42px;
-height:42px;
-
-background:white;
-
-border-radius:50%;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-color:#EF4444;
-
-font-size:18px;
-
-}
-
-.details{
-
-padding:18px;
-
-}
-
-.badges{
-
-display:flex;
-gap:10px;
-margin-bottom:12px;
-
-flex-wrap:wrap;
-
-}
-
-.badge{
-
-background:#DCFCE7;
-
-color:#166534;
-
-padding:6px 10px;
-
-border-radius:20px;
-
-font-size:12px;
-
-font-weight:600;
-
-}
-
-h3{
-
-margin-bottom:8px;
-
-color:#111827;
-
-}
-
-.location{
-
-color:#6B7280;
-
-font-size:14px;
-
-margin-bottom:15px;
-
-}
-
-.info{
-
-display:flex;
-justify-content:space-between;
-
-margin-bottom:18px;
-
-}
-
-.info div{
-
-text-align:center;
-
-}
-
-.info h4{
-
-color:#0F766E;
-
-}
-
-button{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-background:#0F766E;
-
-color:white;
-
-border-radius:14px;
-
-font-size:16px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.bottom-nav{
-
-position:fixed;
-
-bottom:0;
-left:0;
-
-width:100%;
-
-background:white;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:14px 0;
-
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-
-}
-
-.bottom-nav a{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-text-decoration:none;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-gap:5px;
-
-}
-
-.bottom-nav a.active{
-
-color:#0F766E;
-
-font-weight:600;
-
-}
-
-.bottom-nav i{
-
-font-size:20px;
-
-}
-
-.btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    padding:14px;
-    background:#0F766E;
-    color:#fff;
-    text-decoration:none;
-    border-radius:14px;
-    font-weight:600;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F5F7FA;
+            padding-bottom: 90px;
+        }
+
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: #0F766E;
+        }
+
+        .search {
+            margin: 0 20px 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+
+        .search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            margin-left: 10px;
+        }
+
+        .categories {
+            display: flex;
+            overflow: auto;
+            gap: 12px;
+            padding: 0 20px 20px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            padding: 10px 18px;
+            background: white;
+            border-radius: 25px;
+            white-space: nowrap;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,.05);
+        }
+
+        .category.active {
+            background: #0F766E;
+            color: white;
+        }
+
+        .products {
+            padding: 0 20px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,.06);
+        }
+
+        .image {
+            position: relative;
+        }
+
+        .image img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .favorite {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 42px;
+            height: 42px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #EF4444;
+            font-size: 18px;
+        }
+
+        .details {
+            padding: 18px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #DCFCE7;
+            color: #166534;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        h3 {
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .location {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .info div {
+            text-align: center;
+        }
+
+        .info h4 {
+            color: #0F766E;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+            gap: 5px;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            background: #0F766E;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        /* Loading Spinner Styles */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+            background: white;
+            border-radius: 22px;
+        }
+
+        .loading-state i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<script type="module">
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-    await requireBuyer();
-</script>
-
-<header>
-
-<h2>Marketplace</h2>
-
-<i class="fa-solid fa-sliders"></i>
-
-</header>
-
-<div class="search">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input id="marketplaceSearch"
-type="text"
-placeholder="Search livestock...">
-
-</div>
-
-<div class="categories">
-
-<div class="category active" data-category="all">All</div>
-
-<div class="category" data-category="cattle">Cattle</div>
-
-<div class="category" data-category="goats">Goats</div>
-
-<div class="category" data-category="sheep">Sheep</div>
-
-<div class="category" data-category="pigs">Pigs</div>
-
-<div class="category" data-category="poultry">Poultry</div>
-
-</div>
-
-<div class="products" id="productsContainer">
-
-<div class="card">
-
-<div class="image">
-
-<img src="../assets/images/cattle.jpg">
-
-<div class="favorite">
-
-<i class="fa-regular fa-heart"></i>
-
-</div>
-
-</div>
-
-<div class="details">
-
-<div class="badges">
-
-<span class="badge">Verified</span>
-
-<span class="badge">Vet Certified</span>
-
-</div>
-
-<h3>Angus Bulls</h3>
-
-<p class="location">
-
-📍 Chisamba, Central Province
-
-</p>
-
-<div class="info">
-
-<div>
-
-<h4>200</h4>
-
-<small>Available</small>
-
-</div>
-
-<div>
-
-<h4>$1,250</h4>
-
-<small>Per Head</small>
-
-</div>
-
-<div>
-
-<h4>520kg</h4>
-
-<small>Average</small>
-
-</div>
-
-</div>
-
-<!-- <button>
-
-View Details
-
-</button> -->
-
-<a href="livestock-details.html" class="btn">
-    View Details
-</a>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="image">
-
-<img src="../assets/images/sheep.jpg">
-
-<div class="favorite">
-
-<i class="fa-regular fa-heart"></i>
-
-</div>
-
-</div>
-
-<div class="details">
-
-<div class="badges">
-
-<span class="badge">Verified</span>
-
-<span class="badge">Health Checked</span>
-
-</div>
-
-<h3>Dorper Sheep</h3>
-
-<p class="location">
-
-📍 Mazabuka, Southern Province
-
-</p>
-
-<div class="info">
-
-<div>
-
-<h4>400</h4>
-
-<small>Available</small>
-
-</div>
-
-<div>
-
-<h4>$130</h4>
-
-<small>Per Head</small>
-
-</div>
-
-<div>
-
-<h4>48kg</h4>
-
-<small>Average</small>
-
-</div>
-
-</div>
-
-<!-- <button>
-
-View Details
-
-</button> -->
-<a href="livestock-details.html" class="btn">
-    View Details
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<script type="module">
-    import { supabase } from '../assets/js/supabase-client.js';
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-
-    const productsContainer = document.getElementById('productsContainer');
-    const searchInput = document.getElementById('marketplaceSearch');
-    const categories = [...document.querySelectorAll('.category')];
-    let items = [];
-    let activeCategory = 'all';
-
-    function imageFor(item) {
-        if (Array.isArray(item.images) && item.images[0]) return item.images[0];
-        const category = String(item.category || '').toLowerCase();
-        return category.includes('sheep') ? '../assets/images/sheep.jpg' : '../assets/images/cattle.jpg';
-    }
-
-    function renderItems() {
-        const query = searchInput.value.trim().toLowerCase();
-        const visibleItems = items.filter(item => {
-            const searchable = [item.category, item.breed, item.description].filter(Boolean).join(' ').toLowerCase();
-            return (activeCategory === 'all' || String(item.category || '').toLowerCase() === activeCategory) &&
-                (!query || searchable.includes(query));
-        });
-
-        productsContainer.replaceChildren();
-        if (!visibleItems.length) {
-            const message = document.createElement('p');
-            message.textContent = 'No livestock listings match your search.';
-            message.style.cssText = 'text-align:center;color:#6B7280;padding:30px 0;';
-            productsContainer.append(message);
-            return;
+    <script type="module">
+        import { requireBuyer } from '../assets/js/buyer-page.js';
+        await requireBuyer();
+    </script>
+
+    <header>
+        <h2>Marketplace</h2>
+        <i class="fa-solid fa-sliders"></i>
+    </header>
+
+    <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="marketplaceSearch" type="text" placeholder="Search livestock...">
+    </div>
+
+    <div class="categories">
+        <div class="category active" data-category="all">All</div>
+        <div class="category" data-category="cattle">Cattle</div>
+        <div class="category" data-category="goats">Goats</div>
+        <div class="category" data-category="sheep">Sheep</div>
+        <div class="category" data-category="pigs">Pigs</div>
+        <div class="category" data-category="poultry">Poultry</div>
+    </div>
+
+    <!-- Products Container (Now starts empty with a loading spinner) -->
+    <div class="products" id="productsContainer">
+        <div class="loading-state">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading marketplace...</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from '../assets/js/supabase-client.js';
+        import { requireBuyer } from '../assets/js/buyer-page.js';
+
+        const productsContainer = document.getElementById('productsContainer');
+        const searchInput = document.getElementById('marketplaceSearch');
+        const categories = [...document.querySelectorAll('.category')];
+        let items = [];
+        let activeCategory = 'all';
+
+        function imageFor(item) {
+            if (Array.isArray(item.images) && item.images[0]) return item.images[0];
+            const category = String(item.category || '').toLowerCase();
+            return category.includes('sheep') ? '../assets/images/sheep.jpg' : '../assets/images/cattle.jpg';
         }
 
-        visibleItems.forEach(item => {
-            const card = document.createElement('article');
-            card.className = 'card';
-            const image = document.createElement('div');
-            image.className = 'image';
-            const img = document.createElement('img');
-            img.src = imageFor(item);
-            img.alt = item.breed || item.category || 'Livestock listing';
-            image.append(img);
-
-            const details = document.createElement('div');
-            details.className = 'details';
-            const badges = document.createElement('div');
-            badges.className = 'badges';
-            ['Verified supplier', item.certification_status === 'certified' ? 'Certified' : 'Escrow protected'].forEach(label => {
-                const badge = document.createElement('span');
-                badge.className = 'badge';
-                badge.textContent = label;
-                badges.append(badge);
+        function renderItems() {
+            const query = searchInput.value.trim().toLowerCase();
+            const visibleItems = items.filter(item => {
+                const searchable = [item.category, item.breed, item.description].filter(Boolean).join(' ').toLowerCase();
+                return (activeCategory === 'all' || String(item.category || '').toLowerCase() === activeCategory) &&
+                    (!query || searchable.includes(query));
             });
-            const title = document.createElement('h3');
-            title.textContent = item.breed || item.category || 'Livestock';
-            const location = document.createElement('p');
-            location.className = 'location';
-            location.textContent = item.location_name || 'Location available on request';
-            const info = document.createElement('div');
-            info.className = 'info';
-            [[item.quantity || 0, 'Available'], [`ZMW ${Number(item.price_per_unit || 0).toLocaleString()}`, `Per ${item.unit || 'unit'}`], [item.weight_kg ? `${item.weight_kg} kg` : '—', 'Average weight']]
-                .forEach(([value, label]) => {
-                    const metric = document.createElement('div');
-                    const strong = document.createElement('h4');
-                    strong.textContent = value;
-                    const small = document.createElement('small');
-                    small.textContent = label;
-                    metric.append(strong, small);
-                    info.append(metric);
+
+            productsContainer.replaceChildren();
+            
+            if (!visibleItems.length) {
+                const message = document.createElement('p');
+                message.textContent = 'No livestock listings match your search.';
+                message.style.cssText = 'text-align:center;color:#6B7280;padding:30px 0;';
+                productsContainer.append(message);
+                return;
+            }
+
+            visibleItems.forEach(item => {
+                const card = document.createElement('article');
+                card.className = 'card';
+                
+                const image = document.createElement('div');
+                image.className = 'image';
+                const img = document.createElement('img');
+                img.src = imageFor(item);
+                img.alt = item.breed || item.category || 'Livestock listing';
+                image.append(img);
+
+                const details = document.createElement('div');
+                details.className = 'details';
+                
+                const badges = document.createElement('div');
+                badges.className = 'badges';
+                ['Verified supplier', item.certification_status === 'certified' ? 'Certified' : 'Escrow protected'].forEach(label => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge';
+                    badge.textContent = label;
+                    badges.append(badge);
                 });
-            const link = document.createElement('a');
-            link.className = 'btn';
-            link.href = `livestock-details.html?item=${encodeURIComponent(item.id)}`;
-            link.textContent = 'View Details';
-            details.append(badges, title, location, info, link);
-            card.append(image, details);
-            productsContainer.append(card);
-        });
-    }
-
-    async function loadMarketplace() {
-        const user = await requireBuyer();
-        if (!user) return;
-        const { data, error } = await supabase
-            .from('inventory_items')
-            .select('id, category, breed, quantity, unit, price_per_unit, weight_kg, description, images, certification_status, is_available')
-            .eq('is_available', true)
-            .gt('quantity', 0)
-            .order('created_at', { ascending: false });
-        if (error) {
-            console.error('Unable to load marketplace listings:', error);
-            productsContainer.textContent = 'Unable to load livestock listings. Please try again.';
-            return;
+                
+                const title = document.createElement('h3');
+                title.textContent = item.breed || item.category || 'Livestock';
+                
+                const location = document.createElement('p');
+                location.className = 'location';
+                location.textContent = item.location_name || 'Location available on request';
+                
+                const info = document.createElement('div');
+                info.className = 'info';
+                [[item.quantity || 0, 'Available'], [`ZMW ${Number(item.price_per_unit || 0).toLocaleString()}`, `Per ${item.unit || 'unit'}`], [item.weight_kg ? `${item.weight_kg} kg` : '—', 'Average weight']]
+                    .forEach(([value, label]) => {
+                        const metric = document.createElement('div');
+                        const strong = document.createElement('h4');
+                        strong.textContent = value;
+                        const small = document.createElement('small');
+                        small.textContent = label;
+                        metric.append(strong, small);
+                        info.append(metric);
+                    });
+                    
+                const link = document.createElement('a');
+                link.className = 'btn';
+                link.href = `livestock-details.html?item=${encodeURIComponent(item.id)}`;
+                link.textContent = 'View Details';
+                
+                details.append(badges, title, location, info, link);
+                card.append(image, details);
+                productsContainer.append(card);
+            });
         }
-        items = data || [];
-        renderItems();
-    }
 
-    searchInput.addEventListener('input', renderItems);
-    categories.forEach(category => category.addEventListener('click', () => {
-        activeCategory = category.dataset.category;
-        categories.forEach(item => item.classList.toggle('active', item === category));
-        renderItems();
-    }));
-    loadMarketplace();
-</script>
+        async function loadMarketplace() {
+            const user = await requireBuyer();
+            if (!user) return;
+            
+            const { data, error } = await supabase
+                .from('inventory_items')
+                .select('id, category, breed, quantity, unit, price_per_unit, weight_kg, description, images, certification_status, is_available')
+                .eq('is_available', true)
+                .gt('quantity', 0)
+                .order('created_at', { ascending: false });
+                
+            if (error) {
+                console.error('Unable to load marketplace listings:', error);
+                productsContainer.textContent = 'Unable to load livestock listings. Please try again.';
+                return;
+            }
+            
+            items = data || [];
+            renderItems();
+        }
 
-<div class="bottom-nav">
+        searchInput.addEventListener('input', renderItems);
+        categories.forEach(category => category.addEventListener('click', () => {
+            activeCategory = category.dataset.category;
+            categories.forEach(item => item.classList.toggle('active', item === category));
+            renderItems();
+        }));
+        
+        loadMarketplace();
+    </script>
 
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a class="active" href="marketplace.html">
-
-<i class="fa-solid fa-store"></i>
-
-Marketplace
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-box"></i>
-
-Orders
-
-</a>
-
-<a href="catalog.html">
-
-<i class="fa-solid fa-book"></i>
-
-Catalog
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a class="active" href="marketplace.html">
+            <i class="fa-solid fa-store"></i>
+            Marketplace
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-box"></i>
+            Orders
+        </a>
+        <a href="catalog.html">
+            <i class="fa-solid fa-book"></i>
+            Catalog
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 
 </body>
 </html>

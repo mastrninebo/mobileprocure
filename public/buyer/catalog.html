@@ -1,367 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Catalog</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Mobile Procure | Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+        }
 
-<style>
+        header h2 {
+            color: #0F766E;
+            font-size: 22px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .section-title {
+            margin: 25px 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0F766E;
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .card {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 18px;
+        }
 
-header h2{
-color:#0F766E;
-font-size:22px;
-}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-.container{
-padding:20px;
-}
+        .top h3 {
+            font-size: 18px;
+        }
 
-.section-title{
-margin:25px 0 15px;
-font-size:18px;
-font-weight:600;
-color:#0F766E;
-}
+        .favorite {
+            color: #EF4444;
+            font-size: 20px;
+            cursor: pointer;
+        }
 
-.card{
-background:white;
-padding:18px;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-margin-bottom:18px;
-}
+        .favorite.far {
+            color: #9CA3AF;
+        }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:12px;
-}
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
 
-.top h3{
-font-size:18px;
-}
+        .box {
+            background: #F8FAFC;
+            padding: 12px;
+            border-radius: 12px;
+        }
 
-.favorite{
-color:#EF4444;
-font-size:20px;
-}
+        .box small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 5px;
+        }
 
-.details{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin-top:15px;
-}
+        .rating {
+            color: #F59E0B;
+            margin-top: 10px;
+        }
 
-.box{
-background:#F8FAFC;
-padding:12px;
-border-radius:12px;
-}
+        .btn {
+            display: block;
+            margin-top: 18px;
+            text-align: center;
+            padding: 12px;
+            background: #0F766E;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+        }
 
-.box small{
-display:block;
-color:#6B7280;
-margin-bottom:5px;
-}
+        .btn:hover {
+            background: #0D6B64;
+        }
 
-.rating{
-color:#F59E0B;
-margin-top:10px;
-}
+        .quote {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
 
-.btn{
-display:block;
-margin-top:18px;
-text-align:center;
-padding:12px;
-background:#0F766E;
-color:white;
-text-decoration:none;
-border-radius:12px;
-font-weight:600;
-}
+        .quote:last-child {
+            border: none;
+        }
 
-.quote{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #E5E7EB;
-}
+        .status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #DBEAFE;
+            color: #1D4ED8;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-.quote:last-child{
-border:none;
-}
+        .status.pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
 
-.status{
-padding:6px 14px;
-border-radius:20px;
-background:#DBEAFE;
-color:#1D4ED8;
-font-size:12px;
-font-weight:600;
-}
+        .status.quoted {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .status.delivered {
+            background: #DCFCE7;
+            color: #166534;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-font-size:12px;
-text-decoration:none;
-color:#9CA3AF;
-}
+        .status.completed {
+            background: #D1FAE5;
+            color: #065F46;
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .no-data {
+            text-align: center;
+            color: #6B7280;
+            padding: 30px 0;
+            font-size: 14px;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+        }
 
-</style>
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #9CA3AF;
+        }
 
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<script type="module">
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-    await requireBuyer();
-</script>
-
-<header>
-
-<h2>Catalog</h2>
-
-<i class="fa-solid fa-book-open" style="font-size:22px;color:#0F766E;"></i>
-
-</header>
-
-<div class="container">
-
-<h3 class="section-title">Favourite Suppliers</h3>
-
-<div class="card">
-
-<div class="top">
-
-<h3>Mpundu Cattle Ranch</h3>
-
-<i class="fa-solid fa-heart favorite"></i>
-
-</div>
-
-<p>Verified supplier of premium Angus and Brahman cattle.</p>
-
-<div class="rating">
-
-★★★★★ (4.9)
-
-</div>
-
-<div class="details">
-
-<div class="box">
-
-<small>Completed Orders</small>
-
-<strong>126</strong>
-
-</div>
-
-<div class="box">
-
-<small>Location</small>
-
-<strong>Central Province</strong>
-
-</div>
-
-</div>
-
-<a href="marketplace.html" class="btn">
-
-View Listings
-
-</a>
-
-</div>
-
-<h3 class="section-title">Preferred Quotes</h3>
-
-<div class="card">
-
-<div class="quote">
-
-<div>
-
-<strong>120 Boer Goats</strong><br>
-
-<small>Eastern Livestock</small>
-
-</div>
-
-<span class="status">
-
-Awaiting Response
-
-</span>
-
-</div>
-
-<div class="quote">
-
-<div>
-
-<strong>80 Angus Bulls</strong><br>
-
-<small>Mpundu Cattle Ranch</small>
-
-</div>
-
-<span class="status">
-
-Quoted
-
-</span>
-
-</div>
-
-</div>
-
-<h3 class="section-title">Recently Purchased</h3>
-
-<div class="card">
-
-<div class="quote">
-
-<div>
-
-<strong>200 Angus Bulls</strong><br>
-
-<small>Order MP-2026-000128</small>
-
-</div>
-
-<span class="status">
-
-Delivered
-
-</span>
-
-</div>
-
-<div class="quote">
-
-<div>
-
-<strong>50 Dorper Sheep</strong><br>
-
-<small>Order MP-2026-000104</small>
-
-</div>
-
-<span class="status">
-
-Completed
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="marketplace.html">
-
-<i class="fa-solid fa-store"></i>
-
-Marketplace
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-box"></i>
-
-Orders
-
-</a>
-
-<a class="active" href="catalog.html">
-
-<i class="fa-solid fa-book"></i>
-
-Catalog
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        // Session protection
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/login.html';
+                    return;
+                }
+                if (user.profile.role !== 'buyer') {
+                    window.location.href = '/mobileprocure/unauthorized.html';
+                    return;
+                }
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/login.html';
+            }
+        }
+
+        await protectPage();
+
+        const container = document.querySelector('.container');
+        const userId = window.currentUser?.id;
+
+        // Load favorite suppliers
+        async function loadFavoriteSuppliers() {
+            try {
+                // Get suppliers the buyer has ordered from
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('supplier_id, supplier:supplier_id(full_name, company_name)')
+                    .eq('buyer_id', userId)
+                    .not('supplier_id', 'is', null);
+
+                if (error) throw error;
+
+                // Count orders per supplier
+                const supplierCounts = {};
+                orders?.forEach(order => {
+                    const id = order.supplier_id;
+                    if (id) {
+                        supplierCounts[id] = (supplierCounts[id] || 0) + 1;
+                    }
+                });
+
+                // Get top suppliers (ordered most frequently)
+                const sortedSuppliers = Object.entries(supplierCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 3);
+
+                if (sortedSuppliers.length === 0) {
+                    return [];
+                }
+
+                // Get supplier profiles
+                const supplierIds = sortedSuppliers.map(([id]) => id);
+                const { data: suppliers, error: supplierError } = await supabase
+                    .from('profiles')
+                    .select('id, full_name, company_name')
+                    .in('id', supplierIds);
+
+                if (supplierError) throw supplierError;
+
+                return suppliers.map(supplier => ({
+                    ...supplier,
+                    orderCount: supplierCounts[supplier.id] || 0,
+                    displayName: supplier.company_name || supplier.full_name
+                }));
+
+            } catch (error) {
+                console.error('Error loading suppliers:', error);
+                return [];
+            }
+        }
+
+        // Load preferred quotes (bids)
+        async function loadPreferredQuotes() {
+            try {
+                const { data, error } = await supabase
+                    .from('bids')
+                    .select(`
+                        id,
+                        procurement_request_id,
+                        price,
+                        quantity_offered,
+                        status,
+                        is_preferred_quote,
+                        created_at,
+                        procurement_request:procurement_request_id (
+                            id,
+                            category,
+                            breed,
+                            quantity
+                        ),
+                        supplier:supplier_id (
+                            full_name,
+                            company_name
+                        )
+                    `)
+                    .eq('is_preferred_quote', true)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                return data || [];
+
+            } catch (error) {
+                console.error('Error loading preferred quotes:', error);
+                return [];
+            }
+        }
+
+        // Load recent orders
+        async function loadRecentOrders() {
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select('id, order_number, total_amount, status, created_at')
+                    .eq('buyer_id', userId)
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+                return data || [];
+
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                return [];
+            }
+        }
+
+        // Render supplier section
+        function renderSuppliers(suppliers) {
+            const section = document.getElementById('suppliersSection');
+            if (!section) return;
+
+            const card = section.querySelector('.card');
+            if (!card) return;
+
+            if (suppliers.length === 0) {
+                card.innerHTML = `<div class="no-data">No favorite suppliers yet. Start ordering!</div>`;
+                return;
+            }
+
+            card.innerHTML = suppliers.map(supplier => `
+                <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #E5E7EB;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <h3 style="font-size:16px;">${supplier.displayName}</h3>
+                        <i class="fa-solid fa-heart favorite" style="color:#EF4444;"></i>
+                    </div>
+                    <div class="details" style="margin-top:8px;">
+                        <div class="box">
+                            <small>Orders</small>
+                            <strong>${supplier.orderCount}</strong>
+                        </div>
+                        <div class="box">
+                            <small>Status</small>
+                            <strong style="color:#0F766E;">Active</strong>
+                        </div>
+                    </div>
+                    <a href="marketplace.html?supplier=${supplier.id}" class="btn">View Listings</a>
+                </div>
+            `).join('');
+        }
+
+        // Render preferred quotes
+        function renderQuotes(quotes) {
+            const section = document.getElementById('quotesSection');
+            if (!section) return;
+
+            const card = section.querySelector('.card');
+            if (!card) return;
+
+            if (quotes.length === 0) {
+                card.innerHTML = `<div class="no-data">No preferred quotes yet.</div>`;
+                return;
+            }
+
+            const statusMap = {
+                'pending': { class: 'pending', label: 'Pending' },
+                'accepted': { class: 'quoted', label: 'Accepted' },
+                'rejected': { class: 'pending', label: 'Rejected' },
+                'countered': { class: 'quoted', label: 'Countered' }
+            };
+
+            card.innerHTML = quotes.map(quote => {
+                const status = statusMap[quote.status] || statusMap['pending'];
+                const request = quote.procurement_request;
+                const supplierName = quote.supplier?.company_name || quote.supplier?.full_name || 'Supplier';
+                const itemName = request?.breed || request?.category || 'Livestock';
+                const quantity = request?.quantity || quote.quantity_offered || 0;
+
+                return `
+                    <div class="quote">
+                        <div>
+                            <strong>${quantity} ${itemName}</strong><br>
+                            <small>${supplierName}</small>
+                        </div>
+                        <span class="status ${status.class}">${status.label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render recent orders
+        function renderOrders(orders) {
+            const section = document.getElementById('ordersSection');
+            if (!section) return;
+
+            const card = section.querySelector('.card');
+            if (!card) return;
+
+            if (orders.length === 0) {
+                card.innerHTML = `<div class="no-data">No recent orders.</div>`;
+                return;
+            }
+
+            const statusMap = {
+                'pending': { class: 'pending', label: 'Pending' },
+                'confirmed': { class: 'quoted', label: 'Confirmed' },
+                'shipped': { class: 'quoted', label: 'Shipped' },
+                'delivered': { class: 'delivered', label: 'Delivered' },
+                'completed': { class: 'completed', label: 'Completed' },
+                'cancelled': { class: 'pending', label: 'Cancelled' }
+            };
+
+            card.innerHTML = orders.map(order => {
+                const status = statusMap[order.status] || statusMap['pending'];
+                return `
+                    <div class="quote">
+                        <div>
+                            <strong>Order #${order.order_number || order.id.slice(0, 8)}</strong><br>
+                            <small>${new Date(order.created_at).toLocaleDateString()}</small>
+                        </div>
+                        <span class="status ${status.class}">${status.label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load all data
+        async function loadCatalog() {
+            const [suppliers, quotes, orders] = await Promise.all([
+                loadFavoriteSuppliers(),
+                loadPreferredQuotes(),
+                loadRecentOrders()
+            ]);
+
+            renderSuppliers(suppliers);
+            renderQuotes(quotes);
+            renderOrders(orders);
+        }
+
+        // Add sections with IDs for targeting
+        container.innerHTML = `
+            <h3 class="section-title" id="suppliersTitle">Favorite Suppliers</h3>
+            <div class="card" id="suppliersSection">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading suppliers...</p>
+                </div>
+            </div>
+
+            <h3 class="section-title" id="quotesTitle">Preferred Quotes</h3>
+            <div class="card" id="quotesSection">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading quotes...</p>
+                </div>
+            </div>
+
+            <h3 class="section-title" id="ordersTitle">Recent Orders</h3>
+            <div class="card" id="ordersSection">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading orders...</p>
+                </div>
+            </div>
+        `;
+
+        loadCatalog();
+    </script>
+
+    <header>
+        <h2>Catalog</h2>
+        <i class="fa-solid fa-book-open" style="font-size:22px;color:#0F766E;"></i>
+    </header>
+
+    <div class="container">
+        <!-- Dynamic content loaded by JavaScript -->
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="marketplace.html">
+            <i class="fa-solid fa-store"></i>
+            Marketplace
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-box"></i>
+            Orders
+        </a>
+        <a class="active" href="catalog.html">
+            <i class="fa-solid fa-book"></i>
+            Catalog
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 
 </body>
 </html>

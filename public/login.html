@@ -404,8 +404,6 @@
         }
 
         // HELPER: REDIRECT WITH PROFILE CHECK FLAG
-        // Redirects user to their dashboard and appends ?checkProfile=true 
-        // so the dashboard knows to trigger the profile completion modal.
         function redirectToDashboard(userRole) {
             const redirectUrl = getRoleRedirect(userRole);
             const url = new URL(redirectUrl, window.location.origin);
@@ -419,9 +417,15 @@
                 const user = await getCurrentUser();
                 if (user && user.profile) {
                     const portalRole = localStorage.getItem('selectedRole');
-                    const userRole = user.profile.role;
-                    if (!portalRole || userRole === portalRole) {
-                        redirectToDashboard(userRole);
+                    if (!portalRole) {
+                        redirectToDashboard(user.profile.role);
+                    } else {
+                        // Verify role via RPC before auto-redirecting
+                        const { data: roles } = await supabase.rpc('get_user_roles', { uid: user.id });
+                        const userRoles = roles ? roles.map(r => r.role) : [];
+                        if (userRoles.includes(portalRole)) {
+                            redirectToDashboard(portalRole);
+                        }
                     }
                 }
             } catch (error) {
@@ -474,28 +478,46 @@
                     return;
                 }
 
-                const userRole = userWithProfile.profile.role;
                 const portalRole = localStorage.getItem('selectedRole');
 
-                // Redirect if no portal role is set
-                if (!portalRole) {
-                    localStorage.setItem('selectedRole', userRole);
-                    showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
-                    setTimeout(() => { redirectToDashboard(userRole); }, 1500);
-                    return;
-                }
+                // Fetch all roles the user possesses using our secure database function
+                const { data: userRolesData, error: rolesError } = await supabase
+                    .rpc('get_user_roles', { uid: userWithProfile.id });
 
-                // Prevent cross-portal login
-                if (userRole !== portalRole) {
-                    showError(`This account is registered as a ${userRole}, not ${portalRole}. Please select the correct portal.`);
+                if (rolesError || !userRolesData) {
+                    showError('Error verifying user permissions. Please contact support.');
+                    await supabase.auth.signOut();
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
                     return;
                 }
 
-                // Successful Login
+                // Extract roles into a simple array (e.g., ['buyer', 'supplier'])
+                const userRoles = userRolesData.map(r => r.role);
+
+                // Redirect if no portal role is set (e.g., direct login link)
+                if (!portalRole) {
+                    const defaultRole = userRoles[0]; // Default to first role
+                    localStorage.setItem('selectedRole', defaultRole);
+                    showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
+                    setTimeout(() => { redirectToDashboard(defaultRole); }, 1500);
+                    return;
+                }
+
+                // Prevent cross-portal login: Check if their selected portal is in their list of roles
+                if (!userRoles.includes(portalRole)) {
+                    // Use generic error message to prevent User Enumeration (Security Best Practice)
+                    showError('Invalid email or password.');
+                    // Sign out immediately because signIn() technically succeeded on the backend
+                    await supabase.auth.signOut();
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    return;
+                }
+
+                // Successful Login - Redirect to the specific portal they selected
                 showSuccess(`Welcome back, ${userWithProfile.profile.full_name}!`);
-                setTimeout(() => { redirectToDashboard(userRole); }, 1500);
+                setTimeout(() => { redirectToDashboard(portalRole); }, 1500);
 
             } catch (error) {
                 console.error('Login error:', error);

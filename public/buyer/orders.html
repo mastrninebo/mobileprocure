@@ -1,409 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | My Orders</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Mobile Procure | My Orders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+            color: #0F766E;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .search {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
+        .search input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 0 20px 20px;
+        }
 
-header h2{
-font-size:22px;
-color:#0F766E;
-}
+        .filters button {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            background: #E5E7EB;
+            cursor: pointer;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
 
-.search{
-padding:20px;
-}
+        .filters button:hover {
+            background: #D1D5DB;
+        }
 
-.search input{
-width:100%;
-padding:14px 16px;
-border:1px solid #E5E7EB;
-border-radius:12px;
-font-size:15px;
-outline:none;
-}
+        .filters .active {
+            background: #0F766E;
+            color: white;
+        }
 
-.filters{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding:0 20px 20px;
-}
+        .container {
+            padding: 0 20px;
+        }
 
-.filters button{
-border:none;
-padding:10px 18px;
-border-radius:25px;
-background:#E5E7EB;
-cursor:pointer;
-font-weight:500;
-white-space:nowrap;
-}
+        .order-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.filters .active{
-background:#0F766E;
-color:white;
-}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.container{
-padding:0 20px;
-}
+        .order-id {
+            font-weight: 600;
+            color: #0F766E;
+        }
 
-.order-card{
-background:white;
-border-radius:20px;
-padding:20px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .badge {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
+        .badge.in_transit, .badge.shipped {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
 
-.order-id{
-font-weight:600;
-color:#0F766E;
-}
+        .badge.completed, .badge.delivered {
+            background: #DCFCE7;
+            color: #166534;
+        }
 
-.badge{
-padding:7px 14px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .badge.pending, .badge.confirmed {
+            background: #FEF3C7;
+            color: #92400E;
+        }
 
-.transit{
-background:#DBEAFE;
-color:#1D4ED8;
-}
+        .badge.cancelled {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
 
-.completed{
-background:#DCFCE7;
-color:#166534;
-}
+        .badge.disputed {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
 
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
+        .info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
 
-.info{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin:15px 0;
-}
+        .box {
+            background: #F8FAFC;
+            padding: 12px;
+            border-radius: 12px;
+        }
 
-.box{
-background:#F8FAFC;
-padding:12px;
-border-radius:12px;
-}
+        .box small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 5px;
+        }
 
-.box small{
-display:block;
-color:#6B7280;
-margin-bottom:5px;
-}
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
 
-.actions{
-display:flex;
-gap:12px;
-margin-top:18px;
-}
+        .actions a {
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
 
-.actions a{
-flex:1;
-text-align:center;
-text-decoration:none;
-padding:13px;
-border-radius:12px;
-font-weight:600;
-}
+        .primary {
+            background: #0F766E;
+            color: white;
+        }
 
-.primary{
-background:#0F766E;
-color:white;
-}
+        .primary:hover {
+            background: #0D6B64;
+        }
 
-.secondary{
-background:#E5E7EB;
-color:#111827;
-}
+        .secondary {
+            background: #E5E7EB;
+            color: #111827;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .secondary:hover {
+            background: #D1D5DB;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+            font-size: 14px;
+        }
 
-</style>
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+        }
 
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<script type="module">
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-    await requireBuyer();
-</script>
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            }
+        }
+    </script>
 
-<header>
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
-<h2>My Orders</h2>
-
-<i class="fa-solid fa-box-open" style="font-size:22px;color:#0F766E;"></i>
-
-</header>
-
-<div class="search">
-
-<input id="orderSearch" type="search" placeholder="Search Order ID or Supplier..." autocomplete="off">
-
-</div>
-
-<div class="filters">
-
-<button class="active" type="button" data-status="all">All</button>
-<button type="button" data-status="pending">Pending</button>
-<button type="button" data-status="in_transit">In Transit</button>
-<button type="button" data-status="delivered">Delivered</button>
-
-</div>
-
-<div class="container" id="ordersContainer">
-
-<div class="order-card">
-
-<div class="top">
-
-<div class="order-id">MP-2026-000128</div>
-
-<div class="badge transit">In Transit</div>
-
-</div>
-
-<div class="info">
-
-<div class="box">
-<small>Supplier</small>
-<strong>Mpundu Cattle Ranch</strong>
-</div>
-
-<div class="box">
-<small>Livestock</small>
-<strong>200 Angus Bulls</strong>
-</div>
-
-<div class="box">
-<small>Total</small>
-<strong>$63,950</strong>
-</div>
-
-<div class="box">
-<small>Escrow</small>
-<strong>Funds Secured</strong>
-</div>
-
-</div>
-
-<div class="actions">
-
-<a href="tracking.html" class="primary">
-
-Track Shipment
-
-</a>
-
-<a href="order-review.html" class="secondary">
-
-View Details
-
-</a>
-
-</div>
-
-</div>
-
-<div class="order-card">
-
-<div class="top">
-
-<div class="order-id">MP-2026-000117</div>
-
-<div class="badge completed">Delivered</div>
-
-</div>
-
-<div class="info">
-
-<div class="box">
-<small>Supplier</small>
-<strong>Eastern Livestock</strong>
-</div>
-
-<div class="box">
-<small>Livestock</small>
-<strong>80 Boer Goats</strong>
-</div>
-
-<div class="box">
-<small>Total</small>
-<strong>$24,600</strong>
-</div>
-
-<div class="box">
-<small>Escrow</small>
-<strong>Released</strong>
-</div>
-
-</div>
-
-<div class="actions">
-
-<a href="tracking.html" class="primary">
-
-View Journey
-
-</a>
-
-<a href="order-review.html" class="secondary">
-
-Receipt
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<script type="module">
-    import { supabase } from '../assets/js/supabase-client.js';
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-
-    const ordersContainer = document.getElementById('ordersContainer');
-    const searchInput = document.getElementById('orderSearch');
-    const filterButtons = [...document.querySelectorAll('.filters button')];
-    let orders = [];
-    let activeStatus = 'all';
-
-    function formatCurrency(amount) {
-        return new Intl.NumberFormat('en-ZM', {
-            style: 'currency', currency: 'ZMW', maximumFractionDigits: 2
-        }).format(Number(amount || 0));
-    }
-
-    function statusClass(status) {
-        if (['completed', 'delivered'].includes(status)) return 'completed';
-        if (['in_transit', 'shipped'].includes(status)) return 'transit';
-        return 'pending';
-    }
-
-    function labelForStatus(status) {
-        return String(status || 'pending').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
-    }
-
-    function renderOrders() {
-        const term = searchInput.value.trim().toLowerCase();
-        const visibleOrders = orders.filter(order => {
-            const supplier = order.supplier?.company_name || order.supplier?.full_name || '';
-            const matchesSearch = !term || order.order_number?.toLowerCase().includes(term) || supplier.toLowerCase().includes(term);
-            const matchesStatus = activeStatus === 'all' || order.status === activeStatus ||
-                (activeStatus === 'in_transit' && order.status === 'shipped');
-            return matchesSearch && matchesStatus;
-        });
-
-        ordersContainer.replaceChildren();
-
-        if (!visibleOrders.length) {
-            const empty = document.createElement('div');
-            empty.className = 'order-card';
-            empty.textContent = orders.length ? 'No orders match your search.' : 'You have not placed any orders yet.';
-            ordersContainer.append(empty);
-            return;
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/mobileprocure/login.html';
+                    return;
+                }
+                if (user.profile.role !== 'buyer') {
+                    window.location.href = '/mobileprocure/unauthorized.html';
+                    return;
+                }
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/mobileprocure/login.html';
+            }
         }
 
-        visibleOrders.forEach(order => {
-            const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Supplier pending';
-            const card = document.createElement('article');
-            card.className = 'order-card';
+        await protectPage();
 
-            const top = document.createElement('div');
-            top.className = 'top';
-            const orderId = document.createElement('div');
-            orderId.className = 'order-id';
-            orderId.textContent = order.order_number || 'Order';
-            const badge = document.createElement('div');
-            badge.className = `badge ${statusClass(order.status)}`;
-            badge.textContent = labelForStatus(order.status);
-            top.append(orderId, badge);
+        const ordersContainer = document.getElementById('ordersContainer');
+        const searchInput = document.getElementById('orderSearch');
+        const filterButtons = document.querySelectorAll('.filters button');
+        let orders = [];
+        let activeStatus = 'all';
 
-            const info = document.createElement('div');
-            info.className = 'info';
-            [['Supplier', supplierName], ['Total', formatCurrency(order.total_amount)], ['Order date', order.order_date ? new Date(order.order_date).toLocaleDateString('en-ZM') : '—'], ['Escrow', order.status === 'completed' ? 'Released' : 'Protected']]
-                .forEach(([label, value]) => {
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-ZM', {
+                style: 'currency', currency: 'ZMW', maximumFractionDigits: 2
+            }).format(Number(amount || 0));
+        }
+
+        function statusClass(status) {
+            const map = {
+                'completed': 'completed',
+                'delivered': 'completed',
+                'in_transit': 'in_transit',
+                'shipped': 'in_transit',
+                'pending': 'pending',
+                'confirmed': 'pending',
+                'cancelled': 'cancelled',
+                'disputed': 'disputed'
+            };
+            return map[status] || 'pending';
+        }
+
+        function statusLabel(status) {
+            const map = {
+                'pending': 'Pending',
+                'confirmed': 'Confirmed',
+                'in_transit': 'In Transit',
+                'shipped': 'Shipped',
+                'delivered': 'Delivered',
+                'completed': 'Completed',
+                'cancelled': 'Cancelled',
+                'disputed': 'Disputed'
+            };
+            return map[status] || status || 'Pending';
+        }
+
+        function renderOrders() {
+            const term = searchInput.value.trim().toLowerCase();
+            const visibleOrders = orders.filter(order => {
+                const supplier = order.supplier?.company_name || order.supplier?.full_name || '';
+                const matchesSearch = !term || 
+                    order.order_number?.toLowerCase().includes(term) || 
+                    supplier.toLowerCase().includes(term);
+                const matchesStatus = activeStatus === 'all' || order.status === activeStatus;
+                return matchesSearch && matchesStatus;
+            });
+
+            ordersContainer.innerHTML = '';
+
+            if (!visibleOrders.length) {
+                const empty = document.createElement('div');
+                empty.className = 'order-card';
+                empty.innerHTML = `<div class="no-data">${orders.length ? 'No orders match your search.' : 'You have not placed any orders yet.'}</div>`;
+                ordersContainer.append(empty);
+                return;
+            }
+
+            visibleOrders.forEach(order => {
+                const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Supplier pending';
+                const card = document.createElement('article');
+                card.className = 'order-card';
+
+                const top = document.createElement('div');
+                top.className = 'top';
+                const orderId = document.createElement('div');
+                orderId.className = 'order-id';
+                orderId.textContent = order.order_number || `Order #${order.id.slice(0, 8)}`;
+                const badge = document.createElement('div');
+                badge.className = `badge ${statusClass(order.status)}`;
+                badge.textContent = statusLabel(order.status);
+                top.append(orderId, badge);
+
+                const info = document.createElement('div');
+                info.className = 'info';
+                const fields = [
+                    ['Supplier', supplierName],
+                    ['Total', formatCurrency(order.total_amount)],
+                    ['Order Date', order.order_date ? new Date(order.order_date).toLocaleDateString('en-ZM') : '—'],
+                    ['Escrow', order.status === 'completed' || order.status === 'delivered' ? 'Released' : 'Protected']
+                ];
+                fields.forEach(([label, value]) => {
                     const box = document.createElement('div');
                     box.className = 'box';
                     const small = document.createElement('small');
@@ -414,95 +365,113 @@ Receipt
                     info.append(box);
                 });
 
-            const actions = document.createElement('div');
-            actions.className = 'actions';
-            const tracking = document.createElement('a');
-            tracking.className = 'primary';
-            tracking.href = `tracking.html?order=${encodeURIComponent(order.id)}`;
-            tracking.textContent = 'Track Shipment';
-            const details = document.createElement('a');
-            details.className = 'secondary';
-            details.href = `order-review.html?order=${encodeURIComponent(order.id)}`;
-            details.textContent = 'View Details';
-            actions.append(tracking, details);
-            card.append(top, info, actions);
-            ordersContainer.append(card);
-        });
-    }
-
-    async function loadOrders() {
-        const user = await requireBuyer();
-        if (!user) return;
-
-        const { data, error } = await supabase
-            .from('orders')
-            .select('id, order_number, total_amount, status, order_date, supplier:supplier_id(full_name, company_name)')
-            .eq('buyer_id', user.id)
-            .order('order_date', { ascending: false });
-
-        if (error) {
-            console.error('Unable to load buyer orders:', error);
-            ordersContainer.textContent = 'Unable to load orders. Please try again.';
-            return;
+                const actions = document.createElement('div');
+                actions.className = 'actions';
+                const tracking = document.createElement('a');
+                tracking.className = 'primary';
+                tracking.href = `tracking.html?order=${encodeURIComponent(order.id)}`;
+                tracking.textContent = 'Track Shipment';
+                const details = document.createElement('a');
+                details.className = 'secondary';
+                details.href = `order-review.html?order=${encodeURIComponent(order.id)}`;
+                details.textContent = 'View Details';
+                actions.append(tracking, details);
+                card.append(top, info, actions);
+                ordersContainer.append(card);
+            });
         }
 
-        orders = data || [];
-        renderOrders();
-    }
+        async function loadOrders() {
+            const user = await getCurrentUser();
+            if (!user) return;
 
-    searchInput.addEventListener('input', renderOrders);
-    filterButtons.forEach(button => button.addEventListener('click', () => {
-        activeStatus = button.dataset.status;
-        filterButtons.forEach(item => item.classList.toggle('active', item === button));
-        renderOrders();
-    }));
+            const { data, error } = await supabase
+                .from('orders')
+                .select('id, order_number, total_amount, status, order_date, supplier:supplier_id(full_name, company_name)')
+                .eq('buyer_id', user.id)
+                .order('order_date', { ascending: false });
 
-    loadOrders();
-</script>
+            if (error) {
+                console.error('Unable to load buyer orders:', error);
+                ordersContainer.innerHTML = `<div class="order-card"><div class="no-data">Unable to load orders. Please try again.</div></div>`;
+                return;
+            }
 
-<div class="bottom-nav">
+            orders = data || [];
+            renderOrders();
+        }
 
-<a href="dashboard.html">
+        searchInput.addEventListener('input', renderOrders);
 
-<i class="fa-solid fa-house"></i>
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                activeStatus = button.dataset.status;
+                filterButtons.forEach(item => item.classList.toggle('active', item === button));
+                renderOrders();
+            });
+        });
 
-Home
+        // Show loading state
+        ordersContainer.innerHTML = `
+            <div class="order-card">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading your orders...</p>
+                </div>
+            </div>
+        `;
 
-</a>
+        loadOrders();
+    </script>
 
-<a href="marketplace.html">
+    <header>
+        <h2>My Orders</h2>
+        <i class="fa-solid fa-box-open" style="font-size:22px;color:#0F766E;"></i>
+    </header>
 
-<i class="fa-solid fa-store"></i>
+    <div class="search">
+        <input id="orderSearch" type="search" placeholder="Search Order ID or Supplier..." autocomplete="off">
+    </div>
 
-Marketplace
+    <div class="filters">
+        <button class="active" type="button" data-status="all">All</button>
+        <button type="button" data-status="pending">Pending</button>
+        <button type="button" data-status="in_transit">In Transit</button>
+        <button type="button" data-status="delivered">Delivered</button>
+        <button type="button" data-status="completed">Completed</button>
+    </div>
 
-</a>
+    <div class="container" id="ordersContainer">
+        <div class="order-card">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading your orders...</p>
+            </div>
+        </div>
+    </div>
 
-<a class="active" href="orders.html">
-
-<i class="fa-solid fa-box"></i>
-
-Orders
-
-</a>
-
-<a href="catalog.html">
-
-<i class="fa-solid fa-book"></i>
-
-Catalog
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="marketplace.html">
+            <i class="fa-solid fa-store"></i>
+            Marketplace
+        </a>
+        <a class="active" href="orders.html">
+            <i class="fa-solid fa-box"></i>
+            Orders
+        </a>
+        <a href="catalog.html">
+            <i class="fa-solid fa-book"></i>
+            Catalog
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 
 </body>
 </html>
