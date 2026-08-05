@@ -76,10 +76,8 @@
             <div id="successMessage" class="success-message"><span id="successText">Success!</span></div>
 
             <form id="signupFormElement">
-                <!-- Hidden role field -->
                 <input type="hidden" id="userRole" value="buyer">
 
-                <!-- Common fields -->
                 <div class="input-group">
                     <label>Full Name</label>
                     <div class="input-box">
@@ -124,7 +122,6 @@
                     </div>
                 </div>
 
-                <!-- Company / Business Name (for suppliers & logistics) -->
                 <div class="role-specific" id="companyFields">
                     <div class="input-group">
                         <label>Business / Company Name</label>
@@ -149,7 +146,6 @@
                     </div>
                 </div>
 
-                <!-- Password fields -->
                 <div class="input-group">
                     <label>Password</label>
                     <div class="input-box">
@@ -213,42 +209,13 @@
     const companyFields = document.getElementById("companyFields");
 
     const roles = {
-        buyer: {
-            title: "Buyer Portal",
-            subtitle: "Register to purchase livestock.",
-            button: "Create Buyer Account",
-            icon: "fa-cart-shopping"
-        },
-        supplier: {
-            title: "Supplier Portal",
-            subtitle: "Register your livestock business.",
-            button: "Create Supplier Account",
-            icon: "fa-cow",
-            showCompany: true
-        },
-        logistics: {
-            title: "Logistics Portal",
-            subtitle: "Register your logistics company.",
-            button: "Register Logistics Company",
-            icon: "fa-truck-fast",
-            showCompany: true
-        },
-        government: {
-            restricted: true,
-            message: "Government accounts are created and managed by the System Administrator."
-        },
-        fintech: {
-            restricted: true,
-            message: "Fintech institutions are onboarded by Mobile Procure after approval."
-        },
-        veterinary: {
-            restricted: true,
-            message: "Veterinary accounts are created and managed by the System Administrator."
-        },
-        customs: {
-            restricted: true,
-            message: "Customs accounts are created and managed by the System Administrator."
-        }
+        buyer: { title: "Buyer Portal", subtitle: "Register to purchase livestock.", button: "Create Buyer Account", icon: "fa-cart-shopping" },
+        supplier: { title: "Supplier Portal", subtitle: "Register your livestock business.", button: "Create Supplier Account", icon: "fa-cow", showCompany: true },
+        logistics: { title: "Logistics Portal", subtitle: "Register your logistics company.", button: "Register Logistics Company", icon: "fa-truck-fast", showCompany: true },
+        government: { restricted: true, message: "Government accounts are created and managed by the System Administrator." },
+        fintech: { restricted: true, message: "Fintech institutions are onboarded by Mobile Procure after approval." },
+        veterinary: { restricted: true, message: "Veterinary accounts are created and managed by the System Administrator." },
+        customs: { restricted: true, message: "Customs accounts are created and managed by the System Administrator." }
     };
 
     const current = roles[role];
@@ -268,7 +235,6 @@
         }
     }
 
-    // Handle signup
     const form = document.getElementById('signupFormElement');
     const errorMessage = document.getElementById('errorMessage');
     const errorText = document.getElementById('errorText');
@@ -317,14 +283,22 @@
         signupButton.textContent = 'Creating account...';
 
         try {
-            // 1. Create auth user
+            // Create auth user
+            // Pass ALL data to the trigger via options.data
+            // The trigger will handle 100% of the database inserts, bypassing RLS entirely.
             const { data: authData, error: authError } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
                     data: {
                         full_name: fullName,
-                        role: userRole
+                        role: userRole,
+                        phone: phone,
+                        province: province,
+                        country: 'Zambia',
+                        company_name: companyName,
+                        tax_id: taxId,
+                        registration_number: regNumber
                     }
                 }
             });
@@ -335,88 +309,11 @@
                 throw new Error('User creation failed');
             }
 
-            // 2. Create profile
-            const profileData = {
-                id: authData.user.id,
-                email: email,
-                full_name: fullName,
-                phone: phone || null,
-                role: userRole,
-                company_name: companyName || null,
-                tax_id: taxId || null,
-                registration_number: regNumber || null,
-                is_active: true,
-                is_verified: false
-            };
-
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .insert([profileData]);
-
-            if (profileError) throw profileError;
-
-            // 3. Create user_profile
-            const userProfileData = {
-                user_id: authData.user.id,
-                province: province || null,
-                country: 'Zambia'
-            };
-
-            const { error: userProfileError } = await supabase
-                .from('user_profiles')
-                .insert([userProfileData]);
-
-            if (userProfileError) {
-                console.warn('User profile creation failed:', userProfileError);
-            }
-
-            // 4. Create role-specific profile
-            if (userRole === 'supplier') {
-                const { error: supplierError } = await supabase
-                    .from('supplier_profiles')
-                    .insert([{
-                        user_id: authData.user.id,
-                        business_type: null,
-                        farm_size_hectares: null,
-                        livestock_capacity: null,
-                        is_approved: false
-                    }]);
-
-                if (supplierError) {
-                    console.warn('Supplier profile creation failed:', supplierError);
-                }
-            } else if (userRole === 'logistics') {
-                const { error: logisticsError } = await supabase
-                    .from('logistics_profiles')
-                    .insert([{
-                        user_id: authData.user.id,
-                        fleet_size: 0,
-                        is_approved: false
-                    }]);
-
-                if (logisticsError) {
-                    console.warn('Logistics profile creation failed:', logisticsError);
-                }
-            } else if (userRole === 'buyer') {
-                const { error: buyerError } = await supabase
-                    .from('buyer_profiles')
-                    .insert([{
-                        user_id: authData.user.id,
-                        credit_limit: null,
-                        credit_used: 0
-                    }]);
-
-                if (buyerError) {
-                    console.warn('Buyer profile creation failed:', buyerError);
-                }
-            }
-
             // Success!
             successText.textContent = 'Account created successfully! You can now login.';
             successMessage.classList.add('show');
             form.reset();
 
-            // Redirect after 3 seconds
             setTimeout(() => {
                 window.location.href = 'login.html';
             }, 3000);
