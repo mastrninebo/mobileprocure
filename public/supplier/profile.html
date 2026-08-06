@@ -693,17 +693,31 @@
         // LOAD STATS
         async function loadStats(userId) {
             try {
-                const { data: orders, error } = await supabase
+                // 1. Get Supplier Profile Stats (Rating and Completed Orders)
+                const { data: supplierProf, error: profError } = await supabase
+                    .from('supplier_profiles')
+                    .select('average_rating, total_orders_completed')
+                    .eq('user_id', userId)
+                    .maybeSingle();
+
+                if (!profError && supplierProf) {
+                    const avgRating = supplierProf.average_rating || 0;
+                    rating.textContent = avgRating > 0 ? `${avgRating.toFixed(1)}★` : 'No ratings yet';
+                } else {
+                    rating.textContent = 'No ratings yet';
+                }
+
+                // 2. Get Orders/Earnings Stats
+                const { data: orders, error: orderError } = await supabase
                     .from('orders')
                     .select('id, total_amount, status')
                     .eq('supplier_id', userId);
                 
-                if (!error && orders) {
+                if (!orderError && orders) {
                     orderCount.textContent = orders.length;
                     const completedOrders = orders.filter(o => o.status === 'completed');
                     const totalEarnings = completedOrders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
                     earnings.textContent = `$${totalEarnings.toLocaleString()}`;
-                    rating.textContent = `4.9★`; // Placeholder
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
