@@ -1,393 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Escrow Wallet</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Escrow Wallet</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        header a {
+            color: #0F766E;
+            font-size: 20px;
+            text-decoration: none;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header h2 {
+            font-size: 22px;
+        }
 
-<style>
+        .container {
+            padding: 20px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .wallet {
+            background: linear-gradient(135deg, #0F766E, #14B8A6);
+            color: white;
+            padding: 25px;
+            border-radius: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.2);
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .wallet small {
+            opacity: .9;
+            font-size: 14px;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .wallet h1 {
+            margin: 12px 0;
+            font-size: 38px;
+        }
 
-header a{
-color:#0F766E;
-font-size:20px;
-text-decoration:none;
-}
+        .wallet p {
+            opacity: .95;
+            font-size: 13px;
+        }
 
-header h2{
-font-size:22px;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-.container{
-padding:20px;
-}
+        .stat {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            text-align: center;
+        }
 
-.wallet{
-background:linear-gradient(135deg,#0F766E,#14B8A6);
-color:white;
-padding:25px;
-border-radius:22px;
-margin-bottom:25px;
-}
+        .stat i {
+            font-size: 28px;
+            color: #0F766E;
+            margin-bottom: 12px;
+        }
 
-.wallet small{
-opacity:.9;
-}
+        .stat h3 {
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
 
-.wallet h1{
-margin:12px 0;
-font-size:38px;
-}
+        .stat p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.wallet p{
-opacity:.95;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-bottom:25px;
-}
+        .card h3 {
+            margin-bottom: 18px;
+            color: #0F766E;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-.stat{
-background:white;
-padding:18px;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-text-align:center;
-}
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ECECEC;
+        }
 
-.stat i{
-font-size:28px;
-color:#0F766E;
-margin-bottom:12px;
-}
+        .transaction:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
 
-.stat h3{
-margin-bottom:5px;
-}
+        .transaction h4 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .transaction p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.card h3{
-margin-bottom:18px;
-color:#0F766E;
-}
+        .amount {
+            text-align: right;
+        }
 
-.transaction{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #ECECEC;
-}
+        .amount strong {
+            display: block;
+            font-size: 16px;
+        }
 
-.transaction:last-child{
-border:none;
-padding-bottom:0;
-}
+        .status-text {
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: capitalize;
+            margin-top: 2px;
+            display: block;
+        }
 
-.transaction h4{
-font-size:15px;
-margin-bottom:5px;
-}
+        .status-pending, .status-confirmed, .status-escrow_funded, .status-shipped {
+            color: #D97706;
+        }
 
-.transaction p{
-font-size:13px;
-color:#6B7280;
-}
+        .status-completed {
+            color: #15803D;
+        }
+        
+        .status-cancelled, .status-disputed {
+            color: #DC2626;
+        }
 
-.amount{
-text-align:right;
-}
+        .button {
+            display: block;
+            text-align: center;
+            padding: 16px;
+            background: #0F766E;
+            color: white;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s;
+        }
 
-.amount strong{
-display:block;
-font-size:16px;
-}
+        .button:hover {
+            background: #0D6B64;
+        }
 
-.pending{
-color:#D97706;
-font-weight:600;
-font-size:13px;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
 
-.released{
-color:#15803D;
-font-weight:600;
-font-size:13px;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-.button{
-display:block;
-text-align:center;
-padding:16px;
-background:#0F766E;
-color:white;
-text-decoration:none;
-border-radius:14px;
-font-weight:600;
-margin-top:20px;
-}
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6B7280;
+        }
+        
+        .empty-state i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-gap:5px;
-}
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+            gap: 5px;
+        }
 
-</style>
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
 
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>Escrow Wallet</h2>
-
-</header>
-
-<div class="container">
-
-<div class="wallet">
-
-<small>Available Balance</small>
-
-<h1>$148,500</h1>
-
-<p>Funds successfully released from completed orders.</p>
-
-</div>
-
-<div class="stats">
-
-<div class="stat">
-
-<i class="fa-solid fa-lock"></i>
-
-<h3>$63,950</h3>
-
-<p>Held in Escrow</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-circle-check"></i>
-
-<h3>$148,500</h3>
-
-<p>Released</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-clock"></i>
-
-<h3>4</h3>
-
-<p>Pending Orders</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-money-bill-transfer"></i>
-
-<h3>26</h3>
-
-<p>Total Payouts</p>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Recent Transactions</h3>
-
-<div class="transaction">
-
-<div>
-
-<h4>MP-2026-000128</h4>
-
-<p>African Beef Imports</p>
-
-</div>
-
-<div class="amount">
-
-<strong>$63,950</strong>
-
-<span class="pending">Awaiting Delivery</span>
-
-</div>
-
-</div>
-
-<div class="transaction">
-
-<div>
-
-<h4>MP-2026-000117</h4>
-
-<p>Dubai Premium Meats</p>
-
-</div>
-
-<div class="amount">
-
-<strong>$24,600</strong>
-
-<span class="released">Released</span>
-
-</div>
-
-</div>
-
-<div class="transaction">
-
-<div>
-
-<h4>MP-2026-000101</h4>
-
-<p>Lusaka Meat Processors</p>
-
-</div>
-
-<div class="amount">
-
-<strong>$12,800</strong>
-
-<span class="released">Released</span>
-
-</div>
-
-</div>
-
-<a href="#" class="button">
-
-Download Statement
-
-</a>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="inventory.html">
-
-<i class="fa-solid fa-boxes-stacked"></i>
-
-Inventory
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-clipboard-list"></i>
-
-Orders
-
-</a>
-
-<a href="payments.html" class="active">
-
-<i class="fa-solid fa-wallet"></i>
-
-Escrow
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('supplier')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Escrow Wallet</h2>
+    </header>
+
+    <div class="container">
+        <div id="walletContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading wallet...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="inventory.html">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Inventory
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-clipboard-list"></i>
+            Orders
+        </a>
+        <a href="payments.html" class="active">
+            <i class="fa-solid fa-wallet"></i>
+            Escrow
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const walletContainer = document.getElementById('walletContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Format Currency
+        function formatCurrency(amount) {
+            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Load Wallet Data
+        async function loadWalletData() {
+            try {
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                // Fetch all orders for this supplier
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, total_amount, order_date,
+                        buyer:buyer_id ( full_name, company_name )
+                    `)
+                    .eq('supplier_id', user.id)
+                    .order('order_date', { ascending: false });
+
+                if (error) throw error;
+
+                // Calculate Stats
+                let availableBalance = 0;
+                let heldInEscrow = 0;
+                let pendingCount = 0;
+                let totalOrders = 0;
+
+                orders.forEach(order => {
+                    const amount = parseFloat(order.total_amount || 0);
+                    if (order.status === 'completed') {
+                        availableBalance += amount;
+                    } else if (['pending', 'confirmed', 'escrow_funded', 'shipped', 'delivered'].includes(order.status)) {
+                        heldInEscrow += amount;
+                        pendingCount++;
+                    }
+                    totalOrders++;
+                });
+
+                // Recent Transactions (limit to 5)
+                const recentOrders = orders.slice(0, 5);
+
+                renderWallet(availableBalance, heldInEscrow, pendingCount, totalOrders, recentOrders);
+
+            } catch (error) {
+                console.error('Error loading wallet data:', error);
+                walletContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading wallet data.</p>`;
+            }
+        }
+
+        // Render HTML
+        function renderWallet(available, escrow, pending, total, transactions) {
+            const transactionsHtml = transactions.length > 0 ? transactions.map(order => {
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+                const status = order.status || 'pending';
+                const isCompleted = status === 'completed';
+                
+                return `
+                    <div class="transaction">
+                        <div>
+                            <h4>${order.order_number || 'N/A'}</h4>
+                            <p>${buyerName}</p>
+                        </div>
+                        <div class="amount">
+                            <strong>${formatCurrency(order.total_amount)}</strong>
+                            <span class="status-text status-${status}">${isCompleted ? 'Released' : status.replace('_', ' ')}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('') : `
+                <div class="empty-state">
+                    <i class="fa-solid fa-receipt"></i>
+                    <p>No transactions yet.</p>
+                </div>
+            `;
+
+            walletContainer.innerHTML = `
+                <div class="wallet">
+                    <small>Available Balance</small>
+                    <h1>${formatCurrency(available)}</h1>
+                    <p>Funds successfully released from completed orders.</p>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <i class="fa-solid fa-lock"></i>
+                        <h3>${formatCurrency(escrow)}</h3>
+                        <p>Held in Escrow</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h3>${formatCurrency(available)}</h3>
+                        <p>Total Released</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3>${pending}</h3>
+                        <p>Active Orders</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                        <h3>${total}</h3>
+                        <p>Total Orders</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Recent Transactions</h3>
+                    <div id="transactionsList">
+                        ${transactionsHtml}
+                    </div>
+                    <button id="downloadStmtBtn" class="button">
+                        <i class="fa-solid fa-download"></i> Download Statement
+                    </button>
+                </div>
+            `;
+
+            // Attach download listener
+            document.getElementById('downloadStmtBtn').addEventListener('click', () => downloadStatement(transactions));
+        }
+
+        // Generate CSV Statement
+        function downloadStatement(orders) {
+            if (!orders || orders.length === 0) {
+                showToast('No transactions to download.', 'error');
+                return;
+            }
+
+            // Define CSV headers
+            const headers = ['Order Number', 'Buyer', 'Date', 'Status', 'Amount (USD)'];
+            
+            // Map data to CSV rows
+            const rows = orders.map(order => {
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+                const date = new Date(order.order_date).toLocaleDateString();
+                const status = order.status || 'pending';
+                const amount = order.total_amount || 0;
+                
+                // Escape commas in buyer name
+                return [
+                    order.order_number || 'N/A',
+                    `"${buyerName}"`,
+                    date,
+                    status,
+                    amount
+                ].join(',');
+            });
+
+            // Combine into CSV string
+            const csv = [headers.join(','), ...rows].join('\n');
+            
+            // Create Blob and trigger download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `MobileProcure_Statement_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            showToast('Statement downloaded successfully!', 'success');
+        }
+
+        // Initialize
+        loadWalletData();
+    </script>
 
 </body>
 </html>

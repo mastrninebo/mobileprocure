@@ -1,314 +1,483 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Livestock | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
-<title>Add Livestock | Mobile Procure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<style>
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        header a {
+            color: #0F766E;
+            text-decoration: none;
+            font-size: 20px;
+        }
 
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
+        header h2 {
+            font-size: 22px;
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 2px 15px rgba(0,0,0,.05);
-}
+        .container {
+            padding: 20px;
+        }
 
-header a{
-color:#0F766E;
-text-decoration:none;
-font-size:20px;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+        }
 
-header h2{
-font-size:22px;
-}
+        .section-title {
+            color: #0F766E;
+            margin-bottom: 18px;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-.container{
-padding:20px;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
-margin-bottom:20px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-}
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            outline: none;
+            background: #FAFAFA;
+            transition: 0.3s;
+        }
 
-.section-title{
-color:#0F766E;
-margin-bottom:18px;
-font-size:18px;
-}
+        input:focus, select:focus, textarea:focus {
+            border-color: #0F766E;
+            background: white;
+        }
 
-label{
-display:block;
-margin-bottom:8px;
-font-weight:600;
-}
+        textarea {
+            height: 120px;
+            resize: none;
+        }
 
-input,
-select,
-textarea{
-width:100%;
-padding:14px;
-border:1px solid #E5E7EB;
-border-radius:12px;
-margin-bottom:18px;
-font-size:15px;
-outline:none;
-}
+        .upload {
+            border: 2px dashed #CBD5E1;
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            background: #F8FAFC;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-textarea{
-height:120px;
-resize:none;
-}
+        .upload:hover {
+            border-color: #0F766E;
+            background: #F0FDFA;
+        }
 
-.upload{
-border:2px dashed #CBD5E1;
-border-radius:15px;
-padding:35px;
-text-align:center;
-background:#F8FAFC;
-margin-bottom:20px;
-}
+        .upload i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-.upload i{
-font-size:40px;
-color:#0F766E;
-margin-bottom:15px;
-}
+        .upload p {
+            color: #6B7280;
+        }
 
-.upload p{
-color:#6B7280;
-}
+        #imagePreview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-.btn{
-display:block;
-width:100%;
-padding:16px;
-background:#0F766E;
-color:white;
-text-align:center;
-text-decoration:none;
-border-radius:14px;
-font-size:17px;
-font-weight:600;
-}
+        .preview-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #E5E7EB;
+        }
 
-.bottom-nav{
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #0F766E;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-position:fixed;
+        .btn:hover {
+            background: #0D6B64;
+        }
 
-bottom:0;
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
-left:0;
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
 
-width:100%;
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
-background:white;
+        /* BOTTOM NAVIGATION */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-display:flex;
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #9CA3AF;
+        }
 
-justify-content:space-around;
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
 
-padding:15px 0;
-
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-
-}
-
-.bottom-nav a{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:5px;
-
-font-size:12px;
-
-text-decoration:none;
-
-color:#9CA3AF;
-
-}
-
-.bottom-nav a.active{
-
-color:#0F766E;
-
-font-weight:600;
-
-}
-
-.bottom-nav i{
-
-font-size:20px;
-
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
 
-<a href="inventory.html">
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
 
-<i class="fa-solid fa-arrow-left"></i>
+                const userRoles = roles ? roles.map(r => r.role) : [];
 
-</a>
+                if (!userRoles.includes('supplier')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
 
-<h2>Add Livestock</h2>
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
 
-</header>
+    <header>
+        <a href="inventory.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Add Livestock</h2>
+    </header>
 
-<div class="container">
+    <div class="container">
+        <form id="addLivestockForm">
+            <div class="card">
+                <h3 class="section-title">Livestock Information</h3>
+                
+                <label>Category</label>
+                <select id="category" required>
+                    <option value="">Select Category</option>
+                    <option value="cattle">Cattle</option>
+                    <option value="goats">Goats</option>
+                    <option value="sheep">Sheep</option>
+                    <option value="pigs">Pigs</option>
+                    <option value="poultry">Poultry</option>
+                </select>
 
-<div class="card">
+                <label>Breed</label>
+                <input type="text" id="breed" placeholder="e.g. Angus Bulls" required>
 
-<h3 class="section-title">
+                <label>Quantity</label>
+                <input type="number" id="quantity" placeholder="200" min="1" required>
 
-Livestock Information
+                <label>Average Weight (kg)</label>
+                <input type="number" id="weight" placeholder="450" min="0" step="0.1">
 
-</h3>
+                <label>Price Per Head (USD)</label>
+                <input type="number" id="price" placeholder="1250" min="0" step="0.01" required>
 
-<label>Category</label>
+                <label>Farm Location</label>
+                <input type="text" id="location" placeholder="Chisamba, Central Province" required>
 
-<select>
+                <label>Vaccination Status</label>
+                <select id="vaccination" required>
+                    <option value="Fully Vaccinated">Fully Vaccinated</option>
+                    <option value="Partially Vaccinated">Partially Vaccinated</option>
+                    <option value="Awaiting Inspection">Awaiting Inspection</option>
+                </select>
 
-<option>Cattle</option>
+                <label>Description</label>
+                <textarea id="description" placeholder="Describe the livestock (health, age, etc.)..." required></textarea>
+            </div>
 
-<option>Goats</option>
+            <div class="card">
+                <h3 class="section-title">Livestock Photos</h3>
+                <div class="upload" id="uploadArea">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <h4>Upload Images</h4>
+                    <p>Click to select files (Max 4 images)</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                </div>
+                <div id="imagePreview"></div>
+            </div>
 
-<option>Sheep</option>
+            <button type="submit" class="btn" id="submitBtn">
+                Publish Listing
+            </button>
+        </form>
+    </div>
 
-<option>Pigs</option>
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
 
-<option>Chickens</option>
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="inventory.html" class="active">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Inventory
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-clipboard-list"></i>
+            Orders
+        </a>
+        <a href="payments.html">
+            <i class="fa-solid fa-wallet"></i>
+            Escrow
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 
-</select>
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
-<label>Breed</label>
+        // DOM Elements
+        const form = document.getElementById('addLivestockForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
 
-<input type="text" placeholder="e.g. Angus Bulls">
+        let selectedFiles = [];
 
-<label>Quantity</label>
+        // Handle file selection
+        uploadArea.addEventListener('click', () => fileInput.click());
 
-<input type="number" placeholder="200">
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            if (files.length > 4) {
+                showToast('You can only upload up to 4 images.', 'error');
+                return;
+            }
+            
+            selectedFiles = files;
+            imagePreview.innerHTML = '';
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.className = 'preview-image';
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
 
-<label>Average Weight (kg)</label>
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const user = await getCurrentUser();
+            if (!user) {
+                showToast('Session expired. Please log in again.', 'error');
+                return;
+            }
 
-<input type="number" placeholder="450">
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
 
-<label>Price Per Head (USD)</label>
+            try {
+                // 1. Get form data
+                const category = document.getElementById('category').value;
+                const breed = document.getElementById('breed').value;
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const weight = parseFloat(document.getElementById('weight').value) || null;
+                const price = parseFloat(document.getElementById('price').value);
+                const location = document.getElementById('location').value;
+                const vaccination = document.getElementById('vaccination').value;
+                const description = document.getElementById('description').value;
 
-<input type="number" placeholder="1250">
+                // 2. Upload images to Supabase Storage (if any)
+                const imageUrls = [];
+                if (selectedFiles.length > 0) {
+                    for (const file of selectedFiles) {
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                        
+                        const { error: uploadError } = await supabase.storage
+                            .from('livestock-images')
+                            .upload(fileName, file);
 
-<label>Farm Location</label>
+                        if (uploadError) throw uploadError;
 
-<input type="text" placeholder="Chisamba, Central Province">
+                        // Get public URL
+                        const { data: publicUrlData } = supabase.storage
+                            .from('livestock-images')
+                            .getPublicUrl(fileName);
 
-<label>Vaccination Status</label>
+                        imageUrls.push(publicUrlData.publicUrl);
+                    }
+                }
 
-<select>
+                // 3. Insert record into inventory_items table
+                const { error: insertError } = await supabase
+                    .from('inventory_items')
+                    .insert([{
+                        supplier_id: user.id,
+                        category: category,
+                        breed: breed,
+                        quantity: quantity,
+                        weight_kg: weight,
+                        price_per_unit: price,
+                        unit: 'head', // Default unit
+                        location_name: location,
+                        certification_status: vaccination,
+                        description: description,
+                        images: imageUrls.length > 0 ? imageUrls : null,
+                        is_available: true
+                    }]);
 
-<option>Fully Vaccinated</option>
+                if (insertError) throw insertError;
 
-<option>Partially Vaccinated</option>
+                // Success
+                showToast('Livestock listing published successfully!', 'success');
+                
+                // Reset form and redirect
+                setTimeout(() => {
+                    window.location.href = '/supplier/inventory.html';
+                }, 1500);
 
-<option>Awaiting Inspection</option>
+            } catch (error) {
+                console.error('Error publishing listing:', error);
+                showToast('Error: ' + error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publish Listing';
+            }
+        });
 
-</select>
-
-<label>Description</label>
-
-<textarea placeholder="Describe the livestock..."></textarea>
-
-</div>
-
-<div class="card">
-
-<h3 class="section-title">
-
-Livestock Photos
-
-</h3>
-
-<div class="upload">
-
-<i class="fa-solid fa-cloud-arrow-up"></i>
-
-<h4>Upload Images</h4>
-
-<p>Drag & Drop or Click to Upload</p>
-
-</div>
-
-</div>
-
-<a href="inventory.html" class="btn">
-
-Publish Listing
-
-</a>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-    <i class="fa-solid fa-house"></i>
-    Home
-</a>
-
-<a href="inventory.html">
-    <i class="fa-solid fa-boxes-stacked"></i>
-    Inventory
-</a>
-
-<a href="orders.html">
-    <i class="fa-solid fa-clipboard-list"></i>
-    Orders
-</a>
-
-<a href="payments.html">
-    <i class="fa-solid fa-wallet"></i>
-    Escrow
-</a>
-
-<a href="profile.html">
-    <i class="fa-solid fa-user"></i>
-    Profile
-</a>
-
-</div>
+        // Toast helper
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+    </script>
 
 </body>
 </html>

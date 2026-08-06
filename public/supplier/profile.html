@@ -702,9 +702,9 @@
 
                 if (!profError && supplierProf) {
                     const avgRating = supplierProf.average_rating || 0;
-                    rating.textContent = avgRating > 0 ? `${avgRating.toFixed(1)}★` : 'No ratings yet';
+                    rating.textContent = avgRating > 0 ? `${avgRating.toFixed(1)}★` : 'N/A';
                 } else {
-                    rating.textContent = 'No ratings yet';
+                    rating.textContent = 'N/A';
                 }
 
                 // 2. Get Orders/Earnings Stats

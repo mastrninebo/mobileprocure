@@ -1,400 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
-<title>Inventory | Mobile Procure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<style>
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        header a {
+            color: #0F766E;
+            font-size: 20px;
+            text-decoration: none;
+        }
 
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
+        header h2 {
+            font-size: 22px;
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 2px 15px rgba(0,0,0,.05);
-}
+        .container {
+            padding: 20px;
+        }
 
-header a{
-color:#0F766E;
-font-size:20px;
-text-decoration:none;
-}
+        .search {
+            margin-bottom: 20px;
+        }
 
-header h2{
-font-size:22px;
-}
+        .search input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,.05);
+            font-size: 15px;
+            outline: none;
+        }
 
-.container{
-padding:20px;
-}
+        .add-btn {
+            display: block;
+            text-align: center;
+            background: #0F766E;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
 
-.search{
-margin-bottom:20px;
-}
+        .add-btn:hover {
+            background: #0D6B64;
+        }
 
-.search input{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-background:white;
-box-shadow:0 4px 15px rgba(0,0,0,.05);
-font-size:15px;
-outline:none;
-}
+        .card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+        }
 
-.add-btn{
-display:block;
-text-align:center;
-background:#0F766E;
-color:white;
-padding:15px;
-border-radius:15px;
-text-decoration:none;
-font-weight:600;
-margin-bottom:20px;
-}
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #F0FDFA;
+        }
 
-.card{
-background:white;
-border-radius:18px;
-overflow:hidden;
-margin-bottom:20px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-}
+        .content {
+            padding: 18px;
+        }
 
-.card img{
-width:100%;
-height:180px;
-object-fit:cover;
-}
+        .content h3 {
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
 
-.content{
-padding:18px;
-}
+        .info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
 
-.content h3{
-margin-bottom:8px;
-}
+        .info div {
+            background: #F8FAFC;
+            padding: 10px;
+            border-radius: 10px;
+        }
 
-.info{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin:15px 0;
-font-size:14px;
-}
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
 
-.info div{
-background:#F8FAFC;
-padding:10px;
-border-radius:10px;
-}
+        .verified { background: #DCFCE7; color: #166534; }
+        .pending { background: #FEF3C7; color: #92400E; }
 
-.badge{
-display:inline-block;
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-margin-bottom:15px;
-}
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
 
-.verified{
-background:#DCFCE7;
-color:#166534;
-}
+        .actions button, .actions a {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
+        .edit-btn {
+            background: #0F766E;
+            color: white;
+        }
 
-.actions{
-display:flex;
-gap:10px;
-}
+        .edit-btn:hover { background: #0D6B64; }
 
-.actions a{
-flex:1;
-text-align:center;
-padding:12px;
-border-radius:12px;
-text-decoration:none;
-font-weight:600;
-}
+        .view-btn {
+            background: #E5E7EB;
+            color: #111827;
+        }
 
-.edit{
-background:#0F766E;
-color:white;
-}
+        .view-btn:hover { background: #D1D5DB; }
 
-.view{
-background:#E5E7EB;
-color:#111827;
-}
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .modal-overlay.active {
+            display: flex;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-gap:5px;
-}
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F3F4F6;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .modal-header h3 {
+            font-size: 20px;
+            color: #1F2937;
+        }
 
-</style>
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.3s;
+        }
 
+        .modal-close:hover { color: #1F2937; }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #0F766E;
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #F3F4F6;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-secondary-modal {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .btn-secondary-modal:hover { background: #D1D5DB; }
+
+        .btn-primary-modal {
+            background: #0F766E;
+            color: white;
+        }
+
+        .btn-primary-modal:hover { background: #0D6B64; }
+        .btn-primary-modal:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* MISC */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            color: #0F766E;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+            gap: 5px;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>Inventory</h2>
-
-</header>
-
-<div class="container">
-
-<div class="search">
-
-<input type="text" placeholder="Search livestock...">
-
-</div>
-
-<a href="add-livestock.html" class="add-btn">
-
-<i class="fa-solid fa-plus"></i>
-
-Add Livestock
-
-</a>
-
-<div class="card">
-
-<img src="../assets/images/cattle.jpg">
-
-<div class="content">
-
-<h3>Angus Bulls</h3>
-
-<span class="badge verified">
-
-Verified
-
-</span>
-
-<div class="info">
-
-<div>
-
-<strong>Quantity</strong><br>
-
-200 Head
-
-</div>
-
-<div>
-
-<strong>Weight</strong><br>
-
-450kg Avg
-
-</div>
-
-<div>
-
-<strong>Price</strong><br>
-
-$1,250
-
-</div>
-
-<div>
-
-<strong>Location</strong><br>
-
-Chisamba
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<a href="livestock-details.html" class="view">View</a>
-<a href="edit-livestock.html" class="edit">Edit</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<img src="../assets/images/goats.jpg">
-
-<div class="content">
-
-<h3>Boer Goats</h3>
-
-<span class="badge pending">
-
-Pending Inspection
-
-</span>
-
-<div class="info">
-
-<div>
-
-<strong>Quantity</strong><br>
-
-150 Head
-
-</div>
-
-<div>
-
-<strong>Weight</strong><br>
-
-45kg Avg
-
-</div>
-
-<div>
-
-<strong>Price</strong><br>
-
-$220
-
-</div>
-
-<div>
-
-<strong>Location</strong><br>
-
-Mazabuka
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<a href="#" class="view">
-
-View
-
-</a>
-
-<a href="#" class="edit">
-
-Edit
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="inventory.html" class="active">
-
-<i class="fa-solid fa-boxes-stacked"></i>
-
-Inventory
-
-</a>
-
-<a href="orders.html">
-
-<i class="fa-solid fa-clipboard-list"></i>
-
-Orders
-
-</a>
-
-<a href="payments.html">
-
-<i class="fa-solid fa-wallet"></i>
-
-Escrow
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('supplier')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Inventory</h2>
+    </header>
+
+    <div class="container">
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="Search by breed, category, or location...">
+        </div>
+
+        <a href="add-livestock.html" class="add-btn">
+            <i class="fa-solid fa-plus"></i> Add Livestock
+        </a>
+
+        <div id="inventoryContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading your inventory...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Livestock Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Listing</h3>
+                <button type="button" class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="editLivestockForm">
+                <input type="hidden" id="editItemId">
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="editCategory" required>
+                        <option value="cattle">Cattle</option>
+                        <option value="goats">Goats</option>
+                        <option value="sheep">Sheep</option>
+                        <option value="pigs">Pigs</option>
+                        <option value="poultry">Poultry</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Breed</label>
+                    <input type="text" id="editBreed" placeholder="e.g. Angus Bulls" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="editQuantity" placeholder="200" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Average Weight (kg)</label>
+                    <input type="number" id="editWeight" placeholder="450" min="0" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Price Per Head (USD)</label>
+                    <input type="number" id="editPrice" placeholder="1250" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Farm Location</label>
+                    <input type="text" id="editLocation" placeholder="Chisamba, Central Province" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Vaccination Status</label>
+                    <select id="editVaccination" required>
+                        <option value="Fully Vaccinated">Fully Vaccinated</option>
+                        <option value="Partially Vaccinated">Partially Vaccinated</option>
+                        <option value="Awaiting Inspection">Awaiting Inspection</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editDescription" placeholder="Describe the livestock..." required></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary-modal" id="cancelEditBtn">Cancel</button>
+                    <button type="submit" class="btn-primary-modal">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="inventory.html" class="active">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Inventory
+        </a>
+        <a href="orders.html">
+            <i class="fa-solid fa-clipboard-list"></i>
+            Orders
+        </a>
+        <a href="payments.html">
+            <i class="fa-solid fa-wallet"></i>
+            Escrow
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const inventoryContainer = document.getElementById('inventoryContainer');
+        const searchInput = document.getElementById('searchInput');
+        const editModal = document.getElementById('editModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const editForm = document.getElementById('editLivestockForm');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        let allInventory = [];
+
+        // Toast Helper
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Load inventory from database
+        async function loadInventory() {
+            try {
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                const { data, error } = await supabase
+                    .from('inventory_items')
+                    .select('*')
+                    .eq('supplier_id', user.id)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allInventory = data || [];
+                renderInventory(allInventory);
+
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                inventoryContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading inventory. Please try again.</p>`;
+            }
+        }
+
+        // Render inventory cards
+        function renderInventory(items) {
+            if (!items || items.length === 0) {
+                inventoryContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>No Listings Found</h3>
+                        <p>You haven't added any livestock yet. Click "Add Livestock" to create your first listing!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            inventoryContainer.innerHTML = items.map(item => {
+                const imageSrc = (item.images && item.images.length > 0) ? item.images[0] : '../assets/images/cattle.jpg';
+                const isVerified = item.certification_status === 'Fully Vaccinated';
+                const badgeClass = isVerified ? 'verified' : 'pending';
+                const badgeText = item.certification_status || 'Pending Inspection';
+
+                return `
+                    <div class="card">
+                        <img src="${imageSrc}" alt="${item.breed || 'Livestock'}">
+                        <div class="content">
+                            <h3>${item.breed || 'Unknown Breed'}</h3>
+                            <span class="badge ${badgeClass}">
+                                ${badgeText}
+                            </span>
+                            <div class="info">
+                                <div>
+                                    <strong>Quantity</strong><br>
+                                    ${item.quantity || 0} ${item.unit || 'Head'}
+                                </div>
+                                <div>
+                                    <strong>Weight</strong><br>
+                                    ${item.weight_kg ? item.weight_kg + 'kg Avg' : 'N/A'}
+                                </div>
+                                <div>
+                                    <strong>Price</strong><br>
+                                    $${Number(item.price_per_unit || 0).toLocaleString()}
+                                </div>
+                                <div>
+                                    <strong>Location</strong><br>
+                                    ${item.location_name || 'N/A'}
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <a href="livestock-details.html?id=${item.id}" class="view-btn">View</a>
+                                <button class="edit-btn" onclick="openEditModal('${item.id}')">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Expose openEditModal to global scope so inline onclick can access it
+        window.openEditModal = (itemId) => {
+            const item = allInventory.find(i => i.id === itemId);
+            if (!item) return;
+
+            // Populate form
+            document.getElementById('editItemId').value = item.id;
+            document.getElementById('editCategory').value = item.category || 'cattle';
+            document.getElementById('editBreed').value = item.breed || '';
+            document.getElementById('editQuantity').value = item.quantity || '';
+            document.getElementById('editWeight').value = item.weight_kg || '';
+            document.getElementById('editPrice').value = item.price_per_unit || '';
+            document.getElementById('editLocation').value = item.location_name || '';
+            document.getElementById('editVaccination').value = item.certification_status || 'Awaiting Inspection';
+            document.getElementById('editDescription').value = item.description || '';
+
+            // Show modal
+            editModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeEditModal);
+        cancelEditBtn.addEventListener('click', closeEditModal);
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) closeEditModal();
+        });
+
+        // Handle Edit Form Submission
+        editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const itemId = document.getElementById('editItemId').value;
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                const updates = {
+                    category: document.getElementById('editCategory').value,
+                    breed: document.getElementById('editBreed').value,
+                    quantity: parseInt(document.getElementById('editQuantity').value),
+                    weight_kg: parseFloat(document.getElementById('editWeight').value) || null,
+                    price_per_unit: parseFloat(document.getElementById('editPrice').value),
+                    location_name: document.getElementById('editLocation').value,
+                    certification_status: document.getElementById('editVaccination').value,
+                    description: document.getElementById('editDescription').value,
+                    updated_at: new Date().toISOString()
+                };
+
+                const { error } = await supabase
+                    .from('inventory_items')
+                    .update(updates)
+                    .eq('id', itemId);
+
+                if (error) throw error;
+
+                showToast('Listing updated successfully!', 'success');
+                closeEditModal();
+                await loadInventory(); // Refresh the list
+
+            } catch (error) {
+                console.error('Error updating listing:', error);
+                showToast('Error updating listing: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Changes';
+            }
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allInventory.filter(item => {
+                const breed = (item.breed || '').toLowerCase();
+                const category = (item.category || '').toLowerCase();
+                const location = (item.location_name || '').toLowerCase();
+                
+                return breed.includes(query) || category.includes(query) || location.includes(query);
+            });
+            renderInventory(filtered);
+        });
+
+        // Initialize
+        loadInventory();
+    </script>
 
 </body>
 </html>
