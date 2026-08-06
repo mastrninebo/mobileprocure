@@ -517,7 +517,7 @@
     <script type="module">
         import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
 
-        // SESSION PROTECTION
+        // SESSION PROTECTION (BULLETPROOF RPC VERSION)
         async function protectPage() {
             try {
                 const user = await getCurrentUser();
@@ -525,10 +525,19 @@
                     window.location.href = '/login.html';
                     return;
                 }
-                if (user.profile.role !== 'supplier') {
+
+                // Check if the user actually has a supplier_profiles row
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                // If they don't have a supplier profile, kick them out.
+                if (!userRoles.includes('supplier')) {
                     window.location.href = '/unauthorized.html';
                     return;
                 }
+
                 window.currentUser = user;
             } catch (error) {
                 console.error('Auth check error:', error);
