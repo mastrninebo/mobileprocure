@@ -319,15 +319,15 @@
                 if (error) throw error;
 
                 const userRoles = roles ? roles.map(r => r.role) : [];
-                const selectedRole = localStorage.getItem('selectedRole');
 
-                // If they don't have a supplier profile, or they didn't select the supplier portal, kick them out
-                if (!userRoles.includes('supplier') || selectedRole !== 'supplier') {
+                // If they don't have a supplier profile, kick them out.
+                // We no longer care what selectedRole is in localStorage, as long as they own the profile.
+                if (!userRoles.includes('supplier')) {
                     window.location.href = '/unauthorized.html';
                     return;
                 }
 
-                console.log('User authenticated:', user.profile.full_name, 'Active Portal:', selectedRole);
+                console.log('✅ Access granted to Supplier Dashboard');
                 window.currentUser = user;
                 
             } catch (error) {
