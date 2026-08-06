@@ -614,6 +614,8 @@
                         
                         switchRoleBtn.addEventListener('click', (e) => {
                             e.preventDefault();
+                            
+                            // Just update localStorage and redirect. The dashboard's protectPage() will verify access.
                             localStorage.setItem('selectedRole', 'supplier');
                             window.location.href = '/supplier/dashboard.html';
                         });

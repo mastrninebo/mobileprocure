@@ -608,15 +608,10 @@
                         switchRoleBtn.style.display = 'block';
                         switchRoleBtn.innerHTML = '<i class="fa-solid fa-right-left"></i> Switch to Buyer Portal';
                         
-                        switchRoleBtn.addEventListener('click', async (e) => {
+                        switchRoleBtn.addEventListener('click', (e) => {
                             e.preventDefault();
                             
-                            // Update profile role back to 'buyer' so dashboards let them in
-                            await supabase
-                                .from('profiles')
-                                .update({ role: 'buyer' })
-                                .eq('id', user.id);
-
+                            // Just update localStorage and redirect. The dashboard's protectPage() will verify access.
                             localStorage.setItem('selectedRole', 'buyer');
                             window.location.href = '/buyer/dashboard.html';
                         });

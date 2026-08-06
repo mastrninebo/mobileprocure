@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buyer Dashboard | Mobile Procure</title>
+    <title>Supplier Dashboard | Mobile Procure</title>
     
     <!-- External Libraries & Assets -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -91,7 +91,7 @@
             font-weight: 600;
         }
 
-        /* ESCROW BALANCE CARD */
+        /* BALANCE CARD */
         .balance {
             margin: 0 20px;
             background: linear-gradient(135deg, #0F766E, #14B8A6);
@@ -233,7 +233,7 @@
             margin-bottom: 15px;
         }
 
-        /* BECOME SUPPLIER CTA */
+        /* BECOME BUYER CTA */
         .cta-card {
             margin: 0 20px 25px;
             background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
@@ -304,7 +304,7 @@
 
     <!-- SESSION PROTECTION SCRIPT -->
     <script type="module">
-        import { getCurrentUser } from '../assets/js/supabase-client.js';
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
         
         async function protectPage() {
             try {
@@ -313,13 +313,21 @@
                     window.location.href = '/login.html';
                     return;
                 }
-                
-                if (user.profile.role !== 'buyer') {
+
+                // Check if the user actually has a supplier_profiles row
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+                const selectedRole = localStorage.getItem('selectedRole');
+
+                // If they don't have a supplier profile, or they didn't select the supplier portal, kick them out
+                if (!userRoles.includes('supplier') || selectedRole !== 'supplier') {
                     window.location.href = '/unauthorized.html';
                     return;
                 }
-                
-                console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
+
+                console.log('User authenticated:', user.profile.full_name, 'Active Portal:', selectedRole);
                 window.currentUser = user;
                 
             } catch (error) {
@@ -335,7 +343,7 @@
     <header>
         <div class="profile" onclick="window.location.href='profile.html'">
             <div class="avatar-placeholder" id="userAvatar">
-                <span id="userInitial">J</span>
+                <span id="userInitial">S</span>
             </div>
             <div>
                 <h3 id="userName">Hello, User</h3>
@@ -348,11 +356,11 @@
         </div>
     </header>
 
-    <!-- ESCROW BALANCE -->
+    <!-- BALANCE -->
     <div class="balance">
-        <small>Escrow Balance</small>
+        <small>Available Balance</small>
         <h2 id="escrowBalance">$0.00</h2>
-        <p id="escrowStatus">Funds currently secured in escrow.</p>
+        <p id="escrowStatus">Funds from completed sales.</p>
         <button id="walletBtn">View Wallet</button>
     </div>
 
@@ -362,52 +370,52 @@
     </div>
 
     <div class="quick-actions">
-        <a href="marketplace.html" class="card">
-            <i class="fa-solid fa-cow"></i>
-            <h4>Marketplace</h4>
-            <p>Browse livestock</p>
+        <a href="add-livestock.html" class="card">
+            <i class="fa-solid fa-plus"></i>
+            <h4>Add Livestock</h4>
+            <p>List new animals</p>
         </a>
-        <a href="marketplace.html" class="card">
-            <i class="fa-solid fa-file-circle-plus"></i>
-            <h4>Request</h4>
-            <p>Create procurement request</p>
+        <a href="inventory.html" class="card">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <h4>Inventory</h4>
+            <p>Manage your stock</p>
         </a>
         <a href="orders.html" class="card">
-            <i class="fa-solid fa-box"></i>
+            <i class="fa-solid fa-clipboard-list"></i>
             <h4>Orders</h4>
-            <p>Track purchases</p>
+            <p>View incoming orders</p>
         </a>
-        <a href="catalog.html" class="card">
-            <i class="fa-solid fa-building"></i>
-            <h4>Suppliers</h4>
-            <p>Verified sellers</p>
+        <a href="payments.html" class="card">
+            <i class="fa-solid fa-wallet"></i>
+            <h4>Payouts</h4>
+            <p>Withdraw your earnings</p>
         </a>
     </div>
 
-    <!-- BECOME A SUPPLIER CTA -->
-    <div id="supplierCtaSection" style="display: none;">
+    <!-- BECOME A BUYER CTA -->
+    <div id="buyerCtaSection" style="display: none;">
         <div class="section">
-            <h2>Grow Your Business</h2>
+            <h2>Expand Your Reach</h2>
         </div>
         <div class="cta-card">
-            <h3>Want to sell livestock too?</h3>
-            <p>Upgrade your account to a Supplier profile and start listing your animals to thousands of buyers today.</p>
-            <button id="becomeSupplierBtn" class="cta-btn">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Supplier
+            <h3>Want to buy livestock too?</h3>
+            <p>Upgrade your account to a Buyer profile and start purchasing from other verified suppliers on the platform.</p>
+            <button id="becomeBuyerBtn" class="cta-btn">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Buyer
             </button>
         </div>
     </div>
 
     <!-- RECENT ORDERS -->
     <div class="section">
-        <h2>Recent Orders</h2>
+        <h2>Recent Sales</h2>
         <a href="orders.html">See All</a>
     </div>
 
     <div class="orders" id="ordersContainer">
         <div class="loading-spinner">
             <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>Loading your orders...</p>
+            <p>Loading your sales...</p>
         </div>
     </div>
 
@@ -417,17 +425,17 @@
             <i class="fa-solid fa-house"></i>
             Home
         </a>
-        <a href="marketplace.html">
-            <i class="fa-solid fa-store"></i>
-            Marketplace
+        <a href="inventory.html">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Inventory
         </a>
         <a href="orders.html">
-            <i class="fa-solid fa-box"></i>
+            <i class="fa-solid fa-clipboard-list"></i>
             Orders
         </a>
-        <a href="catalog.html">
-            <i class="fa-solid fa-book"></i>
-            Catalog
+        <a href="payments.html">
+            <i class="fa-solid fa-wallet"></i>
+            Escrow
         </a>
         <a href="profile.html">
             <i class="fa-solid fa-user"></i>
@@ -441,7 +449,7 @@
             <div style="text-align:center;margin-bottom:20px;">
                 <div style="width:70px;height:70px;background:#FEF3C7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:32px;">📝</div>
                 <h2 style="color:#1F2937;font-size:20px;">Complete Your Profile</h2>
-                <p style="color:#6B7280;font-size:14px;margin-top:8px;">Your profile is missing some required information.</p>
+                <p style="color:#6B7280;font-size:14px;margin-top:8px;">Your profile is missing some required business information.</p>
             </div>
             
             <div style="background:#F0FDFA;border-radius:12px;padding:15px;margin-bottom:20px;">
@@ -449,9 +457,9 @@
                     <i class="fa-solid fa-circle-info"></i> Required fields:
                 </p>
                 <ul style="list-style:none;margin-top:8px;font-size:13px;color:#374151;">
-                    <li style="padding:4px 0;">• Full Name</li>
+                    <li style="padding:4px 0;">• Business Name</li>
                     <li style="padding:4px 0;">• Phone Number</li>
-                    <li style="padding:4px 0;">• Country</li>
+                    <li style="padding:4px 0;">• Tax ID (TPIN)</li>
                 </ul>
             </div>
 
@@ -483,8 +491,8 @@
         const ordersContainer = document.getElementById('ordersContainer');
         const notificationBadge = document.getElementById('notificationBadge');
         const walletBtn = document.getElementById('walletBtn');
-        const supplierCtaSection = document.getElementById('supplierCtaSection');
-        const becomeSupplierBtn = document.getElementById('becomeSupplierBtn');
+        const buyerCtaSection = document.getElementById('buyerCtaSection');
+        const becomeBuyerBtn = document.getElementById('becomeBuyerBtn');
         
         // CHECK USER ROLES (Multi-role logic)
         async function checkUserRole() {
@@ -500,55 +508,45 @@
                 
                 const roles = rolesData ? rolesData.map(r => r.role) : [];
                 
-                // If they are ONLY a buyer, show the "Become a Supplier" CTA
-                if (roles.includes('buyer') && !roles.includes('supplier')) {
-                    supplierCtaSection.style.display = 'block';
+                // If they are ONLY a supplier, show the "Become a Buyer" CTA
+                if (roles.includes('supplier') && !roles.includes('buyer')) {
+                    buyerCtaSection.style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error checking user role:', error);
             }
         }
 
-        // BECOME A SUPPLIER LOGIC
-        becomeSupplierBtn.addEventListener('click', async () => {
-            becomeSupplierBtn.disabled = true;
-            becomeSupplierBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
+        // BECOME A BUYER LOGIC
+        becomeBuyerBtn.addEventListener('click', async () => {
+            becomeBuyerBtn.disabled = true;
+            becomeBuyerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
 
             try {
                 const user = await getCurrentUser();
                 if (!user) return;
 
-                // 1. Insert a new row into supplier_profiles
+                // 1. Insert a new row into buyer_profiles
                 const { error: insertError } = await supabase
-                    .from('supplier_profiles')
+                    .from('buyer_profiles')
                     .insert([{ 
                         user_id: user.id, 
-                        is_approved: false, 
-                        total_orders_completed: 0, 
-                        average_rating: 0.00 
+                        credit_used: 0 
                     }]);
 
                 if (insertError) throw insertError;
 
-                // 2. Update the main profile role to 'supplier' so dashboards let them in
-                const { error: updateError } = await supabase
-                    .from('profiles')
-                    .update({ role: 'supplier' })
-                    .eq('id', user.id);
-
-                if (updateError) throw updateError;
-
-                alert('Success! Your supplier account is ready.');
+                alert('Success! Your buyer account is ready.');
                 
-                // 3. Switch the active role in localStorage and redirect
-                localStorage.setItem('selectedRole', 'supplier');
-                window.location.href = '/supplier/dashboard.html';
+                // 2. Switch the active role in localStorage and redirect (NO DB ROLE UPDATE NEEDED!)
+                localStorage.setItem('selectedRole', 'buyer');
+                window.location.href = '/buyer/dashboard.html';
 
             } catch (error) {
-                console.error('Error becoming a supplier:', error);
-                alert('Error creating supplier profile: ' + error.message);
-                becomeSupplierBtn.disabled = false;
-                becomeSupplierBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Supplier';
+                console.error('Error becoming a buyer:', error);
+                alert('Error creating buyer profile: ' + error.message);
+                becomeBuyerBtn.disabled = false;
+                becomeBuyerBtn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Become a Buyer';
             }
         });
 
@@ -580,23 +578,23 @@
                         total_amount,
                         status,
                         order_date,
-                        supplier:supplier_id (
+                        buyer:buyer_id (
                             full_name,
                             company_name
                         )
                     `)
-                    .eq('buyer_id', user.id)
+                    .eq('supplier_id', user.id)
                     .order('order_date', { ascending: false })
                     .limit(5);
                 
                 if (error) {
                     console.error('Error loading orders:', error);
-                    showNoOrders('Error loading orders. Please try again.');
+                    showNoOrders('Error loading sales. Please try again.');
                     return;
                 }
                 
                 if (!orders || orders.length === 0) {
-                    showNoOrders('No orders yet. Start shopping in the marketplace!');
+                    showNoOrders('No sales yet. Add livestock to your inventory to get started!');
                     return;
                 }
                 
@@ -604,7 +602,7 @@
                 
             } catch (error) {
                 console.error('Error:', error);
-                showNoOrders('Unable to load orders. Please refresh.');
+                showNoOrders('Unable to load sales. Please refresh.');
             }
         }
         
@@ -617,12 +615,12 @@
                 orderDiv.className = 'order';
                 
                 const statusClass = getStatusClass(order.status);
-                const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Unknown Supplier';
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
                 
                 orderDiv.innerHTML = `
                     <div>
                         <h4>${order.order_number || 'Order'}</h4>
-                        <p>${supplierName} • $${order.total_amount?.toLocaleString() || '0'}</p>
+                        <p>${buyerName} • $${order.total_amount?.toLocaleString() || '0'}</p>
                     </div>
                     <div class="status ${statusClass}">
                         ${order.status || 'pending'}
@@ -669,7 +667,7 @@
                 const { count, error } = await supabase
                     .from('orders')
                     .select('*', { count: 'exact', head: true })
-                    .eq('buyer_id', user.id)
+                    .eq('supplier_id', user.id)
                     .in('status', ['pending', 'confirmed', 'shipped']);
                 
                 if (!error && count > 0) {
@@ -685,7 +683,7 @@
         
         // EVENT LISTENERS
         walletBtn.addEventListener('click', () => {
-            window.location.href = 'wallet.html';
+            window.location.href = 'payments.html';
         });
         
         // INITIALIZE DASHBOARD
@@ -721,26 +719,23 @@
                     if (daysSinceReminded < 7) return; // Only remind every 7 days
                 }
 
-                // Check required fields
+                // Check required fields for Supplier
                 const requiredFields = {
                     full_name: profile.full_name,
                     phone: profile.phone,
-                    country: null // Will check from user_profiles
+                    company_name: profile.company_name,
+                    tax_id: profile.tax_id
                 };
-
-                // Get country from user_profiles
-                const { data: userProf } = await supabase
-                    .from('user_profiles')
-                    .select('country')
-                    .eq('user_id', user.id)
-                    .maybeSingle();
 
                 const isComplete = 
                     requiredFields.full_name && 
                     requiredFields.full_name.trim() !== '' &&
                     requiredFields.phone && 
                     requiredFields.phone.trim() !== '' &&
-                    (userProf?.country || profile.country);
+                    requiredFields.company_name && 
+                    requiredFields.company_name.trim() !== '' &&
+                    requiredFields.tax_id && 
+                    requiredFields.tax_id.trim() !== '';
 
                 if (!isComplete) {
                     document.getElementById('reminderModal').style.display = 'flex';
@@ -754,7 +749,7 @@
         // COMPLETE PROFILE - Redirect to profile page
         window.completeProfile = function() {
             document.getElementById('reminderModal').style.display = 'none';
-            window.location.href = '/buyer/profile.html';
+            window.location.href = '/supplier/profile.html';
         };
 
         // REMIND LATER - Update timestamp
