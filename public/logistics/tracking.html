@@ -1,424 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Live Tracking</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Live Tracking</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header a {
+            text-decoration: none;
+            color: #0F766E;
+            font-size: 20px;
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .map {
+            height: 240px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #D1FAE5, #BFDBFE);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            text-align: center;
+            padding: 20px;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .map i {
+            font-size: 60px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-header a{
-text-decoration:none;
-color:#0F766E;
-font-size:20px;
-}
+        .map h3 {
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
 
-header h2{
-font-size:22px;
-}
+        .map p {
+            color: #6B7280;
+            font-size: 14px;
+        }
 
-.container{
-padding:20px;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.map{
-height:240px;
-border-radius:20px;
-background:linear-gradient(135deg,#D1FAE5,#BFDBFE);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .card h3 {
+            margin-bottom: 18px;
+            color: #0F766E;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-.map i{
-font-size:60px;
-color:#0F766E;
-margin-bottom:15px;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
 
-.map h3{
-margin-bottom:5px;
-}
+        .info {
+            background: #F8FAFC;
+            padding: 14px;
+            border-radius: 12px;
+        }
 
-.map p{
-color:#6B7280;
-}
+        .info small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .info strong {
+            font-size: 14px;
+        }
 
-.card h3{
-margin-bottom:18px;
-color:#0F766E;
-}
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: #E5E7EB;
+            border-radius: 20px;
+            margin: 20px 0 10px 0;
+            overflow: hidden;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
+        .progress div {
+            height: 100%;
+            background: #0F766E;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
 
-.info{
-background:#F8FAFC;
-padding:14px;
-border-radius:12px;
-}
+        .progress-text {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.info small{
-display:block;
-color:#6B7280;
-margin-bottom:6px;
-}
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+        }
 
-.progress{
-width:100%;
-height:10px;
-background:#E5E7EB;
-border-radius:20px;
-margin:20px 0;
-overflow:hidden;
-}
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #E5E7EB;
+        }
 
-.progress div{
-width:65%;
-height:100%;
-background:#0F766E;
-}
+        .step {
+            position: relative;
+            margin-bottom: 25px;
+        }
 
-.timeline{
-position:relative;
-padding-left:25px;
-}
+        .step:last-child {
+            margin-bottom: 0;
+        }
 
-.timeline:before{
-content:"";
-position:absolute;
-left:7px;
-top:0;
-bottom:0;
-width:3px;
-background:#D1D5DB;
-}
+        .step::before {
+            content: "";
+            position: absolute;
+            left: -22px;
+            top: 4px;
+            width: 15px;
+            height: 15px;
+            background: #D1D5DB;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #D1D5DB;
+        }
 
-.step{
-position:relative;
-margin-bottom:25px;
-}
+        .step.completed::before {
+            background: #0F766E;
+            box-shadow: 0 0 0 1px #0F766E;
+        }
 
-.step:last-child{
-margin-bottom:0;
-}
+        .step small {
+            display: block;
+            margin-top: 5px;
+            color: #6B7280;
+            font-size: 12px;
+        }
 
-.step:before{
-content:"";
-position:absolute;
-left:-22px;
-top:4px;
-width:15px;
-height:15px;
-background:#0F766E;
-border-radius:50%;
-}
+        .step strong {
+            font-size: 14px;
+            color: #1F2937;
+        }
 
-.step small{
-display:block;
-margin-top:5px;
-color:#6B7280;
-}
+        .step.pending strong {
+            color: #9CA3AF;
+        }
 
-.actions{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-.actions a{
-text-decoration:none;
-padding:15px;
-border-radius:14px;
-text-align:center;
-font-weight:600;
-}
+        .actions a {
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
 
-.primary{
-background:#0F766E;
-color:white;
-}
+        .primary {
+            background: #0F766E;
+            color: white;
+        }
 
-.secondary{
-background:#E5E7EB;
-color:#111827;
-}
+        .primary:hover { background: #0D6B64; }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .secondary {
+            background: #E5E7EB;
+            color: #111827;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-font-size:12px;
-text-decoration:none;
-color:#9CA3AF;
-}
+        .secondary:hover { background: #D1D5DB; }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-</style>
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="delivery-details.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>Live Tracking</h2>
-
-</header>
-
-<div class="container">
-
-<div class="map">
-
-<i class="fa-solid fa-map-location-dot"></i>
-
-<h3>Current Location</h3>
-
-<p>Kasumbalesa Border Post</p>
-
-</div>
-
-<div class="card">
-
-<h3>Shipment Progress</h3>
-
-<div class="grid">
-
-<div class="info">
-
-<small>Job ID</small>
-
-<strong>JOB-2026-128</strong>
-
-</div>
-
-<div class="info">
-
-<small>Order</small>
-
-<strong>MP-2026-000128</strong>
-
-</div>
-
-<div class="info">
-
-<small>Driver</small>
-
-<strong>John Banda</strong>
-
-</div>
-
-<div class="info">
-
-<small>ETA</small>
-
-<strong>6 Hours</strong>
-
-</div>
-
-</div>
-
-<div class="progress">
-
-<div></div>
-
-</div>
-
-<p><strong>65%</strong> of the journey completed.</p>
-
-</div>
-
-<div class="card">
-
-<h3>Tracking Timeline</h3>
-
-<div class="timeline">
-
-<div class="step">
-
-<strong>Loaded at Farm</strong>
-
-<small>08:20 AM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Departed Chisamba</strong>
-
-<small>09:45 AM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Arrived at Kasumbalesa Border</strong>
-
-<small>12:10 PM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Customs Clearance</strong>
-
-<small>In Progress</small>
-
-</div>
-
-<div class="step">
-
-<strong>Delivery Confirmation</strong>
-
-<small>Pending</small>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Quick Actions</h3>
-
-<div class="actions">
-
-<a href="qr-scan.html" class="primary">
-
-<i class="fa-solid fa-qrcode"></i><br><br>
-
-Scan QR
-
-</a>
-
-<a href="delivery-details.html" class="secondary">
-
-<i class="fa-solid fa-truck-fast"></i><br><br>
-
-Delivery Details
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="deliveries.html">
-
-<i class="fa-solid fa-truck-fast"></i>
-
-Deliveries
-
-</a>
-
-<a href="tracking.html" class="active">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Tracking
-
-</a>
-
-<a href="qr-scan.html">
-
-<i class="fa-solid fa-qrcode"></i>
-
-QR Scan
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('logistics')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="deliveries.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Live Tracking</h2>
+    </header>
+
+    <div class="container">
+        <div id="trackingContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading tracking data...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="deliveries.html">
+            <i class="fa-solid fa-truck-fast"></i>
+            Deliveries
+        </a>
+        <a href="tracking.html" class="active">
+            <i class="fa-solid fa-location-dot"></i>
+            Tracking
+        </a>
+        <a href="qr-scan.html">
+            <i class="fa-solid fa-qrcode"></i>
+            QR Scan
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const trackingContainer = document.getElementById('trackingContainer');
+
+        // Get Delivery ID from URL (?id=123)
+        const urlParams = new URLSearchParams(window.location.search);
+        const deliveryId = urlParams.get('id');
+
+        // Helper to format dates
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Load Tracking Data
+        async function loadTrackingData() {
+            if (!deliveryId) {
+                trackingContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">No Delivery ID provided.</p>`;
+                return;
+            }
+
+            try {
+                const { data: delivery, error } = await supabase
+                    .from('deliveries')
+                    .select(`
+                        id, tracking_number, status, current_location, estimated_delivery, created_at,
+                        order:order_id ( order_number, buyer:buyer_id ( full_name, company_name ) )
+                    `)
+                    .eq('id', deliveryId)
+                    .maybeSingle();
+
+                if (error) throw error;
+                if (!delivery) {
+                    trackingContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Delivery not found.</p>`;
+                    return;
+                }
+
+                renderTracking(delivery);
+
+            } catch (error) {
+                console.error('Error loading tracking data:', error);
+                trackingContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading tracking data.</p>`;
+            }
+        }
+
+        // Render HTML
+        function renderTracking(delivery) {
+            const orderNumber = delivery.order?.order_number || 'N/A';
+            const buyerName = delivery.order?.buyer?.company_name || delivery.order?.buyer?.full_name || 'Unknown Buyer';
+            const status = delivery.status || 'assigned';
+            const ETA = delivery.estimated_delivery ? formatDate(delivery.estimated_delivery) : 'N/A';
+            const currentLocation = delivery.current_location || 'Unknown';
+
+            // Calculate Progress
+            let progress = 0;
+            switch(status) {
+                case 'assigned': progress = 25; break;
+                case 'in_transit': progress = 65; break;
+                case 'border': progress = 85; break;
+                case 'delivered': progress = 100; break;
+                default: progress = 10;
+            }
+
+            // Dynamic Timeline
+            const steps = [
+                { label: 'Delivery Assigned', date: formatDate(delivery.created_at), completed: true },
+                { label: 'Picked Up (In Transit)', date: ['in_transit', 'border', 'delivered'].includes(status) ? 'Completed' : 'Pending', completed: ['in_transit', 'border', 'delivered'].includes(status) },
+                { label: 'Arrived at Border', date: ['border', 'delivered'].includes(status) ? 'Completed' : 'Pending', completed: ['border', 'delivered'].includes(status) },
+                { label: 'Delivered to Buyer', date: status === 'delivered' ? 'Completed' : 'Pending', completed: status === 'delivered' }
+            ];
+
+            const timelineHtml = steps.map(step => `
+                <div class="step ${step.completed ? 'completed' : 'pending'}">
+                    <strong>${step.label}</strong>
+                    <small>${step.date}</small>
+                </div>
+            `).join('');
+
+            trackingContainer.innerHTML = `
+                <div class="map">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <h3>${currentLocation}</h3>
+                    <p>Status: ${status.replace('_', ' ')}</p>
+                </div>
+
+                <div class="card">
+                    <h3>Shipment Progress</h3>
+                    <div class="grid">
+                        <div class="info">
+                            <small>Tracking Number</small>
+                            <strong>${delivery.tracking_number || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Order</small>
+                            <strong>${orderNumber}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Buyer</small>
+                            <strong>${buyerName}</strong>
+                        </div>
+                        <div class="info">
+                            <small>ETA</small>
+                            <strong>${ETA}</strong>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div style="width:${progress}%;"></div>
+                    </div>
+                    <p class="progress-text"><strong>${progress}%</strong> of the journey completed.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Tracking Timeline</h3>
+                    <div class="timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Quick Actions</h3>
+                    <div class="actions">
+                        <a href="qr-scan.html" class="primary">
+                            <i class="fa-solid fa-qrcode"></i><br><br>
+                            Scan QR
+                        </a>
+                        <a href="delivery-details.html?id=${delivery.id}" class="secondary">
+                            <i class="fa-solid fa-truck-fast"></i><br><br>
+                            Delivery Details
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize
+        loadTrackingData();
+    </script>
 
 </body>
 </html>

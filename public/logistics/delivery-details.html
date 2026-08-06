@@ -1,397 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Delivery Details</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Delivery Details</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header a {
+            text-decoration: none;
+            color: #0F766E;
+            font-size: 20px;
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 2px 15px rgba(0,0,0,.05);
-}
+        .card h3 {
+            color: #0F766E;
+            margin-bottom: 18px;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-header a{
-text-decoration:none;
-color:#0F766E;
-font-size:20px;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
 
-header h2{
-font-size:22px;
-}
+        .info {
+            background: #F8FAFC;
+            padding: 14px;
+            border-radius: 12px;
+        }
 
-.container{
-padding:20px;
-}
+        .info small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .info strong {
+            font-size: 14px;
+        }
 
-.card h3{
-color:#0F766E;
-margin-bottom:18px;
-}
+        .status-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #DBEAFE;
+            color: #1D4ED8;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
+            text-transform: capitalize;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
+        .status-badge.delivered { background: #DCFCE7; color: #166534; }
+        .status-badge.in_transit { background: #DBEAFE; color: #1D4ED8; }
+        .status-badge.border { background: #FEF3C7; color: #92400E; }
+        .status-badge.assigned { background: #F3F4F6; color: #6B7280; }
 
-.info{
-background:#F8FAFC;
-padding:14px;
-border-radius:12px;
-}
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+        }
 
-.info small{
-display:block;
-color:#6B7280;
-margin-bottom:6px;
-}
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #E5E7EB;
+        }
 
-.status{
-display:inline-block;
-padding:8px 15px;
-background:#DBEAFE;
-color:#1D4ED8;
-border-radius:20px;
-font-size:13px;
-font-weight:600;
-margin-top:10px;
-}
+        .step {
+            position: relative;
+            margin-bottom: 25px;
+        }
 
-.timeline{
-position:relative;
-padding-left:25px;
-}
+        .step:last-child {
+            margin-bottom: 0;
+        }
 
-.timeline:before{
-content:"";
-position:absolute;
-left:7px;
-top:0;
-bottom:0;
-width:3px;
-background:#D1D5DB;
-}
+        .step::before {
+            content: "";
+            position: absolute;
+            left: -22px;
+            top: 4px;
+            width: 15px;
+            height: 15px;
+            background: #D1D5DB;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #D1D5DB;
+        }
 
-.step{
-position:relative;
-margin-bottom:25px;
-}
+        .step.completed::before {
+            background: #0F766E;
+            box-shadow: 0 0 0 1px #0F766E;
+        }
 
-.step:last-child{
-margin-bottom:0;
-}
+        .step small {
+            display: block;
+            color: #6B7280;
+            margin-top: 5px;
+            font-size: 12px;
+        }
 
-.step:before{
-content:"";
-position:absolute;
-left:-22px;
-top:4px;
-width:15px;
-height:15px;
-background:#0F766E;
-border-radius:50%;
-}
+        .step strong {
+            font-size: 14px;
+            color: #1F2937;
+        }
 
-.step small{
-display:block;
-color:#6B7280;
-margin-top:5px;
-}
+        .step.pending strong {
+            color: #9CA3AF;
+        }
 
-.actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
 
-.actions a{
-text-decoration:none;
-text-align:center;
-padding:16px;
-border-radius:14px;
-font-weight:600;
-}
+        .actions a, .actions button {
+            text-decoration: none;
+            text-align: center;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.primary{
-background:#0F766E;
-color:white;
-}
+        .primary {
+            background: #0F766E;
+            color: white;
+        }
 
-.secondary{
-background:#E5E7EB;
-color:#111827;
-}
+        .primary:hover {
+            background: #0D6B64;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .secondary {
+            background: #E5E7EB;
+            color: #111827;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        .secondary:hover {
+            background: #D1D5DB;
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #0F766E;
+            margin-bottom: 15px;
+        }
 
-</style>
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
 
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="deliveries.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>Delivery Details</h2>
-
-</header>
-
-<div class="container">
-
-<div class="card">
-
-<h3>Shipment Information</h3>
-
-<div class="grid">
-
-<div class="info">
-<small>Job ID</small>
-<strong>JOB-2026-128</strong>
-</div>
-
-<div class="info">
-<small>Order ID</small>
-<strong>MP-2026-000128</strong>
-</div>
-
-<div class="info">
-<small>Supplier</small>
-<strong>Mpundu Cattle Ranch</strong>
-</div>
-
-<div class="info">
-<small>Buyer</small>
-<strong>African Beef Imports</strong>
-</div>
-
-<div class="info">
-<small>Livestock</small>
-<strong>200 Angus Bulls</strong>
-</div>
-
-<div class="info">
-<small>Destination</small>
-<strong>Johannesburg</strong>
-
-<div class="status">
-
-Awaiting Pickup
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Route Timeline</h3>
-
-<div class="timeline">
-
-<div class="step">
-
-<strong>Delivery Assigned</strong>
-
-<small>12 June 2026 • 08:10 AM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Driver Accepted Job</strong>
-
-<small>12 June 2026 • 08:25 AM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Pickup Scheduled</strong>
-
-<small>Today • 10:30 AM</small>
-
-</div>
-
-<div class="step">
-
-<strong>Border Clearance</strong>
-
-<small>Pending</small>
-
-</div>
-
-<div class="step">
-
-<strong>Buyer Delivery Confirmation</strong>
-
-<small>Pending</small>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Quick Actions</h3>
-
-<div class="actions">
-
-<a href="tracking.html" class="primary">
-
-<i class="fa-solid fa-location-dot"></i><br><br>
-
-Live Tracking
-
-</a>
-
-<a href="qr-scan.html" class="secondary">
-
-<i class="fa-solid fa-qrcode"></i><br><br>
-
-Scan QR
-
-</a>
-
-<a href="#" class="secondary">
-
-<i class="fa-solid fa-file-lines"></i><br><br>
-
-View Documents
-
-</a>
-
-<a href="#" class="primary">
-
-<i class="fa-solid fa-truck"></i><br><br>
-
-Update Status
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="deliveries.html" class="active">
-
-<i class="fa-solid fa-truck-fast"></i>
-
-Deliveries
-
-</a>
-
-<a href="tracking.html">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Tracking
-
-</a>
-
-<a href="qr-scan.html">
-
-<i class="fa-solid fa-qrcode"></i>
-
-QR Scan
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('logistics')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="deliveries.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Delivery Details</h2>
+    </header>
+
+    <div class="container">
+        <div id="detailsContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading delivery details...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="deliveries.html" class="active">
+            <i class="fa-solid fa-truck-fast"></i>
+            Deliveries
+        </a>
+        <a href="tracking.html">
+            <i class="fa-solid fa-location-dot"></i>
+            Tracking
+        </a>
+        <a href="qr-scan.html">
+            <i class="fa-solid fa-qrcode"></i>
+            QR Scan
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const detailsContainer = document.getElementById('detailsContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Get Delivery ID from URL (?id=123)
+        const urlParams = new URLSearchParams(window.location.search);
+        const deliveryId = urlParams.get('id');
+
+        // Helper to format dates
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Load Delivery Data
+        async function loadDeliveryDetails() {
+            if (!deliveryId) {
+                detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">No Delivery ID provided.</p>`;
+                return;
+            }
+
+            try {
+                const { data: delivery, error } = await supabase
+                    .from('deliveries')
+                    .select(`
+                        id, tracking_number, status, estimated_delivery, created_at, current_location,
+                        order:order_id (
+                            order_number, total_amount, destination_address,
+                            supplier:supplier_id ( full_name, company_name ),
+                            buyer:buyer_id ( full_name, company_name )
+                        )
+                    `)
+                    .eq('id', deliveryId)
+                    .maybeSingle();
+
+                if (error) throw error;
+                if (!delivery) {
+                    detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Delivery not found.</p>`;
+                    return;
+                }
+
+                renderDelivery(delivery);
+
+            } catch (error) {
+                console.error('Error loading delivery details:', error);
+                detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading details. Please try again.</p>`;
+            }
+        }
+
+        // Render HTML
+        function renderDelivery(delivery) {
+            const orderNumber = delivery.order?.order_number || 'N/A';
+            const supplierName = delivery.order?.supplier?.company_name || delivery.order?.supplier?.full_name || 'Unknown Supplier';
+            const buyerName = delivery.order?.buyer?.company_name || delivery.order?.buyer?.full_name || 'Unknown Buyer';
+            const destination = delivery.order?.destination_address || 'N/A';
+            const status = delivery.status || 'assigned';
+            const ETA = delivery.estimated_delivery ? formatDate(delivery.estimated_delivery) : 'N/A';
+
+            // Dynamic Timeline
+            const steps = [
+                { label: 'Delivery Assigned', date: formatDate(delivery.created_at), completed: true },
+                { label: 'Picked Up (In Transit)', date: ['in_transit', 'border', 'delivered'].includes(status) ? 'Completed' : 'Pending', completed: ['in_transit', 'border', 'delivered'].includes(status) },
+                { label: 'At Border Clearance', date: ['border', 'delivered'].includes(status) ? 'Completed' : 'Pending', completed: ['border', 'delivered'].includes(status) },
+                { label: 'Delivered to Buyer', date: status === 'delivered' ? 'Completed' : 'Pending', completed: status === 'delivered' }
+            ];
+
+            const timelineHtml = steps.map(step => `
+                <div class="step ${step.completed ? 'completed' : 'pending'}">
+                    <strong>${step.label}</strong>
+                    <small>${step.date}</small>
+                </div>
+            `).join('');
+
+            // Determine Action Button Logic
+            let updateBtnHtml = '';
+            if (status === 'assigned') {
+                updateBtnHtml = `<button id="updateStatusBtn" class="primary" data-action="in_transit"><i class="fa-solid fa-truck"></i><br><br>Mark Picked Up</button>`;
+            } else if (status === 'in_transit') {
+                updateBtnHtml = `<button id="updateStatusBtn" class="primary" data-action="border"><i class="fa-solid fa-warehouse"></i><br><br>Mark At Border</button>`;
+            } else if (status === 'border') {
+                updateBtnHtml = `<button id="updateStatusBtn" class="primary" data-action="delivered"><i class="fa-solid fa-circle-check"></i><br><br>Mark Delivered</button>`;
+            }
+
+            detailsContainer.innerHTML = `
+                <div class="card">
+                    <h3>Shipment Information</h3>
+                    <div class="grid">
+                        <div class="info">
+                            <small>Tracking Number</small>
+                            <strong>${delivery.tracking_number || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Order ID</small>
+                            <strong>${orderNumber}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Supplier</small>
+                            <strong>${supplierName}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Buyer</small>
+                            <strong>${buyerName}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Current Location</small>
+                            <strong>${delivery.current_location || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Destination</small>
+                            <strong>${destination}</strong>
+                            <div class="status-badge ${status}">${status.replace('_', ' ')}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Route Timeline</h3>
+                    <div class="timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Quick Actions</h3>
+                    <div class="actions">
+                        <a href="tracking.html?id=${delivery.id}" class="primary">
+                            <i class="fa-solid fa-location-dot"></i><br><br>
+                            Live Tracking
+                        </a>
+                        <a href="qr-scan.html" class="secondary">
+                            <i class="fa-solid fa-qrcode"></i><br><br>
+                            Scan QR
+                        </a>
+                        ${updateBtnHtml}
+                        <a href="profile.html" class="secondary">
+                            <i class="fa-solid fa-file-lines"></i><br><br>
+                            View Documents
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // Attach listener to dynamic update button
+            const updateBtn = document.getElementById('updateStatusBtn');
+            if (updateBtn) {
+                updateBtn.addEventListener('click', async (e) => {
+                    const newStatus = e.currentTarget.dataset.action;
+                    updateBtn.disabled = true;
+                    updateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><br><br>Updating...';
+                    
+                    const { error } = await supabase
+                        .from('deliveries')
+                        .update({ status: newStatus })
+                        .eq('id', delivery.id);
+                        
+                    if (error) {
+                        showToast('Error updating status: ' + error.message, 'error');
+                        updateBtn.disabled = false;
+                        updateBtn.innerHTML = 'Try Again';
+                    } else {
+                        showToast('Status updated successfully!', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    }
+                });
+            }
+        }
+
+        // Initialize
+        loadDeliveryDetails();
+    </script>
 
 </body>
 </html>

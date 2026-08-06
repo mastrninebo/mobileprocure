@@ -1,376 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mobile Procure | QR Scanner</title>
-
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
-
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
-
-header a{
-text-decoration:none;
-color:#0F766E;
-font-size:20px;
-}
-
-header h2{
-font-size:22px;
-}
-
-.container{
-padding:20px;
-}
-
-.scanner{
-
-background:white;
-border-radius:20px;
-padding:25px;
-text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-margin-bottom:20px;
-
-}
-
-.scan-box{
-
-width:250px;
-height:250px;
-margin:auto;
-border:4px dashed #0F766E;
-border-radius:18px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#F8FAFC;
-
-}
-
-.scan-box i{
-
-font-size:90px;
-color:#0F766E;
-
-}
-
-.scanner h3{
-
-margin-top:20px;
-
-}
-
-.scanner p{
-
-color:#6B7280;
-margin-top:10px;
-
-}
-
-.btn{
-
-display:block;
-text-align:center;
-background:#0F766E;
-color:white;
-padding:16px;
-border-radius:14px;
-text-decoration:none;
-font-weight:600;
-margin-top:25px;
-
-}
-
-.card{
-
-background:white;
-padding:20px;
-border-radius:20px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-margin-bottom:20px;
-
-}
-
-.card h3{
-
-color:#0F766E;
-margin-bottom:18px;
-
-}
-
-.info{
-
-display:flex;
-justify-content:space-between;
-padding:14px 0;
-border-bottom:1px solid #EEE;
-
-}
-
-.info:last-child{
-
-border:none;
-
-}
-
-.label{
-
-color:#6B7280;
-
-}
-
-.value{
-
-font-weight:600;
-
-}
-
-.success{
-
-background:#ECFDF5;
-border-left:5px solid #10B981;
-padding:18px;
-border-radius:12px;
-margin-top:20px;
-
-}
-
-.success h4{
-
-color:#065F46;
-margin-bottom:8px;
-
-}
-
-.success p{
-
-color:#4B5563;
-line-height:1.6;
-
-}
-
-.bottom-nav{
-
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-
-}
-
-.bottom-nav a{
-
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-
-}
-
-.bottom-nav a.active{
-
-color:#0F766E;
-font-weight:600;
-
-}
-
-.bottom-nav i{
-
-font-size:20px;
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | QR Scanner</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
+
+        header {
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #0F766E;
+            font-size: 20px;
+        }
+
+        header h2 {
+            font-size: 22px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .scanner {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+        }
+
+        .scan-box {
+            width: 100%;
+            max-width: 250px;
+            aspect-ratio: 1;
+            margin: 0 auto 20px;
+            border: 4px dashed #0F766E;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #F8FAFC;
+        }
+
+        .scan-box i {
+            font-size: 90px;
+            color: #0F766E;
+        }
+
+        .scanner h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .scanner p {
+            color: #6B7280;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
+        }
+
+        .input-group input:focus {
+            border-color: #0F766E;
+            background: white;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #0F766E;
+            color: white;
+            padding: 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #0D6B64; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+            display: none; /* Hidden until scan is successful */
+        }
+
+        .card h3 {
+            color: #0F766E;
+            margin-bottom: 18px;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #EEE;
+            font-size: 14px;
+        }
+
+        .info:last-child {
+            border: none;
+        }
+
+        .label {
+            color: #6B7280;
+        }
+
+        .value {
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .success {
+            background: #ECFDF5;
+            border-left: 5px solid #10B981;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .success h4 {
+            color: #065F46;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .success p {
+            color: #4B5563;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="tracking.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>QR Scanner</h2>
-
-</header>
-
-<div class="container">
-
-<div class="scanner">
-
-<div class="scan-box">
-
-<i class="fa-solid fa-qrcode"></i>
-
-</div>
-
-<h3>Scan Shipment QR Code</h3>
-
-<p>
-
-Scan the QR code attached to the livestock shipment to update its journey.
-
-</p>
-
-<a href="#" class="btn">
-
-<i class="fa-solid fa-camera"></i>
-
-Open Camera
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>Latest Scan</h3>
-
-<div class="info">
-
-<span class="label">Shipment</span>
-
-<span class="value">MP-2026-000128</span>
-
-</div>
-
-<div class="info">
-
-<span class="label">Livestock</span>
-
-<span class="value">200 Angus Bulls</span>
-
-</div>
-
-<div class="info">
-
-<span class="label">Current Stage</span>
-
-<span class="value">Loaded at Farm</span>
-
-</div>
-
-<div class="info">
-
-<span class="label">Location</span>
-
-<span class="value">Chisamba</span>
-
-</div>
-
-<div class="info">
-
-<span class="label">Timestamp</span>
-
-<span class="value">12 Jun 2026 • 08:20</span>
-
-</div>
-
-<div class="success">
-
-<h4>
-
-<i class="fa-solid fa-circle-check"></i>
-
-Shipment Verified
-
-</h4>
-
-<p>
-
-The QR code has been successfully verified. A digital audit entry has been created and is now visible to the Buyer, Supplier and Government dashboard.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="deliveries.html">
-
-<i class="fa-solid fa-truck-fast"></i>
-
-Deliveries
-
-</a>
-
-<a href="tracking.html">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Tracking
-
-</a>
-
-<a href="qr-scan.html" class="active">
-
-<i class="fa-solid fa-qrcode"></i>
-
-QR Scan
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('logistics')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>QR Scanner</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- Scanner Input Section -->
+        <div class="scanner">
+            <div class="scan-box">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <h3>Verify Shipment</h3>
+            <p>Enter the tracking number manually to verify the shipment and update its status.</p>
+            
+            <div class="input-group">
+                <input type="text" id="trackingInput" placeholder="e.g. TRK-12345-ABC">
+            </div>
+            <button id="verifyBtn" class="btn">
+                <i class="fa-solid fa-magnifying-glass"></i> Verify Shipment
+            </button>
+        </div>
+
+        <!-- Scan Result Section (Hidden by default) -->
+        <div class="card" id="resultCard">
+            <h3>Scan Result</h3>
+            <div class="info">
+                <span class="label">Tracking Number</span>
+                <span class="value" id="resTracking">-</span>
+            </div>
+            <div class="info">
+                <span class="label">Order</span>
+                <span class="value" id="resOrder">-</span>
+            </div>
+            <div class="info">
+                <span class="label">Supplier</span>
+                <span class="value" id="resSupplier">-</span>
+            </div>
+            <div class="info">
+                <span class="label">Buyer</span>
+                <span class="value" id="resBuyer">-</span>
+            </div>
+            <div class="info">
+                <span class="label">Current Status</span>
+                <span class="value" id="resStatus">-</span>
+            </div>
+            
+            <div class="success">
+                <h4><i class="fa-solid fa-circle-check"></i> Shipment Verified</h4>
+                <p>The QR code has been successfully verified. A digital audit entry has been created. Proceed to update the status below.</p>
+            </div>
+
+            <button id="updateStatusBtn" class="btn">
+                Update Status
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="deliveries.html">
+            <i class="fa-solid fa-truck-fast"></i>
+            Deliveries
+        </a>
+        <a href="tracking.html">
+            <i class="fa-solid fa-location-dot"></i>
+            Tracking
+        </a>
+        <a href="qr-scan.html" class="active">
+            <i class="fa-solid fa-qrcode"></i>
+            QR Scan
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const verifyBtn = document.getElementById('verifyBtn');
+        const trackingInput = document.getElementById('trackingInput');
+        const resultCard = document.getElementById('resultCard');
+        const updateStatusBtn = document.getElementById('updateStatusBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        let currentDelivery = null;
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Handle Verify Button Click
+        verifyBtn.addEventListener('click', async () => {
+            const code = trackingInput.value.trim();
+            if (!code) {
+                showToast('Please enter a tracking number.', 'error');
+                return;
+            }
+
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+
+            try {
+                const { data, error } = await supabase
+                    .from('deliveries')
+                    .select(`
+                        id, tracking_number, status,
+                        order:order_id (
+                            order_number,
+                            supplier:supplier_id ( full_name, company_name ),
+                            buyer:buyer_id ( full_name, company_name )
+                        )
+                    `)
+                    .eq('tracking_number', code)
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (!data) {
+                    showToast('No shipment found with that tracking number.', 'error');
+                    resultCard.style.display = 'none';
+                    verifyBtn.disabled = false;
+                    verifyBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Verify Shipment';
+                    return;
+                }
+
+                // Shipment found! Render details
+                currentDelivery = data;
+                document.getElementById('resTracking').textContent = data.tracking_number;
+                document.getElementById('resOrder').textContent = data.order?.order_number || 'N/A';
+                document.getElementById('resSupplier').textContent = data.order?.supplier?.company_name || data.order?.supplier?.full_name || 'N/A';
+                document.getElementById('resBuyer').textContent = data.order?.buyer?.company_name || data.order?.buyer?.full_name || 'N/A';
+                document.getElementById('resStatus').textContent = data.status ? data.status.replace('_', ' ') : 'N/A';
+
+                // Setup Update Button based on current status
+                const status = data.status;
+                if (status === 'assigned') {
+                    updateStatusBtn.textContent = 'Mark Picked Up (In Transit)';
+                    updateStatusBtn.dataset.action = 'in_transit';
+                } else if (status === 'in_transit') {
+                    updateStatusBtn.textContent = 'Mark At Border';
+                    updateStatusBtn.dataset.action = 'border';
+                } else if (status === 'border') {
+                    updateStatusBtn.textContent = 'Mark Delivered';
+                    updateStatusBtn.dataset.action = 'delivered';
+                } else {
+                    updateStatusBtn.textContent = 'Shipment Completed';
+                    updateStatusBtn.disabled = true;
+                }
+
+                resultCard.style.display = 'block';
+                showToast('Shipment verified successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error verifying shipment:', error);
+                showToast('Error verifying shipment: ' + error.message, 'error');
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Verify Shipment';
+            }
+        });
+
+        // Handle Update Status Button Click
+        updateStatusBtn.addEventListener('click', async () => {
+            if (!currentDelivery) return;
+
+            const newStatus = updateStatusBtn.dataset.action;
+            if (!newStatus) return;
+
+            updateStatusBtn.disabled = true;
+            updateStatusBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Updating...';
+
+            try {
+                const { error } = await supabase
+                    .from('deliveries')
+                    .update({ status: newStatus })
+                    .eq('id', currentDelivery.id);
+
+                if (error) throw error;
+
+                showToast('Status updated successfully!', 'success');
+                
+                // Update UI
+                document.getElementById('resStatus').textContent = newStatus.replace('_', ' ');
+                updateStatusBtn.textContent = 'Status Updated';
+                
+                // Reload page after 2 seconds to reflect changes
+                setTimeout(() => {
+                    window.location.href = 'deliveries.html';
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showToast('Error updating status: ' + error.message, 'error');
+                updateStatusBtn.disabled = false;
+                updateStatusBtn.textContent = 'Try Again';
+            }
+        });
+    </script>
 
 </body>
 </html>

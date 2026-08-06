@@ -1,542 +1,1243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Logistics Profile</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Mobile Procure | Logistics Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+            color: #0F766E;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        header a {
+            color: #0F766E;
+            font-size: 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .container {
+            padding: 20px;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .profile-card {
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+            position: relative;
+        }
 
-header h2{
-font-size:22px;
-color:#0F766E;
-}
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
 
-header a{
-color:#0F766E;
-font-size:20px;
-text-decoration:none;
-}
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #0F766E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            margin-bottom: 18px;
+        }
 
-.container{
-padding:20px;
-}
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 20px;
+            right: -5px;
+            background: #0F766E;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.profile-card{
-background:#fff;
-border-radius:22px;
-padding:30px;
-text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-margin-bottom:20px;
-}
+        .avatar-edit-btn:hover {
+            background: #0D6B64;
+            transform: scale(1.1);
+        }
 
-.avatar{
-width:110px;
-height:110px;
-border-radius:50%;
-background:#0F766E;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:45px;
-color:white;
-margin-bottom:18px;
-}
+        .profile-card h2 {
+            margin-bottom: 5px;
+        }
 
-.profile-card h2{
-margin-bottom:6px;
-}
+        .profile-card p {
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
 
-.profile-card p{
-color:#6B7280;
-margin-bottom:15px;
-}
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #D1FAE5;
+            color: #065F46;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
 
-.badge{
-display:inline-block;
-padding:8px 18px;
-background:#DCFCE7;
-color:#166534;
-border-radius:30px;
-font-size:13px;
-font-weight:600;
-}
+        .badge.pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-margin:20px 0;
-}
+        .view-details-btn {
+            display: inline-block;
+            margin-top: 12px;
+            background: none;
+            border: none;
+            color: #0F766E;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
 
-.stat{
-background:#fff;
-padding:18px;
-text-align:center;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .view-details-btn:hover {
+            color: #0D6B64;
+        }
 
-.stat h3{
-color:#0F766E;
-margin-bottom:5px;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
 
-.stat p{
-font-size:13px;
-color:#6B7280;
-}
+        .stat {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.section{
-background:#fff;
-padding:22px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .stat h3 {
+            color: #0F766E;
+            margin-bottom: 5px;
+        }
 
-.section h3{
-margin-bottom:18px;
-color:#0F766E;
-}
+        .stat p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #ECECEC;
-}
+        .section {
+            background: white;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.item:last-child{
-border:none;
-padding-bottom:0;
-}
+        .section h3 {
+            margin-bottom: 18px;
+            color: #0F766E;
+        }
 
-.left{
-display:flex;
-align-items:center;
-}
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ECECEC;
+        }
 
-.left i{
-width:25px;
-color:#0F766E;
-margin-right:10px;
-}
+        .item:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
 
-.right{
-color:#6B7280;
-font-size:14px;
-}
+        .left {
+            display: flex;
+            align-items: center;
+        }
 
-.button{
-display:block;
-text-align:center;
-padding:15px;
-text-decoration:none;
-border-radius:14px;
-font-weight:600;
-margin-top:15px;
-transition:0.3s;
-}
+        .left i {
+            width: 25px;
+            margin-right: 10px;
+            color: #0F766E;
+        }
 
-.button:hover {
-    transform: translateY(-2px);
-}
+        .right {
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-.primary{
-background:#0F766E;
-color:white;
-}
+        .right.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
+        }
 
-.primary:hover{
-background:#0D6B64;
-}
+        .button {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
 
-.secondary{
-background:#EF4444;
-color:white;
-}
+        .button:hover {
+            transform: translateY(-2px);
+        }
 
-.secondary:hover{
-background:#DC2626;
-}
+        .primary {
+            background: #0F766E;
+            color: white;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:#fff;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-z-index:1000;
-}
+        .primary:hover {
+            background: #0D6B64;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        .secondary {
+            background: #DC2626;
+            color: white;
+        }
 
-.bottom-nav a.active{
-color:#0F766E;
-font-weight:600;
-}
+        .secondary:hover {
+            background: #b91c1c;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-</style>
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
+        .bottom-nav a.active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F3F4F6;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            color: #1F2937;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #1F2937;
+        }
+
+        .modal-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0F766E;
+            margin: 20px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ECECEC;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #0F766E;
+            background: white;
+        }
+
+        .form-group .hint {
+            display: block;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #F3F4F6;
+        }
+
+        .modal-actions .button {
+            margin-top: 0;
+            flex: 1;
+        }
+
+        .btn-secondary-modal {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .btn-secondary-modal:hover {
+            background: #D1D5DB;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+        }
+
+        .toast.success {
+            background: #065F46;
+        }
+
+        .toast.error {
+            background: #991B1B;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* PERSONAL INFO DETAILS MODAL */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .details-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .details-item .details-label {
+            font-size: 12px;
+            color: #9CA3AF;
+            font-weight: 500;
+        }
+
+        .details-item .details-value {
+            font-size: 14px;
+            color: #1F2937;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .details-item .details-value.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Session Protection Script -->
-<script type="module">
-    import { getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    async function protectPage() {
-        try {
-            const user = await getCurrentUser();
-            if (!user || !user.profile) {
-                window.location.href = '/mobileprocure/login.html';
-                return;
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
             }
-            
-            if (user.profile.role !== 'logistics') {
-                window.location.href = '/mobileprocure/unauthorized.html';
-                return;
-            }
-            
-            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
-            window.currentUser = user;
-            
-        } catch (error) {
-            console.error('Auth check error:', error);
-            window.location.href = '/mobileprocure/login.html';
         }
-    }
-    
-    await protectPage();
-</script>
+    </script>
 
-<header>
-    <h2>Logistics Profile</h2>
-    <a href="#">
-        <i class="fa-solid fa-pen"></i>
-    </a>
-</header>
+    <script type="module">
+        import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
 
-<div class="container">
-
-    <div class="profile-card" id="profileCard">
-        <div class="avatar" id="userAvatar">
-            <span id="userInitial">L</span>
-        </div>
-        <h2 id="userName">Loading...</h2>
-        <p id="userLocation">Zambia</p>
-        <span class="badge" id="verificationBadge">
-            <i class="fa-solid fa-circle-check"></i>
-            <span id="verificationStatus">Verified Logistics Partner</span>
-        </span>
-    </div>
-
-    <div class="stats">
-        <div class="stat">
-            <h3 id="deliveryCount">0</h3>
-            <p>Deliveries</p>
-        </div>
-        <div class="stat">
-            <h3 id="rating">0★</h3>
-            <p>Rating</p>
-        </div>
-        <div class="stat">
-            <h3 id="fleetSize">0</h3>
-            <p>Fleet</p>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Company Information</h3>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-building"></i>
-                Company
-            </div>
-            <div class="right" id="companyName">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-id-card"></i>
-                Transport Licence
-            </div>
-            <div class="right" id="transportLicence">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-location-dot"></i>
-                Head Office
-            </div>
-            <div class="right" id="headOffice">Zambia</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-truck"></i>
-                Fleet Size
-            </div>
-            <div class="right" id="fleetDisplay">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-envelope"></i>
-                Email
-            </div>
-            <div class="right" id="userEmail">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-phone"></i>
-                Phone
-            </div>
-            <div class="right" id="userPhone">-</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Compliance</h3>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-file-shield"></i>
-                Insurance
-            </div>
-            <div class="right" id="insuranceStatus">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-shield-halved"></i>
-                Safety Rating
-            </div>
-            <div class="right" id="safetyRating">-</div>
-        </div>
-        <div class="item">
-            <div class="left">
-                <i class="fa-solid fa-file-circle-check"></i>
-                Government Verification
-            </div>
-            <div class="right" id="govVerification">-</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Account</h3>
-        <a href="#" class="button primary">
-            Edit Profile
-        </a>
-        <a href="#" class="button secondary" id="logoutBtn">
-            <i class="fa-solid fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
-
-</div>
-
-<div class="bottom-nav">
-    <a href="dashboard.html">
-        <i class="fa-solid fa-house"></i>
-        Home
-    </a>
-    <a href="deliveries.html">
-        <i class="fa-solid fa-truck-fast"></i>
-        Deliveries
-    </a>
-    <a href="tracking.html">
-        <i class="fa-solid fa-location-dot"></i>
-        Tracking
-    </a>
-    <a href="qr-scan.html">
-        <i class="fa-solid fa-qrcode"></i>
-        QR Scan
-    </a>
-    <a href="profile.html" class="active">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </a>
-</div>
-
-<!-- Main Script -->
-<script type="module">
-    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
-    const userName = document.getElementById('userName');
-    const userInitial = document.getElementById('userInitial');
-    const userLocation = document.getElementById('userLocation');
-    const userEmail = document.getElementById('userEmail');
-    const userPhone = document.getElementById('userPhone');
-    const companyName = document.getElementById('companyName');
-    const headOffice = document.getElementById('headOffice');
-    const fleetDisplay = document.getElementById('fleetDisplay');
-    const verificationStatus = document.getElementById('verificationStatus');
-    const verificationBadge = document.getElementById('verificationBadge');
-    const deliveryCount = document.getElementById('deliveryCount');
-    const rating = document.getElementById('rating');
-    const fleetSize = document.getElementById('fleetSize');
-    const transportLicence = document.getElementById('transportLicence');
-    const insuranceStatus = document.getElementById('insuranceStatus');
-    const safetyRating = document.getElementById('safetyRating');
-    const govVerification = document.getElementById('govVerification');
-    const logoutBtn = document.getElementById('logoutBtn');
-    
-    // ============================================
-    // LOAD USER DATA
-    // ============================================
-    async function loadUserData() {
-        try {
-            const user = await getCurrentUser();
-            if (user && user.profile) {
-                const profile = user.profile;
-                
-                // Basic info
-                userName.textContent = profile.full_name || 'Logistics Provider';
-                userInitial.textContent = (profile.full_name || 'L').charAt(0).toUpperCase();
-                userEmail.textContent = profile.email || '-';
-                userPhone.textContent = profile.phone || '-';
-                companyName.textContent = profile.company_name || '-';
-                
-                // Location
-                const location = profile.location || profile.city || 'Zambia';
-                userLocation.textContent = location;
-                headOffice.textContent = location;
-                
-                // Verification status
-                if (profile.is_verified) {
-                    verificationStatus.textContent = 'Verified Logistics Partner';
-                    verificationBadge.className = 'badge';
-                    verificationBadge.style.background = '#DCFCE7';
-                    verificationBadge.style.color = '#166534';
-                } else {
-                    verificationStatus.textContent = 'Pending Verification';
-                    verificationBadge.className = 'badge';
-                    verificationBadge.style.background = '#FEF3C7';
-                    verificationBadge.style.color = '#92400E';
+        // SESSION PROTECTION (BULLETPROOF RPC VERSION)
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
                 }
-                
-                // Fleet info (from logistics_profiles or placeholder)
-                fleetDisplay.textContent = profile.fleet_size ? `${profile.fleet_size} Livestock Trucks` : 'Not specified';
-                fleetSize.textContent = profile.fleet_size || 0;
-                
-                // Compliance statuses
-                transportLicence.textContent = profile.is_verified ? 'Valid' : 'Pending';
-                insuranceStatus.textContent = profile.is_verified ? 'Active' : 'Pending';
-                safetyRating.textContent = profile.is_verified ? 'Excellent' : 'Pending';
-                govVerification.textContent = profile.is_verified ? 'Approved' : 'Pending';
-                
-                // Load stats
-                await loadStats(user.id);
-            }
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD STATS
-    // ============================================
-    async function loadStats(userId) {
-        try {
-            // Get deliveries for this logistics provider
-            const { data: deliveries, error } = await supabase
-                .from('deliveries')
-                .select('id, status')
-                .eq('logistics_provider_id', userId);
-            
-            if (!error && deliveries) {
-                // Total deliveries
-                deliveryCount.textContent = deliveries.length;
-                
-                // Rating (placeholder - would need a ratings table)
-                const avgRating = 4.8; // Placeholder
-                rating.textContent = `${avgRating}★`;
-            }
-        } catch (error) {
-            console.error('Error loading stats:', error);
-        }
-    }
-    
-    // ============================================
-    // LOGOUT
-    // ============================================
-    async function handleLogout(e) {
-        e.preventDefault();
-        
-        try {
-            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
-            logoutBtn.style.opacity = '0.6';
-            logoutBtn.style.cursor = 'not-allowed';
-            
-            await signOut();
-            localStorage.clear();
-            window.location.href = '/continue-as.html';
-        } catch (error) {
-            console.error('Logout error:', error);
-            logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
-            logoutBtn.style.opacity = '1';
-            logoutBtn.style.cursor = 'pointer';
-            alert('Error logging out. Please try again.');
-        }
-    }
-    
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
-    logoutBtn.addEventListener('click', handleLogout);
-    
-    // ============================================
-    // INITIALIZE
-    // ============================================
-    loadUserData();
-</script>
 
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('logistics')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+
+        await protectPage();
+
+        // DOM ELEMENTS - PROFILE DISPLAY
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userLocation = document.getElementById('userLocation');
+        const userEmail = document.getElementById('userEmail');
+        const userPhone = document.getElementById('userPhone');
+        const companyName = document.getElementById('companyName');
+        const headOffice = document.getElementById('headOffice');
+        const fleetDisplay = document.getElementById('fleetDisplay');
+        const verificationStatus = document.getElementById('verificationStatus');
+        const verificationBadge = document.getElementById('verificationBadge');
+        const deliveryCount = document.getElementById('deliveryCount');
+        const rating = document.getElementById('rating');
+        const fleetSize = document.getElementById('fleetSize');
+        const transportLicence = document.getElementById('transportLicence');
+        const insuranceStatus = document.getElementById('insuranceStatus');
+        const safetyRating = document.getElementById('safetyRating');
+        const govVerification = document.getElementById('govVerification');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const editBtn = document.getElementById('editBtn');
+        const editBtn2 = document.getElementById('editBtn2');
+        const viewDetailsBtn = document.getElementById('viewDetailsBtn');
+
+        // DOM ELEMENTS - EDIT MODAL
+        const modalOverlay = document.getElementById('editModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const editForm = document.getElementById('editForm');
+        const editFullName = document.getElementById('editFullName');
+        const editPhone = document.getElementById('editPhone');
+        const editCompany = document.getElementById('editCompany');
+        const editCountry = document.getElementById('editCountry');
+        const editAddress = document.getElementById('editAddress');
+        const editCity = document.getElementById('editCity');
+        const editProvince = document.getElementById('editProvince');
+        const editBio = document.getElementById('editBio');
+        const editTaxId = document.getElementById('editTaxId');
+        const editRegNumber = document.getElementById('editRegNumber');
+        const editLanguage = document.getElementById('editLanguage');
+        const editFleetSize = document.getElementById('editFleetSize');
+
+        // DOM ELEMENTS - DETAILS MODAL
+        const detailsModal = document.getElementById('detailsModal');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsContent = document.getElementById('detailsContent');
+
+        // TOAST ELEMENTS
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        let currentUser = null;
+
+        // LOAD USER DATA
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    currentUser = user;
+                    const profile = user.profile;
+
+                    userName.textContent = profile.full_name || 'Logistics Provider';
+                    userInitial.textContent = (profile.full_name || 'L').charAt(0).toUpperCase();
+                    userEmail.textContent = profile.email || '-';
+                    userPhone.textContent = profile.phone || '-';
+                    companyName.textContent = profile.company_name || 'Not provided';
+                    companyName.className = 'right' + (profile.company_name ? '' : ' not-provided');
+                    
+                    // Load user_profiles data for location
+                    await loadUserProfile(user.id);
+
+                    // Verification status
+                    if (profile.is_verified) {
+                        verificationStatus.textContent = 'Verified Logistics Partner';
+                        verificationBadge.className = 'badge';
+                        verificationBadge.style.background = '#DCFCE7';
+                        verificationBadge.style.color = '#166534';
+                    } else {
+                        verificationStatus.textContent = 'Pending Verification';
+                        verificationBadge.className = 'badge pending';
+                    }
+                    
+                    // Logistics specific profile data
+                    const { data: logProf } = await supabase
+                        .from('logistics_profiles')
+                        .select('fleet_size')
+                        .eq('user_id', user.id)
+                        .maybeSingle();
+
+                    if (logProf && logProf.fleet_size) {
+                        fleetDisplay.textContent = `${logProf.fleet_size} Trucks`;
+                        fleetSize.textContent = logProf.fleet_size;
+                    } else {
+                        fleetDisplay.textContent = 'Not specified';
+                        fleetDisplay.className = 'right not-provided';
+                        fleetSize.textContent = '0';
+                    }
+                    
+                    // Document statuses
+                    transportLicence.textContent = profile.registration_number ? 'Provided' : 'Not Uploaded';
+                    insuranceStatus.textContent = profile.tax_id ? 'Provided' : 'Not Uploaded';
+                    safetyRating.textContent = profile.is_verified ? 'Excellent' : 'Pending';
+                    govVerification.textContent = profile.is_verified ? 'Approved' : 'Pending';
+                    
+                    await loadStats(user.id);
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // LOAD USER PROFILE (Extra details)
+        async function loadUserProfile(userId) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    const loc = data.city ? `${data.city}, ${data.province}` : (data.province || data.country || 'Zambia');
+                    userLocation.textContent = loc;
+                    headOffice.textContent = loc;
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+
+        // LOAD STATS
+        async function loadStats(userId) {
+            try {
+                const { data: deliveries, error } = await supabase
+                    .from('deliveries')
+                    .select('id, status')
+                    .eq('logistics_provider_id', userId);
+                
+                if (!error && deliveries) {
+                    deliveryCount.textContent = deliveries.length;
+                    rating.textContent = `N/A`; // Removed dummy rating
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // OPEN EDIT MODAL
+        async function openEditModal() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    showToast('Session expired. Please log in again.', 'error');
+                    return;
+                }
+
+                const profile = user.profile;
+                editFullName.value = profile.full_name || '';
+                editPhone.value = profile.phone || '';
+                editCompany.value = profile.company_name || '';
+                editTaxId.value = profile.tax_id || '';
+                editRegNumber.value = profile.registration_number || '';
+
+                const { data: logProf } = await supabase
+                    .from('logistics_profiles')
+                    .select('fleet_size')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                editFleetSize.value = logProf?.fleet_size || '';
+
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    editCountry.value = data.country || 'Zambia';
+                    editAddress.value = data.address_line1 || '';
+                    editCity.value = data.city || '';
+                    editProvince.value = data.province || '';
+                    editBio.value = data.bio || '';
+                    editLanguage.value = data.preferred_language || 'en';
+                } else {
+                    editCountry.value = 'Zambia';
+                    editAddress.value = '';
+                    editCity.value = '';
+                    editProvince.value = '';
+                    editBio.value = '';
+                    editLanguage.value = 'en';
+                }
+
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (error) {
+                console.error('Error opening modal:', error);
+                showToast('Error loading edit data', 'error');
+            }
+        }
+
+        // CLOSE EDIT MODAL
+        function closeEditModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // OPEN DETAILS MODAL
+        function openDetailsModal() {
+            if (!currentUser) return;
+            
+            const profile = currentUser.profile;
+            const userProf = currentUser.userProfiles || {};
+            
+            const fields = [
+                { label: 'Full Name', value: profile.full_name || 'Not provided' },
+                { label: 'Email', value: profile.email || 'Not provided' },
+                { label: 'Phone', value: profile.phone || 'Not provided' },
+                { label: 'Company', value: profile.company_name || 'Not provided' },
+                { label: 'Tax ID / Insurance', value: profile.tax_id || 'Not provided' },
+                { label: 'Transport Licence', value: profile.registration_number || 'Not provided' },
+                { label: 'Country', value: userProf.country || 'Not provided' },
+                { label: 'Address', value: userProf.address_line1 || 'Not provided' },
+                { label: 'City', value: userProf.city || 'Not provided' },
+                { label: 'Province', value: userProf.province || 'Not provided' },
+                { label: 'Bio', value: userProf.bio || 'Not provided' },
+                { label: 'Preferred Language', value: userProf.preferred_language || 'en' }
+            ];
+            
+            detailsContent.innerHTML = fields.map(field => `
+                <div class="details-item">
+                    <div class="details-label">${field.label}</div>
+                    <div class="details-value ${field.value === 'Not provided' ? 'not-provided' : ''}">${field.value}</div>
+                </div>
+            `).join('');
+            
+            detailsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // CLOSE DETAILS MODAL
+        function closeDetailsModalFunc() {
+            detailsModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // HANDLE FORM SUBMISSION
+        async function handleEditSubmit(e) {
+            e.preventDefault();
+
+            const user = await getCurrentUser();
+            if (!user) {
+                showToast('Session expired. Please log in again.', 'error');
+                return;
+            }
+
+            const fullName = editFullName.value.trim();
+            const phone = editPhone.value.trim();
+            const company = editCompany.value.trim();
+            const country = editCountry.value;
+            const address = editAddress.value.trim();
+            const city = editCity.value.trim();
+            const province = editProvince.value;
+            const bio = editBio.value.trim();
+            const taxId = editTaxId.value.trim();
+            const regNumber = editRegNumber.value.trim();
+            const language = editLanguage.value;
+            const fleet = parseInt(editFleetSize.value) || 0;
+
+            if (!fullName) {
+                showToast('Full name is required', 'error');
+                return;
+            }
+
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            try {
+                // 1. Update profiles table
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .update({
+                        full_name: fullName,
+                        phone: phone || null,
+                        company_name: company || null,
+                        tax_id: taxId || null,
+                        registration_number: regNumber || null,
+                        profile_completed: true,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+
+                if (profileError) throw profileError;
+
+                // 2. Upsert user_profiles table
+                const { error: userProfileError } = await supabase
+                    .from('user_profiles')
+                    .upsert({
+                        user_id: user.id,
+                        country: country || 'Zambia',
+                        address_line1: address || null,
+                        city: city || null,
+                        province: province || null,
+                        bio: bio || null,
+                        preferred_language: language || 'en',
+                        updated_at: new Date().toISOString()
+                    }, { onConflict: 'user_id' });
+
+                if (userProfileError) throw userProfileError;
+
+                // 3. Update logistics_profiles fleet size
+                const { error: logProfError } = await supabase
+                    .from('logistics_profiles')
+                    .update({ fleet_size: fleet })
+                    .eq('user_id', user.id);
+
+                // Ignore error if row doesn't exist yet, but log it
+                if (logProfError) console.warn('Could not update logistics profile:', logProfError.message);
+
+                showToast('Profile updated successfully!', 'success');
+                closeEditModal();
+                await loadUserData();
+
+            } catch (error) {
+                console.error('Update error:', error);
+                showToast('Error updating profile: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Changes';
+            }
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // LOGOUT
+        async function handleLogout(e) {
+            e.preventDefault();
+
+            try {
+                logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+                logoutBtn.style.opacity = '0.6';
+                logoutBtn.style.cursor = 'not-allowed';
+
+                await signOut();
+                localStorage.clear();
+                window.location.href = '/continue-as.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+                logoutBtn.style.opacity = '1';
+                logoutBtn.style.cursor = 'pointer';
+                showToast('Error logging out. Please try again.', 'error');
+            }
+        }
+
+        // EVENT LISTENERS
+        logoutBtn.addEventListener('click', handleLogout);
+        editBtn.addEventListener('click', openEditModal);
+        editBtn2.addEventListener('click', openEditModal);
+        closeModal.addEventListener('click', closeEditModal);
+        cancelModal.addEventListener('click', closeEditModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeEditModal();
+        });
+        editForm.addEventListener('submit', handleEditSubmit);
+
+        // Details modal listeners
+        viewDetailsBtn.addEventListener('click', openDetailsModal);
+        closeDetailsModal.addEventListener('click', closeDetailsModalFunc);
+        detailsModal.addEventListener('click', (e) => {
+            if (e.target === detailsModal) closeDetailsModalFunc();
+        });
+
+        // INITIALIZE
+        loadUserData();
+    </script>
+
+    <header>
+        <h2>Logistics Profile</h2>
+        <a id="editBtn" title="Edit Profile">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+    </header>
+
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="avatar-wrapper">
+                <div class="avatar" id="userAvatar">
+                    <span id="userInitial">L</span>
+                </div>
+                <div class="avatar-edit-btn" title="Change Photo">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </div>
+            <h2 id="userName">Loading...</h2>
+            <p id="userLocation">Zambia</p>
+            <span class="badge" id="verificationBadge">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="verificationStatus">Verified Logistics Partner</span>
+            </span>
+            <br>
+            <button class="view-details-btn" id="viewDetailsBtn">
+                <i class="fa-solid fa-eye"></i> View Personal Information
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <h3 id="deliveryCount">0</h3>
+                <p>Deliveries</p>
+            </div>
+            <div class="stat">
+                <h3 id="rating">N/A</h3>
+                <p>Rating</p>
+            </div>
+            <div class="stat">
+                <h3 id="fleetSize">0</h3>
+                <p>Fleet</p>
+            </div>
+        </div>
+
+        <!-- Business Information -->
+        <div class="section">
+            <h3>Company Information</h3>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-building"></i>
+                    Company
+                </div>
+                <div class="right" id="companyName">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-id-card"></i>
+                    Transport Licence
+                </div>
+                <div class="right" id="transportLicence">Not Uploaded</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Head Office
+                </div>
+                <div class="right" id="headOffice">Zambia</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-truck"></i>
+                    Fleet Size
+                </div>
+                <div class="right" id="fleetDisplay">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-envelope"></i>
+                    Email
+                </div>
+                <div class="right" id="userEmail">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-phone"></i>
+                    Phone
+                </div>
+                <div class="right" id="userPhone">-</div>
+            </div>
+        </div>
+
+        <!-- Compliance -->
+        <div class="section">
+            <h3>Compliance</h3>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-file-shield"></i>
+                    Insurance
+                </div>
+                <div class="right" id="insuranceStatus">Not Uploaded</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Safety Rating
+                </div>
+                <div class="right" id="safetyRating">Pending</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                    Government Verification
+                </div>
+                <div class="right" id="govVerification">Pending</div>
+            </div>
+        </div>
+
+        <!-- Account Actions -->
+        <div class="section">
+            <h3>Account Actions</h3>
+            <button type="button" class="button primary" id="editBtn2">
+                Edit Profile
+            </button>
+            <button type="button" class="button secondary" id="logoutBtn">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button type="button" class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="editForm">
+                <!-- Personal Information Section -->
+                <div class="modal-section-title">Personal Information</div>
+                
+                <div class="form-group">
+                    <label>Full Name <span style="color:#EF4444;">*</span></label>
+                    <input type="text" id="editFullName" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="editPhone" placeholder="+260 123 456 789">
+                </div>
+                
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="editBio" placeholder="Tell buyers about your logistics company..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Language</label>
+                        <select id="editLanguage">
+                            <option value="en">English</option>
+                            <option value="ny">Nyanja</option>
+                            <option value="bem">Bemba</option>
+                            <option value="tum">Tumbuka</option>
+                            <option value="lozi">Lozi</option>
+                            <option value="kaonde">Kaonde</option>
+                            <option value="lunda">Lunda</option>
+                            <option value="luvale">Luvale</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Business Information Section -->
+                <div class="modal-section-title">Business Information</div>
+                
+                <div class="form-group">
+                    <label>Business / Company Name</label>
+                    <input type="text" id="editCompany" placeholder="Enter business name">
+                </div>
+
+                <div class="form-group">
+                    <label>Fleet Size (Number of Trucks)</label>
+                    <input type="number" id="editFleetSize" placeholder="e.g. 15" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label>Insurance / Tax ID (TPIN)</label>
+                    <input type="text" id="editTaxId" placeholder="Enter Tax ID">
+                    <span class="hint">Required for registered businesses</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Transport Licence / Registration Number</label>
+                    <input type="text" id="editRegNumber" placeholder="Enter registration number">
+                    <span class="hint">For registered companies only</span>
+                </div>
+
+                <!-- Address Information Section -->
+                <div class="modal-section-title">Address Information</div>
+                
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="editCountry">
+                        <option value="Zambia">Zambia</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Mozambique">Mozambique</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="DRC">DRC</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Address Line 1</label>
+                    <input type="text" id="editAddress" placeholder="Enter street address">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="editCity" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                        <label>Province</label>
+                        <select id="editProvince">
+                            <option value="">Select Province</option>
+                            <option value="Central">Central</option>
+                            <option value="Copperbelt">Copperbelt</option>
+                            <option value="Eastern">Eastern</option>
+                            <option value="Luapula">Luapula</option>
+                            <option value="Lusaka">Lusaka</option>
+                            <option value="Muchinga">Muchinga</option>
+                            <option value="Northern">Northern</option>
+                            <option value="North-Western">North-Western</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Western">Western</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="button btn-secondary-modal" id="cancelModal">Cancel</button>
+                    <button type="submit" class="button primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Personal Information Details Modal -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user"></i> Personal Information</h3>
+                <button type="button" class="modal-close" id="closeDetailsModal">&times;</button>
+            </div>
+            <div class="details-grid" id="detailsContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <button type="button" class="button primary" id="editFromDetailsBtn" style="display:inline-block;width:auto;padding:10px 30px;">
+                    Edit Profile
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="deliveries.html">
+            <i class="fa-solid fa-truck-fast"></i>
+            Deliveries
+        </a>
+        <a href="tracking.html">
+            <i class="fa-solid fa-location-dot"></i>
+            Tracking
+        </a>
+        <a href="qr-scan.html">
+            <i class="fa-solid fa-qrcode"></i>
+            QR Scan
+        </a>
+        <a href="profile.html" class="active">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <script>
+        // Connect the "Edit Profile" button in the details modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const editFromDetailsBtn = document.getElementById('editFromDetailsBtn');
+            if (editFromDetailsBtn) {
+                editFromDetailsBtn.addEventListener('click', function() {
+                    document.getElementById('detailsModal').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('editBtn2').click();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
