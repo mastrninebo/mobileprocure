@@ -1,668 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintech Dashboard | Mobile Procure</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Fintech Dashboard</title>
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        .profile .avatar-placeholder {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #15803D;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
 
-<style>
+        .profile h3 {
+            font-size: 20px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .profile p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
+        .notify {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+            position: relative;
+            cursor: pointer;
+        }
 
-header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .notify .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc2626;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
 
-.profile{
-display:flex;
-align-items:center;
-gap:15px;
-cursor:pointer;
-}
+        .hero {
+            margin: 0 20px;
+            padding: 25px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #15803D, #22C55E);
+            color: white;
+            box-shadow: 0 10px 25px rgba(21, 128, 61, 0.2);
+        }
 
-.profile .avatar-placeholder {
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    background:#15803D;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:600;
-}
+        .hero small {
+            opacity: .9;
+            font-size: 14px;
+        }
 
-.profile h3{
-font-size:20px;
-}
+        .hero h2 {
+            font-size: 34px;
+            margin: 10px 0;
+        }
 
-.profile p{
-font-size:13px;
-color:#6B7280;
-}
+        .hero p {
+            opacity: .95;
+            font-size: 13px;
+        }
 
-.notify{
-width:45px;
-height:45px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-position:relative;
-cursor:pointer;
-}
+        .container {
+            padding: 0 20px;
+        }
 
-.notify .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #dc2626;
-    color: white;
-    font-size: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
 
-.hero{
-margin:0 20px;
-padding:25px;
-border-radius:22px;
-background:linear-gradient(135deg,#15803D,#22C55E);
-color:white;
-}
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,.05);
+            transition: 0.3s;
+        }
 
-.hero small{
-opacity:.9;
-}
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
 
-.hero h2{
-font-size:34px;
-margin:10px 0;
-}
+        .stat-card i {
+            font-size: 24px;
+            color: #15803D;
+            margin-bottom: 10px;
+        }
 
-.hero p{
-opacity:.95;
-}
+        .stat-card h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
 
-.container{
-padding:0 20px;
-}
+        .stat-card p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-bottom:25px;
-}
+        .section {
+            margin: 25px 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.stat-card{
-background:white;
-padding:20px;
-border-radius:18px;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-}
+        .section h2 {
+            font-size: 20px;
+        }
 
-.stat-card i{
-font-size:24px;
-color:#15803D;
-margin-bottom:10px;
-}
+        .section a {
+            text-decoration: none;
+            color: #15803D;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-.stat-card h3{
-font-size:24px;
-margin-bottom:5px;
-}
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-.stat-card p{
-font-size:14px;
-color:#6B7280;
-}
+        .quick-actions a {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            text-decoration: none;
+            color: #1F2937;
+            box-shadow: 0 8px 18px rgba(0,0,0,.05);
+            transition: .3s;
+        }
 
-.section{
-margin:25px 0 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .quick-actions a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
 
-.section h2{
-font-size:20px;
-}
+        .quick-actions i {
+            font-size: 28px;
+            color: #15803D;
+            margin-bottom: 10px;
+        }
 
-.section a{
-text-decoration:none;
-color:#15803D;
-font-weight:600;
-}
+        .quick-actions h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
 
-.quick-actions{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
+        .quick-actions p {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 2px;
+        }
 
-.quick-actions a{
-background:white;
-padding:20px;
-border-radius:18px;
-text-align:center;
-text-decoration:none;
-color:#1F2937;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-transition:.3s;
-}
+        .activity {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            margin-top: 15px;
+            box-shadow: 0 8px 18px rgba(0,0,0,.05);
+        }
 
-.quick-actions a:hover{
-transform:translateY(-3px);
-box-shadow:0 12px 30px rgba(0,0,0,.08);
-}
+        .activity-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            align-items: center;
+        }
 
-.quick-actions i{
-font-size:28px;
-color:#15803D;
-margin-bottom:10px;
-}
+        .activity-top strong {
+            color: #15803D;
+            font-size: 15px;
+        }
 
-.quick-actions h4{
-font-size:15px;
-font-weight:600;
-}
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
 
-.quick-actions p{
-font-size:12px;
-color:#6B7280;
-margin-top:2px;
-}
+        .badge.locked { background: #DBEAFE; color: #1E40AF; }
+        .badge.released { background: #FEF3C7; color: #D97706; }
+        .badge.disputed { background: #FEE2E2; color: #DC2626; }
+        .badge.pending { background: #F3F4F6; color: #6B7280; }
 
-.activity{
-background:white;
-padding:18px;
-border-radius:18px;
-margin-top:15px;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-}
+        .activity p {
+            margin: 5px 0;
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.activity-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:12px;
-}
+        .activity .amount {
+            font-weight: 700;
+            color: #15803D;
+            font-size: 16px;
+        }
 
-.badge{
-padding:6px 14px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
 
-.badge.locked{
-background:#DBEAFE;
-color:#1E40AF;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #15803D;
+            margin-bottom: 15px;
+        }
 
-.badge.released{
-background:#FEF3C7;
-color:#D97706;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.badge.disputed{
-background:#FEE2E2;
-color:#DC2626;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
-.badge.pending{
-background:#F3F4F6;
-color:#6B7280;
-}
+        .bottom-nav a.active {
+            color: #15803D;
+            font-weight: 600;
+        }
 
-.activity p{
-margin:5px 0;
-font-size:14px;
-}
-
-.activity .amount{
-font-weight:600;
-color:#15803D;
-}
-
-.loading-spinner {
-    text-align: center;
-    padding: 40px 20px;
-    color: #6B7280;
-}
-
-.loading-spinner i {
-    font-size: 40px;
-    color: #15803D;
-    margin-bottom: 15px;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-z-index:1000;
-}
-
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
-
-.bottom-nav a.active{
-color:#15803D;
-font-weight:600;
-}
-
-.bottom-nav i{
-font-size:20px;
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Session Protection Script -->
-<script type="module">
-    import { getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    async function protectPage() {
-        try {
-            const user = await getCurrentUser();
-            if (!user || !user.profile) {
-                window.location.href = '/mobileprocure/login.html';
-                return;
+    <!-- SESSION PROTECTION SCRIPT (BULLETPROOF RPC VERSION) -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('fintech')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                console.log('✅ Access granted to Fintech Dashboard');
+                window.currentUser = user;
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
             }
-            
-            if (user.profile.role !== 'fintech') {
-                window.location.href = '/mobileprocure/unauthorized.html';
-                return;
-            }
-            
-            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
-            window.currentUser = user;
-            
-        } catch (error) {
-            console.error('Auth check error:', error);
-            window.location.href = '/mobileprocure/login.html';
         }
-    }
-    
-    await protectPage();
-</script>
+        
+        await protectPage();
+    </script>
 
-<header>
-    <div class="profile" onclick="window.location.href='profile.html'">
-        <div class="avatar-placeholder" id="userAvatar">
-            <span id="userInitial">F</span>
+    <header>
+        <div class="profile" onclick="window.location.href='profile.html'">
+            <div class="avatar-placeholder" id="userAvatar">
+                <span id="userInitial">F</span>
+            </div>
+            <div>
+                <h3 id="userName">Fintech Portal</h3>
+                <p id="userStatus">Escrow & Payment Management</p>
+            </div>
         </div>
-        <div>
-            <h3 id="userName">Fintech Portal</h3>
-            <p id="userStatus">Escrow & Payment Management</p>
+        <div class="notify">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge" id="notificationBadge">0</span>
         </div>
-    </div>
-    <div class="notify">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge" id="notificationBadge">0</span>
-    </div>
-</header>
+    </header>
 
-<div class="hero">
-    <small>Escrow Management</small>
-    <h2 id="totalFunds">$0</h2>
-    <p id="fundsSummary">Total funds processed this month</p>
-</div>
-
-<div class="container">
-
-    <div class="stats">
-        <div class="stat-card">
-            <i class="fa-solid fa-vault"></i>
-            <h3 id="fundsLocked">$0</h3>
-            <p>Funds Locked</p>
-        </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-money-bill-transfer"></i>
-            <h3 id="fundsReleased">$0</h3>
-            <p>Funds Released</p>
-        </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-building-columns"></i>
-            <h3 id="pendingSettlements">0</h3>
-            <p>Pending Settlements</p>
-        </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <h3 id="openDisputes">0</h3>
-            <p>Open Disputes</p>
-        </div>
+    <div class="hero">
+        <small>Escrow Management</small>
+        <h2 id="totalFunds">$0</h2>
+        <p id="fundsSummary">Total funds processed this month</p>
     </div>
 
-    <div class="section">
-        <h2>Quick Access</h2>
+    <div class="container">
+
+        <div class="stats">
+            <div class="stat-card">
+                <i class="fa-solid fa-vault"></i>
+                <h3 id="fundsLocked">$0</h3>
+                <p>Funds Locked</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <h3 id="fundsReleased">$0</h3>
+                <p>Funds Released</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-building-columns"></i>
+                <h3 id="pendingSettlements">0</h3>
+                <p>Pending Settlements</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <h3 id="openDisputes">0</h3>
+                <p>Open Disputes</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Quick Access</h2>
+        </div>
+
+        <div class="quick-actions">
+            <a href="escrow.html">
+                <i class="fa-solid fa-vault"></i>
+                <h4>Escrow</h4>
+                <p>Manage escrow accounts</p>
+            </a>
+            <a href="transactions.html">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <h4>Transactions</h4>
+                <p>View all transactions</p>
+            </a>
+            <a href="settlements.html">
+                <i class="fa-solid fa-building-columns"></i>
+                <h4>Settlements</h4>
+                <p>Process settlements</p>
+            </a>
+            <a href="disputes.html">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <h4>Disputes</h4>
+                <p>Manage open disputes</p>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>Recent Escrow Activity</h2>
+        </div>
+
+        <div id="activityContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading escrow activity...</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="quick-actions">
-        <a href="escrow.html">
-            <i class="fa-solid fa-vault"></i>
-            <h4>Escrow</h4>
-            <p>Manage escrow accounts</p>
+    <!-- PROFILE COMPLETION REMINDER MODAL -->
+    <div class="reminder-overlay" id="reminderModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:white;border-radius:24px;padding:30px;max-width:450px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+            <div style="text-align:center;margin-bottom:20px;">
+                <div style="width:70px;height:70px;background:#FEF3C7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:32px;">📝</div>
+                <h2 style="color:#1F2937;font-size:20px;">Complete Your Profile</h2>
+                <p style="color:#6B7280;font-size:14px;margin-top:8px;">Your profile is missing some required institutional information.</p>
+            </div>
+            
+            <div style="background:#F0FDF4;border-radius:12px;padding:15px;margin-bottom:20px;">
+                <p style="font-size:13px;color:#15803D;font-weight:500;">
+                    <i class="fa-solid fa-circle-info"></i> Required fields:
+                </p>
+                <ul style="list-style:none;margin-top:8px;font-size:13px;color:#374151;">
+                    <li style="padding:4px 0;">• Institution Name</li>
+                    <li style="padding:4px 0;">• Phone Number</li>
+                    <li style="padding:4px 0;">• Tax ID / License</li>
+                </ul>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button onclick="completeProfile()" style="flex:1;padding:12px;background:#15803D;color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:0.3s;">
+                    Complete Now
+                </button>
+                <button onclick="remindLater()" style="flex:1;padding:12px;background:#E5E7EB;color:#374151;border:none;border-radius:12px;font-weight:500;cursor:pointer;transition:0.3s;">
+                    Remind Me Later
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html" class="active">
+            <i class="fa-solid fa-house"></i>
+            Home
         </a>
         <a href="transactions.html">
             <i class="fa-solid fa-money-bill-transfer"></i>
-            <h4>Transactions</h4>
-            <p>View all transactions</p>
+            Transactions
+        </a>
+        <a href="escrow.html">
+            <i class="fa-solid fa-vault"></i>
+            Escrow
         </a>
         <a href="settlements.html">
             <i class="fa-solid fa-building-columns"></i>
-            <h4>Settlements</h4>
-            <p>Process settlements</p>
+            Settlements
         </a>
-        <a href="disputes.html">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <h4>Disputes</h4>
-            <p>Manage open disputes</p>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
         </a>
     </div>
 
-    <div class="section">
-        <h2>Recent Escrow Activity</h2>
-    </div>
-
-    <div id="activityContainer">
-        <div class="loading-spinner">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>Loading escrow activity...</p>
-        </div>
-    </div>
-
-</div>
-
-<div class="bottom-nav">
-    <a href="dashboard.html" class="active">
-        <i class="fa-solid fa-house"></i>
-        Home
-    </a>
-    <a href="transactions.html">
-        <i class="fa-solid fa-money-bill-transfer"></i>
-        Transactions
-    </a>
-    <a href="escrow.html">
-        <i class="fa-solid fa-vault"></i>
-        Escrow
-    </a>
-    <a href="settlements.html">
-        <i class="fa-solid fa-building-columns"></i>
-        Settlements
-    </a>
-    <a href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </a>
-</div>
-
-<!-- Main Script -->
-<script type="module">
-    import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
-    const userName = document.getElementById('userName');
-    const userInitial = document.getElementById('userInitial');
-    const userStatus = document.getElementById('userStatus');
-    const totalFunds = document.getElementById('totalFunds');
-    const fundsSummary = document.getElementById('fundsSummary');
-    const fundsLocked = document.getElementById('fundsLocked');
-    const fundsReleased = document.getElementById('fundsReleased');
-    const pendingSettlements = document.getElementById('pendingSettlements');
-    const openDisputes = document.getElementById('openDisputes');
-    const activityContainer = document.getElementById('activityContainer');
-    const notificationBadge = document.getElementById('notificationBadge');
-    
-    // ============================================
-    // LOAD USER DATA
-    // ============================================
-    async function loadUserData() {
-        try {
-            const user = await getCurrentUser();
-            if (user && user.profile) {
-                const profile = user.profile;
-                userName.textContent = `Fintech Portal`;
-                userInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
-                
-                if (profile.is_verified) {
-                    userStatus.textContent = 'Escrow & Payment Management ✓';
-                } else {
-                    userStatus.textContent = 'Pending Verification ⏳';
-                }
-            }
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD ESCROW STATS
-    // ============================================
-    async function loadStats() {
-        try {
-            // Get all escrow transactions
-            const { data: escrows, error } = await supabase
-                .from('escrow_transactions')
-                .select('id, amount, status');
-            
-            if (!error && escrows) {
-                // Calculate totals
-                const locked = escrows
-                    .filter(e => e.status === 'funded')
-                    .reduce((sum, e) => sum + (e.amount || 0), 0);
-                
-                const released = escrows
-                    .filter(e => e.status === 'released')
-                    .reduce((sum, e) => sum + (e.amount || 0), 0);
-                
-                const pending = escrows
-                    .filter(e => e.status === 'pending')
-                    .length;
-                
-                const disputed = escrows
-                    .filter(e => e.status === 'disputed')
-                    .length;
-                
-                // Total funds processed
-                const total = locked + released;
-                
-                fundsLocked.textContent = `$${locked.toLocaleString()}`;
-                fundsReleased.textContent = `$${released.toLocaleString()}`;
-                pendingSettlements.textContent = pending;
-                openDisputes.textContent = disputed;
-                totalFunds.textContent = `$${total.toLocaleString()}`;
-                fundsSummary.textContent = `${escrows.length} transactions processed this month`;
-            }
-            
-        } catch (error) {
-            console.error('Error loading stats:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD RECENT ACTIVITY
-    // ============================================
-    async function loadActivity() {
-        try {
-            // Get recent escrow transactions with order details
-            const { data: transactions, error } = await supabase
-                .from('escrow_transactions')
-                .select(`
-                    id,
-                    amount,
-                    status,
-                    created_at,
-                    order:order_id (
-                        order_number,
-                        buyer:buyer_id (full_name, company_name),
-                        supplier:supplier_id (full_name, company_name)
-                    )
-                `)
-                .order('created_at', { ascending: false })
-                .limit(5);
-            
-            if (error) {
-                console.error('Error loading activity:', error);
-                showNoActivity('Error loading escrow activity.');
-                return;
-            }
-            
-            if (!transactions || transactions.length === 0) {
-                showNoActivity('No escrow activity recorded yet.');
-                return;
-            }
-            
-            renderActivity(transactions);
-            
-        } catch (error) {
-            console.error('Error:', error);
-            showNoActivity('Unable to load activity. Please refresh.');
-        }
-    }
-    
-    // ============================================
-    // RENDER ACTIVITY
-    // ============================================
-    function renderActivity(transactions) {
-        activityContainer.innerHTML = '';
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
         
-        transactions.forEach(tx => {
-            const activityDiv = document.createElement('div');
-            activityDiv.className = 'activity';
-            
-            const statusClass = getEscrowClass(tx.status);
-            const orderNumber = tx.order?.order_number || 'Order';
-            const buyerName = tx.order?.buyer?.company_name || 
-                             tx.order?.buyer?.full_name || 'Unknown Buyer';
-            const supplierName = tx.order?.supplier?.company_name || 
-                                tx.order?.supplier?.full_name || 'Unknown Supplier';
-            
-            activityDiv.innerHTML = `
-                <div class="activity-top">
-                    <strong>${orderNumber}</strong>
-                    <span class="badge ${statusClass}">${tx.status || 'pending'}</span>
-                </div>
-                <p><strong>Buyer:</strong> ${buyerName}</p>
-                <p><strong>Supplier:</strong> ${supplierName}</p>
-                <p><strong>Amount:</strong> <span class="amount">$${tx.amount?.toLocaleString() || '0'}</span></p>
-                <p style="font-size:12px;color:#9CA3AF;margin-top:5px;">
-                    ${new Date(tx.created_at).toLocaleDateString()} • ${new Date(tx.created_at).toLocaleTimeString()}
-                </p>
-            `;
-            
-            activityContainer.appendChild(activityDiv);
-        });
-    }
-    
-    // ============================================
-    // SHOW NO ACTIVITY
-    // ============================================
-    function showNoActivity(message) {
-        activityContainer.innerHTML = `
-            <div class="activity" style="text-align:center;padding:30px;">
-                <i class="fa-solid fa-inbox" style="font-size:32px;color:#9CA3AF;margin-bottom:10px;display:block;"></i>
-                <p style="color:#6B7280;font-size:14px;">${message}</p>
-            </div>
-        `;
-    }
-    
-    // ============================================
-    // GET ESCROW CLASS
-    // ============================================
-    function getEscrowClass(status) {
-        const statusMap = {
-            'pending': 'pending',
-            'funded': 'locked',
-            'released': 'released',
-            'disputed': 'disputed',
-            'refunded': 'released'
-        };
-        return statusMap[status] || 'pending';
-    }
-    
-    // ============================================
-    // LOAD NOTIFICATIONS
-    // ============================================
-    async function loadNotifications() {
-        try {
-            const { count, error } = await supabase
-                .from('escrow_transactions')
-                .select('*', { count: 'exact', head: true })
-                .in('status', ['pending', 'disputed']);
-            
-            if (!error && count > 0) {
-                notificationBadge.textContent = count > 9 ? '9+' : count;
-                notificationBadge.style.display = 'flex';
-            } else {
-                notificationBadge.style.display = 'none';
+        // DOM ELEMENTS
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userStatus = document.getElementById('userStatus');
+        const totalFunds = document.getElementById('totalFunds');
+        const fundsSummary = document.getElementById('fundsSummary');
+        const fundsLocked = document.getElementById('fundsLocked');
+        const fundsReleased = document.getElementById('fundsReleased');
+        const pendingSettlements = document.getElementById('pendingSettlements');
+        const openDisputes = document.getElementById('openDisputes');
+        const activityContainer = document.getElementById('activityContainer');
+        const notificationBadge = document.getElementById('notificationBadge');
+        
+        // LOAD USER DATA
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    const profile = user.profile;
+                    userName.textContent = `Fintech Portal`;
+                    userInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
+                    
+                    if (profile.is_verified) {
+                        userStatus.textContent = 'Escrow & Payment Management ✓';
+                    } else {
+                        userStatus.textContent = 'Pending Verification ⏳';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
             }
-        } catch (error) {
-            console.error('Error loading notifications:', error);
         }
-    }
-    
-    // ============================================
-    // INITIALIZE
-    // ============================================
-    async function init() {
-        await loadUserData();
-        await loadStats();
-        await loadActivity();
-        await loadNotifications();
-    }
-    
-    init();
-</script>
+        
+        // LOAD ESCROW STATS
+        async function loadStats() {
+            try {
+                const { data: escrows, error } = await supabase
+                    .from('escrow_transactions')
+                    .select('id, amount, status');
+                
+                if (!error && escrows) {
+                    const locked = escrows
+                        .filter(e => e.status === 'funded')
+                        .reduce((sum, e) => sum + (e.amount || 0), 0);
+                    
+                    const released = escrows
+                        .filter(e => e.status === 'released')
+                        .reduce((sum, e) => sum + (e.amount || 0), 0);
+                    
+                    const pending = escrows
+                        .filter(e => e.status === 'pending')
+                        .length;
+                    
+                    const disputed = escrows
+                        .filter(e => e.status === 'disputed')
+                        .length;
+                    
+                    const total = locked + released;
+                    
+                    fundsLocked.textContent = `$${locked.toLocaleString()}`;
+                    fundsReleased.textContent = `$${released.toLocaleString()}`;
+                    pendingSettlements.textContent = pending;
+                    openDisputes.textContent = disputed;
+                    totalFunds.textContent = `$${total.toLocaleString()}`;
+                    fundsSummary.textContent = `${escrows.length} transactions processed this month`;
+                }
+                
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        // LOAD RECENT ACTIVITY
+        async function loadActivity() {
+            try {
+                const { data: transactions, error } = await supabase
+                    .from('escrow_transactions')
+                    .select(`
+                        id, amount, status, created_at,
+                        order:order_id (
+                            order_number,
+                            buyer:buyer_id (full_name, company_name),
+                            supplier:supplier_id (full_name, company_name)
+                        )
+                    `)
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                
+                if (error) {
+                    console.error('Error loading activity:', error);
+                    showNoActivity('Error loading escrow activity.');
+                    return;
+                }
+                
+                if (!transactions || transactions.length === 0) {
+                    showNoActivity('No escrow activity recorded yet.');
+                    return;
+                }
+                
+                renderActivity(transactions);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showNoActivity('Unable to load activity. Please refresh.');
+            }
+        }
+        
+        function renderActivity(transactions) {
+            activityContainer.innerHTML = '';
+            
+            transactions.forEach(tx => {
+                const activityDiv = document.createElement('div');
+                activityDiv.className = 'activity';
+                
+                const statusClass = getEscrowClass(tx.status);
+                const orderNumber = tx.order?.order_number || 'Order';
+                const buyerName = tx.order?.buyer?.company_name || tx.order?.buyer?.full_name || 'Unknown Buyer';
+                const supplierName = tx.order?.supplier?.company_name || tx.order?.supplier?.full_name || 'Unknown Supplier';
+                
+                activityDiv.innerHTML = `
+                    <div class="activity-top">
+                        <strong>${orderNumber}</strong>
+                        <span class="badge ${statusClass}">${tx.status || 'pending'}</span>
+                    </div>
+                    <p><strong>Buyer:</strong> ${buyerName}</p>
+                    <p><strong>Supplier:</strong> ${supplierName}</p>
+                    <p><strong>Amount:</strong> <span class="amount">$${tx.amount?.toLocaleString() || '0'}</span></p>
+                    <p style="font-size:12px;color:#9CA3AF;margin-top:5px;">
+                        ${new Date(tx.created_at).toLocaleDateString()} • ${new Date(tx.created_at).toLocaleTimeString()}
+                    </p>
+                `;
+                
+                activityContainer.appendChild(activityDiv);
+            });
+        }
+        
+        function showNoActivity(message) {
+            activityContainer.innerHTML = `
+                <div class="activity" style="text-align:center;padding:30px;">
+                    <i class="fa-solid fa-inbox" style="font-size:32px;color:#9CA3AF;margin-bottom:10px;display:block;"></i>
+                    <p style="color:#6B7280;font-size:14px;">${message}</p>
+                </div>
+            `;
+        }
+        
+        function getEscrowClass(status) {
+            const statusMap = {
+                'pending': 'pending',
+                'funded': 'locked',
+                'released': 'released',
+                'disputed': 'disputed',
+                'refunded': 'released'
+            };
+            return statusMap[status] || 'pending';
+        }
+        
+        async function loadNotifications() {
+            try {
+                const { count, error } = await supabase
+                    .from('escrow_transactions')
+                    .select('*', { count: 'exact', head: true })
+                    .in('status', ['pending', 'disputed']);
+                
+                if (!error && count > 0) {
+                    notificationBadge.textContent = count > 9 ? '9+' : count;
+                    notificationBadge.style.display = 'flex';
+                } else {
+                    notificationBadge.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+        
+        // INITIALIZE
+        async function init() {
+            await loadUserData();
+            await loadStats();
+            await loadActivity();
+            await loadNotifications();
+        }
+        
+        init();
+    </script>
+
+    <!-- PROFILE COMPLETION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        async function checkProfileCompletion() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return;
+
+                const profile = user.profile;
+
+                if (profile.profile_completed) return;
+
+                if (profile.profile_reminded_at) {
+                    const remindedDate = new Date(profile.profile_reminded_at);
+                    const daysSinceReminded = (new Date() - remindedDate) / (1000 * 60 * 60 * 24);
+                    if (daysSinceReminded < 7) return;
+                }
+
+                const requiredFields = {
+                    full_name: profile.full_name,
+                    phone: profile.phone,
+                    company_name: profile.company_name,
+                    tax_id: profile.tax_id
+                };
+
+                const isComplete = 
+                    requiredFields.full_name && 
+                    requiredFields.full_name.trim() !== '' &&
+                    requiredFields.phone && 
+                    requiredFields.phone.trim() !== '' &&
+                    requiredFields.company_name && 
+                    requiredFields.company_name.trim() !== '' &&
+                    requiredFields.tax_id && 
+                    requiredFields.tax_id.trim() !== '';
+
+                if (!isComplete) {
+                    document.getElementById('reminderModal').style.display = 'flex';
+                }
+
+            } catch (error) {
+                console.error('Profile check error:', error);
+            }
+        }
+
+        window.completeProfile = function() {
+            document.getElementById('reminderModal').style.display = 'none';
+            window.location.href = '/fintech/profile.html';
+        };
+
+        window.remindLater = async function() {
+            try {
+                const user = await getCurrentUser();
+                if (user) {
+                    await supabase
+                        .from('profiles')
+                        .update({ profile_reminded_at: new Date().toISOString() })
+                        .eq('id', user.id);
+                }
+            } catch (error) {
+                console.error('Remind later error:', error);
+            }
+            document.getElementById('reminderModal').style.display = 'none';
+        };
+
+        await checkProfileCompletion();
+    </script>
 
 </body>
 </html>

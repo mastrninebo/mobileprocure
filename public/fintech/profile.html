@@ -1,561 +1,1174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | Fintech Profile</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Mobile Procure | Fintech Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header h2 {
+            font-size: 22px;
+            color: #15803D;
+        }
 
-<style>
+        header a {
+            color: #15803D;
+            font-size: 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:95px;
-}
+        .profile-card {
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+            position: relative;
+        }
 
-header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
 
-.profile{
-display:flex;
-align-items:center;
-gap:15px;
-cursor:pointer;
-}
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #15803D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            margin-bottom: 18px;
+        }
 
-.profile .avatar-placeholder {
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    background:#15803D;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:600;
-}
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 20px;
+            right: -5px;
+            background: #15803D;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.profile h3{
-font-size:20px;
-}
+        .avatar-edit-btn:hover {
+            background: #0D6B64;
+            transform: scale(1.1);
+        }
 
-.profile p{
-font-size:13px;
-color:#6B7280;
-}
+        .profile-card h2 {
+            margin-bottom: 5px;
+        }
 
-.notify{
-width:45px;
-height:45px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-position:relative;
-cursor:pointer;
-}
+        .profile-card p {
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
 
-.notify .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #dc2626;
-    color: white;
-    font-size: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #DCFCE7;
+            color: #166534;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
 
-.hero{
-margin:0 20px;
-padding:25px;
-border-radius:22px;
-background:linear-gradient(135deg,#15803D,#22C55E);
-color:white;
-}
+        .badge.pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
 
-.hero small{
-opacity:.9;
-}
+        .view-details-btn {
+            display: inline-block;
+            margin-top: 12px;
+            background: none;
+            border: none;
+            color: #15803D;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
 
-.hero h2{
-font-size:34px;
-margin:10px 0;
-}
+        .view-details-btn:hover {
+            color: #0D6B64;
+        }
 
-.hero p{
-opacity:.95;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
 
-.container{
-padding:20px;
-}
+        .stat {
+            background: white;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.profile-card{
-background:white;
-border-radius:20px;
-padding:25px;
-text-align:center;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-margin-bottom:20px;
-}
+        .stat h3 {
+            color: #15803D;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
 
-.avatar{
-width:90px;
-height:90px;
-margin:auto;
-border-radius:50%;
-background:#DCFCE7;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:38px;
-color:#15803D;
-margin-bottom:15px;
-}
+        .stat p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.profile-card h3{
-margin-bottom:6px;
-}
+        .section {
+            background: white;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.profile-card p{
-color:#6B7280;
-font-size:14px;
-}
+        .section h3 {
+            margin-bottom: 18px;
+            color: #15803D;
+            font-size: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-.section-title{
-font-size:18px;
-font-weight:600;
-margin:20px 0 12px;
-color:#1F2937;
-}
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ECECEC;
+        }
 
-.menu{
-background:white;
-border-radius:18px;
-overflow:hidden;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-}
+        .item:last-child {
+            border: none;
+            padding-bottom: 0;
+        }
 
-.menu a{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 20px;
-text-decoration:none;
-color:#1F2937;
-border-bottom:1px solid #F3F4F6;
-transition:0.3s;
-}
+        .left {
+            display: flex;
+            align-items: center;
+        }
 
-.menu a:hover{
-background:#F9FAFB;
-padding-left:24px;
-}
+        .left i {
+            width: 25px;
+            margin-right: 10px;
+            color: #15803D;
+        }
 
-.menu a:last-child{
-border-bottom:none;
-}
+        .right {
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: right;
+        }
 
-.menu-left{
-display:flex;
-align-items:center;
-gap:15px;
-}
+        .right.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
+        }
 
-.menu-left i{
-width:24px;
-text-align:center;
-color:#15803D;
-}
+        .button {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
 
-.status{
-display:inline-block;
-padding:4px 10px;
-border-radius:20px;
-background:#DCFCE7;
-color:#166534;
-font-size:12px;
-font-weight:600;
-}
+        .button:hover {
+            transform: translateY(-2px);
+        }
 
-.button-secondary{
-display:block;
-width:100%;
-margin-top:25px;
-padding:15px;
-border-radius:12px;
-background:#DC2626;
-color:white;
-font-size:16px;
-font-weight:600;
-text-align:center;
-text-decoration:none;
-transition:0.3s;
-border:none;
-cursor:pointer;
-}
+        .primary {
+            background: #15803D;
+            color: white;
+        }
 
-.button-secondary:hover{
-background:#B91C1C;
-transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(220,38,38,.3);
-}
+        .primary:hover {
+            background: #0D6B64;
+        }
 
-.button-secondary i{
-margin-right:10px;
-}
+        .secondary {
+            background: #DC2626;
+            color: white;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-z-index:1000;
-}
+        .secondary:hover {
+            background: #b91c1c;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.bottom-nav a.active{
-color:#15803D;
-font-weight:600;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .bottom-nav a.active {
+            color: #15803D;
+            font-weight: 600;
+        }
 
-</style>
+        .bottom-nav i {
+            font-size: 20px;
+        }
 
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F3F4F6;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            color: #1F2937;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #1F2937;
+        }
+
+        .modal-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #15803D;
+            margin: 20px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ECECEC;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #15803D;
+            background: white;
+        }
+
+        .form-group .hint {
+            display: block;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #F3F4F6;
+        }
+
+        .modal-actions .button {
+            margin-top: 0;
+            flex: 1;
+        }
+
+        .btn-secondary-modal {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .btn-secondary-modal:hover {
+            background: #D1D5DB;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+        }
+
+        .toast.success {
+            background: #15803D;
+        }
+
+        .toast.error {
+            background: #DC2626;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* PERSONAL INFO DETAILS MODAL */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .details-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .details-item .details-label {
+            font-size: 12px;
+            color: #9CA3AF;
+            font-weight: 500;
+        }
+
+        .details-item .details-value {
+            font-size: 14px;
+            color: #1F2937;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .details-item .details-value.not-provided {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Session Protection Script -->
-<script type="module">
-    import { getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    async function protectPage() {
-        try {
-            const user = await getCurrentUser();
-            if (!user || !user.profile) {
-                window.location.href = '/mobileprocure/login.html';
-                return;
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
             }
-            
-            if (user.profile.role !== 'fintech') {
-                window.location.href = '/mobileprocure/unauthorized.html';
-                return;
-            }
-            
-            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
-            window.currentUser = user;
-            
-        } catch (error) {
-            console.error('Auth check error:', error);
-            window.location.href = '/mobileprocure/login.html';
         }
-    }
-    
-    await protectPage();
-</script>
+    </script>
 
-<header>
-    <div class="profile" onclick="window.location.href='profile.html'">
-        <div class="avatar-placeholder" id="userAvatar">
-            <span id="userInitial">F</span>
-        </div>
-        <div>
-            <h3 id="userName">Profile</h3>
-            <p id="userStatus">Fintech Partner Settings</p>
-        </div>
-    </div>
-    <div class="notify">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge" id="notificationBadge">0</span>
-    </div>
-</header>
+    <script type="module">
+        import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
 
-<div class="hero">
-    <small>Account Overview</small>
-    <h2 id="accountStatus">Licensed Partner</h2>
-    <p id="accountDescription">Escrow & Payment Service Provider</p>
-</div>
+        // SESSION PROTECTION (BULLETPROOF RPC VERSION)
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
 
-<div class="container">
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
 
-    <div class="profile-card">
-        <div class="avatar">
-            <span id="profileInitial" style="font-size:38px;font-weight:600;">F</span>
-        </div>
-        <h3 id="profileName">Licensed Fintech Partner</h3>
-        <p id="profileEmail">fintech@mobileprocure.com</p>
-        <br>
-        <span class="status" id="profileStatus">System Online</span>
-    </div>
+                const userRoles = roles ? roles.map(r => r.role) : [];
 
-    <h3 class="section-title">Organization</h3>
-    <div class="menu">
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-building"></i>
-                Organization Details
-            </div>
-            <div class="right" id="orgDetails">-</div>
-        </a>
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-landmark"></i>
-                Settlement Accounts
-            </div>
-            <div class="right" id="settlementAccounts">-</div>
-        </a>
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-credit-card"></i>
-                Payment Methods
-            </div>
-            <div class="right" id="paymentMethods">-</div>
-        </a>
-    </div>
+                if (!userRoles.includes('fintech')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
 
-    <h3 class="section-title">System</h3>
-    <div class="menu">
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-plug"></i>
-                API & Integrations
-            </div>
-            <i class="fa-solid fa-chevron-right"></i>
-        </a>
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-bell"></i>
-                Notifications
-            </div>
-            <i class="fa-solid fa-chevron-right"></i>
-        </a>
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-shield-halved"></i>
-                Security
-            </div>
-            <i class="fa-solid fa-chevron-right"></i>
-        </a>
-        <a href="#">
-            <div class="menu-left">
-                <i class="fa-solid fa-circle-info"></i>
-                About Mobile Procure
-            </div>
-            <i class="fa-solid fa-chevron-right"></i>
-        </a>
-    </div>
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
 
-    <!-- Logout Button -->
-    <a href="#" class="button-secondary" id="logoutBtn">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        Logout
-    </a>
+        await protectPage();
 
-</div>
+        // DOM ELEMENTS - PROFILE DISPLAY
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userTitle = document.getElementById('userTitle');
+        const userEmail = document.getElementById('userEmail');
+        const userPhone = document.getElementById('userPhone');
+        const institutionName = document.getElementById('institutionName');
+        const licenseNumber = document.getElementById('licenseNumber');
+        const taxId = document.getElementById('taxId');
+        const institutionRegion = document.getElementById('institutionRegion');
+        const accessLevel = document.getElementById('accessLevel');
+        const verificationStatus = document.getElementById('verificationStatus');
+        const verificationBadge = document.getElementById('verificationBadge');
+        const txVolume = document.getElementById('txVolume');
+        const activeEscrows = document.getElementById('activeEscrows');
+        const openDisputes = document.getElementById('openDisputes');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const editBtn = document.getElementById('editBtn');
+        const editBtn2 = document.getElementById('editBtn2');
+        const viewDetailsBtn = document.getElementById('viewDetailsBtn');
 
-<div class="bottom-nav">
-    <a href="dashboard.html">
-        <i class="fa-solid fa-house"></i>
-        Home
-    </a>
-    <a href="transactions.html">
-        <i class="fa-solid fa-money-bill-transfer"></i>
-        Transactions
-    </a>
-    <a href="escrow.html">
-        <i class="fa-solid fa-vault"></i>
-        Escrow
-    </a>
-    <a href="settlements.html">
-        <i class="fa-solid fa-building-columns"></i>
-        Settlements
-    </a>
-    <a href="profile.html" class="active">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </a>
-</div>
+        // DOM ELEMENTS - EDIT MODAL
+        const modalOverlay = document.getElementById('editModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const editForm = document.getElementById('editForm');
+        const editFullName = document.getElementById('editFullName');
+        const editPhone = document.getElementById('editPhone');
+        const editCompany = document.getElementById('editCompany');
+        const editCountry = document.getElementById('editCountry');
+        const editAddress = document.getElementById('editAddress');
+        const editCity = document.getElementById('editCity');
+        const editProvince = document.getElementById('editProvince');
+        const editBio = document.getElementById('editBio');
+        const editTaxId = document.getElementById('editTaxId');
+        const editRegNumber = document.getElementById('editRegNumber');
+        const editLanguage = document.getElementById('editLanguage');
 
-<!-- Main Script -->
-<script type="module">
-    import { supabase, signOut, getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
-    const userName = document.getElementById('userName');
-    const userInitial = document.getElementById('userInitial');
-    const userStatus = document.getElementById('userStatus');
-    const accountStatus = document.getElementById('accountStatus');
-    const accountDescription = document.getElementById('accountDescription');
-    const profileName = document.getElementById('profileName');
-    const profileEmail = document.getElementById('profileEmail');
-    const profileInitial = document.getElementById('profileInitial');
-    const profileStatus = document.getElementById('profileStatus');
-    const orgDetails = document.getElementById('orgDetails');
-    const settlementAccounts = document.getElementById('settlementAccounts');
-    const paymentMethods = document.getElementById('paymentMethods');
-    const notificationBadge = document.getElementById('notificationBadge');
-    const logoutBtn = document.getElementById('logoutBtn');
-    
-    // ============================================
-    // LOAD USER DATA
-    // ============================================
-    async function loadUserData() {
-        try {
-            const user = await getCurrentUser();
-            if (user && user.profile) {
+        // DOM ELEMENTS - DETAILS MODAL
+        const detailsModal = document.getElementById('detailsModal');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsContent = document.getElementById('detailsContent');
+
+        // TOAST ELEMENTS
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        let currentUser = null;
+
+        // LOAD USER DATA
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    currentUser = user;
+                    const profile = user.profile;
+
+                    userName.textContent = profile.full_name || 'Fintech Partner';
+                    userInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
+                    userTitle.textContent = profile.company_name || 'Escrow & Payment Provider';
+                    userEmail.textContent = profile.email || '-';
+                    userPhone.textContent = profile.phone || '-';
+                    
+                    // Institution Info
+                    institutionName.textContent = profile.company_name || 'Not provided';
+                    institutionName.className = 'right' + (profile.company_name ? '' : ' not-provided');
+                    
+                    licenseNumber.textContent = profile.registration_number || 'Not provided';
+                    licenseNumber.className = 'right' + (profile.registration_number ? '' : ' not-provided');
+                    
+                    taxId.textContent = profile.tax_id || 'Not provided';
+                    taxId.className = 'right' + (profile.tax_id ? '' : ' not-provided');
+                    
+                    // Load user_profiles data for location
+                    await loadUserProfile(user.id);
+
+                    if (profile.is_verified) {
+                        verificationStatus.textContent = 'Licensed Partner';
+                        verificationBadge.className = 'badge';
+                    } else {
+                        verificationStatus.textContent = 'Pending Verification';
+                        verificationBadge.className = 'badge pending';
+                    }
+                    
+                    accessLevel.textContent = 'Administrator'; // Standard for Fintech portal
+                    
+                    await loadStats();
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // LOAD USER PROFILE (Extra details)
+        async function loadUserProfile(userId) {
+            try {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    const loc = data.city ? `${data.city}, ${data.province}` : (data.province || data.country || 'Zambia');
+                    institutionRegion.textContent = loc;
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+
+        // LOAD STATS
+        async function loadStats() {
+            try {
+                const { data: escrows, error } = await supabase
+                    .from('escrow_transactions')
+                    .select('id, amount, status');
+                
+                if (!error && escrows) {
+                    const volume = escrows.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
+                    const active = escrows.filter(e => ['funded', 'pending'].includes(e.status)).length;
+                    const disputed = escrows.filter(e => e.status === 'disputed').length;
+                    
+                    txVolume.textContent = `$${volume.toLocaleString()}`;
+                    activeEscrows.textContent = active;
+                    openDisputes.textContent = disputed;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // OPEN EDIT MODAL
+        async function openEditModal() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    showToast('Session expired. Please log in again.', 'error');
+                    return;
+                }
+
                 const profile = user.profile;
-                
-                // Header
-                userName.textContent = `Profile`;
-                userInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
-                
-                // Hero
-                if (profile.is_verified) {
-                    accountStatus.textContent = 'Licensed Partner';
-                    accountDescription.textContent = 'Escrow & Payment Service Provider ✓';
-                } else {
-                    accountStatus.textContent = 'Pending Verification';
-                    accountDescription.textContent = 'Escrow & Payment Service Provider ⏳';
-                }
-                
-                // Profile Card
-                profileName.textContent = profile.full_name || 'Licensed Fintech Partner';
-                profileEmail.textContent = profile.email || 'fintech@mobileprocure.com';
-                profileInitial.textContent = (profile.full_name || 'F').charAt(0).toUpperCase();
-                
-                // Status
-                if (profile.is_verified) {
-                    profileStatus.textContent = 'System Online';
-                    profileStatus.style.background = '#DCFCE7';
-                    profileStatus.style.color = '#166534';
-                } else {
-                    profileStatus.textContent = 'Pending Verification';
-                    profileStatus.style.background = '#FEF3C7';
-                    profileStatus.style.color = '#92400E';
-                }
-                
-                // User Status
-                if (profile.is_verified) {
-                    userStatus.textContent = 'Fintech Partner Settings ✓';
-                } else {
-                    userStatus.textContent = 'Pending Verification ⏳';
-                }
-                
-                // Organization Details
-                orgDetails.textContent = profile.company_name || 'Not specified';
-                settlementAccounts.textContent = profile.is_verified ? '3 Active' : 'Pending';
-                paymentMethods.textContent = profile.is_verified ? '5 Configured' : 'Pending';
-                
-                // Load notifications
-                await loadNotifications();
-            }
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD NOTIFICATIONS
-    // ============================================
-    async function loadNotifications() {
-        try {
-            const { count, error } = await supabase
-                .from('escrow_transactions')
-                .select('*', { count: 'exact', head: true })
-                .in('status', ['pending', 'disputed']);
-            
-            if (!error && count > 0) {
-                notificationBadge.textContent = count > 9 ? '9+' : count;
-                notificationBadge.style.display = 'flex';
-            } else {
-                notificationBadge.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error loading notifications:', error);
-        }
-    }
-    
-    // ============================================
-    // LOGOUT
-    // ============================================
-    async function handleLogout(e) {
-        e.preventDefault();
-        
-        try {
-            logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
-            logoutBtn.style.opacity = '0.6';
-            logoutBtn.style.cursor = 'not-allowed';
-            
-            await signOut();
-            localStorage.clear();
-            window.location.href = '/continue-as.html';
-        } catch (error) {
-            console.error('Logout error:', error);
-            logoutBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Logout';
-            logoutBtn.style.opacity = '1';
-            logoutBtn.style.cursor = 'pointer';
-            alert('Error logging out. Please try again.');
-        }
-    }
-    
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
-    logoutBtn.addEventListener('click', handleLogout);
-    
-    // ============================================
-    // INITIALIZE
-    // ============================================
-    loadUserData();
-</script>
+                editFullName.value = profile.full_name || '';
+                editPhone.value = profile.phone || '';
+                editCompany.value = profile.company_name || '';
+                editTaxId.value = profile.tax_id || '';
+                editRegNumber.value = profile.registration_number || '';
 
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                if (!error && data) {
+                    editCountry.value = data.country || 'Zambia';
+                    editAddress.value = data.address_line1 || '';
+                    editCity.value = data.city || '';
+                    editProvince.value = data.province || '';
+                    editBio.value = data.bio || '';
+                    editLanguage.value = data.preferred_language || 'en';
+                } else {
+                    editCountry.value = 'Zambia';
+                    editAddress.value = '';
+                    editCity.value = '';
+                    editProvince.value = '';
+                    editBio.value = '';
+                    editLanguage.value = 'en';
+                }
+
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } catch (error) {
+                console.error('Error opening modal:', error);
+                showToast('Error loading edit data', 'error');
+            }
+        }
+
+        // CLOSE EDIT MODAL
+        function closeEditModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // OPEN DETAILS MODAL
+        function openDetailsModal() {
+            if (!currentUser) return;
+            
+            const profile = currentUser.profile;
+            const userProf = currentUser.userProfiles || {};
+            
+            const fields = [
+                { label: 'Full Name', value: profile.full_name || 'Not provided' },
+                { label: 'Email', value: profile.email || 'Not provided' },
+                { label: 'Phone', value: profile.phone || 'Not provided' },
+                { label: 'Institution Name', value: profile.company_name || 'Not provided' },
+                { label: 'License Number', value: profile.registration_number || 'Not provided' },
+                { label: 'Tax ID / TPIN', value: profile.tax_id || 'Not provided' },
+                { label: 'Country', value: userProf.country || 'Not provided' },
+                { label: 'Address', value: userProf.address_line1 || 'Not provided' },
+                { label: 'City', value: userProf.city || 'Not provided' },
+                { label: 'Province', value: userProf.province || 'Not provided' },
+                { label: 'Bio', value: userProf.bio || 'Not provided' },
+                { label: 'Preferred Language', value: userProf.preferred_language || 'en' }
+            ];
+            
+            detailsContent.innerHTML = fields.map(field => `
+                <div class="details-item">
+                    <div class="details-label">${field.label}</div>
+                    <div class="details-value ${field.value === 'Not provided' ? 'not-provided' : ''}">${field.value}</div>
+                </div>
+            `).join('');
+            
+            detailsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // CLOSE DETAILS MODAL
+        function closeDetailsModalFunc() {
+            detailsModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // HANDLE FORM SUBMISSION
+        async function handleEditSubmit(e) {
+            e.preventDefault();
+
+            const user = await getCurrentUser();
+            if (!user) {
+                showToast('Session expired. Please log in again.', 'error');
+                return;
+            }
+
+            const fullName = editFullName.value.trim();
+            const phone = editPhone.value.trim();
+            const company = editCompany.value.trim(); // Institution Name
+            const country = editCountry.value;
+            const address = editAddress.value.trim();
+            const city = editCity.value.trim();
+            const province = editProvince.value;
+            const bio = editBio.value.trim();
+            const taxIdVal = editTaxId.value.trim();
+            const regNumber = editRegNumber.value.trim(); // License Number
+            const language = editLanguage.value;
+
+            if (!fullName) {
+                showToast('Full name is required', 'error');
+                return;
+            }
+
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            try {
+                // Update profiles table
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .update({
+                        full_name: fullName,
+                        phone: phone || null,
+                        company_name: company || null,
+                        tax_id: taxIdVal || null,
+                        registration_number: regNumber || null,
+                        profile_completed: true,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+
+                if (profileError) throw profileError;
+
+                // Upsert user_profiles table
+                const { error: userProfileError } = await supabase
+                    .from('user_profiles')
+                    .upsert({
+                        user_id: user.id,
+                        country: country || 'Zambia',
+                        address_line1: address || null,
+                        city: city || null,
+                        province: province || null,
+                        bio: bio || null,
+                        preferred_language: language || 'en',
+                        updated_at: new Date().toISOString()
+                    }, { onConflict: 'user_id' });
+
+                if (userProfileError) throw userProfileError;
+
+                showToast('Profile updated successfully!', 'success');
+                closeEditModal();
+                await loadUserData();
+
+            } catch (error) {
+                console.error('Update error:', error);
+                showToast('Error updating profile: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Changes';
+            }
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // LOGOUT
+        async function handleLogout(e) {
+            e.preventDefault();
+
+            try {
+                logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+                logoutBtn.style.opacity = '0.6';
+                logoutBtn.style.cursor = 'not-allowed';
+
+                await signOut();
+                localStorage.clear();
+                window.location.href = '/continue-as.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                logoutBtn.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> Logout';
+                logoutBtn.style.opacity = '1';
+                logoutBtn.style.cursor = 'pointer';
+                showToast('Error logging out. Please try again.', 'error');
+            }
+        }
+
+        // EVENT LISTENERS
+        logoutBtn.addEventListener('click', handleLogout);
+        editBtn.addEventListener('click', openEditModal);
+        editBtn2.addEventListener('click', openEditModal);
+        closeModal.addEventListener('click', closeEditModal);
+        cancelModal.addEventListener('click', closeEditModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeEditModal();
+        });
+        editForm.addEventListener('submit', handleEditSubmit);
+
+        viewDetailsBtn.addEventListener('click', openDetailsModal);
+        closeDetailsModal.addEventListener('click', closeDetailsModalFunc);
+        detailsModal.addEventListener('click', (e) => {
+            if (e.target === detailsModal) closeDetailsModalFunc();
+        });
+
+        // INITIALIZE
+        loadUserData();
+    </script>
+
+    <header>
+        <h2>Fintech Profile</h2>
+        <a id="editBtn" title="Edit Profile">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+    </header>
+
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="avatar-wrapper">
+                <div class="avatar" id="userAvatar">
+                    <span id="userInitial">F</span>
+                </div>
+                <div class="avatar-edit-btn" title="Change Photo">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </div>
+            <h2 id="userName">Loading...</h2>
+            <p id="userTitle">Escrow & Payment Provider</p>
+            <span class="badge" id="verificationBadge">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="verificationStatus">Licensed Partner</span>
+            </span>
+            <br>
+            <button class="view-details-btn" id="viewDetailsBtn">
+                <i class="fa-solid fa-eye"></i> View Personal Information
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <h3 id="txVolume">$0</h3>
+                <p>Volume Processed</p>
+            </div>
+            <div class="stat">
+                <h3 id="activeEscrows">0</h3>
+                <p>Active Escrows</p>
+            </div>
+            <div class="stat">
+                <h3 id="openDisputes">0</h3>
+                <p>Open Disputes</p>
+            </div>
+        </div>
+
+        <!-- Institution Information -->
+        <div class="section">
+            <h3>Institution Information</h3>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-building-columns"></i>
+                    Institution
+                </div>
+                <div class="right" id="institutionName">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-id-badge"></i>
+                    License Number
+                </div>
+                <div class="right" id="licenseNumber">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Region
+                </div>
+                <div class="right" id="institutionRegion">Zambia</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    Tax ID
+                </div>
+                <div class="right" id="taxId">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-envelope"></i>
+                    Email
+                </div>
+                <div class="right" id="userEmail">-</div>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <i class="fa-solid fa-phone"></i>
+                    Phone
+                </div>
+                <div class="right" id="userPhone">-</div>
+            </div>
+        </div>
+
+        <!-- Account Actions -->
+        <div class="section">
+            <h3>Account Actions</h3>
+            <button type="button" class="button primary" id="editBtn2">
+                Edit Profile
+            </button>
+            <button type="button" class="button secondary" id="logoutBtn">
+                <i class="fa-solid fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button type="button" class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="editForm">
+                <!-- Personal Information Section -->
+                <div class="modal-section-title">Personal Information</div>
+                
+                <div class="form-group">
+                    <label>Full Name <span style="color:#EF4444;">*</span></label>
+                    <input type="text" id="editFullName" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="editPhone" placeholder="+260 123 456 789">
+                </div>
+                
+                <div class="form-group">
+                    <label>Bio / Description</label>
+                    <textarea id="editBio" placeholder="Brief description of your institution..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Language</label>
+                        <select id="editLanguage">
+                            <option value="en">English</option>
+                            <option value="ny">Nyanja</option>
+                            <option value="bem">Bemba</option>
+                            <option value="tum">Tumbuka</option>
+                            <option value="lozi">Lozi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Institution Information Section -->
+                <div class="modal-section-title">Institution Information</div>
+                
+                <div class="form-group">
+                    <label>Institution / Company Name</label>
+                    <input type="text" id="editCompany" placeholder="e.g. ZICB Bank">
+                </div>
+                
+                <div class="form-group">
+                    <label>License / Registration Number</label>
+                    <input type="text" id="editRegNumber" placeholder="Enter License Number">
+                </div>
+                
+                <div class="form-group">
+                    <label>Tax ID / TPIN</label>
+                    <input type="text" id="editTaxId" placeholder="Enter Tax ID">
+                </div>
+
+                <!-- Address Information Section -->
+                <div class="modal-section-title">Office Address</div>
+                
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="editCountry">
+                        <option value="Zambia">Zambia</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Mozambique">Mozambique</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="DRC">DRC</option>
+                        <option value="South Africa">South Africa</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Office Address</label>
+                    <input type="text" id="editAddress" placeholder="Enter street address">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="editCity" placeholder="Enter city">
+                    </div>
+                    <div class="form-group">
+                        <label>Province</label>
+                        <select id="editProvince">
+                            <option value="">Select Province</option>
+                            <option value="Central">Central</option>
+                            <option value="Copperbelt">Copperbelt</option>
+                            <option value="Eastern">Eastern</option>
+                            <option value="Luapula">Luapula</option>
+                            <option value="Lusaka">Lusaka</option>
+                            <option value="Muchinga">Muchinga</option>
+                            <option value="Northern">Northern</option>
+                            <option value="North-Western">North-Western</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Western">Western</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="button btn-secondary-modal" id="cancelModal">Cancel</button>
+                    <button type="submit" class="button primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Personal Information Details Modal -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-building-columns"></i> Institution Information</h3>
+                <button type="button" class="modal-close" id="closeDetailsModal">&times;</button>
+            </div>
+            <div class="details-grid" id="detailsContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <button type="button" class="button primary" id="editFromDetailsBtn" style="display:inline-block;width:auto;padding:10px 30px;">
+                    Edit Profile
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            Transactions
+        </a>
+        <a href="escrow.html">
+            <i class="fa-solid fa-vault"></i>
+            Escrow
+        </a>
+        <a href="settlements.html">
+            <i class="fa-solid fa-building-columns"></i>
+            Settlements
+        </a>
+        <a href="profile.html" class="active">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <script>
+        // Connect the "Edit Profile" button in the details modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const editFromDetailsBtn = document.getElementById('editFromDetailsBtn');
+            if (editFromDetailsBtn) {
+                editFromDetailsBtn.addEventListener('click', function() {
+                    document.getElementById('detailsModal').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('editBtn2').click();
+                });
+            }
+        });
+    </script>
 </body>
 </html>

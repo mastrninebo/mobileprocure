@@ -1,450 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions | Mobile Procure</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Transactions</title>
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        header a {
+            color: #15803D;
+            font-size: 20px;
+            text-decoration: none;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header h2 {
+            font-size: 22px;
+            color: #15803D;
+        }
 
-<style>
+        .hero {
+            margin: 20px;
+            padding: 25px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #15803D, #22C55E);
+            color: white;
+            box-shadow: 0 10px 25px rgba(21, 128, 61, 0.2);
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .hero small { opacity: .9; font-size: 14px; }
+        .hero h2 { font-size: 34px; margin: 10px 0; }
+        .hero p { opacity: .95; font-size: 13px; }
 
-body{
-background:#F5F7FA;
-padding-bottom:90px;
-color:#1F2937;
-}
+        .container {
+            padding: 0 20px;
+        }
 
-header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .search-box {
+            background: #fff;
+            padding: 14px 18px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
 
-.profile{
-display:flex;
-align-items:center;
-gap:15px;
-}
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.profile img{
-width:55px;
-height:55px;
-border-radius:50%;
-object-fit:cover;
-}
+        .filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
 
-.profile h3{
-font-size:20px;
-}
+        .filters::-webkit-scrollbar { display: none; }
 
-.profile p{
-font-size:13px;
-color:#6B7280;
-}
+        .filters button {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            background: #E5E7EB;
+            cursor: pointer;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.notify{
-width:45px;
-height:45px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-}
+        .filters button:hover { background: #D1D5DB; }
 
-.hero{
-margin:0 20px;
-padding:25px;
-border-radius:22px;
-background:linear-gradient(135deg,#15803D,#22C55E);
-color:white;
-}
+        .filters button.active {
+            background: #15803D;
+            color: white;
+        }
 
-.hero small{
-opacity:.9;
-}
+        .transaction {
+            background: #fff;
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,.05);
+        }
 
-.hero h2{
-font-size:34px;
-margin:10px 0;
-}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.hero p{
-opacity:.95;
-}
+        .order-id {
+            font-weight: 600;
+            font-size: 16px;
+        }
 
-.container{
-padding:20px;
-}
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
 
-.search-box{
-background:#fff;
-padding:14px 18px;
-border-radius:14px;
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-}
+        .badge.funded { background: #DBEAFE; color: #1E40AF; }
+        .badge.released { background: #DCFCE7; color: #166534; }
+        .badge.pending { background: #FEF3C7; color: #92400E; }
+        .badge.disputed { background: #FEE2E2; color: #DC2626; }
+        .badge.refunded { background: #F3F4F6; color: #6B7280; }
 
-.search-box input{
-border:none;
-outline:none;
-width:100%;
-font-size:15px;
-background:none;
-}
+        .transaction p {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #4B5563;
+        }
 
-.filters{
-display:flex;
-gap:10px;
-overflow-x:auto;
-margin-bottom:20px;
-padding-bottom:5px;
-}
+        .amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #15803D;
+            margin-top: 12px;
+        }
 
-.filters button{
-border:none;
-padding:10px 18px;
-border-radius:25px;
-background:#E5E7EB;
-cursor:pointer;
-font-weight:500;
-white-space:nowrap;
-transition:0.3s;
-}
+        .view-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background: #15803D;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.filters button:hover{
-background:#D1D5DB;
-}
+        .view-btn:hover {
+            background: #0D6B64;
+            transform: translateY(-2px);
+        }
 
-.filters .active{
-background:#15803D;
-color:white;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.transaction{
-background:#fff;
-padding:18px;
-border-radius:18px;
-margin-bottom:18px;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #15803D;
+            margin-bottom: 15px;
+        }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+            background: white;
+            border-radius: 18px;
+        }
 
-.order-id{
-font-weight:600;
-font-size:16px;
-}
+        .empty-state i {
+            font-size: 50px;
+            color: #15803D;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
 
-.badge{
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.locked{
-background:#DCFCE7;
-color:#166534;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
-.released{
-background:#DBEAFE;
-color:#1D4ED8;
-}
+        .bottom-nav a.active {
+            color: #15803D;
+            font-weight: 600;
+        }
 
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
-
-.disputed{
-background:#FEE2E2;
-color:#B91C1C;
-}
-
-.transaction p{
-font-size:14px;
-margin:5px 0;
-color:#4B5563;
-}
-
-.amount{
-font-size:22px;
-font-weight:700;
-color:#15803D;
-margin-top:12px;
-}
-
-.view-btn{
-display:inline-block;
-margin-top:15px;
-padding:10px 18px;
-border-radius:10px;
-background:#15803D;
-color:white;
-text-decoration:none;
-font-size:14px;
-transition:0.3s;
-}
-
-.view-btn:hover{
-background:#0D6B64;
-transform:translateY(-2px);
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
-
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
-
-.bottom-nav a.active{
-color:#15803D;
-font-weight:600;
-}
-
-.bottom-nav i{
-font-size:20px;
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<div class="profile">
-
-<img src="../assets/images/profile.jpg">
-
-<div>
-
-<h3>Transactions</h3>
-
-<p>Monitor all payment transactions</p>
-
-</div>
-
-</div>
-
-<div class="notify">
-
-<i class="fa-regular fa-bell"></i>
-
-</div>
-
-</header>
-
-<div class="hero">
-
-<small>Transaction Overview</small>
-
-<h2>$189.3K</h2>
-
-<p>Total transaction volume this month</p>
-
-</div>
-
-<div class="container">
-
-<div class="search-box">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input type="text" placeholder="Search Order ID or Buyer">
-
-</div>
-
-<div class="filters">
-
-<button class="active">All</button>
-
-<button>Locked</button>
-
-<button>Released</button>
-
-<button>Pending</button>
-
-<button>Disputed</button>
-
-</div>
-
-<div class="transaction">
-
-<div class="top">
-
-<span class="order-id">MP-2026-000128</span>
-
-<span class="badge locked">Funds Locked</span>
-
-</div>
-
-<p><strong>Buyer:</strong> African Beef Imports</p>
-
-<p><strong>Supplier:</strong> Mpundu Cattle Ranch</p>
-
-<p><strong>Payment Method:</strong> Bank Transfer</p>
-
-<div class="amount">$63,950</div>
-
-<a href="escrow.html" class="view-btn">View Escrow</a>
-
-</div>
-
-<div class="transaction">
-
-<div class="top">
-
-<span class="order-id">MP-2026-000117</span>
-
-<span class="badge released">Released</span>
-
-</div>
-
-<p><strong>Buyer:</strong> Lusaka Meat Processors</p>
-
-<p><strong>Supplier:</strong> Northern Livestock Cooperative</p>
-
-<p><strong>Payment Method:</strong> Mobile Money</p>
-
-<div class="amount">$41,200</div>
-
-<a href="settlements.html" class="view-btn">View Settlement</a>
-
-</div>
-
-<div class="transaction">
-
-<div class="top">
-
-<span class="order-id">MP-2026-000103</span>
-
-<span class="badge pending">Pending</span>
-
-</div>
-
-<p><strong>Buyer:</strong> Copperbelt Exporters</p>
-
-<p><strong>Supplier:</strong> Green Valley Farms</p>
-
-<p><strong>Payment Method:</strong> Cryptocurrency</p>
-
-<div class="amount">$27,800</div>
-
-<a href="escrow.html" class="view-btn">Review</a>
-
-</div>
-
-<div class="transaction">
-
-<div class="top">
-
-<span class="order-id">MP-2026-000095</span>
-
-<span class="badge disputed">Disputed</span>
-
-</div>
-
-<p><strong>Buyer:</strong> Global Meats Ltd</p>
-
-<p><strong>Supplier:</strong> Southern Cattle Co.</p>
-
-<p><strong>Payment Method:</strong> Debit Card</p>
-
-<div class="amount">$56,400</div>
-
-<a href="disputes.html" class="view-btn">Open Case</a>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="transactions.html" class="active">
-
-<i class="fa-solid fa-money-bill-transfer"></i>
-
-Transactions
-
-</a>
-
-<a href="escrow.html">
-
-<i class="fa-solid fa-vault"></i>
-
-Escrow
-
-</a>
-
-<a href="settlements.html">
-
-<i class="fa-solid fa-building-columns"></i>
-
-Settlements
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('fintech')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Transactions</h2>
+    </header>
+
+    <div class="hero">
+        <small>Transaction Overview</small>
+        <h2 id="totalVolume">$0</h2>
+        <p>Total transaction volume processed</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass" style="color:#9CA3AF;"></i>
+            <input type="text" id="searchInput" placeholder="Search Order ID or Buyer...">
+        </div>
+
+        <div class="filters">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="funded">Locked</button>
+            <button data-filter="released">Released</button>
+            <button data-filter="pending">Pending</button>
+            <button data-filter="disputed">Disputed</button>
+            <button data-filter="refunded">Refunded</button>
+        </div>
+
+        <div id="txContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading transactions...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="transactions.html" class="active">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            Transactions
+        </a>
+        <a href="escrow.html">
+            <i class="fa-solid fa-vault"></i>
+            Escrow
+        </a>
+        <a href="settlements.html">
+            <i class="fa-solid fa-building-columns"></i>
+            Settlements
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const txContainer = document.getElementById('txContainer');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filters button');
+        
+        let allTransactions = [];
+        let currentFilter = 'all';
+
+        // Helper: Format Currency
+        function formatCurrency(amount) {
+            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+        }
+
+        // Load Transactions
+        async function loadTransactions() {
+            try {
+                const { data, error } = await supabase
+                    .from('escrow_transactions')
+                    .select(`
+                        id, amount, status, created_at,
+                        order:order_id (
+                            id, order_number,
+                            buyer:buyer_id ( full_name, company_name )
+                        )
+                    `)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allTransactions = data || [];
+                
+                // Calculate Total Volume
+                const totalVolume = allTransactions.reduce((sum, tx) => sum + parseFloat(tx.amount || 0), 0);
+                document.getElementById('totalVolume').textContent = formatCurrency(totalVolume);
+
+                renderTransactions();
+
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+                txContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading transactions.</p>`;
+            }
+        }
+
+        // Render Transaction Cards
+        function renderTransactions() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            // Filter by status
+            let filteredTx = allTransactions;
+            if (currentFilter !== 'all') {
+                filteredTx = filteredTx.filter(tx => tx.status === currentFilter);
+            }
+
+            // Filter by search query
+            if (query) {
+                filteredTx = filteredTx.filter(tx => {
+                    const orderNum = (tx.order?.order_number || '').toLowerCase();
+                    const buyerName = (tx.order?.buyer?.company_name || tx.order?.buyer?.full_name || '').toLowerCase();
+                    return orderNum.includes(query) || buyerName.includes(query);
+                });
+            }
+
+            if (filteredTx.length === 0) {
+                txContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-receipt"></i>
+                        <h3>No Transactions Found</h3>
+                        <p>No transactions match your current filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            txContainer.innerHTML = filteredTx.map(tx => {
+                const buyerName = tx.order?.buyer?.company_name || tx.order?.buyer?.full_name || 'Unknown Buyer';
+                const status = tx.status || 'pending';
+                const date = new Date(tx.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                // Determine where the View button should link
+                let btnText = 'View Details';
+                let btnHref = 'escrow.html';
+                
+                if (status === 'released') {
+                    btnText = 'View Settlement';
+                    btnHref = 'settlements.html';
+                } else if (status === 'disputed') {
+                    btnText = 'Open Case';
+                    btnHref = 'disputes.html';
+                } else if (status === 'refunded') {
+                    btnText = 'View Ledger';
+                    btnHref = '#';
+                }
+
+                return `
+                    <div class="transaction">
+                        <div class="top">
+                            <span class="order-id">${tx.order?.order_number || 'N/A'}</span>
+                            <span class="badge ${status}">${status}</span>
+                        </div>
+                        <p><strong>Buyer:</strong> ${buyerName}</p>
+                        <p><strong>Date:</strong> ${date}</p>
+                        <div class="amount">${formatCurrency(tx.amount)}</div>
+                        <a href="${btnHref}" class="view-btn">${btnText}</a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', renderTransactions);
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderTransactions();
+            });
+        });
+
+        // Initialize
+        loadTransactions();
+    </script>
 
 </body>
 </html>

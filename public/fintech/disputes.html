@@ -1,470 +1,585 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispute Resolution | Mobile Procure</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Disputes</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        header a {
+            color: #15803D;
+            font-size: 20px;
+            text-decoration: none;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header h2 {
+            font-size: 20px;
+            color: #15803D;
+        }
 
-<style>
+        .hero {
+            margin: 20px;
+            padding: 25px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #B91C1C, #EF4444);
+            color: white;
+            box-shadow: 0 10px 25px rgba(185, 28, 28, 0.2);
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .hero small { opacity: .9; font-size: 14px; }
+        .hero h2 { font-size: 34px; margin: 10px 0; }
+        .hero p { opacity: .95; font-size: 13px; }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:95px;
-}
+        .container {
+            padding: 0 20px;
+        }
 
-header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
-.profile{
-display:flex;
-align-items:center;
-gap:15px;
-}
+        .stat-card {
+            background: #fff;
+            padding: 15px 10px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,.05);
+            transition: 0.3s;
+        }
 
-.profile img{
-width:55px;
-height:55px;
-border-radius:50%;
-object-fit:cover;
-}
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
 
-.profile h3{
-font-size:20px;
-}
+        .stat-card h3 {
+            font-size: 20px;
+            color: #1F2937;
+        }
 
-.profile p{
-font-size:13px;
-color:#6B7280;
-}
+        .stat-card p {
+            font-size: 11px;
+            color: #6B7280;
+            margin-top: 5px;
+        }
 
-.notify{
-width:45px;
-height:45px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-}
+        .filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
 
-.hero{
-margin:0 20px;
-padding:25px;
-border-radius:22px;
-background:linear-gradient(135deg,#15803D,#22C55E);
-color:white;
-}
+        .filters::-webkit-scrollbar { display: none; }
 
-.hero small{
-opacity:.9;
-}
+        .filters button {
+            border: none;
+            background: #E5E7EB;
+            padding: 10px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 500;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.hero h2{
-font-size:34px;
-margin:10px 0;
-}
+        .filters button:hover { background: #D1D5DB; }
 
-.hero p{
-opacity:.95;
-}
+        .filters button.active {
+            background: #15803D;
+            color: #fff;
+        }
 
-.container{
-padding:20px;
-}
+        .case-card {
+            background: #fff;
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,.05);
+            border-left: 5px solid #DC2626;
+        }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-bottom:20px;
-}
+        .case-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.stat-card{
-background:#fff;
-padding:15px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 6px 15px rgba(0,0,0,.05);
-}
+        .case-id {
+            font-weight: 600;
+            font-size: 15px;
+        }
 
-.stat-card h3{
-color:#15803D;
-font-size:22px;
-}
+        .priority {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
-.stat-card p{
-font-size:13px;
-color:#6B7280;
-margin-top:5px;
-}
+        .high { background: #FEE2E2; color: #B91C1C; }
+        .medium { background: #FEF3C7; color: #92400E; }
+        .low { background: #DCFCE7; color: #166534; }
 
-.filters{
-display:flex;
-gap:10px;
-overflow:auto;
-margin-bottom:20px;
-padding-bottom:5px;
-}
+        .case-card p {
+            margin: 6px 0;
+            font-size: 14px;
+            color: #4B5563;
+        }
 
-.filters button{
-border:none;
-background:#E5E7EB;
-padding:10px 16px;
-border-radius:25px;
-cursor:pointer;
-white-space:nowrap;
-font-weight:500;
-transition:0.3s;
-}
+        .amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1F2937;
+            margin: 12px 0;
+        }
 
-.filters button:hover{
-background:#D1D5DB;
-}
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #F3F4F6;
+            color: #6B7280;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-.filters .active{
-background:#15803D;
-color:#fff;
-}
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px;
+        }
 
-.case-card{
-background:#fff;
-padding:18px;
-border-radius:18px;
-margin-bottom:18px;
-box-shadow:0 8px 18px rgba(0,0,0,.05);
-}
+        .actions button {
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
 
-.case-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
+        .actions button:hover { transform: translateY(-2px); }
+        .actions button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-.case-id{
-font-weight:600;
-}
+        .btn-release { background: #15803D; color: white; }
+        .btn-release:hover { background: #0D6B64; }
 
-.priority{
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .btn-refund { background: #DC2626; color: white; }
+        .btn-refund:hover { background: #B91C1C; }
 
-.high{
-background:#FEE2E2;
-color:#B91C1C;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.medium{
-background:#FEF3C7;
-color:#92400E;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #15803D;
+            margin-bottom: 15px;
+        }
 
-.low{
-background:#DCFCE7;
-color:#166534;
-}
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+            background: white;
+            border-radius: 18px;
+        }
 
-.case-card p{
-margin:6px 0;
-font-size:14px;
-color:#4B5563;
-}
+        .empty-state i {
+            font-size: 50px;
+            color: #15803D;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
 
-.status{
-display:inline-block;
-margin-top:10px;
-padding:8px 14px;
-background:#E0F2FE;
-color:#0369A1;
-border-radius:20px;
-font-size:13px;
-font-weight:600;
-}
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #15803D; }
+        .toast.error { background: #DC2626; }
+        .toast.show { display: block; }
 
-.actions{
-display:flex;
-gap:10px;
-margin-top:18px;
-}
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
-.actions a{
-flex:1;
-text-align:center;
-padding:12px;
-border-radius:10px;
-text-decoration:none;
-font-weight:600;
-transition:0.3s;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.actions a:hover{
-transform:translateY(-2px);
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
 
-.view{
-background:#15803D;
-color:white;
-}
+        .bottom-nav a.active {
+            color: #15803D;
+            font-weight: 600;
+        }
 
-.view:hover{
-background:#0D6B64;
-}
-
-.hold{
-background:#FBBF24;
-color:#111827;
-}
-
-.hold:hover{
-background:#F59E0B;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
-
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-decoration:none;
-font-size:12px;
-gap:5px;
-color:#9CA3AF;
-}
-
-.bottom-nav a.active{
-color:#15803D;
-font-weight:600;
-}
-
-.bottom-nav i{
-font-size:20px;
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<div class="profile">
-
-<img src="../assets/images/profile.jpg">
-
-<div>
-
-<h3>Dispute Resolution</h3>
-
-<p>Manage escrow disputes and investigations</p>
-
-</div>
-
-</div>
-
-<div class="notify">
-
-<i class="fa-regular fa-bell"></i>
-
-</div>
-
-</header>
-
-<div class="hero">
-
-<small>Dispute Overview</small>
-
-<h2>26</h2>
-
-<p>Total disputes handled this quarter</p>
-
-</div>
-
-<div class="container">
-
-<div class="stats">
-
-<div class="stat-card">
-
-<h3>8</h3>
-
-<p>Open</p>
-
-</div>
-
-<div class="stat-card">
-
-<h3>3</h3>
-
-<p>Review</p>
-
-</div>
-
-<div class="stat-card">
-
-<h3>15</h3>
-
-<p>Resolved</p>
-
-</div>
-
-</div>
-
-<div class="filters">
-
-<button class="active">All</button>
-
-<button>Open</button>
-
-<button>Buyer</button>
-
-<button>Supplier</button>
-
-<button>Government</button>
-
-<button>Resolved</button>
-
-</div>
-
-<div class="case-card">
-
-<div class="case-top">
-
-<span class="case-id">CASE-00028</span>
-
-<span class="priority high">High</span>
-
-</div>
-
-<p><strong>Order:</strong> MP-2026-000128</p>
-
-<p><strong>Buyer:</strong> African Beef Imports</p>
-
-<p><strong>Supplier:</strong> Mpundu Cattle Ranch</p>
-
-<p><strong>Reason:</strong> Livestock arrived with fewer cattle than ordered.</p>
-
-<span class="status">Awaiting Supplier Response</span>
-
-<div class="actions">
-
-<a href="#" class="view">View Case</a>
-
-<a href="#" class="hold">Maintain Hold</a>
-
-</div>
-
-</div>
-
-<div class="case-card">
-
-<div class="case-top">
-
-<span class="case-id">CASE-00022</span>
-
-<span class="priority medium">Medium</span>
-
-</div>
-
-<p><strong>Order:</strong> MP-2026-000103</p>
-
-<p><strong>Buyer:</strong> Copperbelt Exporters</p>
-
-<p><strong>Supplier:</strong> Green Valley Farms</p>
-
-<p><strong>Reason:</strong> Customs clearance delay.</p>
-
-<span class="status">Government Review</span>
-
-<div class="actions">
-
-<a href="#" class="view">View Case</a>
-
-<a href="#" class="hold">Maintain Hold</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="transactions.html">
-
-<i class="fa-solid fa-money-bill-transfer"></i>
-
-Transactions
-
-</a>
-
-<a href="escrow.html">
-
-<i class="fa-solid fa-vault"></i>
-
-Escrow
-
-</a>
-
-<a href="settlements.html">
-
-<i class="fa-solid fa-building-columns"></i>
-
-Settlements
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('fintech')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Dispute Resolution</h2>
+    </header>
+
+    <div class="hero">
+        <small>Dispute Overview</small>
+        <h2 id="totalDisputes">0</h2>
+        <p>Total active disputes requiring investigation</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="statOpen">0</h3>
+                <p>Open Cases</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="statHigh">0</h3>
+                <p>High Priority</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="statResolved">0</h3>
+                <p>Resolved (All Time)</p>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button class="active" data-filter="all">All Open</button>
+            <button data-filter="high">High Priority</button>
+            <button data-filter="medium">Medium Priority</button>
+            <button data-filter="low">Low Priority</button>
+        </div>
+
+        <div id="disputeContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading active disputes...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="transactions.html">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            Transactions
+        </a>
+        <a href="escrow.html">
+            <i class="fa-solid fa-vault"></i>
+            Escrow
+        </a>
+        <a href="settlements.html">
+            <i class="fa-solid fa-building-columns"></i>
+            Settlements
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const disputeContainer = document.getElementById('disputeContainer');
+        const filterButtons = document.querySelectorAll('.filters button');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        let allDisputes = [];
+        let currentFilter = 'all';
+
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Load Disputes
+        async function loadDisputes() {
+            try {
+                // 1. Fetch Active Disputes
+                const { data: active, error: activeError } = await supabase
+                    .from('escrow_transactions')
+                    .select(`
+                        id, amount, status, created_at,
+                        order:order_id (
+                            id, order_number,
+                            buyer:buyer_id ( full_name, company_name ),
+                            supplier:supplier_id ( full_name, company_name )
+                        )
+                    `)
+                    .eq('status', 'disputed')
+                    .order('created_at', { ascending: false });
+
+                if (activeError) throw activeError;
+
+                allDisputes = active || [];
+
+                // 2. Fetch Resolved Stats (released/refunded)
+                const { count: resolvedCount, error: resError } = await supabase
+                    .from('escrow_transactions')
+                    .select('*', { count: 'exact', head: true })
+                    .in('status', ['released', 'refunded']);
+
+                if (resError) throw resError;
+
+                // Calculate Stats
+                const highPriority = allDisputes.filter(d => d.amount > 50000).length;
+                document.getElementById('totalDisputes').textContent = allDisputes.length;
+                document.getElementById('statOpen').textContent = allDisputes.length;
+                document.getElementById('statHigh').textContent = highPriority;
+                document.getElementById('statResolved').textContent = resolvedCount || 0;
+
+                renderDisputes();
+
+            } catch (error) {
+                console.error('Error loading disputes:', error);
+                disputeContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading disputes.</p>`;
+            }
+        }
+
+        // Render Cards
+        function renderDisputes() {
+            let filtered = allDisputes;
+            if (currentFilter !== 'all') {
+                filtered = allDisputes.filter(d => {
+                    if (currentFilter === 'high') return d.amount > 50000;
+                    if (currentFilter === 'medium') return d.amount >= 10000 && d.amount <= 50000;
+                    if (currentFilter === 'low') return d.amount < 10000;
+                    return true;
+                });
+            }
+
+            if (filtered.length === 0) {
+                disputeContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>No Disputes Found</h3>
+                        <p>There are no disputes matching this filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            disputeContainer.innerHTML = filtered.map(tx => {
+                const buyerName = tx.order?.buyer?.company_name || tx.order?.buyer?.full_name || 'Unknown Buyer';
+                const supplierName = tx.order?.supplier?.company_name || tx.order?.supplier?.full_name || 'Unknown Supplier';
+                const date = new Date(tx.created_at).toLocaleDateString();
+                const caseId = `CASE-${tx.id.substring(0, 8).toUpperCase()}`;
+                
+                // Dynamic Priority
+                let priority = 'medium';
+                if (tx.amount > 50000) priority = 'high';
+                else if (tx.amount < 10000) priority = 'low';
+
+                return `
+                    <div class="case-card">
+                        <div class="case-top">
+                            <span class="case-id">${caseId}</span>
+                            <span class="priority ${priority}">${priority} Priority</span>
+                        </div>
+                        <p><strong>Order:</strong> ${tx.order?.order_number || 'N/A'}</p>
+                        <p><strong>Buyer:</strong> ${buyerName}</p>
+                        <p><strong>Supplier:</strong> ${supplierName}</p>
+                        <div class="amount">$${Number(tx.amount).toLocaleString()}</div>
+                        <p><strong>Filed:</strong> ${date}</p>
+                        <span class="status">Funds Locked - Awaiting Resolution</span>
+                        
+                        <div class="actions">
+                            <button class="btn-release" data-tx-id="${tx.id}" data-order-id="${tx.order?.id}" data-action="released">
+                                Release to Supplier
+                            </button>
+                            <button class="btn-refund" data-tx-id="${tx.id}" data-order-id="${tx.order?.id}" data-action="refunded">
+                                Refund Buyer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Attach Listeners
+            document.querySelectorAll('.actions button').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const txId = e.currentTarget.dataset.txId;
+                    const orderId = e.currentTarget.dataset.orderId;
+                    const action = e.currentTarget.dataset.action; // released or refunded
+                    
+                    if (!confirm(`Are you sure you want to ${action === 'released' ? 'release funds to the supplier' : 'refund the buyer'}? This will close the dispute.`)) return;
+
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
+                    try {
+                        // 1. Update Escrow Status
+                        const { error: txError } = await supabase
+                            .from('escrow_transactions')
+                            .update({ status: action })
+                            .eq('id', txId);
+
+                        if (txError) throw txError;
+
+                        // 2. Update Order Status
+                        let newOrderStatus = action === 'released' ? 'completed' : 'cancelled';
+                        if (orderId) {
+                            await supabase
+                                .from('orders')
+                                .update({ status: newOrderStatus })
+                                .eq('id', orderId);
+                        }
+
+                        showToast(`Dispute resolved. Funds ${action}.`, 'success');
+                        
+                        // Reload data to update lists and stats
+                        setTimeout(() => loadDisputes(), 1000);
+
+                    } catch (error) {
+                        console.error('Error resolving dispute:', error);
+                        showToast('Error: ' + error.message, 'error');
+                        btn.disabled = false;
+                        btn.textContent = 'Retry';
+                    }
+                });
+            });
+        }
+
+        // Filter Listeners
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderDisputes();
+            });
+        });
+
+        // Initialize
+        loadDisputes();
+    </script>
 
 </body>
 </html>
