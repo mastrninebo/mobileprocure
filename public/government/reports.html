@@ -1,310 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Procure | National Reports</title>
+    
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | National Reports</title>
+        body {
+            background: #F5F7FA;
+            padding-bottom: 100px;
+            color: #1F2937;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        header a {
+            text-decoration: none;
+            color: #1E40AF;
+            font-size: 20px;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header h2 {
+            font-size: 22px;
+        }
 
-<style>
+        .container {
+            padding: 20px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-body{
-background:#F5F7FA;
-padding-bottom:100px;
-color:#1F2937;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .card i {
+            font-size: 28px;
+            color: #1E40AF;
+            margin-bottom: 12px;
+        }
 
-header a{
-text-decoration:none;
-color:#1E40AF;
-font-size:20px;
-}
+        .card h3 {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
 
-header h2{
-font-size:22px;
-}
+        .card p {
+            color: #6B7280;
+            font-size: 14px;
+        }
 
-.container{
-padding:20px;
-}
+        .report {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.summary{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-bottom:25px;
-}
+        .report h3 {
+            color: #1E40AF;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
-text-align:center;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .report p {
+            color: #6B7280;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
 
-.card i{
-font-size:28px;
-color:#1E40AF;
-margin-bottom:12px;
-}
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: #1E40AF;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
 
-.card h3{
-margin-bottom:5px;
-font-size:24px;
-}
+        .button:hover {
+            background: #1E3A8A;
+        }
 
-.card p{
-color:#6B7280;
-font-size:14px;
-}
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
-.report{
-background:white;
-padding:20px;
-border-radius:18px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
 
-.report h3{
-color:#1E40AF;
-margin-bottom:10px;
-}
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
-.report p{
-color:#6B7280;
-margin-bottom:15px;
-line-height:1.6;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 20px;
+            color: #6B7280;
+        }
 
-.button{
-display:inline-block;
-padding:12px 18px;
-background:#1E40AF;
-color:white;
-text-decoration:none;
-border-radius:12px;
-font-weight:600;
-}
+        .loading-spinner i {
+            font-size: 24px;
+            color: #1E40AF;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-font-size:12px;
-text-decoration:none;
-color:#9CA3AF;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #9CA3AF;
+        }
 
-.bottom-nav a.active{
-color:#1E40AF;
-font-weight:600;
-}
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>National Reports</h2>
-
-</header>
-
-<div class="container">
-
-<div class="summary">
-
-<div class="card">
-
-<i class="fa-solid fa-cow"></i>
-
-<h3>12,548</h3>
-
-<p>Animals Exported</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-dollar-sign"></i>
-
-<h3>$18.4M</h3>
-
-<p>Trade Value</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-building-columns"></i>
-
-<h3>$2.6M</h3>
-
-<p>Estimated Tax</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-earth-africa"></i>
-
-<h3>17</h3>
-
-<p>Destination Countries</p>
-
-</div>
-
-</div>
-
-<div class="report">
-
-<h3>Livestock Export Summary</h3>
-
-<p>
-
-View procurement volumes, export destinations, and monthly livestock trade trends across Zambia.
-
-</p>
-
-<a href="#" class="button">
-
-Open Report
-
-</a>
-
-</div>
-
-<div class="report">
-
-<h3>ZRA Revenue Report</h3>
-
-<p>
-
-Review estimated taxable values, VAT, and export-related transaction summaries.
-
-</p>
-
-<a href="#" class="button">
-
-Generate Report
-
-</a>
-
-</div>
-
-<div class="report">
-
-<h3>Provincial Performance</h3>
-
-<p>
-
-Compare livestock exports by province, supplier activity, and market growth.
-
-</p>
-
-<a href="#" class="button">
-
-View Analytics
-
-</a>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a class="active" href="reports.html">
-
-<i class="fa-solid fa-chart-column"></i>
-
-Reports
-
-</a>
-
-<a href="audits.html">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-Audits
-
-</a>
-
-<a href="compliance.html">
-
-<i class="fa-solid fa-clipboard-check"></i>
-
-Compliance
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>National Reports</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- Summary Cards -->
+        <div class="summary">
+            <div class="card">
+                <i class="fa-solid fa-cow"></i>
+                <h3 id="statAnimals">0</h3>
+                <p>Transactions</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <h3 id="statValue">$0</h3>
+                <p>Trade Value</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-building-columns"></i>
+                <h3 id="statTax">$0</h3>
+                <p>Estimated Tax</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-earth-africa"></i>
+                <h3 id="statCountries">0</h3>
+                <p>Export Destinations</p>
+            </div>
+        </div>
+
+        <!-- Report Generation Buttons -->
+        <div class="report">
+            <h3>Livestock Export Summary</h3>
+            <p>View procurement volumes, export destinations, and monthly livestock trade trends across Zambia.</p>
+            <button id="exportSummaryBtn" class="button">
+                <i class="fa-solid fa-download"></i> Download CSV
+            </button>
+        </div>
+
+        <div class="report">
+            <h3>ZRA Revenue Report</h3>
+            <p>Review estimated taxable values, VAT (16%), and export-related transaction summaries.</p>
+            <button id="zraReportBtn" class="button">
+                <i class="fa-solid fa-file-invoice-dollar"></i> View ZRA Reports
+            </button>
+        </div>
+
+        <div class="report">
+            <h3>Provincial Performance</h3>
+            <p>Compare livestock exports by province, supplier activity, and market growth.</p>
+            <button id="provincialReportBtn" class="button">
+                <i class="fa-solid fa-chart-line"></i> View Analytics
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a class="active" href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Helper: Format Currency
+        function formatCurrency(amount) {
+            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+        }
+
+        // Helper: Download CSV
+        function downloadCSV(filename, rows) {
+            const csvContent = rows.map(e => e.join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Load Summary Stats
+        async function loadStats() {
+            try {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('id, total_amount, status, destination_address, created_at');
+
+                if (error) throw error;
+
+                const completed = orders ? orders.filter(o => o.status === 'completed') : [];
+                const totalValue = completed.reduce((sum, o) => sum + parseFloat(o.total_amount || 0), 0);
+                const tax = totalValue * 0.16; // 16% VAT
+                
+                // Count unique destinations
+                const destinations = new Set();
+                completed.forEach(o => {
+                    if (o.destination_address) destinations.add(o.destination_address);
+                });
+
+                document.getElementById('statAnimals').textContent = completed.length;
+                document.getElementById('statValue').textContent = formatCurrency(totalValue);
+                document.getElementById('statTax').textContent = formatCurrency(tax);
+                document.getElementById('statCountries').textContent = destinations.size;
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                showToast('Error loading national stats.', 'error');
+            }
+        }
+
+        // 1. Livestock Export Summary CSV
+        document.getElementById('exportSummaryBtn').addEventListener('click', async (e) => {
+            const btn = e.currentTarget;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        order_number, status, total_amount, created_at, destination_address,
+                        buyer:buyer_id ( full_name, company_name )
+                    `)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    showToast('No transaction data available to export.', 'error');
+                    return;
+                }
+
+                const rows = [
+                    ["Order Number", "Buyer", "Status", "Amount (USD)", "Destination", "Date"]
+                ];
+
+                data.forEach(o => {
+                    rows.push([
+                        o.order_number || 'N/A',
+                        `"${o.buyer?.company_name || o.buyer?.full_name || 'Unknown'}"`,
+                        o.status || 'pending',
+                        o.total_amount || 0,
+                        `"${o.destination_address || 'N/A'}"`,
+                        new Date(o.created_at).toLocaleString()
+                    ]);
+                });
+
+                downloadCSV(`Livestock_Export_Summary_${new Date().toISOString().split('T')[0]}.csv`, rows);
+                showToast('Report downloaded successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error generating report:', error);
+                showToast('Error generating report: ' + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-download"></i> Download CSV';
+            }
+        });
+
+        // 2. ZRA Revenue Report (Redirect to dedicated dashboard)
+        document.getElementById('zraReportBtn').addEventListener('click', () => {
+            window.location.href = 'zra-reports.html';
+        });
+
+        // 3. Provincial Performance (Redirect to Analytics)
+        document.getElementById('provincialReportBtn').addEventListener('click', () => {
+            window.location.href = 'analytics.html';
+        });
+
+        // Initialize
+        loadStats();
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Traceability | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #1E40AF;
+            font-size: 20px;
+        }
+
+        header h2 {
+            font-size: 20px;
+            color: #1E40AF;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Search Bar */
+        .search-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #1E40AF;
+        }
+
+        .search-header h3 {
+            font-size: 16px;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            background: #FAFAFA;
+        }
+
+        .search-input-group input:focus {
+            border-color: #1E40AF;
+            background: white;
+        }
+
+        .search-btn {
+            background: #1E40AF;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover { background: #1E3A8A; }
+        .search-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Result Cards */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .card.active {
+            display: block;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 12px;
+        }
+
+        .card-header h3 {
+            color: #1E40AF;
+            font-size: 16px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .badge.healthy { background: #DCFCE7; color: #166534; }
+        .badge.warning { background: #FEF3C7; color: #92400E; }
+        .badge.danger { background: #FEE2E2; color: #991B1B; }
+
+        /* Grid Info */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .info {
+            background: #F8FAFC;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .info small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .info strong {
+            font-size: 14px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+            margin-top: 10px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #E5E7EB;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step::before {
+            content: "";
+            position: absolute;
+            left: -22px;
+            top: 4px;
+            width: 15px;
+            height: 15px;
+            background: #D1D5DB;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #D1D5DB;
+        }
+
+        .step.completed::before {
+            background: #1E40AF;
+            box-shadow: 0 0 0 1px #1E40AF;
+        }
+
+        .step small {
+            display: block;
+            margin-top: 5px;
+            color: #6B7280;
+            font-size: 12px;
+        }
+
+        .step strong {
+            font-size: 14px;
+            color: #1F2937;
+        }
+
+        .step.pending strong {
+            color: #9CA3AF;
+        }
+
+        /* Action Button */
+        .btn-danger {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background: #DC2626;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-danger:hover { background: #B91C1C; }
+        .btn-danger:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Loading & Empty */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+            display: none;
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .loading-spinner i {
+            font-size: 32px;
+            color: #1E40AF;
+            margin-bottom: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+            display: none;
+        }
+
+        .empty-state.active {
+            display: block;
+        }
+
+        .empty-state i {
+            font-size: 40px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 5px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Disease Traceability</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- Search Section -->
+        <div class="search-card">
+            <div class="search-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h3>Trace Shipment Origin</h3>
+            </div>
+            <div class="search-input-group">
+                <input type="text" id="searchInput" placeholder="Enter Order Number (e.g. MP-2026-001)">
+                <button id="searchBtn" class="search-btn">Trace</button>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-spinner" id="loadingState">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Tracing livestock journey...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <i class="fa-solid fa-virus-covid"></i>
+            <h3>No Records Found</h3>
+            <p>Enter a valid order number to trace the shipment.</p>
+        </div>
+
+        <!-- Result Container -->
+        <div id="resultContainer"></div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+        const loadingState = document.getElementById('loadingState');
+        const emptyState = document.getElementById('emptyState');
+        const resultContainer = document.getElementById('resultContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Helper: Format Date
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // Handle Search
+        searchBtn.addEventListener('click', async () => {
+            const code = searchInput.value.trim();
+            if (!code) {
+                showToast('Please enter an order number.', 'error');
+                return;
+            }
+
+            // Reset UI
+            loadingState.classList.add('active');
+            emptyState.classList.remove('active');
+            resultContainer.innerHTML = '';
+            searchBtn.disabled = true;
+
+            try {
+                // 1. Fetch Order Data
+                const { data: order, error: orderError } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, created_at,
+                        supplier:supplier_id ( full_name, company_name ),
+                        buyer:buyer_id ( full_name, company_name )
+                    `)
+                    .ilike('order_number', code)
+                    .maybeSingle();
+
+                if (orderError) throw orderError;
+
+                if (!order) {
+                    loadingState.classList.remove('active');
+                    emptyState.classList.add('active');
+                    searchBtn.disabled = false;
+                    return;
+                }
+
+                // 2. Fetch Delivery Data
+                const { data: delivery, error: deliveryError } = await supabase
+                    .from('deliveries')
+                    .select(`
+                        id, tracking_number, status, current_location, created_at,
+                        logistics_provider:logistics_provider_id ( full_name, company_name )
+                    `)
+                    .eq('order_id', order.id)
+                    .maybeSingle();
+
+                if (deliveryError) throw deliveryError;
+
+                // Render Result
+                renderTrace(order, delivery);
+                loadingState.classList.remove('active');
+
+            } catch (error) {
+                console.error('Error tracing shipment:', error);
+                showToast('Error tracing shipment: ' + error.message, 'error');
+                loadingState.classList.remove('active');
+                emptyState.classList.add('active');
+            } finally {
+                searchBtn.disabled = false;
+            }
+        });
+
+        // Render Trace UI
+        function renderTrace(order, delivery) {
+            const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Unknown Supplier';
+            const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+            const orderStatus = order.status || 'pending';
+            
+            // Determine Health Status Badge
+            let healthStatus = 'Pending Inspection';
+            let healthClass = 'warning';
+            if (delivery?.status === 'delivered' && orderStatus === 'completed') {
+                healthStatus = 'Healthy / Cleared';
+                healthClass = 'healthy';
+            } else if (orderStatus === 'disputed') {
+                healthStatus = 'Flagged / Quarantined';
+                healthClass = 'danger';
+            }
+
+            // Build Timeline
+            const steps = [
+                { label: 'Origin: Supplier Farm', date: `Supplier: ${supplierName}`, completed: true },
+                { label: 'Logistics Handover', date: delivery?.logistics_provider ? `Transporter: ${delivery.logistics_provider.company_name || delivery.logistics_provider.full_name}` : 'Awaiting Assignment', completed: !!delivery },
+                { label: 'In Transit', date: delivery?.current_location ? `Location: ${delivery.current_location}` : 'Pending Pickup', completed: ['in_transit', 'border', 'delivered'].includes(delivery?.status) },
+                { label: 'Destination: Buyer', date: `Buyer: ${buyerName}`, completed: delivery?.status === 'delivered' }
+            ];
+
+            const timelineHtml = steps.map(step => `
+                <div class="step ${step.completed ? 'completed' : 'pending'}">
+                    <strong>${step.label}</strong>
+                    <small>${step.date}</small>
+                </div>
+            `).join('');
+
+            // Determine if Flag button should show
+            const showFlagBtn = orderStatus !== 'disputed' && orderStatus !== 'completed';
+
+            resultContainer.innerHTML = `
+                <div class="card active">
+                    <div class="card-header">
+                        <h3>Shipment Information</h3>
+                        <span class="badge ${healthClass}">${healthStatus}</span>
+                    </div>
+                    <div class="grid">
+                        <div class="info">
+                            <small>Order Number</small>
+                            <strong>${order.order_number}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Tracking Number</small>
+                            <strong>${delivery?.tracking_number || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Order Date</small>
+                            <strong>${formatDate(order.created_at)}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Current Status</small>
+                            <strong>${orderStatus.replace('_', ' ')}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card active">
+                    <div class="card-header">
+                        <h3>Route & Journey Map</h3>
+                    </div>
+                    <div class="timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+
+                ${showFlagBtn ? `
+                    <div class="card active">
+                        <div class="card-header">
+                            <h3>Regulatory Action</h3>
+                        </div>
+                        <p style="font-size:13px;color:#6B7280;margin-bottom:15px;">If a disease outbreak or compliance issue is detected, flag this shipment immediately. This will freeze the escrow funds and alert all parties.</p>
+                        <button id="flagBtn" class="btn-danger" data-order-id="${order.id}" data-delivery-id="${delivery?.id}">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Flag for Quarantine
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+
+            // Attach Flag Button Listener
+            const flagBtn = document.getElementById('flagBtn');
+            if (flagBtn) {
+                flagBtn.addEventListener('click', async (e) => {
+                    const orderId = e.currentTarget.dataset.orderId;
+                    const deliveryId = e.currentTarget.dataset.deliveryId;
+                    
+                    if (!confirm('Are you sure you want to flag this shipment for quarantine? This action cannot be undone.')) return;
+
+                    flagBtn.disabled = true;
+                    flagBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Flagging...';
+
+                    try {
+                        // Update Order Status to Disputed
+                        const { error: orderErr } = await supabase
+                            .from('orders')
+                            .update({ status: 'disputed' })
+                            .eq('id', orderId);
+
+                        if (orderErr) throw orderErr;
+
+                        // Update Delivery Status to Failed/Held
+                        if (deliveryId) {
+                            await supabase
+                                .from('deliveries')
+                                .update({ status: 'failed' })
+                                .eq('id', deliveryId);
+                        }
+
+                        showToast('Shipment flagged for quarantine successfully!', 'success');
+                        
+                        // Re-render to show danger state
+                        setTimeout(() => {
+                            searchBtn.click(); 
+                        }, 1500);
+
+                    } catch (error) {
+                        console.error('Error flagging shipment:', error);
+                        showToast('Error flagging shipment: ' + error.message, 'error');
+                        flagBtn.disabled = false;
+                        flagBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Try Again';
+                    }
+                });
+            }
+        }
+
+        // Auto-fill and auto-search if Order ID is passed in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoOrder = urlParams.get('order');
+        
+        if (autoOrder) {
+            searchInput.value = autoOrder;
+            searchBtn.click(); // Automatically trigger the trace
+        }
+    </script>
+
+</body>
+</html>

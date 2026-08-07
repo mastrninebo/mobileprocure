@@ -1,680 +1,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Dashboard | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
-<title>Government Dashboard | Mobile Procure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<style>
+        header {
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .profile .avatar-placeholder {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1E40AF;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
 
-header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .profile h3 {
+            font-size: 20px;
+        }
 
-.profile{
-display:flex;
-align-items:center;
-gap:15px;
-cursor:pointer;
-}
+        .profile p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.profile .avatar-placeholder {
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    background:#1E40AF;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:600;
-}
+        .notify {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+            position: relative;
+            cursor: pointer;
+        }
 
-.profile h3{
-font-size:20px;
-}
+        .notify .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc2626;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
 
-.profile p{
-font-size:13px;
-color:#6B7280;
-}
+        .hero {
+            margin: 0 20px;
+            padding: 25px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #1E40AF, #3B82F6);
+            color: white;
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.2);
+        }
 
-.notify{
-width:45px;
-height:45px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-position:relative;
-cursor:pointer;
-}
+        .hero small {
+            opacity: .9;
+            font-size: 14px;
+        }
 
-.notify .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #dc2626;
-    color: white;
-    font-size: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
+        .hero h2 {
+            font-size: 34px;
+            margin: 10px 0;
+        }
 
-.hero{
-margin:0 20px;
-padding:25px;
-border-radius:22px;
-background:linear-gradient(135deg,#1E40AF,#3B82F6);
-color:white;
-}
+        .hero p {
+            opacity: .95;
+            font-size: 13px;
+        }
 
-.hero small{
-opacity:.9;
-}
+        .section {
+            margin: 30px 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.hero h2{
-font-size:34px;
-margin:10px 0;
-}
+        .section h2 {
+            font-size: 20px;
+        }
 
-.hero p{
-opacity:.95;
-}
+        .section a {
+            text-decoration: none;
+            color: #1E40AF;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-.section{
-margin:30px 20px 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 0 20px;
+        }
 
-.section h2{
-font-size:20px;
-}
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            text-align: center;
+            transition: 0.3s;
+        }
 
-.section a{
-text-decoration:none;
-color:#1E40AF;
-font-weight:600;
-}
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin:0 20px;
-}
+        .card i {
+            font-size: 30px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-text-align:center;
-}
+        .card h3 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
 
-.card i{
-font-size:30px;
-color:#1E40AF;
-margin-bottom:15px;
-}
+        .card p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.card h3{
-font-size:28px;
-margin-bottom:6px;
-}
+        .alert {
+            background: white;
+            margin: 0 20px 15px;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.card p{
-font-size:13px;
-color:#6B7280;
-}
+        .alert-left h4 {
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
 
-.alert{
-background:white;
-margin:0 20px 15px;
-padding:20px;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .alert-left p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.alert-left h4{
-margin-bottom:6px;
-}
+        .badge {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-.alert-left p{
-font-size:13px;
-color:#6B7280;
-}
+        .success { background: #DCFCE7; color: #16A34A; }
+        .warning { background: #FEF3C7; color: #D97706; }
+        .danger { background: #FEE2E2; color: #DC2626; }
 
-.badge{
-padding:8px 14px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .qa-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 0 20px;
+        }
 
-.success{
-background:#DCFCE7;
-color:#16A34A;
-}
+        .qa-card {
+            background: white;
+            padding: 18px 16px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.05);
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1F2937;
+            display: block;
+        }
 
-.warning{
-background:#FEF3C7;
-color:#D97706;
-}
+        .qa-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
 
-.danger{
-background:#FEE2E2;
-color:#DC2626;
-}
+        .qa-card i {
+            font-size: 28px;
+            color: #1E40AF;
+            margin-bottom: 8px;
+            display: block;
+        }
 
-.loading-spinner {
-    text-align: center;
-    padding: 40px 20px;
-    color: #6B7280;
-}
+        .qa-card .qa-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1F2937;
+        }
 
-.loading-spinner i {
-    font-size: 40px;
-    color: #1E40AF;
-    margin-bottom: 15px;
-}
+        .qa-card .qa-sub {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 2px;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-z-index:1000;
-}
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-decoration:none;
-font-size:12px;
-gap:5px;
-color:#9CA3AF;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+        }
 
-.bottom-nav a.active{
-color:#1E40AF;
-font-weight:600;
-}
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 5px;
+            color: #9CA3AF;
+        }
 
-/* ── Quick Access restructured ── */
-.qa-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin:0 20px;
-}
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
 
-.qa-card{
-background:white;
-padding:18px 16px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-text-align:center;
-transition:all 0.2s ease;
-border:2px solid transparent;
-cursor:pointer;
-text-decoration:none;
-color:#1F2937;
-display:block;
-}
-
-.qa-card:hover{
-transform:translateY(-3px);
-box-shadow:0 12px 30px rgba(0,0,0,.08);
-}
-
-.qa-card i{
-font-size:28px;
-color:#1E40AF;
-margin-bottom:8px;
-display:block;
-}
-
-.qa-card .qa-title{
-font-weight:600;
-font-size:15px;
-color:#1F2937;
-}
-
-.qa-card .qa-sub{
-font-size:12px;
-color:#9CA3AF;
-margin-top:2px;
-}
-
-</style>
-
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Session Protection Script -->
-<script type="module">
-    import { getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    async function protectPage() {
-        try {
-            const user = await getCurrentUser();
-            if (!user || !user.profile) {
-                window.location.href = '/mobileprocure/login.html';
-                return;
-            }
-            
-            if (user.profile.role !== 'government') {
-                window.location.href = '/mobileprocure/unauthorized.html';
-                return;
-            }
-            
-            console.log('User authenticated:', user.profile.full_name, 'Role:', user.profile.role);
-            window.currentUser = user;
-            
-        } catch (error) {
-            console.error('Auth check error:', error);
-            window.location.href = '/mobileprocure/login.html';
-        }
-    }
-    
-    await protectPage();
-</script>
-
-<header>
-    <div class="profile" onclick="window.location.href='profile.html'">
-        <div class="avatar-placeholder" id="userAvatar">
-            <span id="userInitial">G</span>
-        </div>
-        <div>
-            <h3 id="userName">Government Portal</h3>
-            <p id="userStatus">Trade Monitoring Dashboard</p>
-        </div>
-    </div>
-    <div class="notify">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge" id="notificationBadge">0</span>
-    </div>
-</header>
-
-<div class="hero">
-    <small>National Livestock Trade</small>
-    <h2 id="totalTrade">$0</h2>
-    <p id="tradeSummary">Total monitored exports this quarter</p>
-</div>
-
-<div class="section">
-    <h2>National Statistics</h2>
-</div>
-
-<div class="grid">
-    <div class="card">
-        <i class="fa-solid fa-cow"></i>
-        <h3 id="livestockExported">0</h3>
-        <p>Livestock Exported</p>
-    </div>
-    <div class="card">
-        <i class="fa-solid fa-file-invoice-dollar"></i>
-        <h3 id="taxRecorded">$0</h3>
-        <p>Tax Recorded</p>
-    </div>
-    <div class="card">
-        <i class="fa-solid fa-file-shield"></i>
-        <h3 id="vetCertificates">0</h3>
-        <p>Vet Certificates</p>
-    </div>
-    <div class="card">
-        <i class="fa-solid fa-route"></i>
-        <h3 id="activeShipments">0</h3>
-        <p>Active Shipments</p>
-    </div>
-</div>
-
-<div class="section">
-    <h2>Compliance Alerts</h2>
-</div>
-
-<div id="alertsContainer">
-    <div class="loading-spinner">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading compliance alerts...</p>
-    </div>
-</div>
-
-<div class="section">
-    <h2>Quick Access</h2>
-</div>
-
-<!-- ★ Quick Access – restructured ★ -->
-<div class="qa-grid">
-    <a href="analytics.html" class="qa-card">
-        <i class="fa-solid fa-chart-line"></i>
-        <div class="qa-title">Trade Analytics</div>
-        <div class="qa-sub">Insights &amp; trends</div>
-    </a>
-    <a href="audits.html" class="qa-card">
-        <i class="fa-solid fa-scale-balanced"></i>
-        <div class="qa-title">Audit Trail</div>
-        <div class="qa-sub">Activity log</div>
-    </a>
-    <a href="traceability.html" class="qa-card">
-        <i class="fa-solid fa-virus"></i>
-        <div class="qa-title">Disease Traceability</div>
-        <div class="qa-sub">Track &amp; report</div>
-    </a>
-    <a href="zra-reports.html" class="qa-card">
-        <i class="fa-solid fa-building-columns"></i>
-        <div class="qa-title">ZRA Reports</div>
-        <div class="qa-sub">Zambia Revenue</div>
-    </a>
-</div>
-
-<div class="bottom-nav">
-    <a class="active" href="dashboard.html">
-        <i class="fa-solid fa-house"></i>
-        Home
-    </a>
-    <a href="reports.html">
-        <i class="fa-solid fa-chart-column"></i>
-        Reports
-    </a>
-    <a href="audits.html">
-        <i class="fa-solid fa-shield-halved"></i>
-        Audits
-    </a>
-    <a href="compliance.html">
-        <i class="fa-solid fa-clipboard-check"></i>
-        Compliance
-    </a>
-    <a href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        Profile
-    </a>
-</div>
-
-<!-- Main Script -->
-<script type="module">
-    import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
-    
-    // ============================================
-    // DOM ELEMENTS
-    // ============================================
-    const userName = document.getElementById('userName');
-    const userInitial = document.getElementById('userInitial');
-    const userStatus = document.getElementById('userStatus');
-    const totalTrade = document.getElementById('totalTrade');
-    const tradeSummary = document.getElementById('tradeSummary');
-    const livestockExported = document.getElementById('livestockExported');
-    const taxRecorded = document.getElementById('taxRecorded');
-    const vetCertificates = document.getElementById('vetCertificates');
-    const activeShipments = document.getElementById('activeShipments');
-    const alertsContainer = document.getElementById('alertsContainer');
-    const notificationBadge = document.getElementById('notificationBadge');
-    
-    // ============================================
-    // LOAD USER DATA
-    // ============================================
-    async function loadUserData() {
-        try {
-            const user = await getCurrentUser();
-            if (user && user.profile) {
-                const profile = user.profile;
-                userName.textContent = `Government Portal`;
-                userInitial.textContent = (profile.full_name || 'G').charAt(0).toUpperCase();
-                
-                if (profile.is_verified) {
-                    userStatus.textContent = 'Trade Monitoring Dashboard ✓';
-                } else {
-                    userStatus.textContent = 'Pending Verification ⏳';
-                }
-            }
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD NATIONAL STATS
-    // ============================================
-    async function loadStats() {
-        try {
-            // Get all completed orders for national stats
-            const { data: orders, error } = await supabase
-                .from('orders')
-                .select('id, total_amount, status')
-                .eq('status', 'completed');
-            
-            if (!error && orders) {
-                // Total trade value
-                const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
-                totalTrade.textContent = `$${total.toLocaleString()}`;
-                tradeSummary.textContent = `${orders.length} completed transactions this quarter`;
-                
-                // Livestock exported (count of orders with livestock)
-                livestockExported.textContent = orders.length;
-                
-                // Tax recorded (placeholder - would need tax calculations)
-                const tax = total * 0.16; // 16% VAT
-                taxRecorded.textContent = `$${tax.toLocaleString()}`;
-            }
-            
-            // Get veterinary certificates count
-            const { count: certCount, error: certError } = await supabase
-                .from('inspections')
-                .select('*', { count: 'exact', head: true });
-            
-            if (!certError) {
-                vetCertificates.textContent = certCount || 0;
-            }
-            
-            // Get active shipments (deliveries in progress)
-            const { count: shipmentCount, error: shipmentError } = await supabase
-                .from('deliveries')
-                .select('*', { count: 'exact', head: true })
-                .in('status', ['assigned', 'in_transit', 'border']);
-            
-            if (!shipmentError) {
-                activeShipments.textContent = shipmentCount || 0;
-            }
-            
-        } catch (error) {
-            console.error('Error loading stats:', error);
-        }
-    }
-    
-    // ============================================
-    // LOAD COMPLIANCE ALERTS
-    // ============================================
-    async function loadAlerts() {
-        try {
-            // Get recent orders with compliance status
-            const { data: orders, error } = await supabase
-                .from('orders')
-                .select(`
-                    id,
-                    order_number,
-                    status,
-                    updated_at,
-                    buyer:buyer_id (full_name, company_name),
-                    supplier:supplier_id (full_name, company_name)
-                `)
-                .in('status', ['pending', 'confirmed', 'escrow_funded', 'shipped', 'delivered'])
-                .order('updated_at', { ascending: false })
-                .limit(10);
-            
-            if (error) {
-                console.error('Error loading alerts:', error);
-                showNoAlerts('Error loading compliance alerts.');
-                return;
-            }
-            
-            if (!orders || orders.length === 0) {
-                showNoAlerts('No compliance alerts at this time.');
-                return;
-            }
-            
-            renderAlerts(orders);
-            
-        } catch (error) {
-            console.error('Error:', error);
-            showNoAlerts('Unable to load alerts. Please refresh.');
-        }
-    }
-    
-    // ============================================
-    // RENDER ALERTS
-    // ============================================
-    function renderAlerts(orders) {
-        alertsContainer.innerHTML = '';
+    <!-- SESSION PROTECTION SCRIPT (BULLETPROOF RPC VERSION) -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
         
-        orders.forEach(order => {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = 'alert';
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                console.log('✅ Access granted to Government Dashboard');
+                window.currentUser = user;
+                
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <div class="profile" onclick="window.location.href='profile.html'">
+            <div class="avatar-placeholder" id="userAvatar">
+                <span id="userInitial">G</span>
+            </div>
+            <div>
+                <h3 id="userName">Government Portal</h3>
+                <p id="userStatus">Trade Monitoring Dashboard</p>
+            </div>
+        </div>
+        <div class="notify">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge" id="notificationBadge">0</span>
+        </div>
+    </header>
+
+    <div class="hero">
+        <small>National Livestock Trade</small>
+        <h2 id="totalTrade">$0</h2>
+        <p id="tradeSummary">Total monitored exports this quarter</p>
+    </div>
+
+    <div class="section">
+        <h2>National Statistics</h2>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <i class="fa-solid fa-cow"></i>
+            <h3 id="livestockExported">0</h3>
+            <p>Livestock Exported</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <h3 id="taxRecorded">$0</h3>
+            <p>Tax Recorded</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-file-shield"></i>
+            <h3 id="vetCertificates">0</h3>
+            <p>Vet Certificates</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-route"></i>
+            <h3 id="activeShipments">0</h3>
+            <p>Active Shipments</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Compliance Alerts</h2>
+    </div>
+
+    <div id="alertsContainer">
+        <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading compliance alerts...</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Quick Access</h2>
+    </div>
+
+    <div class="qa-grid">
+        <a href="analytics.html" class="qa-card">
+            <i class="fa-solid fa-chart-line"></i>
+            <div class="qa-title">Trade Analytics</div>
+            <div class="qa-sub">Insights &amp; trends</div>
+        </a>
+        <a href="audits.html" class="qa-card">
+            <i class="fa-solid fa-scale-balanced"></i>
+            <div class="qa-title">Audit Trail</div>
+            <div class="qa-sub">Activity log</div>
+        </a>
+        <a href="traceability.html" class="qa-card">
+            <i class="fa-solid fa-virus"></i>
+            <div class="qa-title">Disease Traceability</div>
+            <div class="qa-sub">Track &amp; report</div>
+        </a>
+        <a href="zra-reports.html" class="qa-card">
+            <i class="fa-solid fa-building-columns"></i>
+            <div class="qa-title">ZRA Reports</div>
+            <div class="qa-sub">Zambia Revenue</div>
+        </a>
+    </div>
+
+    <!-- PROFILE COMPLETION REMINDER MODAL -->
+    <div class="reminder-overlay" id="reminderModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+        <div style="background:white;border-radius:24px;padding:30px;max-width:450px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+            <div style="text-align:center;margin-bottom:20px;">
+                <div style="width:70px;height:70px;background:#FEF3C7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:32px;">📝</div>
+                <h2 style="color:#1F2937;font-size:20px;">Complete Your Profile</h2>
+                <p style="color:#6B7280;font-size:14px;margin-top:8px;">Your profile is missing some required department information.</p>
+            </div>
             
-            const statusClass = getAlertClass(order.status);
-            const statusText = getAlertText(order.status);
-            const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+            <div style="background:#EFF6FF;border-radius:12px;padding:15px;margin-bottom:20px;">
+                <p style="font-size:13px;color:#1E40AF;font-weight:500;">
+                    <i class="fa-solid fa-circle-info"></i> Required fields:
+                </p>
+                <ul style="list-style:none;margin-top:8px;font-size:13px;color:#374151;">
+                    <li style="padding:4px 0;">• Full Name</li>
+                    <li style="padding:4px 0;">• Phone Number</li>
+                    <li style="padding:4px 0;">• Department / Ministry</li>
+                </ul>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button onclick="completeProfile()" style="flex:1;padding:12px;background:#1E40AF;color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:0.3s;">
+                    Complete Now
+                </button>
+                <button onclick="remindLater()" style="flex:1;padding:12px;background:#E5E7EB;color:#374151;border:none;border-radius:12px;font-weight:500;cursor:pointer;transition:0.3s;">
+                    Remind Me Later
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a class="active" href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        // DOM ELEMENTS
+        const userName = document.getElementById('userName');
+        const userInitial = document.getElementById('userInitial');
+        const userStatus = document.getElementById('userStatus');
+        const totalTrade = document.getElementById('totalTrade');
+        const tradeSummary = document.getElementById('tradeSummary');
+        const livestockExported = document.getElementById('livestockExported');
+        const taxRecorded = document.getElementById('taxRecorded');
+        const vetCertificates = document.getElementById('vetCertificates');
+        const activeShipments = document.getElementById('activeShipments');
+        const alertsContainer = document.getElementById('alertsContainer');
+        const notificationBadge = document.getElementById('notificationBadge');
+        
+        // LOAD USER DATA
+        async function loadUserData() {
+            try {
+                const user = await getCurrentUser();
+                if (user && user.profile) {
+                    const profile = user.profile;
+                    userName.textContent = `Government Portal`;
+                    userInitial.textContent = (profile.full_name || 'G').charAt(0).toUpperCase();
+                    
+                    if (profile.is_verified) {
+                        userStatus.textContent = 'Trade Monitoring Dashboard ✓';
+                    } else {
+                        userStatus.textContent = 'Pending Verification ⏳';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+        
+        // LOAD NATIONAL STATS
+        async function loadStats() {
+            try {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('id, total_amount, status')
+                    .eq('status', 'completed');
+                
+                if (!error && orders) {
+                    const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
+                    totalTrade.textContent = `$${total.toLocaleString()}`;
+                    tradeSummary.textContent = `${orders.length} completed transactions this quarter`;
+                    livestockExported.textContent = orders.length;
+                    
+                    const tax = total * 0.16; // 16% VAT
+                    taxRecorded.textContent = `$${tax.toLocaleString()}`;
+                }
+                
+                const { count: certCount, error: certError } = await supabase
+                    .from('inspections')
+                    .select('*', { count: 'exact', head: true });
+                
+                if (!certError) vetCertificates.textContent = certCount || 0;
+                
+                const { count: shipmentCount, error: shipmentError } = await supabase
+                    .from('deliveries')
+                    .select('*', { count: 'exact', head: true })
+                    .in('status', ['assigned', 'in_transit', 'border']);
+                
+                if (!shipmentError) activeShipments.textContent = shipmentCount || 0;
+                
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        // LOAD COMPLIANCE ALERTS
+        async function loadAlerts() {
+            try {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, updated_at,
+                        buyer:buyer_id (full_name, company_name)
+                    `)
+                    .in('status', ['pending', 'confirmed', 'escrow_funded', 'shipped', 'delivered'])
+                    .order('updated_at', { ascending: false })
+                    .limit(10);
+                
+                if (error) {
+                    console.error('Error loading alerts:', error);
+                    showNoAlerts('Error loading compliance alerts.');
+                    return;
+                }
+                
+                if (!orders || orders.length === 0) {
+                    showNoAlerts('No compliance alerts at this time.');
+                    return;
+                }
+                
+                renderAlerts(orders);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showNoAlerts('Unable to load alerts. Please refresh.');
+            }
+        }
+        
+        function renderAlerts(orders) {
+            alertsContainer.innerHTML = '';
             
-            alertDiv.innerHTML = `
-                <div class="alert-left">
-                    <h4>${order.order_number || 'Order'}</h4>
-                    <p>Buyer: ${buyerName} • Status: ${order.status || 'pending'}</p>
-                </div>
-                <div class="badge ${statusClass}">
-                    ${statusText}
+            orders.forEach(order => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert';
+                
+                const statusClass = getAlertClass(order.status);
+                const statusText = getAlertText(order.status);
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+                
+                alertDiv.innerHTML = `
+                    <div class="alert-left">
+                        <h4>${order.order_number || 'Order'}</h4>
+                        <p>Buyer: ${buyerName} • Status: ${order.status || 'pending'}</p>
+                    </div>
+                    <div class="badge ${statusClass}">${statusText}</div>
+                `;
+                
+                alertsContainer.appendChild(alertDiv);
+            });
+        }
+        
+        function showNoAlerts(message) {
+            alertsContainer.innerHTML = `
+                <div class="alert" style="justify-content:center;padding:30px;text-align:center;">
+                    <div>
+                        <i class="fa-solid fa-check-circle" style="font-size:32px;color:#16A34A;margin-bottom:10px;display:block;"></i>
+                        <p style="color:#6B7280;font-size:14px;">${message}</p>
+                    </div>
                 </div>
             `;
-            
-            alertsContainer.appendChild(alertDiv);
-        });
-    }
-    
-    // ============================================
-    // SHOW NO ALERTS
-    // ============================================
-    function showNoAlerts(message) {
-        alertsContainer.innerHTML = `
-            <div class="alert" style="justify-content:center;padding:30px;text-align:center;">
-                <div>
-                    <i class="fa-solid fa-check-circle" style="font-size:32px;color:#16A34A;margin-bottom:10px;display:block;"></i>
-                    <p style="color:#6B7280;font-size:14px;">${message}</p>
-                </div>
-            </div>
-        `;
-    }
-    
-    // ============================================
-    // GET ALERT CLASS
-    // ============================================
-    function getAlertClass(status) {
-        const statusMap = {
-            'pending': 'warning',
-            'confirmed': 'success',
-            'escrow_funded': 'success',
-            'shipped': 'success',
-            'delivered': 'success',
-            'completed': 'success',
-            'disputed': 'danger',
-            'cancelled': 'danger'
-        };
-        return statusMap[status] || 'warning';
-    }
-    
-    // ============================================
-    // GET ALERT TEXT
-    // ============================================
-    function getAlertText(status) {
-        const statusMap = {
-            'pending': 'Pending Review',
-            'confirmed': 'Verified',
-            'escrow_funded': 'Verified',
-            'shipped': 'In Transit',
-            'delivered': 'Delivered',
-            'completed': 'Completed',
-            'disputed': 'Disputed',
-            'cancelled': 'Cancelled'
-        };
-        return statusMap[status] || 'Pending';
-    }
-    
-    // ============================================
-    // LOAD NOTIFICATIONS
-    // ============================================
-    async function loadNotifications() {
-        try {
-            const { count, error } = await supabase
-                .from('orders')
-                .select('*', { count: 'exact', head: true })
-                .in('status', ['pending', 'disputed']);
-            
-            if (!error && count > 0) {
-                notificationBadge.textContent = count > 9 ? '9+' : count;
-                notificationBadge.style.display = 'flex';
-            } else {
-                notificationBadge.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error loading notifications:', error);
         }
-    }
-    
-    // ============================================
-    // INITIALIZE
-    // ============================================
-    async function init() {
-        await loadUserData();
-        await loadStats();
-        await loadAlerts();
-        await loadNotifications();
-    }
-    
-    init();
-</script>
+        
+        function getAlertClass(status) {
+            const statusMap = {
+                'pending': 'warning', 'confirmed': 'success', 'escrow_funded': 'success',
+                'shipped': 'success', 'delivered': 'success', 'completed': 'success',
+                'disputed': 'danger', 'cancelled': 'danger'
+            };
+            return statusMap[status] || 'warning';
+        }
+        
+        function getAlertText(status) {
+            const statusMap = {
+                'pending': 'Pending Review', 'confirmed': 'Verified', 'escrow_funded': 'Verified',
+                'shipped': 'In Transit', 'delivered': 'Delivered', 'completed': 'Completed',
+                'disputed': 'Disputed', 'cancelled': 'Cancelled'
+            };
+            return statusMap[status] || 'Pending';
+        }
+        
+        async function loadNotifications() {
+            try {
+                const { count, error } = await supabase
+                    .from('orders')
+                    .select('*', { count: 'exact', head: true })
+                    .in('status', ['pending', 'disputed']);
+                
+                if (!error && count > 0) {
+                    notificationBadge.textContent = count > 9 ? '9+' : count;
+                    notificationBadge.style.display = 'flex';
+                } else {
+                    notificationBadge.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+        
+        // INITIALIZE
+        async function init() {
+            await loadUserData();
+            await loadStats();
+            await loadAlerts();
+            await loadNotifications();
+        }
+        
+        init();
+    </script>
+
+    <!-- PROFILE COMPLETION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        async function checkProfileCompletion() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return;
+
+                const profile = user.profile;
+
+                if (profile.profile_completed) return;
+
+                if (profile.profile_reminded_at) {
+                    const remindedDate = new Date(profile.profile_reminded_at);
+                    const daysSinceReminded = (new Date() - remindedDate) / (1000 * 60 * 60 * 24);
+                    if (daysSinceReminded < 7) return;
+                }
+
+                const requiredFields = {
+                    full_name: profile.full_name,
+                    phone: profile.phone,
+                    company_name: profile.company_name // Using company_name for Department/Ministry
+                };
+
+                const isComplete = 
+                    requiredFields.full_name && 
+                    requiredFields.full_name.trim() !== '' &&
+                    requiredFields.phone && 
+                    requiredFields.phone.trim() !== '' &&
+                    requiredFields.company_name && 
+                    requiredFields.company_name.trim() !== '';
+
+                if (!isComplete) {
+                    document.getElementById('reminderModal').style.display = 'flex';
+                }
+
+            } catch (error) {
+                console.error('Profile check error:', error);
+            }
+        }
+
+        window.completeProfile = function() {
+            document.getElementById('reminderModal').style.display = 'none';
+            window.location.href = '/government/profile.html';
+        };
+
+        window.remindLater = async function() {
+            try {
+                const user = await getCurrentUser();
+                if (user) {
+                    await supabase
+                        .from('profiles')
+                        .update({ profile_reminded_at: new Date().toISOString() })
+                        .eq('id', user.id);
+                }
+            } catch (error) {
+                console.error('Remind later error:', error);
+            }
+            document.getElementById('reminderModal').style.display = 'none';
+        };
+
+        await checkProfileCompletion();
+    </script>
 
 </body>
 </html>

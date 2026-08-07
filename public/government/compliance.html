@@ -1,428 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Centre | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Compliance</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header a {
+            text-decoration: none;
+            color: #1E40AF;
+            font-size: 20px;
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            transition: 0.3s;
+        }
 
-header a{
-text-decoration:none;
-color:#1E40AF;
-font-size:20px;
-}
+        .stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
 
-header h2{
-font-size:22px;
-}
+        .stat i {
+            font-size: 28px;
+            color: #1E40AF;
+            margin-bottom: 10px;
+        }
 
-.container{
-padding:20px;
-}
+        .stat h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #1E40AF;
+        }
 
-.summary{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-bottom:20px;
-}
+        .stat p {
+            font-size: 13px;
+            color: #6B7280;
+        }
 
-.stat{
-background:#fff;
-padding:20px;
-border-radius:18px;
-text-align:center;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 18px;
+        }
 
-.stat i{
-font-size:28px;
-color:#1E40AF;
-margin-bottom:10px;
-}
+        .section h3 {
+            color: #1E40AF;
+            margin-bottom: 18px;
+            font-size: 16px;
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 10px;
+        }
 
-.stat h3{
-font-size:24px;
-margin-bottom:5px;
-color:#1E40AF;
-}
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
 
-.stat p{
-font-size:14px;
-color:#6B7280;
-}
+        .item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
 
-.section{
-background:#fff;
-padding:20px;
-border-radius:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-margin-bottom:18px;
-}
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.section h3{
-color:#1E40AF;
-margin-bottom:18px;
-}
+        .left i {
+            font-size: 18px;
+            color: #1E40AF;
+            width: 25px;
+            text-align: center;
+        }
 
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #E5E7EB;
-}
+        .left div h4 {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
 
-.item:last-child{
-border-bottom:none;
-}
+        .left div p {
+            font-size: 12px;
+            color: #6B7280;
+        }
 
-.left{
-display:flex;
-align-items:center;
-gap:12px;
-}
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
 
-.left i{
-font-size:18px;
-color:#1E40AF;
-width:25px;
-}
+        .approved { background: #DCFCE7; color: #166534; }
+        .pending { background: #FEF3C7; color: #92400E; }
+        .disputed { background: #FEE2E2; color: #991B1B; }
 
-.badge{
-padding:6px 14px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .btn-approve {
+            background: #1E40AF;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.approved{
-background:#DCFCE7;
-color:#166534;
-}
+        .btn-approve:hover { background: #1E3A8A; }
+        .btn-approve:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
+        .button {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            background: #1E40AF;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-.review{
-background:#FEE2E2;
-color:#991B1B;
-}
+        .button:hover {
+            background: #1E3A8A;
+        }
 
-.button{
-display:block;
-margin-top:20px;
-text-align:center;
-text-decoration:none;
-padding:14px;
-border-radius:12px;
-background:#1E40AF;
-color:white;
-font-weight:600;
-}
+        /* Loading & Empty */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        .loading-spinner i {
+            font-size: 32px;
+            color: #1E40AF;
+            margin-bottom: 10px;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-text-decoration:none;
-font-size:12px;
-color:#9CA3AF;
-}
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav a.active{
-color:#1E40AF;
-font-weight:600;
-}
+        .empty-state i {
+            font-size: 36px;
+            color: #1E40AF;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
 
-</style>
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</a>
-
-<h2>Compliance Centre</h2>
-
-</header>
-
-<div class="container">
-
-<div class="summary">
-
-<div class="stat">
-
-<i class="fa-solid fa-circle-check"></i>
-
-<h3>98%</h3>
-
-<p>Compliance Rate</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-file-circle-check"></i>
-
-<h3>1,482</h3>
-
-<p>Verified Certificates</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-hourglass-half"></i>
-
-<h3>34</h3>
-
-<p>Pending Reviews</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fa-solid fa-triangle-exclamation"></i>
-
-<h3>7</h3>
-
-<p>Flagged Cases</p>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h3>Compliance Checklist</h3>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-file-medical"></i>
-
-Veterinary Certificate
-
-</div>
-
-<span class="badge approved">Approved</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-building"></i>
-
-PACRA Verification
-
-</div>
-
-<span class="badge approved">Verified</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-building-columns"></i>
-
-ZRA Tax Status
-
-</div>
-
-<span class="badge approved">Compliant</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-qrcode"></i>
-
-QR Traceability
-
-</div>
-
-<span class="badge approved">Tracked</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-virus"></i>
-
-Disease Clearance
-
-</div>
-
-<span class="badge pending">Pending</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-file-export"></i>
-
-Export Permit
-
-</div>
-
-<span class="badge review">Requires Review</span>
-
-</div>
-
-<a href="#" class="button">
-
-Review Compliance Records
-
-</a>
-
-</div>
-
-<div class="section">
-
-<h3>Recent Compliance Alerts</h3>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-circle-exclamation"></i>
-
-Order MP-2026-000117
-
-</div>
-
-<span class="badge review">Certificate Mismatch</span>
-
-</div>
-
-<div class="item">
-
-<div class="left">
-
-<i class="fa-solid fa-circle-info"></i>
-
-Order MP-2026-000128
-
-</div>
-
-<span class="badge approved">Fully Compliant</span>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="reports.html">
-
-<i class="fa-solid fa-chart-column"></i>
-
-Reports
-
-</a>
-
-<a href="audits.html">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-Audits
-
-</a>
-
-<a href="compliance.html" class="active">
-
-<i class="fa-solid fa-clipboard-check"></i>
-
-Compliance
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Compliance Centre</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- Summary Stats -->
+        <div class="summary">
+            <div class="stat">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <h3 id="statPendingSuppliers">0</h3>
+                <p>Pending Suppliers</p>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 id="statVerifiedStock">0</h3>
+                <p>Verified Vaccinated Stock</p>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3 id="statFlagged">0</h3>
+                <p>Flagged Orders</p>
+            </div>
+            <div class="stat">
+                <i class="fa-solid fa-building-columns"></i>
+                <h3 id="statTotalSuppliers">0</h3>
+                <p>Total Suppliers</p>
+            </div>
+        </div>
+
+        <!-- Supplier Approval Queue -->
+        <div class="section">
+            <h3><i class="fa-solid fa-user-check"></i> Supplier Approval Queue</h3>
+            <div id="approvalContainer">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading pending suppliers...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Compliance Alerts -->
+        <div class="section">
+            <h3><i class="fa-solid fa-triangle-exclamation"></i> Recent Disputed Orders</h3>
+            <div id="alertsContainer">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading alerts...</p>
+                </div>
+            </div>
+            <a href="audits.html?filter=disputed" class="button">
+                Review All Disputes
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html" class="active">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const approvalContainer = document.getElementById('approvalContainer');
+        const alertsContainer = document.getElementById('alertsContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Load Stats
+        async function loadStats() {
+            try {
+                // 1. Pending Suppliers
+                const { count: pendingCount } = await supabase
+                    .from('supplier_profiles')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('is_approved', false);
+                
+                document.getElementById('statPendingSuppliers').textContent = pendingCount || 0;
+
+                // 2. Total Suppliers
+                const { count: totalSuppliers } = await supabase
+                    .from('supplier_profiles')
+                    .select('*', { count: 'exact', head: true });
+                
+                document.getElementById('statTotalSuppliers').textContent = totalSuppliers || 0;
+
+                // 3. Verified Stock
+                const { count: stockCount } = await supabase
+                    .from('inventory_items')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('certification_status', 'Fully Vaccinated');
+
+                document.getElementById('statVerifiedStock').textContent = stockCount || 0;
+
+                // 4. Flagged Orders
+                const { count: flaggedCount } = await supabase
+                    .from('orders')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('status', 'disputed');
+
+                document.getElementById('statFlagged').textContent = flaggedCount || 0;
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Load Pending Suppliers
+        async function loadPendingSuppliers() {
+            try {
+                const { data, error } = await supabase
+                    .from('supplier_profiles')
+                    .select(`
+                        user_id, is_approved, created_at,
+                        profile:user_id ( full_name, company_name, tax_id )
+                    `)
+                    .eq('is_approved', false)
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    approvalContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <h4>All Caught Up!</h4>
+                            <p>No suppliers waiting for approval.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                approvalContainer.innerHTML = data.map(s => `
+                    <div class="item">
+                        <div class="left">
+                            <i class="fa-solid fa-building"></i>
+                            <div>
+                                <h4>${s.profile?.company_name || s.profile?.full_name || 'Unknown Supplier'}</h4>
+                                <p>TPIN: ${s.profile?.tax_id || 'Not Provided'}</p>
+                            </div>
+                        </div>
+                        <button class="btn-approve" data-user-id="${s.user_id}">
+                            Approve
+                        </button>
+                    </div>
+                `).join('');
+
+                // Attach Listeners
+                document.querySelectorAll('.btn-approve').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const userId = e.currentTarget.dataset.userId;
+                        btn.disabled = true;
+                        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+                        try {
+                            // 1. Approve Supplier Profile
+                            const { error: err1 } = await supabase
+                                .from('supplier_profiles')
+                                .update({ is_approved: true })
+                                .eq('user_id', userId);
+
+                            if (err1) throw err1;
+
+                            // 2. Mark Main Profile as Verified
+                            const { error: err2 } = await supabase
+                                .from('profiles')
+                                .update({ is_verified: true })
+                                .eq('id', userId);
+
+                            if (err2) throw err2;
+
+                            showToast('Supplier approved successfully!', 'success');
+                            btn.parentElement.remove(); // Remove from list
+                            await loadStats(); // Refresh stats
+                        } catch (error) {
+                            console.error('Error approving supplier:', error);
+                            showToast('Error approving supplier: ' + error.message, 'error');
+                            btn.disabled = false;
+                            btn.textContent = 'Retry';
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading pending suppliers:', error);
+                approvalContainer.innerHTML = `<p style="color:#DC2626;text-align:center;font-size:13px;">Error loading pending suppliers.</p>`;
+            }
+        }
+
+        // Load Disputed Alerts
+        async function loadAlerts() {
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, created_at,
+                        buyer:buyer_id ( full_name )
+                    `)
+                    .eq('status', 'disputed')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    alertsContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h4>No Disputes</h4>
+                            <p>There are no flagged orders right now.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                alertsContainer.innerHTML = data.map(o => `
+                    <div class="item">
+                        <div class="left">
+                            <i class="fa-solid fa-circle-exclamation" style="color:#DC2626;"></i>
+                            <div>
+                                <h4>${o.order_number || 'N/A'}</h4>
+                                <p>Buyer: ${o.buyer?.full_name || 'Unknown'}</p>
+                            </div>
+                        </div>
+                        <span class="badge disputed">Flagged</span>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading alerts:', error);
+                alertsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;font-size:13px;">Error loading alerts.</p>`;
+            }
+        }
+
+        // Initialize
+        async function init() {
+            await loadStats();
+            await loadPendingSuppliers();
+            await loadAlerts();
+        }
+
+        init();
+    </script>
 
 </body>
 </html>

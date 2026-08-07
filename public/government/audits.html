@@ -1,339 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Trail | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<title>Mobile Procure | Audit Trail</title>
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
 
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        header a {
+            color: #1E40AF;
+            font-size: 20px;
+            text-decoration: none;
+        }
 
-<style>
+        header h2 {
+            font-size: 22px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .container {
+            padding: 20px;
+        }
 
-body{
-background:#F5F7FA;
-color:#1F2937;
-padding-bottom:100px;
-}
+        /* Summary Stats */
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
-header{
-background:#fff;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-}
+        .stat {
+            background: white;
+            padding: 18px 10px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            border-top: 4px solid #1E40AF;
+        }
 
-header a{
-color:#1E40AF;
-font-size:20px;
-text-decoration:none;
-}
+        .stat h3 {
+            color: #1E40AF;
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
 
-header h2{
-font-size:22px;
-}
+        .stat p {
+            font-size: 11px;
+            color: #6B7280;
+        }
 
-.container{
-padding:20px;
-}
+        /* Filter Tabs */
+        .filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 0 0 20px 0;
+            scrollbar-width: none;
+        }
 
-.summary{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-bottom:25px;
-}
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
 
-.stat{
-background:#fff;
-padding:18px;
-border-radius:16px;
-text-align:center;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .filters button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 13px;
+        }
 
-.stat h3{
-color:#1E40AF;
-font-size:22px;
-margin-bottom:6px;
-}
+        .filters button.active {
+            background: #1E40AF;
+            color: white;
+        }
 
-.stat p{
-font-size:13px;
-color:#6B7280;
-}
+        /* Audit Cards */
+        .audit {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
 
-.audit{
-background:white;
-border-radius:18px;
-padding:20px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.05);
-}
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
+        .top h3 {
+            color: #1E40AF;
+            font-size: 16px;
+        }
 
-.top h3{
-color:#1E40AF;
-font-size:18px;
-}
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
 
-.badge{
-padding:6px 14px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
+        .badge.completed { background: #DCFCE7; color: #166534; }
+        .badge.pending { background: #FEF3C7; color: #92400E; }
+        .badge.disputed { background: #FEE2E2; color: #991B1B; }
+        .badge.confirmed { background: #DBEAFE; color: #1D4ED8; }
 
-.success{
-background:#DCFCE7;
-color:#166534;
-}
+        .info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
 
-.warning{
-background:#FEF3C7;
-color:#92400E;
-}
+        .box {
+            background: #F8FAFC;
+            padding: 12px;
+            border-radius: 12px;
+        }
 
-.info{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:15px;
-}
+        .box small {
+            display: block;
+            color: #6B7280;
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
 
-.box{
-background:#F8FAFC;
-padding:12px;
-border-radius:12px;
-}
+        .box strong {
+            font-size: 13px;
+        }
 
-.box small{
-display:block;
-color:#6B7280;
-margin-bottom:5px;
-}
+        .button {
+            display: block;
+            margin-top: 18px;
+            text-align: center;
+            background: #1E40AF;
+            color: white;
+            padding: 14px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-.button{
-display:block;
-margin-top:18px;
-text-align:center;
-background:#1E40AF;
-color:white;
-padding:14px;
-text-decoration:none;
-border-radius:12px;
-font-weight:600;
-}
+        .button:hover {
+            background: #1E3A8A;
+        }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 20px rgba(0,0,0,.08);
-}
+        /* Loading & Empty */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav a{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-font-size:12px;
-text-decoration:none;
-color:#9CA3AF;
-}
+        .loading-spinner i {
+            font-size: 40px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+        }
 
-.bottom-nav a.active{
-color:#1E40AF;
-font-weight:600;
-}
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
 
-.bottom-nav i{
-font-size:20px;
-}
+        .empty-state i {
+            font-size: 50px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
 
-</style>
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
 
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
 
-<a href="dashboard.html">
-<i class="fa-solid fa-arrow-left"></i>
-</a>
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
 
-<h2>Audit Trail</h2>
+                const userRoles = roles ? roles.map(r => r.role) : [];
 
-</header>
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
 
-<div class="container">
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
 
-<div class="summary">
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Audit Trail</h2>
+    </header>
 
-<div class="stat">
-<h3>2,418</h3>
-<p>Audit Events</p>
-</div>
+    <div class="container">
+        
+        <!-- Summary Stats -->
+        <div class="summary">
+            <div class="stat">
+                <h3 id="statTotal">0</h3>
+                <p>Total Orders</p>
+            </div>
+            <div class="stat">
+                <h3 id="statVerified">0</h3>
+                <p>Verified</p>
+            </div>
+            <div class="stat">
+                <h3 id="statReview">0</h3>
+                <p>Under Review</p>
+            </div>
+        </div>
 
-<div class="stat">
-<h3>99.8%</h3>
-<p>Verified</p>
-</div>
+        <!-- Filter Tabs -->
+        <div class="filters">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="completed">Verified</button>
+            <button data-filter="disputed">Under Review</button>
+            <button data-filter="pending">Pending</button>
+            <button data-filter="shipped">In Transit</button>
+        </div>
 
-<div class="stat">
-<h3>18</h3>
-<p>Open Reviews</p>
-</div>
+        <!-- Audit List -->
+        <div id="auditContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading audit logs...</p>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-<div class="audit">
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html" class="active">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
 
-<div class="top">
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
-<h3>Order MP-2026-000128</h3>
+        const auditContainer = document.getElementById('auditContainer');
+        const filterButtons = document.querySelectorAll('.filters button');
+        let allOrders = [];
+        let currentFilter = 'all';
 
-<span class="badge success">
-Verified
-</span>
+        // Load Orders
+        async function loadOrders() {
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, total_amount, created_at,
+                        buyer:buyer_id ( full_name, company_name ),
+                        supplier:supplier_id ( full_name, company_name )
+                    `)
+                    .order('created_at', { ascending: false });
 
-</div>
+                if (error) throw error;
 
-<p>Complete audit history available for inspection.</p>
+                allOrders = data || [];
+                updateStats();
+                renderAudits();
 
-<div class="info">
+            } catch (error) {
+                console.error('Error loading audit logs:', error);
+                auditContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading audit logs.</p>`;
+            }
+        }
 
-<div class="box">
-<small>Supplier</small>
-<strong>Mpundu Cattle Ranch</strong>
-</div>
+        // Update Summary Stats
+        function updateStats() {
+            const total = allOrders.length;
+            const verified = allOrders.filter(o => o.status === 'completed').length;
+            const review = allOrders.filter(o => ['disputed', 'pending'].includes(o.status)).length;
 
-<div class="box">
-<small>Buyer</small>
-<strong>African Beef Imports</strong>
-</div>
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statVerified').textContent = verified;
+            document.getElementById('statReview').textContent = review;
+        }
 
-<div class="box">
-<small>Escrow</small>
-<strong>Funds Locked</strong>
-</div>
+        // Render Audit Cards
+        function renderAudits() {
+            let filteredOrders = allOrders;
+            if (currentFilter !== 'all') {
+                filteredOrders = allOrders.filter(o => o.status === currentFilter);
+            }
 
-<div class="box">
-<small>Current Status</small>
-<strong>In Transit</strong>
-</div>
+            if (!filteredOrders || filteredOrders.length === 0) {
+                auditContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <h3>No Records Found</h3>
+                        <p>There are no orders matching this filter.</p>
+                    </div>
+                `;
+                return;
+            }
 
-</div>
+            auditContainer.innerHTML = filteredOrders.map(order => {
+                const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Unknown Supplier';
+                const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
+                const status = order.status || 'pending';
+                const date = new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-<a href="#" class="button">
+                return `
+                    <div class="audit">
+                        <div class="top">
+                            <h3>${order.order_number || 'N/A'}</h3>
+                            <span class="badge ${status}">${status.replace('_', ' ')}</span>
+                        </div>
+                        <p style="font-size:13px;color:#6B7280;">Order initiated on ${date}</p>
+                        
+                        <div class="info">
+                            <div class="box">
+                                <small>Supplier</small>
+                                <strong>${supplierName}</strong>
+                            </div>
+                            <div class="box">
+                                <small>Buyer</small>
+                                <strong>${buyerName}</strong>
+                            </div>
+                            <div class="box">
+                                <small>Amount</small>
+                                <strong>$${Number(order.total_amount || 0).toLocaleString()}</strong>
+                            </div>
+                            <div class="box">
+                                <small>Escrow Status</small>
+                                <strong>${status === 'completed' ? 'Released' : 'Secured'}</strong>
+                            </div>
+                        </div>
+                        
+                        <a href="traceability.html?order=${order.order_number}" class="button">
+                            Open Audit Log
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
 
-Open Audit Log
+        // Filter Button Listeners
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderAudits();
+            });
+        });
 
-</a>
+        // Check if a filter was passed in the URL (e.g., from compliance page)
+        const urlParams = new URLSearchParams(window.location.search);
+        const presetFilter = urlParams.get('filter');
 
-</div>
-
-<div class="audit">
-
-<div class="top">
-
-<h3>Order MP-2026-000117</h3>
-
-<span class="badge warning">
-Under Review
-</span>
-
-</div>
-
-<p>Shipment delayed at border awaiting veterinary verification.</p>
-
-<div class="info">
-
-<div class="box">
-<small>Supplier</small>
-<strong>Eastern Livestock</strong>
-</div>
-
-<div class="box">
-<small>Destination</small>
-<strong>Dubai</strong>
-</div>
-
-<div class="box">
-<small>Issue</small>
-<strong>Certificate Delay</strong>
-</div>
-
-<div class="box">
-<small>Assigned Officer</small>
-<strong>Inspector Zulu</strong>
-</div>
-
-</div>
-
-<a href="#" class="button">
-
-Review Audit
-
-</a>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<a href="dashboard.html">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
-
-<a href="reports.html">
-<i class="fa-solid fa-chart-column"></i>
-Reports
-</a>
-
-<a href="audits.html" class="active">
-<i class="fa-solid fa-shield-halved"></i>
-Audits
-</a>
-
-<a href="compliance.html">
-<i class="fa-solid fa-clipboard-check"></i>
-Compliance
-</a>
-
-<a href="profile.html">
-<i class="fa-solid fa-user"></i>
-Profile
-</a>
-
-</div>
+        if (presetFilter) {
+            // Find the button that matches the filter and click it
+            const targetBtn = document.querySelector(`.filters button[data-filter="${presetFilter}"]`);
+            if (targetBtn) {
+                targetBtn.click();
+            } else {
+                loadOrders(); // Fallback to loading all if filter doesn't match
+            }
+        } else {
+            // Normal load if no filter is in the URL
+            loadOrders();
+        }
+    </script>
 
 </body>
 </html>

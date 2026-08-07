@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZRA Revenue Report | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #1E40AF;
+            font-size: 20px;
+        }
+
+        header h2 {
+            font-size: 20px;
+            color: #1E40AF;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-bar select {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-download {
+            background: #1E40AF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-download:hover { background: #1E3A8A; }
+        .btn-download:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 18px 10px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            border-top: 4px solid #1E40AF;
+        }
+
+        .kpi-card h4 {
+            font-size: 12px;
+            color: #6B7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .kpi-card h2 {
+            font-size: 18px;
+            color: #1F2937;
+        }
+
+        /* Transaction List */
+        .tx-card {
+            background: white;
+            padding: 18px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 15px;
+        }
+
+        .tx-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #ECECEC;
+        }
+
+        .tx-header h3 {
+            font-size: 15px;
+            color: #1E40AF;
+        }
+
+        .tx-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .tx-item small {
+            display: block;
+            color: #9CA3AF;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .tx-item strong {
+            font-size: 14px;
+            color: #1F2937;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
+
+        .loading-spinner i {
+            font-size: 40px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6B7280;
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            color: #1E40AF;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #065F46; }
+        .toast.error { background: #991B1B; }
+        .toast.show { display: block; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 5px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="reports.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>ZRA Revenue Dashboard</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- Filter & Export Bar -->
+        <div class="filter-bar">
+            <select id="monthFilter">
+                <option value="all">All Time</option>
+                <!-- Months will be populated by JS -->
+            </select>
+            <button id="exportBtn" class="btn-download">
+                <i class="fa-solid fa-file-csv"></i> Export
+            </button>
+        </div>
+
+        <!-- KPI Summary -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h4>Gross Volume</h4>
+                <h2 id="kpiGross">$0</h2>
+            </div>
+            <div class="kpi-card">
+                <h4>VAT (16%)</h4>
+                <h2 id="kpiVat">$0</h2>
+            </div>
+            <div class="kpi-card">
+                <h4>Net Payouts</h4>
+                <h2 id="kpiNet">$0</h2>
+            </div>
+        </div>
+
+        <!-- Transactions List -->
+        <div id="txContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading tax data...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const monthFilter = document.getElementById('monthFilter');
+        const txContainer = document.getElementById('txContainer');
+        const exportBtn = document.getElementById('exportBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        let allCompletedOrders = [];
+        let currentFilteredOrders = [];
+
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Helper: Format Currency
+        function formatCurrency(amount) {
+            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Load Data
+        async function loadData() {
+            try {
+                const { data, error } = await supabase
+                    .from('orders')
+                    .select('id, order_number, total_amount, created_at, buyer:buyer_id ( full_name, company_name )')
+                    .eq('status', 'completed')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allCompletedOrders = data || [];
+                populateMonthFilter();
+                filterAndRender();
+
+            } catch (error) {
+                console.error('Error loading ZRA data:', error);
+                txContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading tax data.</p>`;
+            }
+        }
+
+        // Populate Dropdown with available months
+        function populateMonthFilter() {
+            const months = new Set();
+            allCompletedOrders.forEach(o => {
+                const d = new Date(o.created_at);
+                months.add(`${d.getFullYear()}-${d.getMonth()}`);
+            });
+
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            
+            months.forEach(m => {
+                const [year, month] = m.split('-');
+                const option = document.createElement('option');
+                option.value = m;
+                option.textContent = `${monthNames[parseInt(month)]} ${year}`;
+                monthFilter.appendChild(option);
+            });
+        }
+
+        // Filter and Render UI
+        function filterAndRender() {
+            const selected = monthFilter.value;
+
+            if (selected === 'all') {
+                currentFilteredOrders = allCompletedOrders;
+            } else {
+                const [year, month] = selected.split('-');
+                currentFilteredOrders = allCompletedOrders.filter(o => {
+                    const d = new Date(o.created_at);
+                    return d.getFullYear() == year && d.getMonth() == month;
+                });
+            }
+
+            // Calculate KPIs
+            let gross = 0;
+            currentFilteredOrders.forEach(o => gross += parseFloat(o.total_amount || 0));
+            let vat = gross * 0.16;
+            let net = gross - vat;
+
+            document.getElementById('kpiGross').textContent = formatCurrency(gross);
+            document.getElementById('kpiVat').textContent = formatCurrency(vat);
+            document.getElementById('kpiNet').textContent = formatCurrency(net);
+
+            // Render List
+            if (currentFilteredOrders.length === 0) {
+                txContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <h3>No Taxable Transactions</h3>
+                        <p>There are no completed orders for this period.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            txContainer.innerHTML = currentFilteredOrders.map(o => {
+                const grossAmount = parseFloat(o.total_amount || 0);
+                const vatAmount = grossAmount * 0.16;
+                const netAmount = grossAmount - vatAmount;
+                const buyerName = o.buyer?.company_name || o.buyer?.full_name || 'Unknown Buyer';
+                const date = new Date(o.created_at).toLocaleDateString();
+
+                return `
+                    <div class="tx-card">
+                        <div class="tx-header">
+                            <h3>${o.order_number || 'N/A'}</h3>
+                            <small>${date}</small>
+                        </div>
+                        <p style="font-size:13px;color:#6B7280;margin-bottom:12px;">Buyer: ${buyerName}</p>
+                        <div class="tx-grid">
+                            <div class="tx-item">
+                                <small>Gross</small>
+                                <strong>${formatCurrency(grossAmount)}</strong>
+                            </div>
+                            <div class="tx-item">
+                                <small>VAT (16%)</small>
+                                <strong style="color:#DC2626;">${formatCurrency(vatAmount)}</strong>
+                            </div>
+                            <div class="tx-item">
+                                <small>Net</small>
+                                <strong style="color:#166534;">${formatCurrency(netAmount)}</strong>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Export CSV
+        exportBtn.addEventListener('click', () => {
+            if (currentFilteredOrders.length === 0) {
+                showToast('No data to export for this period.', 'error');
+                return;
+            }
+
+            const rows = [
+                ["Order Number", "Buyer", "Date", "Gross Amount (USD)", "VAT 16% (USD)", "Net Amount (USD)"]
+            ];
+
+            currentFilteredOrders.forEach(o => {
+                const gross = parseFloat(o.total_amount || 0);
+                const vat = gross * 0.16;
+                const net = gross - vat;
+                rows.push([
+                    o.order_number || 'N/A',
+                    `"${o.buyer?.company_name || o.buyer?.full_name || 'Unknown'}"`,
+                    new Date(o.created_at).toLocaleString(),
+                    gross.toFixed(2),
+                    vat.toFixed(2),
+                    net.toFixed(2)
+                ]);
+            });
+
+            const csvContent = rows.map(e => e.join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            
+            const filename = monthFilter.value === 'all' ? 'All_Time' : monthFilter.value;
+            link.setAttribute("download", `ZRA_Report_${filename}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast('CSV downloaded successfully!', 'success');
+        });
+
+        // Event Listener for Filter Change
+        monthFilter.addEventListener('change', filterAndRender);
+
+        // Initialize
+        loadData();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Analytics | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F5F7FA;
+            color: #1F2937;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header a {
+            color: #1E40AF;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        header h2 {
+            font-size: 22px;
+            color: #1E40AF;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* KPI GRID */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
+
+        .kpi-card h4 {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .kpi-card h2 {
+            font-size: 24px;
+            color: #1E40AF;
+            margin-bottom: 4px;
+        }
+
+        .kpi-card p {
+            font-size: 12px;
+            color: #16A34A;
+            font-weight: 600;
+        }
+
+        /* CHART CARDS */
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-title i {
+            color: #1E40AF;
+        }
+
+        /* HORIZONTAL BAR CHART */
+        .h-bar-item {
+            margin-bottom: 15px;
+        }
+
+        .h-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .h-bar-track {
+            background: #F3F4F6;
+            border-radius: 8px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .h-bar-fill {
+            height: 100%;
+            background: #3B82F6;
+            border-radius: 8px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* VERTICAL BAR CHART */
+        .v-chart-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 180px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #E5E7EB;
+            position: relative;
+        }
+
+        .v-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            width: 12%;
+        }
+
+        .v-bar {
+            width: 100%;
+            background: linear-gradient(180deg, #3B82F6, #1E40AF);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: height 1s ease-in-out;
+            min-height: 2px;
+        }
+
+        .v-bar:hover {
+            background: #1E40AF;
+        }
+
+        .v-bar-tooltip {
+            position: absolute;
+            top: -20px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #1E40AF;
+            white-space: nowrap;
+        }
+
+        .v-bar-label {
+            position: absolute;
+            bottom: -20px;
+            font-size: 11px;
+            color: #6B7280;
+        }
+
+        /* LOADING & EMPTY */
+        .loading-spinner {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
+
+        .loading-spinner i {
+            font-size: 32px;
+            color: #1E40AF;
+            margin-bottom: 10px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 5px;
+            color: #9CA3AF;
+        }
+
+        .bottom-nav a.active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error) throw error;
+
+                const userRoles = roles ? roles.map(r => r.role) : [];
+
+                if (!userRoles.includes('government')) {
+                    window.location.href = '/unauthorized.html';
+                    return;
+                }
+
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="dashboard.html">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h2>Trade Analytics</h2>
+    </header>
+
+    <div class="container">
+        
+        <!-- KPI Section -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h4>Total Trade Volume</h4>
+                <h2 id="kpiVolume">$0</h2>
+                <p>All completed sales</p>
+            </div>
+            <div class="kpi-card">
+                <h4>Transactions</h4>
+                <h2 id="kpiOrders">0</h2>
+                <p>Total orders placed</p>
+            </div>
+            <div class="kpi-card">
+                <h4>Active Users</h4>
+                <h2 id="kpiUsers">0</h2>
+                <p>Buyers & Suppliers</p>
+            </div>
+            <div class="kpi-card">
+                <h4>Avg. Order Value</h4>
+                <h2 id="kpiAov">$0</h2>
+                <p>Per transaction</p>
+            </div>
+        </div>
+
+        <!-- Livestock Distribution Chart -->
+        <div class="chart-card">
+            <div class="chart-title">
+                <i class="fa-solid fa-chart-pie"></i>
+                Livestock Market Distribution
+            </div>
+            <div id="livestockChart">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading distribution...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Trade Trend Chart -->
+        <div class="chart-card">
+            <div class="chart-title">
+                <i class="fa-solid fa-chart-column"></i>
+                Monthly Trade Volume (Last 6 Months)
+            </div>
+            <div id="trendChart">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading trends...</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+        <a href="audits.html">
+            <i class="fa-solid fa-shield-halved"></i>
+            Audits
+        </a>
+        <a href="compliance.html">
+            <i class="fa-solid fa-clipboard-check"></i>
+            Compliance
+        </a>
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            Profile
+        </a>
+    </div>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+
+        const livestockChart = document.getElementById('livestockChart');
+        const trendChart = document.getElementById('trendChart');
+
+        // Helper to format currency
+        function formatCurrency(amount) {
+            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+        }
+
+        // Load all analytics data
+        async function loadAnalytics() {
+            try {
+                // 1. Fetch all orders
+                const { data: orders, error: ordersError } = await supabase
+                    .from('orders')
+                    .select('id, total_amount, status, created_at');
+                
+                if (ordersError) throw ordersError;
+
+                // 2. Fetch all users
+                const { count: usersCount, error: usersError } = await supabase
+                    .from('profiles')
+                    .select('*', { count: 'exact', head: true });
+                
+                if (usersError) throw usersError;
+
+                // 3. Fetch inventory for distribution
+                const { data: inventory, error: invError } = await supabase
+                    .from('inventory_items')
+                    .select('id, category');
+                
+                if (invError) throw invError;
+
+                // --- CALCULATE KPIs ---
+                const completedOrders = orders ? orders.filter(o => o.status === 'completed') : [];
+                const totalVolume = completedOrders.reduce((sum, o) => sum + parseFloat(o.total_amount || 0), 0);
+                const totalOrders = orders ? orders.length : 0;
+                const aov = completedOrders.length > 0 ? totalVolume / completedOrders.length : 0;
+
+                document.getElementById('kpiVolume').textContent = formatCurrency(totalVolume);
+                document.getElementById('kpiOrders').textContent = totalOrders;
+                document.getElementById('kpiUsers').textContent = usersCount || 0;
+                document.getElementById('kpiAov').textContent = formatCurrency(aov);
+
+                // --- RENDER LIVESTOCK DISTRIBUTION ---
+                renderLivestockChart(inventory || []);
+
+                // --- RENDER MONTHLY TREND ---
+                renderTrendChart(completedOrders);
+
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+                livestockChart.innerHTML = `<p style="color:#DC2626;text-align:center;font-size:13px;">Error loading data.</p>`;
+                trendChart.innerHTML = `<p style="color:#DC2626;text-align:center;font-size:13px;">Error loading data.</p>`;
+            }
+        }
+
+        function renderLivestockChart(inventory) {
+            if (!inventory || inventory.length === 0) {
+                livestockChart.innerHTML = `<p style="color:#6B7280;text-align:center;font-size:13px;">No inventory data available.</p>`;
+                return;
+            }
+
+            // Count by category
+            const counts = {};
+            inventory.forEach(item => {
+                const cat = item.category || 'other';
+                counts[cat] = (counts[cat] || 0) + 1;
+            });
+
+            const total = inventory.length;
+            const colors = ['#1E40AF', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'];
+
+            let html = '';
+            let colorIndex = 0;
+
+            // Sort descending
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+            sorted.forEach(([category, count]) => {
+                const percentage = ((count / total) * 100).toFixed(1);
+                const color = colors[colorIndex % colors.length];
+                html += `
+                    <div class="h-bar-item">
+                        <div class="h-bar-label">
+                            <span style="text-transform:capitalize;">${category}</span>
+                            <span>${count} (${percentage}%)</span>
+                        </div>
+                        <div class="h-bar-track">
+                            <div class="h-bar-fill" style="width: 0%; background:${color};" data-width="${percentage}"></div>
+                        </div>
+                    </div>
+                `;
+                colorIndex++;
+            });
+
+            livestockChart.innerHTML = html;
+
+            // Animate bars
+            setTimeout(() => {
+                document.querySelectorAll('.h-bar-fill').forEach(bar => {
+                    bar.style.width = bar.dataset.width + '%';
+                });
+            }, 100);
+        }
+
+        function renderTrendChart(orders) {
+            if (!orders || orders.length === 0) {
+                trendChart.innerHTML = `<p style="color:#6B7280;text-align:center;font-size:13px;">No completed transactions yet.</p>`;
+                return;
+            }
+
+            // Setup last 6 months
+            const months = [];
+            const today = new Date();
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                months.push({
+                    key: `${d.getFullYear()}-${d.getMonth()}`,
+                    label: d.toLocaleString('en-US', { month: 'short' }),
+                    volume: 0
+                });
+            }
+
+            // Aggregate volume
+            orders.forEach(order => {
+                const d = new Date(order.created_at);
+                const key = `${d.getFullYear()}-${d.getMonth()}`;
+                const monthData = months.find(m => m.key === key);
+                if (monthData) {
+                    monthData.volume += parseFloat(order.total_amount || 0);
+                }
+            });
+
+            const maxVolume = Math.max(...months.map(m => m.volume), 1);
+
+            let html = '<div class="v-chart-container">';
+            months.forEach(month => {
+                const height = (month.volume / maxVolume) * 100;
+                const tooltip = month.volume > 0 ? formatCurrency(month.volume) : '';
+                html += `
+                    <div class="v-bar-wrapper">
+                        <div class="v-bar" style="height: 0%;" data-height="${height}">
+                            ${tooltip ? `<div class="v-bar-tooltip">${tooltip}</div>` : ''}
+                        </div>
+                        <div class="v-bar-label">${month.label}</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            trendChart.innerHTML = html;
+
+            // Animate bars
+            setTimeout(() => {
+                document.querySelectorAll('.v-bar').forEach(bar => {
+                    bar.style.height = bar.dataset.height + '%';
+                });
+            }, 100);
+        }
+
+        // Initialize
+        loadAnalytics();
+    </script>
+
+</body>
+</html>
