@@ -63,6 +63,7 @@
         }
         .badge.verified { background: #DCFCE7; color: #166534; }
         .badge.pending { background: #FEF3C7; color: #92400E; }
+        .badge.inactive { background: #F3F4F6; color: #6B7280; }
 
         .grid {
             display: grid;
@@ -83,20 +84,141 @@
         .description p { color: #4B5563; font-size: 14px; line-height: 1.6; }
 
         .btn {
-            display: block;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
             padding: 15px;
             background: #0F766E;
             color: white;
-            text-decoration: none;
+            border: none;
             border-radius: 12px;
             font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
             transition: 0.3s;
+            text-decoration: none;
         }
         .btn:hover { background: #0D6B64; }
 
         .loading-spinner { text-align: center; padding: 60px 20px; color: #6B7280; }
         .loading-spinner i { font-size: 40px; color: #0F766E; margin-bottom: 15px; }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-sheet {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px 24px 0 0;
+            padding: 20px 20px 40px 20px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .sheet-header {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1F2937;
+            position: relative;
+        }
+        
+        .sheet-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: #F3F4F6;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sheet-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 16px;
+            background: #F9FAFB;
+            border: 1px solid #F3F4F6;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1F2937;
+            transition: 0.2s;
+        }
+
+        .sheet-option:hover {
+            background: #F3F4F6;
+        }
+
+        .sheet-option i {
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+            color: #0F766E;
+        }
+
+        .sheet-option.danger {
+            color: #DC2626;
+        }
+        .sheet-option.danger i {
+            color: #DC2626;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: none;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .toast.success { background: #0F766E; }
+        .toast.error { background: #DC2626; }
+        .toast.show { display: block; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
@@ -147,6 +269,36 @@
         </div>
     </div>
 
+    <!-- Manage Listing Modal -->
+    <div class="modal-overlay" id="manageModal">
+        <div class="modal-sheet">
+            <div class="sheet-header">
+                Manage Listing
+                <button class="sheet-close" onclick="closeManageModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <a href="inventory.html" class="sheet-option">
+                <i class="fa-solid fa-pen"></i>
+                Edit Listing Details
+            </a>
+
+            <button id="toggleAvailabilityBtn" class="sheet-option" onclick="toggleAvailability()">
+                <i class="fa-solid fa-eye-slash"></i>
+                <span id="toggleText">Mark as Unavailable</span>
+            </button>
+
+            <button class="sheet-option danger" onclick="deleteListing()">
+                <i class="fa-solid fa-trash"></i>
+                Delete Listing Permanently
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"><span id="toastMessage"></span></div>
+
     <div class="bottom-nav">
         <a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a>
         <a href="inventory.html" class="active"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
@@ -159,9 +311,24 @@
         import { supabase } from '../assets/js/supabase-client.js';
 
         const detailsContainer = document.getElementById('detailsContainer');
+        const manageModal = document.getElementById('manageModal');
+        const toggleBtn = document.getElementById('toggleAvailabilityBtn');
+        const toggleText = document.getElementById('toggleText');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
         const urlParams = new URLSearchParams(window.location.search);
         const itemId = urlParams.get('id');
+        let currentItem = null;
 
+        // Helper: Show Toast
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // Load Listing Data
         async function loadListing() {
             if (!itemId) {
                 detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">No Item ID provided.</p>`;
@@ -181,6 +348,7 @@
                     return;
                 }
 
+                currentItem = data;
                 renderListing(data);
             } catch (error) {
                 console.error('Error loading listing:', error);
@@ -188,10 +356,21 @@
             }
         }
 
+        // Render HTML
         function renderListing(item) {
             const imageSrc = (item.images && item.images.length > 0) ? item.images[0] : null;
             const isVerified = item.certification_status === 'Fully Vaccinated';
+            const isAvailable = item.is_available !== false; // Default to true if undefined
             
+            // Update Toggle Button Text
+            if (isAvailable) {
+                toggleText.textContent = 'Mark as Unavailable';
+                toggleBtn.querySelector('i').className = 'fa-solid fa-eye-slash';
+            } else {
+                toggleText.textContent = 'Mark as Available';
+                toggleBtn.querySelector('i').className = 'fa-solid fa-eye';
+            }
+
             detailsContainer.innerHTML = `
                 <div class="card">
                     <div class="image-gallery">
@@ -207,6 +386,8 @@
                         <span class="badge ${isVerified ? 'verified' : 'pending'}">
                             ${item.certification_status || 'Pending Inspection'}
                         </span>
+
+                        ${!isAvailable ? `<span class="badge inactive" style="margin-left:5px;">Hidden</span>` : ''}
 
                         <div class="grid">
                             <div class="info-box">
@@ -232,13 +413,80 @@
                             <p>${item.description || 'No description provided for this listing.'}</p>
                         </div>
 
-                        <a href="inventory.html" class="btn">
-                            <i class="fa-solid fa-pen"></i> Manage Listing
-                        </a>
+                        <button class="btn" onclick="openManageModal()">
+                            <i class="fa-solid fa-sliders"></i> Manage Listing
+                        </button>
                     </div>
                 </div>
             `;
         }
+
+        // Modal Controls
+        window.openManageModal = () => {
+            manageModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeManageModal = () => {
+            manageModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        manageModal.addEventListener('click', (e) => {
+            if (e.target === manageModal) window.closeManageModal();
+        });
+
+        // Toggle Availability
+        window.toggleAvailability = async () => {
+            if (!currentItem) return;
+            
+            const newStatus = !(currentItem.is_available !== false);
+            
+            try {
+                const { error } = await supabase
+                    .from('inventory_items')
+                    .update({ is_available: newStatus })
+                    .eq('id', currentItem.id);
+
+                if (error) throw error;
+
+                currentItem.is_available = newStatus;
+                showToast(`Listing marked as ${newStatus ? 'Available' : 'Unavailable'}`, 'success');
+                
+                // Re-render to update badges and button text
+                renderListing(currentItem);
+                window.closeManageModal();
+
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showToast('Error updating status: ' + error.message, 'error');
+            }
+        };
+
+        // Delete Listing
+        window.deleteListing = async () => {
+            if (!currentItem) return;
+
+            if (!confirm('Are you absolutely sure you want to permanently delete this listing? This action cannot be undone.')) return;
+
+            try {
+                const { error } = await supabase
+                    .from('inventory_items')
+                    .delete()
+                    .eq('id', currentItem.id);
+
+                if (error) throw error;
+
+                showToast('Listing deleted successfully. Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'inventory.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error deleting listing:', error);
+                showToast('Error deleting listing: ' + error.message, 'error');
+            }
+        };
 
         loadListing();
     </script>
