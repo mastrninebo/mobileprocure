@@ -365,6 +365,7 @@
                         supplier_id: currentItem.supplier_id,
                         total_amount: totalAmount,
                         destination_address: destination,
+                        delivery_address: destination, // <-- Added this to satisfy the NOT NULL constraint
                         status: 'pending' // Starts as pending
                     }])
                     .select();
