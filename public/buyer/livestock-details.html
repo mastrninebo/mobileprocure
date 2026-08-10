@@ -10,227 +10,84 @@
     <link rel="icon" href="../assets/images/logo.png" type="image/png">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: #F5F7FA;
-            padding-bottom: 90px;
-            color: #1F2937;
-        }
-
-        .header {
-            position: relative;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #F5F7FA; padding-bottom: 90px; color: #1F2937; }
+        
+        .header { position: relative; }
         .header img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            background: #ECECEC;
+            width: 100%; height: 300px; object-fit: cover; background: #ECECEC;
+            display: flex; align-items: center; justify-content: center;
         }
+        .header img i { font-size: 80px; color: #D1D5DB; }
 
         .back {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 45px;
-            height: 45px;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            color: #111;
-            box-shadow: 0 5px 15px rgba(0,0,0,.15);
+            position: absolute; top: 20px; left: 20px;
+            width: 45px; height: 45px; background: #fff;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            text-decoration: none; color: #111; box-shadow: 0 5px 15px rgba(0,0,0,.15);
         }
 
         .content {
-            margin-top: -30px;
-            background: #fff;
-            border-radius: 30px 30px 0 0;
-            padding: 25px;
-            position: relative;
-            z-index: 10;
+            margin-top: -30px; background: #fff; border-radius: 30px 30px 0 0;
+            padding: 25px; position: relative; z-index: 10;
         }
 
-        .title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .title h2 {
-            color: #0F766E;
-            font-size: 22px;
-            text-transform: capitalize;
-        }
-
-        .price {
-            font-size: 22px;
-            font-weight: 700;
-            color: #0F766E;
-        }
+        .title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .title h2 { color: #0F766E; font-size: 22px; text-transform: capitalize; }
+        .price { font-size: 22px; font-weight: 700; color: #0F766E; }
 
         .location {
-            color: #6B7280;
-            font-size: 14px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: #6B7280; font-size: 14px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 5px;
         }
 
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .badge {
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
+        .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .badge { padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
         .badge.verified { background: #DCFCE7; color: #166534; }
         .badge.pending { background: #FEF3C7; color: #92400E; }
         .badge.info { background: #DBEAFE; color: #1E40AF; }
 
-        .section {
-            margin-top: 25px;
-        }
-
+        .section { margin-top: 25px; }
         .section h3 {
-            margin-bottom: 12px;
-            color: #0F766E;
-            font-size: 16px;
-            border-bottom: 1px solid #ECECEC;
-            padding-bottom: 8px;
+            margin-bottom: 12px; color: #0F766E; font-size: 16px;
+            border-bottom: 1px solid #ECECEC; padding-bottom: 8px;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .info {
-            background: #F8FAFC;
-            padding: 18px;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .info h4 {
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: #6B7280;
-        }
-
-        .info p {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1F2937;
-            text-transform: capitalize;
-        }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .info { background: #F8FAFC; padding: 18px; border-radius: 16px; text-align: center; }
+        .info h4 { margin-bottom: 6px; font-size: 13px; color: #6B7280; }
+        .info p { font-size: 16px; font-weight: 600; color: #1F2937; text-transform: capitalize; }
 
         .supplier {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: #F8FAFC;
-            padding: 18px;
-            border-radius: 18px;
+            display: flex; align-items: center; gap: 15px;
+            background: #F8FAFC; padding: 18px; border-radius: 18px;
         }
-
         .supplier .avatar-placeholder {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #0F766E;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 600;
+            width: 50px; height: 50px; border-radius: 50%; background: #0F766E;
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 600;
         }
+        .supplier h4 { margin-bottom: 2px; font-size: 15px; }
+        .supplier p { color: #6B7280; font-size: 13px; }
 
-        .supplier h4 {
-            margin-bottom: 2px;
-            font-size: 15px;
-        }
-
-        .supplier p {
-            color: #6B7280;
-            font-size: 13px;
-        }
-
-        .description {
-            line-height: 1.7;
-            color: #4B5563;
-            font-size: 14px;
-        }
+        .description { line-height: 1.7; color: #4B5563; font-size: 14px; }
 
         .actions {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #fff;
-            padding: 18px;
-            display: flex;
-            gap: 15px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
-            z-index: 100;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #fff;
+            padding: 18px; display: flex; gap: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,.08); z-index: 100;
         }
-
         .actions button, .actions a {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            transition: 0.3s;
+            flex: 1; padding: 15px; border: none; border-radius: 14px;
+            font-size: 16px; font-weight: 600; cursor: pointer; text-decoration: none;
+            text-align: center; transition: 0.3s;
         }
-
-        .secondary {
-            background: #E5E7EB;
-            color: #111827;
-        }
+        .secondary { background: #E5E7EB; color: #111827; }
         .secondary:hover { background: #D1D5DB; }
-
-        .primary {
-            background: #0F766E;
-            color: #fff;
-        }
+        .primary { background: #0F766E; color: #fff; }
         .primary:hover { background: #0D6B64; }
 
-        .loading-spinner {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6B7280;
-            background: white;
-            min-height: 100vh;
-        }
-        .loading-spinner i {
-            font-size: 40px;
-            color: #0F766E;
-            margin-bottom: 15px;
-        }
+        .loading-spinner { text-align: center; padding: 60px 20px; color: #6B7280; background: white; min-height: 100vh; }
+        .loading-spinner i { font-size: 40px; color: #0F766E; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -255,7 +112,9 @@
 
     <div id="mainContent" style="display:none;">
         <div class="header">
-            <img id="listingImage" src="../assets/images/cattle.jpg" alt="Livestock">
+            <div id="listingImage" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#ECECEC;">
+                <i class="fa-solid fa-cow" style="font-size:80px; color:#D1D5DB;"></i>
+            </div>
             <a href="marketplace.html" class="back">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
@@ -328,8 +187,9 @@
     <script type="module">
         import { supabase } from '../assets/js/supabase-client.js';
 
+        // FIX: Look for 'item' in the URL to match marketplace.html
         const urlParams = new URLSearchParams(window.location.search);
-        const itemId = urlParams.get('id');
+        const itemId = urlParams.get('item');
 
         async function loadListing() {
             if (!itemId) {
@@ -364,9 +224,10 @@
             document.getElementById('loadingScreen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
 
-            // Image
+            // FIX: Handle Image safely without 404s
+            const imageContainer = document.getElementById('listingImage');
             if (item.images && item.images.length > 0) {
-                document.getElementById('listingImage').src = item.images[0];
+                imageContainer.innerHTML = `<img src="${item.images[0]}" alt="${item.breed}" style="width:100%; height:100%; object-fit:cover;">`;
             }
 
             // Text
