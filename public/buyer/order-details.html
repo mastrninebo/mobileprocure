@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #F5F7FA; color: #1F2937; padding-bottom: 100px; }
+        
+        header {
+            background: white; padding: 20px; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05); position: sticky; top: 0; z-index: 100;
+        }
+        header a { color: #0F766E; font-size: 20px; text-decoration: none; }
+        header h2 { font-size: 20px; color: #0F766E; }
+
+        .container { padding: 20px; }
+
+        .card {
+            background: white; padding: 20px; border-radius: 18px; margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
+        .card h3 { color: #0F766E; margin-bottom: 18px; font-size: 16px; border-bottom: 1px solid #ECECEC; padding-bottom: 10px; }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .info { background: #F8FAFC; padding: 14px; border-radius: 12px; }
+        .info small { display: block; color: #6B7280; margin-bottom: 6px; font-size: 12px; }
+        .info strong { font-size: 14px; }
+
+        .status-badge {
+            display: inline-block; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600;
+            margin-top: 10px; text-transform: capitalize;
+        }
+        .status-badge.pending { background: #FEF3C7; color: #92400E; }
+        .status-badge.confirmed, .status-badge.escrow_funded, .status-badge.shipped { background: #DBEAFE; color: #1D4ED8; }
+        .status-badge.completed, .status-badge.delivered { background: #DCFCE7; color: #166534; }
+        .status-badge.cancelled, .status-badge.disputed { background: #FEE2E2; color: #DC2626; }
+
+        .timeline { position: relative; padding-left: 25px; margin-top: 10px; }
+        .timeline::before { content: ""; position: absolute; left: 7px; top: 0; bottom: 0; width: 3px; background: #E5E7EB; }
+        .step { position: relative; margin-bottom: 25px; }
+        .step:last-child { margin-bottom: 0; }
+        .step::before {
+            content: ""; position: absolute; left: -22px; top: 4px; width: 15px; height: 15px;
+            background: #D1D5DB; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px #D1D5DB;
+        }
+        .step.completed::before { background: #0F766E; box-shadow: 0 0 0 1px #0F766E; }
+        .step small { display: block; margin-top: 5px; color: #6B7280; font-size: 12px; }
+        .step strong { font-size: 14px; color: #1F2937; }
+        .step.pending strong { color: #9CA3AF; }
+
+        .btn {
+            display: block; text-align: center; padding: 14px; background: #0F766E; color: white;
+            text-decoration: none; border-radius: 12px; font-weight: 600; transition: 0.3s;
+        }
+        .btn:hover { background: #0D6B64; }
+
+        .loading-spinner { text-align: center; padding: 60px 20px; color: #6B7280; }
+        .loading-spinner i { font-size: 40px; color: #0F766E; margin-bottom: 15px; }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around;
+            padding: 15px 0; box-shadow: 0 -5px 20px rgba(0,0,0,.08); z-index: 1000;
+        }
+        .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 5px; text-decoration: none; font-size: 12px; color: #9CA3AF; }
+        .bottom-nav a.active { color: #0F766E; font-weight: 600; }
+        .bottom-nav i { font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- SESSION PROTECTION -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return window.location.href = '/login.html';
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error || !roles.map(r => r.role).includes('buyer')) return window.location.href = '/unauthorized.html';
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        await protectPage();
+    </script>
+
+    <header>
+        <a href="orders.html"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2>Order Details</h2>
+    </header>
+
+    <div class="container">
+        <div id="detailsContainer">
+            <div class="loading-spinner">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading order details...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="marketplace.html"><i class="fa-solid fa-store"></i> Marketplace</a>
+        <a href="orders.html" class="active"><i class="fa-solid fa-box"></i> Orders</a>
+        <a href="catalog.html"><i class="fa-solid fa-book"></i> Catalog</a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+    </div>
+
+    <script type="module">
+        import { supabase } from '../assets/js/supabase-client.js';
+
+        const detailsContainer = document.getElementById('detailsContainer');
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id');
+
+        async function loadOrderDetails() {
+            if (!orderId) {
+                detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">No Order ID provided.</p>`;
+                return;
+            }
+
+            try {
+                const { data: order, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, total_amount, created_at, destination_address,
+                        supplier:supplier_id ( full_name, company_name )
+                    `)
+                    .eq('id', orderId)
+                    .maybeSingle();
+
+                if (error) throw error;
+                if (!order) {
+                    detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Order not found.</p>`;
+                    return;
+                }
+
+                renderOrder(order);
+
+            } catch (error) {
+                console.error('Error loading order details:', error);
+                detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading details.</p>`;
+            }
+        }
+
+        function renderOrder(order) {
+            const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Unknown Supplier';
+            const status = order.status || 'pending';
+            const date = new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            // Dynamic Timeline
+            const steps = [
+                { label: 'Order Placed', date: date, completed: true },
+                { label: 'Escrow Funded', date: ['escrow_funded', 'shipped', 'delivered', 'completed'].includes(status) ? 'Funds Secured' : 'Pending', completed: ['escrow_funded', 'shipped', 'delivered', 'completed'].includes(status) },
+                { label: 'Supplier Processing', date: ['shipped', 'delivered', 'completed'].includes(status) ? 'Completed' : (status === 'escrow_funded' ? 'In Progress' : 'Pending'), completed: ['shipped', 'delivered', 'completed'].includes(status) },
+                { label: 'Out for Delivery', date: ['delivered', 'completed'].includes(status) ? 'Shipped' : 'Pending', completed: ['delivered', 'completed'].includes(status) },
+                { label: 'Delivered', date: status === 'completed' ? 'Completed' : 'Pending', completed: status === 'completed' }
+            ];
+
+            const timelineHtml = steps.map(step => `
+                <div class="step ${step.completed ? 'completed' : 'pending'}">
+                    <strong>${step.label}</strong>
+                    <small>${step.date}</small>
+                </div>
+            `).join('');
+
+            detailsContainer.innerHTML = `
+                <div class="card">
+                    <h3>Order Information</h3>
+                    <div class="grid">
+                        <div class="info">
+                            <small>Order Number</small>
+                            <strong>${order.order_number || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Supplier</small>
+                            <strong>${supplierName}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Destination</small>
+                            <strong>${order.destination_address || 'N/A'}</strong>
+                        </div>
+                        <div class="info">
+                            <small>Total Amount</small>
+                            <strong>$${Number(order.total_amount || 0).toLocaleString()}</strong>
+                        </div>
+                        <div class="info" style="grid-column: span 2;">
+                            <small>Current Status</small>
+                            <div class="status-badge ${status}">${status.replace('_', ' ')}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Order Timeline</h3>
+                    <div class="timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+
+                ${status === 'completed' ? `
+                    <a href="#" class="btn" style="background:#16A34A;">
+                        <i class="fa-solid fa-star"></i> Rate Supplier
+                    </a>
+                ` : `
+                    <a href="#" class="btn" style="background:#DC2626;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Report an Issue
+                    </a>
+                `}
+            `;
+        }
+
+        loadOrderDetails();
+    </script>
+</body>
+</html>

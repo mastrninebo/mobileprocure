@@ -250,21 +250,23 @@
     <script type="module">
         import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
+        // BULLETPROOF RPC SESSION PROTECTION
         async function protectPage() {
             try {
                 const user = await getCurrentUser();
                 if (!user || !user.profile) {
-                    window.location.href = '/mobileprocure/login.html';
+                    window.location.href = '/login.html';
                     return;
                 }
-                if (user.profile.role !== 'buyer') {
-                    window.location.href = '/mobileprocure/unauthorized.html';
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error || !roles.map(r => r.role).includes('buyer')) {
+                    window.location.href = '/unauthorized.html';
                     return;
                 }
                 window.currentUser = user;
             } catch (error) {
                 console.error('Auth check error:', error);
-                window.location.href = '/mobileprocure/login.html';
+                window.location.href = '/login.html';
             }
         }
 
@@ -276,9 +278,10 @@
         let orders = [];
         let activeStatus = 'all';
 
+        // FIX: Changed back to USD to match the rest of the platform
         function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-ZM', {
-                style: 'currency', currency: 'ZMW', maximumFractionDigits: 2
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency', currency: 'USD', maximumFractionDigits: 2
             }).format(Number(amount || 0));
         }
 
@@ -351,7 +354,7 @@
                 const fields = [
                     ['Supplier', supplierName],
                     ['Total', formatCurrency(order.total_amount)],
-                    ['Order Date', order.order_date ? new Date(order.order_date).toLocaleDateString('en-ZM') : '—'],
+                    ['Order Date', order.order_date ? new Date(order.order_date).toLocaleDateString('en-US') : '—'],
                     ['Escrow', order.status === 'completed' || order.status === 'delivered' ? 'Released' : 'Protected']
                 ];
                 fields.forEach(([label, value]) => {
@@ -371,10 +374,13 @@
                 tracking.className = 'primary';
                 tracking.href = `tracking.html?order=${encodeURIComponent(order.id)}`;
                 tracking.textContent = 'Track Shipment';
+                
+                // FIX: Changed to point to order-details.html instead of order-review.html
                 const details = document.createElement('a');
                 details.className = 'secondary';
-                details.href = `order-review.html?order=${encodeURIComponent(order.id)}`;
+                details.href = `order-details.html?id=${encodeURIComponent(order.id)}`;
                 details.textContent = 'View Details';
+                
                 actions.append(tracking, details);
                 card.append(top, info, actions);
                 ordersContainer.append(card);
