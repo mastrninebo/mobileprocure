@@ -119,6 +119,7 @@
             align-items: flex-end;
             justify-content: center;
         }
+        .modal-overlay.center { align-items: center; }
 
         .modal-overlay.active { display: flex; }
 
@@ -130,10 +131,20 @@
             padding: 20px 20px 40px 20px;
             animation: slideUp 0.3s ease-out;
         }
+        .modal-sheet.center {
+            border-radius: 24px;
+            max-width: 400px;
+            padding: 30px;
+            animation: zoomIn 0.3s ease-out;
+        }
 
         @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .sheet-header {
@@ -143,7 +154,6 @@
             color: #1F2937;
             position: relative;
         }
-        
         .sheet-close {
             position: absolute;
             right: 0;
@@ -175,25 +185,55 @@
             font-weight: 500;
             color: #1F2937;
             transition: 0.2s;
+            text-decoration: none;
         }
+        .sheet-option:hover { background: #F3F4F6; }
+        .sheet-option i { width: 24px; text-align: center; font-size: 18px; color: #0F766E; }
+        .sheet-option.danger { color: #DC2626; }
+        .sheet-option.danger i { color: #DC2626; }
 
-        .sheet-option:hover {
-            background: #F3F4F6;
+        .delete-icon {
+            width: 70px;
+            height: 70px;
+            background: #FEE2E2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
         }
+        .delete-icon i { font-size: 30px; color: #DC2626; }
 
-        .sheet-option i {
-            width: 24px;
-            text-align: center;
-            font-size: 18px;
-            color: #0F766E;
-        }
+        .delete-text { text-align: center; margin-bottom: 25px; }
+        .delete-text h3 { font-size: 18px; color: #1F2937; margin-bottom: 8px; }
+        .delete-text p { font-size: 14px; color: #6B7280; line-height: 1.5; }
 
-        .sheet-option.danger {
-            color: #DC2626;
+        .delete-actions { display: flex; gap: 12px; }
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #E5E7EB;
+            background: white;
+            color: #374151;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .sheet-option.danger i {
-            color: #DC2626;
+        .btn-cancel:hover { background: #F9FAFB; }
+        .btn-confirm-delete {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: #DC2626;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
+        .btn-confirm-delete:hover { background: #B91C1C; }
+        .btn-confirm-delete:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* Toast */
         .toast {
@@ -289,10 +329,27 @@
                 <span id="toggleText">Mark as Unavailable</span>
             </button>
 
-            <button class="sheet-option danger" onclick="deleteListing()">
+            <button class="sheet-option danger" onclick="openDeleteConfirm()">
                 <i class="fa-solid fa-trash"></i>
                 Delete Listing Permanently
             </button>
+        </div>
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="modal-overlay center" id="deleteConfirmModal">
+        <div class="modal-sheet center">
+            <div class="delete-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="delete-text">
+                <h3>Delete Listing?</h3>
+                <p>Are you absolutely sure you want to permanently delete this listing? This action cannot be undone.</p>
+            </div>
+            <div class="delete-actions">
+                <button class="btn-cancel" onclick="closeDeleteConfirm()">Cancel</button>
+                <button class="btn-confirm-delete" id="confirmDeleteBtn" onclick="deleteListing()">Yes, Delete</button>
+            </div>
         </div>
     </div>
 
@@ -312,10 +369,12 @@
 
         const detailsContainer = document.getElementById('detailsContainer');
         const manageModal = document.getElementById('manageModal');
+        const deleteModal = document.getElementById('deleteConfirmModal');
         const toggleBtn = document.getElementById('toggleAvailabilityBtn');
         const toggleText = document.getElementById('toggleText');
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toastMessage');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
 
         const urlParams = new URLSearchParams(window.location.search);
         const itemId = urlParams.get('id');
@@ -436,6 +495,22 @@
             if (e.target === manageModal) window.closeManageModal();
         });
 
+        // Delete Modal Controls
+        window.openDeleteConfirm = () => {
+            window.closeManageModal(); // Close the manage sheet first
+            deleteModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeDeleteConfirm = () => {
+            deleteModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) window.closeDeleteConfirm();
+        });
+
         // Toggle Availability
         window.toggleAvailability = async () => {
             if (!currentItem) return;
@@ -463,11 +538,12 @@
             }
         };
 
-        // Delete Listing
+        // Delete Listing Logic
         window.deleteListing = async () => {
             if (!currentItem) return;
 
-            if (!confirm('Are you absolutely sure you want to permanently delete this listing? This action cannot be undone.')) return;
+            confirmDeleteBtn.disabled = true;
+            confirmDeleteBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting...';
 
             try {
                 const { error } = await supabase
@@ -477,7 +553,9 @@
 
                 if (error) throw error;
 
+                window.closeDeleteConfirm();
                 showToast('Listing deleted successfully. Redirecting...', 'success');
+                
                 setTimeout(() => {
                     window.location.href = 'inventory.html';
                 }, 1500);
@@ -485,6 +563,8 @@
             } catch (error) {
                 console.error('Error deleting listing:', error);
                 showToast('Error deleting listing: ' + error.message, 'error');
+                confirmDeleteBtn.disabled = false;
+                confirmDeleteBtn.textContent = 'Yes, Delete';
             }
         };
 
