@@ -412,7 +412,8 @@
                 showToast('Order placed successfully! Escrow initiated.', 'success');
                 
                 setTimeout(() => {
-                    window.location.href = 'payment-success.html';
+                    // FIX: Pass the orderNumber to the URL
+                    window.location.href = `payment-success.html?order=${orderNumber}`;
                 }, 1500);
 
             } catch (error) {

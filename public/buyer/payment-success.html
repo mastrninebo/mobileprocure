@@ -1,195 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Payment Success | Mobile Procure</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="icon" href="../assets/images/logo.png" type="image/png">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#F5F7FA;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding:20px;
-text-align:center;
-color:#1F2937;
-}
-
-.card{
-
-background:white;
-
-padding:40px 25px;
-
-border-radius:25px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-max-width:420px;
-
-width:100%;
-
-}
-
-.icon{
-
-width:90px;
-
-height:90px;
-
-background:#DCFCE7;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-margin:0 auto 20px;
-
-color:#16A34A;
-
-font-size:40px;
-
-}
-
-h1{
-
-font-size:26px;
-
-color:#0F766E;
-
-margin-bottom:10px;
-
-}
-
-p{
-
-color:#6B7280;
-
-font-size:15px;
-
-line-height:1.6;
-
-margin-bottom:25px;
-
-}
-
-.order{
-
-background:#F8FAFC;
-
-padding:15px;
-
-border-radius:15px;
-
-margin-bottom:25px;
-
-}
-
-.order h4{
-
-color:#111827;
-
-margin-bottom:5px;
-
-}
-
-.order span{
-
-color:#0F766E;
-
-font-weight:600;
-
-}
-
-.btn{
-
-display:block;
-
-width:100%;
-
-padding:15px;
-
-background:#0F766E;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:14px;
-
-font-weight:600;
-
-margin-top:10px;
-
-}
-
-.secondary{
-
-background:#E5E7EB;
-
-color:#111827;
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success | Mobile Procure</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body {
+            background: #F5F7FA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            color: #1F2937;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+            background: #DCFCE7;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            color: #16A34A;
+            font-size: 40px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #0F766E;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #6B7280;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .order {
+            background: #F8FAFC;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px dashed #E5E7EB;
+        }
+
+        .order h4 {
+            color: #6B7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .order span {
+            color: #0F766E;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #0F766E;
+            color: white;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #0D6B64; }
+
+        .secondary {
+            background: #E5E7EB;
+            color: #111827;
+        }
+        .secondary:hover { background: #D1D5DB; }
+    </style>
 </head>
-
 <body>
 
-<script type="module">
-    import { requireBuyer } from '../assets/js/buyer-page.js';
-    await requireBuyer();
-</script>
+    <!-- SESSION PROTECTION SCRIPT -->
+    <script type="module">
+        import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
+        async function protectPage() {
+            try {
+                const user = await getCurrentUser();
+                if (!user || !user.profile) return window.location.href = '/login.html';
+                const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
+                if (error || !roles.map(r => r.role).includes('buyer')) return window.location.href = '/unauthorized.html';
+                window.currentUser = user;
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
+            }
+        }
+        await protectPage();
+    </script>
 
-<div class="card">
+    <div class="card">
+        <div class="icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h1>Payment Secured in Escrow</h1>
+        <p>
+            Your funds have been successfully locked and are now held securely. The supplier will be notified immediately to begin preparation and logistics.
+        </p>
+        
+        <div class="order">
+            <h4>Order Reference</h4>
+            <span id="orderNumber">N/A</span>
+        </div>
 
-<div class="icon">
-<i class="fa-solid fa-circle-check"></i>
-</div>
+        <a href="orders.html" class="btn">View My Orders</a>
+        <a href="dashboard.html" class="btn secondary">Back to Dashboard</a>
+    </div>
 
-<h1>Payment Secured in Escrow</h1>
+    <script type="module">
+        // Get Order Number from URL (?order=MP-2026-001)
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNum = urlParams.get('order');
 
-<p>
-Your funds have been successfully locked and are now held securely.
-The supplier will be notified to begin preparation and logistics.
-</p>
-
-<div class="order">
-
-<h4>Order Reference</h4>
-<span>MP-2026-000128</span>
-
-</div>
-
-<a href="orders.html" class="btn">
-View My Orders
-</a>
-
-<a href="dashboard.html" class="btn secondary">
-Back to Dashboard
-</a>
-
-</div>
-
+        if (orderNum) {
+            document.getElementById('orderNumber').textContent = orderNum;
+        }
+    </script>
 </body>
 </html>
