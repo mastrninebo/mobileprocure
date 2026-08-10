@@ -365,7 +365,7 @@
                         supplier_id: currentItem.supplier_id,
                         total_amount: totalAmount,
                         destination_address: destination,
-                        delivery_address: destination, // <-- Added this to satisfy the NOT NULL constraint
+                        delivery_address: destination,
                         status: 'pending' // Starts as pending
                     }])
                     .select();
@@ -373,20 +373,36 @@
                 if (orderError) throw orderError;
                 const newOrderId = orderData[0].id;
 
-                // 2. Create Escrow Transaction
+                // 2. Create Escrow Account (The wallet for this order)
+                const { data: escAccountData, error: escAccountError } = await supabase
+                    .from('escrow_accounts')
+                    .insert([{
+                        order_id: newOrderId,
+                        total_amount: totalAmount,
+                        status: 'funded' // Mark as funded since buyer is paying
+                    }])
+                    .select();
+
+                if (escAccountError) throw escAccountError;
+                const escrowAccountId = escAccountData[0].id;
+
+                // 3. Create Escrow Transaction (The ledger entry)
                 const { error: escError } = await supabase
                     .from('escrow_transactions')
                     .insert([{
+                        escrow_account_id: escrowAccountId, // Link to the account
                         order_id: newOrderId,
                         buyer_id: user.id,
                         supplier_id: currentItem.supplier_id,
+                        from_user_id: user.id, // Money from buyer
+                        type: 'escrow_funding', // Required by schema
                         amount: totalAmount,
-                        status: 'pending' // Pending until supplier accepts
+                        status: 'funded'
                     }]);
 
                 if (escError) throw escError;
 
-                // 3. (Optional) Decrement available inventory
+                // 4. (Optional) Decrement available inventory
                 const newQty = (currentItem.quantity - currentQuantity);
                 await supabase
                     .from('inventory_items')
