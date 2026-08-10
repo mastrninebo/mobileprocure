@@ -308,8 +308,8 @@
                     </div>
                 </div>
 
-                <button class="btn-submit" id="submitOrderBtn" onclick="submitOrder()">
-                    <i class="fa-solid fa-lock"></i> Confirm & Secure Funds
+                <button class="btn-submit" id="reviewOrderBtn" onclick="proceedToReview()">
+                    <i class="fa-solid fa-arrow-right"></i> Proceed to Review
                 </button>
             `;
 
@@ -339,88 +339,25 @@
             document.getElementById('grandTotal').textContent = `$${total.toLocaleString()}`;
         };
 
-        window.submitOrder = async () => {
-            const btn = document.getElementById('submitOrderBtn');
+        window.proceedToReview = async () => {
+            const btn = document.getElementById('reviewOrderBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Securing Funds...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
 
             try {
                 const user = await getCurrentUser();
                 if (!user) throw new Error("Session expired");
 
                 const destination = document.getElementById('destinationInput').value.trim() || 'N/A';
-                const subtotal = currentQuantity * parseFloat(currentItem.price_per_unit);
-                const fee = subtotal * 0.025;
-                const totalAmount = subtotal + fee;
 
-                // Generate Order Number
-                const orderNumber = `MP-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
-
-                // 1. Create Order
-                const { data: orderData, error: orderError } = await supabase
-                    .from('orders')
-                    .insert([{
-                        order_number: orderNumber,
-                        buyer_id: user.id,
-                        supplier_id: currentItem.supplier_id,
-                        total_amount: totalAmount,
-                        destination_address: destination,
-                        delivery_address: destination,
-                        status: 'pending' // Starts as pending
-                    }])
-                    .select();
-
-                if (orderError) throw orderError;
-                const newOrderId = orderData[0].id;
-
-                // 2. Create Escrow Account (The wallet for this order)
-                const { data: escAccountData, error: escAccountError } = await supabase
-                    .from('escrow_accounts')
-                    .insert([{
-                        order_id: newOrderId,
-                        total_amount: totalAmount,
-                        status: 'funded' // Mark as funded since buyer is paying
-                    }])
-                    .select();
-
-                if (escAccountError) throw escAccountError;
-                const escrowAccountId = escAccountData[0].id;
-
-                // 3. Create Escrow Transaction (The ledger entry)
-                const { error: escError } = await supabase
-                    .from('escrow_transactions')
-                    .insert([{
-                        escrow_account_id: escrowAccountId, // Link to the account
-                        order_id: newOrderId,
-                        buyer_id: user.id,
-                        supplier_id: currentItem.supplier_id,
-                        from_user_id: user.id, // Money from buyer
-                        type: 'escrow_funding', // Required by schema
-                        amount: totalAmount,
-                        status: 'funded'
-                    }]);
-
-                if (escError) throw escError;
-
-                // 4. (Optional) Decrement available inventory
-                const newQty = (currentItem.quantity - currentQuantity);
-                await supabase
-                    .from('inventory_items')
-                    .update({ quantity: Math.max(0, newQty) })
-                    .eq('id', currentItem.id);
-
-                showToast('Order placed successfully! Escrow initiated.', 'success');
-                
-                setTimeout(() => {
-                    // FIX: Pass the orderNumber to the URL
-                    window.location.href = `payment-success.html?order=${orderNumber}`;
-                }, 1500);
+                // Redirect to the review page with the data
+                window.location.href = `order-review.html?item=${currentItem.id}&qty=${currentQuantity}&dest=${encodeURIComponent(destination)}`;
 
             } catch (error) {
-                console.error('Order submission error:', error);
-                showToast('Error placing order: ' + error.message, 'error');
+                console.error('Error:', error);
+                showToast('Error: ' + error.message, 'error');
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-lock"></i> Confirm & Secure Funds';
+                btn.innerHTML = '<i class="fa-solid fa-arrow-right"></i> Proceed to Review';
             }
         };
 
