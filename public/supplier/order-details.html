@@ -10,267 +10,114 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: #F5F7FA;
-            color: #1F2937;
-            padding-bottom: 100px;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #F5F7FA; color: #1F2937; padding-bottom: 100px; }
+        
         header {
-            background: #fff;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: #fff; padding: 20px; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.05); position: sticky; top: 0; z-index: 100;
         }
+        header a { color: #0F766E; font-size: 20px; text-decoration: none; }
+        header h2 { font-size: 22px; }
 
-        header a {
-            color: #0F766E;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        header h2 {
-            font-size: 22px;
-        }
-
-        .container {
-            padding: 20px;
-        }
+        .container { padding: 20px; }
 
         .card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: #fff; border-radius: 20px; padding: 20px; margin-bottom: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,.05);
         }
+        .card h3 { margin-bottom: 18px; color: #0F766E; font-size: 18px; border-bottom: 1px solid #ECECEC; padding-bottom: 10px; }
 
-        .card h3 {
-            margin-bottom: 18px;
-            color: #0F766E;
-            font-size: 18px;
-            border-bottom: 1px solid #ECECEC;
-            padding-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .info {
-            background: #F8FAFC;
-            padding: 14px;
-            border-radius: 12px;
-        }
-
-        .info small {
-            display: block;
-            color: #6B7280;
-            margin-bottom: 5px;
-            font-size: 12px;
-        }
-
-        .info strong {
-            font-size: 14px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .info { background: #F8FAFC; padding: 14px; border-radius: 12px; }
+        .info small { display: block; color: #6B7280; margin-bottom: 5px; font-size: 12px; }
+        .info strong { font-size: 14px; }
 
         .status-badge {
-            display: inline-block;
-            padding: 8px 15px;
-            background: #DCFCE7;
-            color: #166534;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 20px;
-            margin-top: 8px;
-            text-transform: capitalize;
+            display: inline-block; padding: 8px 15px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            margin-top: 8px; text-transform: capitalize;
         }
-        
         .status-badge.processing { background: #FEF3C7; color: #92400E; }
         .status-badge.pending { background: #DBEAFE; color: #1D4ED8; }
         .status-badge.delivered { background: #DCFCE7; color: #166534; }
         .status-badge.completed { background: #D1FAE5; color: #065F46; }
         .status-badge.cancelled { background: #FEE2E2; color: #991B1B; }
 
-        .timeline {
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 7px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #E5E7EB;
-        }
-
-        .step {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .step:last-child {
-            margin-bottom: 0;
-        }
-
+        .timeline { position: relative; padding-left: 25px; }
+        .timeline::before { content: ""; position: absolute; left: 7px; top: 0; bottom: 0; width: 3px; background: #E5E7EB; }
+        .step { position: relative; margin-bottom: 25px; }
+        .step:last-child { margin-bottom: 0; }
         .step::before {
-            content: "";
-            position: absolute;
-            left: -22px;
-            top: 3px;
-            width: 15px;
-            height: 15px;
-            background: #D1D5DB;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            box-shadow: 0 0 0 1px #D1D5DB;
+            content: ""; position: absolute; left: -22px; top: 3px; width: 15px; height: 15px;
+            background: #D1D5DB; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px #D1D5DB;
         }
+        .step.completed::before { background: #0F766E; box-shadow: 0 0 0 1px #0F766E; }
+        .step small { color: #6B7280; display: block; margin-top: 3px; font-size: 12px; }
+        .step strong { font-size: 14px; color: #1F2937; }
+        .step.pending strong { color: #9CA3AF; }
 
-        .step.completed::before {
-            background: #0F766E;
-            box-shadow: 0 0 0 1px #0F766E;
-        }
-
-        .step small {
-            color: #6B7280;
-            display: block;
-            margin-top: 3px;
-            font-size: 12px;
-        }
-
-        .step strong {
-            font-size: 14px;
-            color: #1F2937;
-        }
-        
-        .step.pending strong {
-            color: #9CA3AF;
-        }
-
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .actions a, .actions button {
-            text-decoration: none;
-            text-align: center;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
+            text-decoration: none; text-align: center; padding: 16px; border-radius: 14px;
+            font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
+        .primary { background: #0F766E; color: white; }
+        .primary:hover { background: #0D6B64; }
+        .secondary { background: #E5E7EB; color: #111827; }
+        .secondary:hover { background: #D1D5DB; }
 
-        .primary {
-            background: #0F766E;
-            color: white;
-        }
+        .loading-spinner { text-align: center; padding: 60px 20px; color: #6B7280; }
+        .loading-spinner i { font-size: 40px; color: #0F766E; margin-bottom: 15px; }
 
-        .primary:hover {
-            background: #0D6B64;
-        }
-
-        .secondary {
-            background: #E5E7EB;
-            color: #111827;
-        }
-        
-        .secondary:hover {
-            background: #D1D5DB;
-        }
-
-        .loading-spinner {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6B7280;
-        }
-
-        .loading-spinner i {
-            font-size: 40px;
-            color: #0F766E;
-            margin-bottom: 15px;
-        }
-
-        /* Toast Notification */
+        /* TOAST */
         .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 14px 24px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 500;
-            font-size: 14px;
-            z-index: 3000;
-            animation: slideIn 0.3s ease;
-            display: none;
-            max-width: 400px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: fixed; top: 20px; right: 20px; padding: 14px 24px; border-radius: 12px;
+            color: white; font-weight: 500; font-size: 14px; z-index: 3000; animation: slideIn 0.3s ease;
+            display: none; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .toast.success { background: #065F46; }
         .toast.error { background: #991B1B; }
         .toast.show { display: block; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        /* LOGISTICS MODAL (Bottom Sheet) */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000;
+            align-items: flex-end; justify-content: center;
         }
+        .modal-overlay.active { display: flex; }
+        .modal-sheet {
+            background: white; width: 100%; max-width: 500px; border-radius: 24px 24px 0 0;
+            padding: 20px 20px 40px 20px; max-height: 80vh; overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .sheet-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB; padding-bottom: 15px;
+        }
+        .sheet-header h3 { font-size: 18px; color: #0F766E; }
+        .sheet-close {
+            background: #F3F4F6; border: none; width: 32px; height: 32px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .logistics-info { background: #F8FAFC; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+        .logistics-info div { margin-bottom: 12px; }
+        .logistics-info div:last-child { margin-bottom: 0; }
+        .logistics-info small { display: block; color: #6B7280; font-size: 12px; margin-bottom: 4px; }
+        .logistics-info strong { font-size: 15px; color: #1F2937; }
 
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
-            z-index: 1000;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around;
+            padding: 15px 0; box-shadow: 0 -5px 20px rgba(0,0,0,.08); z-index: 1000;
         }
-
-        .bottom-nav a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            text-decoration: none;
-            color: #9CA3AF;
-        }
-
-        .bottom-nav a.active {
-            color: #0F766E;
-            font-weight: 600;
-        }
-
-        .bottom-nav i {
-            font-size: 20px;
-        }
+        .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 12px; text-decoration: none; color: #9CA3AF; }
+        .bottom-nav a.active { color: #0F766E; font-weight: 600; }
+        .bottom-nav i { font-size: 20px; }
     </style>
 </head>
-
 <body>
 
     <!-- SESSION PROTECTION SCRIPT -->
@@ -321,32 +168,35 @@
         </div>
     </div>
 
+    <!-- Logistics Details Modal -->
+    <div class="modal-overlay" id="logisticsModal">
+        <div class="modal-sheet">
+            <div class="sheet-header">
+                <h3>Logistics Details</h3>
+                <button class="sheet-close" onclick="closeLogisticsModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="logisticsContent">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading tracking info...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast notification -->
     <div class="toast" id="toast">
         <span id="toastMessage"></span>
     </div>
 
     <div class="bottom-nav">
-        <a href="dashboard.html">
-            <i class="fa-solid fa-house"></i>
-            Home
-        </a>
-        <a href="inventory.html">
-            <i class="fa-solid fa-boxes-stacked"></i>
-            Inventory
-        </a>
-        <a href="orders.html" class="active">
-            <i class="fa-solid fa-clipboard-list"></i>
-            Orders
-        </a>
-        <a href="payments.html">
-            <i class="fa-solid fa-wallet"></i>
-            Escrow
-        </a>
-        <a href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            Profile
-        </a>
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="inventory.html"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+        <a href="orders.html" class="active"><i class="fa-solid fa-clipboard-list"></i> Orders</a>
+        <a href="payments.html"><i class="fa-solid fa-wallet"></i> Escrow</a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
     </div>
 
     <!-- MAIN SCRIPT -->
@@ -354,28 +204,26 @@
         import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
         const detailsContainer = document.getElementById('detailsContainer');
+        const logisticsModal = document.getElementById('logisticsModal');
+        const logisticsContent = document.getElementById('logisticsContent');
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toastMessage');
 
-        // Get Order ID from URL (?id=123)
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('id');
 
-        // Helper to format dates
         function formatDate(dateString) {
             if (!dateString) return 'N/A';
             const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
             return new Date(dateString).toLocaleDateString('en-US', options);
         }
 
-        // Show Toast
         function showToast(message, type = 'success') {
             toastMessage.textContent = message;
             toast.className = 'toast ' + type + ' show';
             setTimeout(() => { toast.classList.remove('show'); }, 4000);
         }
 
-        // Load Order Data
         async function loadOrderDetails() {
             if (!orderId) {
                 detailsContainer.innerHTML = `<p style="color:#DC2626;text-align:center;">No Order ID provided.</p>`;
@@ -383,7 +231,6 @@
             }
 
             try {
-                // FIX: Removed transporter_name, added logistics join
                 const { data: order, error } = await supabase
                     .from('orders')
                     .select(`
@@ -409,13 +256,12 @@
             }
         }
 
-        // Render HTML
         function renderOrder(order) {
             const buyerName = order.buyer?.company_name || order.buyer?.full_name || 'Unknown Buyer';
             const status = order.status || 'pending';
             const formattedDate = formatDate(order.order_date);
+            const transporterName = order.logistics?.company_name || order.logistics?.full_name || 'Unassigned';
 
-            // Dynamic Timeline based on status
             const steps = [
                 { label: 'Order Placed', date: formattedDate, completed: true },
                 { label: 'Escrow Funded', date: ['escrow_funded', 'shipped', 'delivered', 'completed'].includes(status) ? 'Funds Secured' : 'Pending', completed: ['escrow_funded', 'shipped', 'delivered', 'completed'].includes(status) },
@@ -431,12 +277,7 @@
                 </div>
             `).join('');
 
-            // Action button logic
             const showMarkReady = status === 'escrow_funded';
-            const showMarkShipped = status === 'confirmed' || status === 'escrow_funded'; // Assuming you mark it shipped/ready
-
-            // FIX: Read transporter from order.logistics
-            const transporterName = order.logistics?.company_name || order.logistics?.full_name || 'Unassigned';
 
             detailsContainer.innerHTML = `
                 <div class="card">
@@ -496,15 +337,14 @@
                             </button>
                         ` : ''}
                         
-                        <a href="../logistics/tracking.html?order_id=${order.id}" class="primary">
+                        <button class="primary" onclick="viewLogistics('${order.id}')">
                             <i class="fa-solid fa-route"></i><br><br>
                             View Logistics
-                        </a>
+                        </button>
                     </div>
                 </div>
             `;
 
-            // Attach event listener to the dynamic button
             const markReadyBtn = document.getElementById('markReadyBtn');
             if (markReadyBtn) {
                 markReadyBtn.addEventListener('click', async (e) => {
@@ -528,6 +368,77 @@
                 });
             }
         }
+
+        // LOGISTICS MODAL LOGIC
+        window.viewLogistics = async (id) => {
+            logisticsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            logisticsContent.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading tracking info...</p></div>';
+
+            try {
+                const { data: delivery, error } = await supabase
+                    .from('deliveries')
+                    .select(`
+                        tracking_number, status, current_location, estimated_delivery,
+                        logistics:logistics_provider_id ( full_name, company_name )
+                    `)
+                    .eq('order_id', id)
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (!delivery) {
+                    logisticsContent.innerHTML = `
+                        <div style="text-align:center; padding: 30px 0; color:#6B7280;">
+                            <i class="fa-solid fa-truck-fast" style="font-size:40px; margin-bottom:10px; display:block;"></i>
+                            <p>No logistics data found for this order yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const logName = delivery.logistics?.company_name || delivery.logistics?.full_name || 'Unassigned';
+                const eta = delivery.estimated_delivery ? formatDate(delivery.estimated_delivery) : 'N/A';
+
+                logisticsContent.innerHTML = `
+                    <div class="logistics-info">
+                        <div>
+                            <small>Transport Company</small>
+                            <strong>${logName}</strong>
+                        </div>
+                        <div>
+                            <small>Tracking Number</small>
+                            <strong>${delivery.tracking_number || 'N/A'}</strong>
+                        </div>
+                        <div>
+                            <small>Current Location</small>
+                            <strong>${delivery.current_location || 'Warehouse'}</strong>
+                        </div>
+                        <div>
+                            <small>Estimated Delivery</small>
+                            <strong>${eta}</strong>
+                        </div>
+                        <div>
+                            <small>Delivery Status</small>
+                            <strong style="text-transform:capitalize;">${delivery.status ? delivery.status.replace('_', ' ') : 'pending'}</strong>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error loading logistics:', error);
+                logisticsContent.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading tracking data.</p>`;
+            }
+        };
+
+        window.closeLogisticsModal = () => {
+            logisticsModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        logisticsModal.addEventListener('click', (e) => {
+            if (e.target === logisticsModal) window.closeLogisticsModal();
+        });
 
         // Initialize
         loadOrderDetails();
