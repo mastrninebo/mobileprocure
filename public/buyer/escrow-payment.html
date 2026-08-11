@@ -277,16 +277,16 @@
                     <h3 class="section-title">Payment Details</h3>
                     <div class="summary-row">
                         <span class="label">Subtotal</span>
-                        <span class="value">$${subtotal.toLocaleString()}</span>
+                        <span class="value">ZMW ${subtotal.toLocaleString()}</span>
                     </div>
                     <div class="summary-row">
                         <span class="label">Platform Fee (2.5%)</span>
-                        <span class="value">$${fee.toLocaleString()}</span>
+                        <span class="value">ZMW ${fee.toLocaleString()}</span>
                     </div>
                     <div class="total-card" style="margin-top: 15px;">
                         <div class="grand-total">
                             <span>Total to Pay</span>
-                            <span>$${totalAmount.toLocaleString()}</span>
+                            <span>ZMW ${totalAmount.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
@@ -406,7 +406,7 @@
                 console.error('Payment error:', error);
                 showToast('Payment failed: ' + error.message, 'error');
                 payBtn.disabled = false;
-                payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Confirm & Pay $${totalAmount.toLocaleString()}`;
+                payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Confirm & Pay ZMW ${totalAmount.toLocaleString()}`;
             }
         };
 

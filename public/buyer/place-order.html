@@ -274,7 +274,7 @@
                         <div>
                             <h3>${item.breed || 'Unknown Breed'}</h3>
                             <p>From: ${item.supplier?.company_name || item.supplier?.full_name || 'Unknown Supplier'}</p>
-                            <div class="price-per">$${Number(item.price_per_unit).toLocaleString()} / ${item.unit || 'head'}</div>
+                            <div class="price-per">ZMW ${Number(item.price_per_unit).toLocaleString()} / ${item.unit || 'head'}</div>
                         </div>
                     </div>
 
@@ -296,15 +296,15 @@
                 <div class="total-card">
                     <div class="total-row">
                         <span>Subtotal</span>
-                        <span id="subtotal">$0</span>
+                        <span id="subtotal">ZMW 0</span>
                     </div>
                     <div class="total-row">
                         <span>Platform Fee (2.5%)</span>
-                        <span id="fee">$0</span>
+                        <span id="fee">ZMW 0</span>
                     </div>
                     <div class="grand-total">
                         <span>Total to Escrow</span>
-                        <span id="grandTotal">$0</span>
+                        <span id="grandTotal">ZMW 0</span>
                     </div>
                 </div>
 
@@ -334,9 +334,9 @@
             const fee = subtotal * 0.025;
             const total = subtotal + fee;
 
-            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
-            document.getElementById('fee').textContent = `$${fee.toLocaleString()}`;
-            document.getElementById('grandTotal').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('subtotal').textContent = `ZMW ${subtotal.toLocaleString()}`;
+            document.getElementById('fee').textContent = `ZMW ${fee.toLocaleString()}`;
+            document.getElementById('grandTotal').textContent = `ZMW ${total.toLocaleString()}`;
         };
 
         window.proceedToReview = async () => {

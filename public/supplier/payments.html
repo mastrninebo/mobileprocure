@@ -372,7 +372,12 @@
 
         // Format Currency
         function formatCurrency(amount) {
-            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'ZMW',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(Number(amount || 0));
         }
 
         // Load Wallet Data
@@ -500,7 +505,7 @@
             }
 
             // Define CSV headers
-            const headers = ['Order Number', 'Buyer', 'Date', 'Status', 'Amount (USD)'];
+            const headers = ['Order Number', 'Buyer', 'Date', 'Status', 'Amount (ZMW)'];
             
             // Map data to CSV rows
             const rows = orders.map(order => {

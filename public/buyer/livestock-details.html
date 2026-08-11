@@ -123,7 +123,7 @@
         <div class="content">
             <div class="title">
                 <h2 id="breed">Loading...</h2>
-                <div class="price" id="price">$0</div>
+                <div class="price" id="price">ZMW 0</div>
             </div>
             <div class="location">
                 <i class="fa-solid fa-location-dot"></i>
@@ -232,7 +232,7 @@
 
             // Text
             document.getElementById('breed').textContent = item.breed || 'Unknown Breed';
-            document.getElementById('price').textContent = `$${Number(item.price_per_unit || 0).toLocaleString()} / ${item.unit || 'head'}`;
+            document.getElementById('price').textContent = `ZMW ${Number(item.price_per_unit || 0).toLocaleString()} / ${item.unit || 'head'}`;
             document.getElementById('location').textContent = item.location_name || 'Location not specified';
             document.getElementById('category').textContent = item.category || 'N/A';
             document.getElementById('quantity').textContent = `${item.quantity || 0} ${item.unit || 'Head'}`;

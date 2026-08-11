@@ -670,7 +670,7 @@
                     const active = escrows.filter(e => ['funded', 'pending'].includes(e.status)).length;
                     const disputed = escrows.filter(e => e.status === 'disputed').length;
                     
-                    txVolume.textContent = `$${volume.toLocaleString()}`;
+                    txVolume.textContent = `ZMW ${volume.toLocaleString()}`;
                     activeEscrows.textContent = active;
                     openDisputes.textContent = disputed;
                 }
@@ -931,7 +931,7 @@
         <!-- Stats -->
         <div class="stats">
             <div class="stat">
-                <h3 id="txVolume">$0</h3>
+                <h3 id="txVolume">ZMW 0</h3>
                 <p>Volume Processed</p>
             </div>
             <div class="stat">

@@ -334,7 +334,7 @@
 
     <div class="hero">
         <small>Settlement Overview</small>
-        <h2 id="totalSettled">$0</h2>
+        <h2 id="totalSettled">ZMW 0</h2>
         <p>Total funds settled this quarter</p>
     </div>
 
@@ -342,7 +342,7 @@
         
         <div class="summary">
             <div class="card">
-                <h3 id="statTotal">$0</h3>
+                <h3 id="statTotal">ZMW 0</h3>
                 <p>Total Settled</p>
             </div>
             <div class="card">
@@ -435,8 +435,8 @@
                 const totalCount = allSettlements.length;
                 const successRate = totalCount > 0 ? ((totalCount / (totalCount + (failedCount || 0))) * 100).toFixed(1) : 100;
 
-                document.getElementById('totalSettled').textContent = `$${totalAmount.toLocaleString()}`;
-                document.getElementById('statTotal').textContent = `$${totalAmount.toLocaleString()}`;
+                document.getElementById('totalSettled').textContent = `ZMW ${totalAmount.toLocaleString()}`;
+                document.getElementById('statTotal').textContent = `ZMW ${totalAmount.toLocaleString()}`;
                 document.getElementById('statCount').textContent = totalCount;
                 document.getElementById('statRate').textContent = `${successRate}%`;
 
@@ -473,7 +473,7 @@
                             <span class="order">${tx.order?.order_number || 'N/A'}</span>
                             <span class="badge">Completed</span>
                         </div>
-                        <div class="amount">$${Number(tx.amount).toLocaleString()}</div>
+                        <div class="amount">ZMW ${Number(tx.amount).toLocaleString()}</div>
                         <p><strong>Buyer:</strong> ${buyerName}</p>
                         <p><strong>Supplier:</strong> ${supplierName}</p>
                         <p><strong>Settlement Date:</strong> ${date}</p>

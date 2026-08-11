@@ -284,7 +284,7 @@
 
     <div class="hero">
         <small>Transaction Overview</small>
-        <h2 id="totalVolume">$0</h2>
+        <h2 id="totalVolume">ZMW 0</h2>
         <p>Total transaction volume processed</p>
     </div>
 
@@ -349,7 +349,7 @@
 
         // Helper: Format Currency
         function formatCurrency(amount) {
-            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            return `ZMW ${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
         }
 
         // Load Transactions

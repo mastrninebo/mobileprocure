@@ -299,15 +299,15 @@
         <div class="kpi-grid">
             <div class="kpi-card">
                 <h4>Gross Volume</h4>
-                <h2 id="kpiGross">$0</h2>
+                <h2 id="kpiGross">ZMW 0</h2>
             </div>
             <div class="kpi-card">
                 <h4>VAT (16%)</h4>
-                <h2 id="kpiVat">$0</h2>
+                <h2 id="kpiVat">ZMW 0</h2>
             </div>
             <div class="kpi-card">
                 <h4>Net Payouts</h4>
-                <h2 id="kpiNet">$0</h2>
+                <h2 id="kpiNet">ZMW 0</h2>
             </div>
         </div>
 
@@ -371,7 +371,12 @@
 
         // Helper: Format Currency
         function formatCurrency(amount) {
-            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'ZMW',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(Number(amount || 0));
         }
 
         // Load Data
@@ -491,7 +496,7 @@
             }
 
             const rows = [
-                ["Order Number", "Buyer", "Date", "Gross Amount (USD)", "VAT 16% (USD)", "Net Amount (USD)"]
+                ["Order Number", "Buyer", "Date", "Gross Amount (ZMW)", "VAT 16% (ZMW)", "Net Amount (ZMW)"]
             ];
 
             currentFilteredOrders.forEach(o => {

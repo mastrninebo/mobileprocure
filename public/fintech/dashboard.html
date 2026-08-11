@@ -354,7 +354,7 @@
 
     <div class="hero">
         <small>Escrow Management</small>
-        <h2 id="totalFunds">$0</h2>
+        <h2 id="totalFunds">ZMW 0</h2>
         <p id="fundsSummary">Total funds processed this month</p>
     </div>
 
@@ -363,12 +363,12 @@
         <div class="stats">
             <div class="stat-card">
                 <i class="fa-solid fa-vault"></i>
-                <h3 id="fundsLocked">$0</h3>
+                <h3 id="fundsLocked">ZMW 0</h3>
                 <p>Funds Locked</p>
             </div>
             <div class="stat-card">
                 <i class="fa-solid fa-money-bill-transfer"></i>
-                <h3 id="fundsReleased">$0</h3>
+                <h3 id="fundsReleased">ZMW 0</h3>
                 <p>Funds Released</p>
             </div>
             <div class="stat-card">
@@ -607,7 +607,7 @@
                     </div>
                     <p><strong>Buyer:</strong> ${buyerName}</p>
                     <p><strong>Supplier:</strong> ${supplierName}</p>
-                    <p><strong>Amount:</strong> <span class="amount">$${tx.amount?.toLocaleString() || '0'}</span></p>
+                    <p><strong>Amount:</strong> <span class="amount">ZMW ${tx.amount?.toLocaleString() || '0'}</span></p>
                     <p style="font-size:12px;color:#9CA3AF;margin-top:5px;">
                         ${new Date(tx.created_at).toLocaleDateString()} • ${new Date(tx.created_at).toLocaleTimeString()}
                     </p>

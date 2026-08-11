@@ -359,7 +359,7 @@
     <!-- ESCROW BALANCE -->
     <div class="balance">
         <small>Escrow Balance</small>
-        <h2 id="escrowBalance">$0.00</h2>
+        <h2 id="escrowBalance">ZMW 0.00</h2>
         <p id="escrowStatus">Funds currently secured in escrow.</p>
         <button id="walletBtn">View Wallet</button>
     </div>
@@ -622,7 +622,7 @@
                 orderDiv.innerHTML = `
                     <div>
                         <h4>${order.order_number || 'Order'}</h4>
-                        <p>${supplierName} • $${order.total_amount?.toLocaleString() || '0'}</p>
+                        <p>${supplierName} • ZMW ${order.total_amount?.toLocaleString() || '0'}</p>
                     </div>
                     <div class="status ${statusClass}">
                         ${order.status || 'pending'}

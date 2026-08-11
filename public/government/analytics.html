@@ -277,7 +277,7 @@
         <div class="kpi-grid">
             <div class="kpi-card">
                 <h4>Total Trade Volume</h4>
-                <h2 id="kpiVolume">$0</h2>
+                <h2 id="kpiVolume">ZMW 0</h2>
                 <p>All completed sales</p>
             </div>
             <div class="kpi-card">
@@ -292,7 +292,7 @@
             </div>
             <div class="kpi-card">
                 <h4>Avg. Order Value</h4>
-                <h2 id="kpiAov">$0</h2>
+                <h2 id="kpiAov">ZMW 0</h2>
                 <p>Per transaction</p>
             </div>
         </div>
@@ -359,7 +359,7 @@
 
         // Helper to format currency
         function formatCurrency(amount) {
-            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            return `ZMW ${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
         }
 
         // Load all analytics data

@@ -278,10 +278,10 @@
         let orders = [];
         let activeStatus = 'all';
 
-        // FIX: Changed back to USD to match the rest of the platform
+        // Currency formatter for the platform
         function formatCurrency(amount) {
             return new Intl.NumberFormat('en-US', {
-                style: 'currency', currency: 'USD', maximumFractionDigits: 2
+                style: 'currency', currency: 'ZMW', maximumFractionDigits: 2
             }).format(Number(amount || 0));
         }
 

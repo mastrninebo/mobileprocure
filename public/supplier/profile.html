@@ -717,7 +717,7 @@
                     orderCount.textContent = orders.length;
                     const completedOrders = orders.filter(o => o.status === 'completed');
                     const totalEarnings = completedOrders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
-                    earnings.textContent = `$${totalEarnings.toLocaleString()}`;
+                    earnings.textContent = `ZMW ${totalEarnings.toLocaleString()}`;
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -986,7 +986,7 @@
                 <p>Rating</p>
             </div>
             <div class="stat">
-                <h3 id="earnings">$0</h3>
+                <h3 id="earnings">ZMW 0</h3>
                 <p>Earnings</p>
             </div>
         </div>

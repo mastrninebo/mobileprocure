@@ -478,10 +478,11 @@ export function getTimeAgo(dateString) {
 /**
  * Format currency
  */
-export function formatCurrency(amount, currency = 'USD') {
+export function formatCurrency(amount, currency = 'ZMW') {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: currency
+        currency: currency,
+        maximumFractionDigits: 2
     }).format(amount || 0);
 }
 

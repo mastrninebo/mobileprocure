@@ -321,7 +321,7 @@
                 
                 const info = document.createElement('div');
                 info.className = 'info';
-                [[item.quantity || 0, 'Available'], [`ZMW ${Number(item.price_per_unit || 0).toLocaleString()}`, `Per ${item.unit || 'unit'}`], [item.weight_kg ? `${item.weight_kg} kg` : '—', 'Average weight']]
+                [[item.quantity || 0, 'Available'], [`$${Number(item.price_per_unit || 0).toLocaleString()}`, `Per ${item.unit || 'unit'}`], [item.weight_kg ? `${item.weight_kg} kg` : '—', 'Average weight']]
                     .forEach(([value, label]) => {
                         const metric = document.createElement('div');
                         const strong = document.createElement('h4');

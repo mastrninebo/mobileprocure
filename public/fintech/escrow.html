@@ -312,7 +312,7 @@
 
     <div class="hero">
         <small>Escrow Overview</small>
-        <h2 id="totalFunds">$0</h2>
+        <h2 id="totalFunds">ZMW 0</h2>
         <p>Total funds currently managed in escrow</p>
     </div>
 
@@ -322,7 +322,7 @@
         <div class="summary">
             <div class="summary-card">
                 <i class="fa-solid fa-vault"></i>
-                <h3 id="fundsLocked">$0</h3>
+                <h3 id="fundsLocked">ZMW 0</h3>
                 <p>Locked Funds</p>
             </div>
             <div class="summary-card">
@@ -332,12 +332,12 @@
             </div>
             <div class="summary-card">
                 <i class="fa-solid fa-scale-balanced"></i>
-                <h3 id="fundsDisputed">$0</h3>
+                <h3 id="fundsDisputed">ZMW 0</h3>
                 <p>Disputed Funds</p>
             </div>
             <div class="summary-card">
                 <i class="fa-solid fa-circle-check"></i>
-                <h3 id="fundsReleased">$0</h3>
+                <h3 id="fundsReleased">ZMW 0</h3>
                 <p>Released (All Time)</p>
             </div>
         </div>
@@ -398,7 +398,7 @@
 
         // Helper: Format Currency
         function formatCurrency(amount) {
-            return `$${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            return `ZMW ${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
         }
 
         // Load Escrow Data
