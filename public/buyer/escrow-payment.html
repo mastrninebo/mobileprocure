@@ -277,16 +277,16 @@
                     <h3 class="section-title">Payment Details</h3>
                     <div class="summary-row">
                         <span class="label">Subtotal</span>
-                        <span class="value">ZMW ${subtotal.toLocaleString()}</span>
+                        <span class="value">$${subtotal.toLocaleString()}</span>
                     </div>
                     <div class="summary-row">
                         <span class="label">Platform Fee (2.5%)</span>
-                        <span class="value">ZMW ${fee.toLocaleString()}</span>
+                        <span class="value">$${fee.toLocaleString()}</span>
                     </div>
                     <div class="total-card" style="margin-top: 15px;">
                         <div class="grand-total">
                             <span>Total to Pay</span>
-                            <span>ZMW ${totalAmount.toLocaleString()}</span>
+                            <span>$${totalAmount.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
@@ -298,6 +298,14 @@
                             <i class="fa-solid fa-mobile-screen-button"></i>
                             <div>
                                 <h4>MTN Mobile Money</h4>
+                                <p>Pay instantly via USSD or App</p>
+                            </div>
+                            <i class="fa-solid fa-circle-check check"></i>
+                        </div>
+                        <div class="method" onclick="selectMethod(this)">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <div>
+                                <h4>Airtel Money</h4>
                                 <p>Pay instantly via USSD or App</p>
                             </div>
                             <i class="fa-solid fa-circle-check check"></i>
@@ -389,7 +397,22 @@
 
                 if (escError) throw escError;
 
-                // 4. Decrement available inventory
+                // 4. Create Order Item (Links order to inventory for restocking)
+                const { error: itemError } = await supabase
+                    .from('order_items')
+                    .insert([{
+                        order_id: newOrderId,
+                        inventory_item_id: currentItem.id,
+                        description: currentItem.breed || 'Livestock',
+                        quantity: qty,
+                        unit: currentItem.unit || 'head',
+                        unit_price: currentItem.price_per_unit,
+                        total_price: qty * parseFloat(currentItem.price_per_unit)
+                    }]);
+
+                if (itemError) throw itemError;
+
+                // 5. Decrement available inventory
                 const newQty = Math.max(0, (currentItem.quantity - qty));
                 await supabase
                     .from('inventory_items')
@@ -406,7 +429,7 @@
                 console.error('Payment error:', error);
                 showToast('Payment failed: ' + error.message, 'error');
                 payBtn.disabled = false;
-                payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Confirm & Pay ZMW ${totalAmount.toLocaleString()}`;
+                payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Confirm & Pay $${totalAmount.toLocaleString()}`;
             }
         };
 
