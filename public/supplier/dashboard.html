@@ -418,6 +418,10 @@
         window.openNotifModal = async () => {
             notifModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // CLEAR THE BADGE COUNTER WHEN OPENED
+            notificationBadge.style.display = 'none';
+            
             notifList.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading...</p></div>';
 
             try {

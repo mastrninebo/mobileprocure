@@ -129,11 +129,13 @@
             }
 
             try {
+                // FIX: Added logistics_provider_id join to fetch transporter details
                 const { data: order, error } = await supabase
                     .from('orders')
                     .select(`
                         id, order_number, status, total_amount, created_at, destination_address,
-                        supplier:supplier_id ( full_name, company_name )
+                        supplier:supplier_id ( full_name, company_name ),
+                        logistics:logistics_provider_id ( full_name, company_name )
                     `)
                     .eq('id', orderId)
                     .maybeSingle();
@@ -154,6 +156,7 @@
 
         function renderOrder(order) {
             const supplierName = order.supplier?.company_name || order.supplier?.full_name || 'Unknown Supplier';
+            const transporterName = order.logistics?.company_name || order.logistics?.full_name || 'Unassigned';
             const status = order.status || 'pending';
             const date = new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -186,12 +189,16 @@
                             <strong>${supplierName}</strong>
                         </div>
                         <div class="info">
+                            <small>Transporter</small>
+                            <strong>${transporterName}</strong>
+                        </div>
+                        <div class="info">
                             <small>Destination</small>
                             <strong>${order.destination_address || 'N/A'}</strong>
                         </div>
                         <div class="info">
                             <small>Total Amount</small>
-                            <strong>ZMW ${Number(order.total_amount || 0).toLocaleString()}</strong>
+                            <strong>$${Number(order.total_amount || 0).toLocaleString()}</strong>
                         </div>
                         <div class="info" style="grid-column: span 2;">
                             <small>Current Status</small>

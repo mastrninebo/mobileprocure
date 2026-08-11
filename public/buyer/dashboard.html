@@ -100,203 +100,111 @@
             color: white;
         }
 
-        .balance small {
-            opacity: .9;
-        }
-
-        .balance h2 {
-            margin: 10px 0;
-            font-size: 34px;
-        }
-
+        .balance small { opacity: .9; }
+        .balance h2 { margin: 10px 0; font-size: 34px; }
         .balance button {
-            margin-top: 15px;
-            padding: 12px 22px;
-            border: none;
-            background: white;
-            color: #0F766E;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+            margin-top: 15px; padding: 12px 22px; border: none; background: white;
+            color: #0F766E; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
-
-        .balance button:hover {
-            transform: scale(1.05);
-        }
+        .balance button:hover { transform: scale(1.05); }
 
         /* SECTIONS & ACTIONS */
         .section {
-            margin: 35px 20px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin: 35px 20px 15px; display: flex; justify-content: space-between; align-items: center;
         }
-
-        .section h2 {
-            font-size: 20px;
-        }
-
-        .section a {
-            text-decoration: none;
-            color: #0F766E;
-            font-weight: 600;
-        }
+        .section h2 { font-size: 20px; }
+        .section a { text-decoration: none; color: #0F766E; font-weight: 600; }
 
         .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin: 0 20px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 0 20px;
         }
-
         .card {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,.05);
-            transition: .3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: #1F2937;
-            display: block;
+            background: white; border-radius: 20px; padding: 22px; text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,.05); transition: .3s; cursor: pointer;
+            text-decoration: none; color: #1F2937; display: block;
         }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,.08);
-        }
-
-        .card i {
-            font-size: 32px;
-            color: #0F766E;
-            margin-bottom: 15px;
-        }
-
-        .card h4 {
-            margin-bottom: 6px;
-        }
-
-        .card p {
-            font-size: 13px;
-            color: #6B7280;
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,.08); }
+        .card i { font-size: 32px; color: #0F766E; margin-bottom: 15px; }
+        .card h4 { margin-bottom: 6px; }
+        .card p { font-size: 13px; color: #6B7280; }
 
         /* ORDERS LIST */
-        .orders {
-            margin: 0 20px;
-        }
-
+        .orders { margin: 0 20px; }
         .order {
-            background: white;
-            padding: 18px;
-            border-radius: 18px;
-            margin-bottom: 15px;
-            box-shadow: 0 6px 18px rgba(0,0,0,.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: white; padding: 18px; border-radius: 18px; margin-bottom: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05); display: flex; justify-content: space-between; align-items: center;
         }
-
-        .order h4 {
-            margin-bottom: 5px;
-        }
-
-        .order p {
-            font-size: 13px;
-            color: #6B7280;
-        }
-
-        .status {
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
+        .order h4 { margin-bottom: 5px; }
+        .order p { font-size: 13px; color: #6B7280; }
+        .status { padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
         .processing { background: #FEF3C7; color: #B45309; }
         .delivered { background: #DCFCE7; color: #166534; }
         .pending { background: #DBEAFE; color: #1E40AF; }
         .completed { background: #D1FAE5; color: #065F46; }
 
         /* LOADING SPINNER */
-        .loading-spinner {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6B7280;
-        }
-
-        .loading-spinner i {
-            font-size: 40px;
-            color: #0F766E;
-            margin-bottom: 15px;
-        }
+        .loading-spinner { text-align: center; padding: 40px 20px; color: #6B7280; }
+        .loading-spinner i { font-size: 40px; color: #0F766E; margin-bottom: 15px; }
 
         /* BECOME SUPPLIER CTA */
         .cta-card {
-            margin: 0 20px 25px;
-            background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
-            border: 2px dashed #0F766E;
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
+            margin: 0 20px 25px; background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+            border: 2px dashed #0F766E; border-radius: 20px; padding: 25px; text-align: center;
         }
-        .cta-card h3 {
-            color: #0F766E;
-            margin-bottom: 8px;
-            font-size: 18px;
-        }
-        .cta-card p {
-            color: #115E59;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
+        .cta-card h3 { color: #0F766E; margin-bottom: 8px; font-size: 18px; }
+        .cta-card p { color: #115E59; font-size: 13px; margin-bottom: 15px; }
         .cta-btn {
-            background: #0F766E;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+            background: #0F766E; color: white; border: none; padding: 12px 24px;
+            border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
         .cta-btn:hover { background: #0D5C56; }
         .cta-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
+        /* NOTIFICATIONS MODAL (Bottom Sheet) */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000;
+            align-items: flex-end; justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-sheet {
+            background: white; width: 100%; max-width: 500px; border-radius: 24px 24px 0 0;
+            padding: 20px 20px 40px 20px; max-height: 80vh; overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .sheet-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB; padding-bottom: 15px;
+        }
+        .sheet-header h3 { font-size: 18px; color: #0F766E; }
+        .sheet-close {
+            background: #F3F4F6; border: none; width: 32px; height: 32px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .notif-item {
+            display: flex; gap: 12px; padding: 15px; border-bottom: 1px solid #F3F4F6;
+            text-decoration: none; color: #1F2937; transition: 0.2s;
+        }
+        .notif-item:hover { background: #F8FAFC; }
+        .notif-icon {
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            background: #DBEAFE; color: #1D4ED8; flex-shrink: 0;
+        }
+        .notif-content h4 { font-size: 14px; margin-bottom: 2px; }
+        .notif-content p { font-size: 12px; color: #6B7280; margin-bottom: 4px; }
+        .notif-status { font-size: 10px; background: #FEF3C7; color: #B45309; padding: 2px 8px; border-radius: 10px; text-transform: capitalize; }
+        .empty-state { text-align: center; color: #6B7280; padding: 40px 20px; }
+        .empty-state i { font-size: 40px; margin-bottom: 10px; display: block; color: #9CA3AF; }
+
         /* BOTTOM NAVIGATION */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,.08);
-            z-index: 1000;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around;
+            padding: 15px 0; box-shadow: 0 -5px 20px rgba(0,0,0,.08); z-index: 1000;
         }
-
-        .bottom-nav a {
-            text-decoration: none;
-            color: #9CA3AF;
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .bottom-nav a.active {
-            color: #0F766E;
-            font-weight: 600;
-        }
-
-        .bottom-nav i {
-            font-size: 20px;
-        }
+        .bottom-nav a { text-decoration: none; color: #9CA3AF; font-size: 13px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .bottom-nav a.active { color: #0F766E; font-weight: 600; }
+        .bottom-nav i { font-size: 20px; }
     </style>
 </head>
 
@@ -314,14 +222,11 @@
                     return;
                 }
 
-                // Check if the user actually has a buyer_profiles row
                 const { data: roles, error } = await supabase.rpc('get_user_roles', { uid: user.id });
                 if (error) throw error;
 
                 const userRoles = roles ? roles.map(r => r.role) : [];
 
-                // If they don't have a buyer profile, kick them out.
-                // We no longer care what selectedRole is in localStorage, as long as they own the profile.
                 if (!userRoles.includes('buyer')) {
                     window.location.href = '/unauthorized.html';
                     return;
@@ -350,7 +255,7 @@
                 <p id="userWelcome">Welcome back 👋</p>
             </div>
         </div>
-        <div class="notification">
+        <div class="notification" id="notifBtn" onclick="openNotifModal()">
             <i class="fa-regular fa-bell"></i>
             <span class="badge" id="notificationBadge" style="display:none;">0</span>
         </div>
@@ -359,7 +264,7 @@
     <!-- ESCROW BALANCE -->
     <div class="balance">
         <small>Escrow Balance</small>
-        <h2 id="escrowBalance">ZMW 0.00</h2>
+        <h2 id="escrowBalance">$0.00</h2>
         <p id="escrowStatus">Funds currently secured in escrow.</p>
         <button id="walletBtn">View Wallet</button>
     </div>
@@ -416,6 +321,24 @@
         <div class="loading-spinner">
             <i class="fa-solid fa-spinner fa-spin"></i>
             <p>Loading your orders...</p>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL -->
+    <div class="modal-overlay" id="notificationsModal">
+        <div class="modal-sheet">
+            <div class="sheet-header">
+                <h3>Notifications</h3>
+                <button class="sheet-close" onclick="closeNotifModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="notificationsList">
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <p>Loading...</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -493,7 +416,76 @@
         const walletBtn = document.getElementById('walletBtn');
         const supplierCtaSection = document.getElementById('supplierCtaSection');
         const becomeSupplierBtn = document.getElementById('becomeSupplierBtn');
-        
+        const notifModal = document.getElementById('notificationsModal');
+        const notifList = document.getElementById('notificationsList');
+
+        // NOTIFICATIONS MODAL LOGIC
+        window.openNotifModal = async () => {
+            notifModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // CLEAR THE BADGE COUNTER WHEN OPENED
+            notificationBadge.style.display = 'none';
+            
+            notifList.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading...</p></div>';
+
+            try {
+                const user = await getCurrentUser();
+                if (!user) return;
+                
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select(`
+                        id, order_number, status, total_amount, order_date,
+                        supplier:supplier_id (full_name, company_name)
+                    `)
+                    .eq('buyer_id', user.id)
+                    .in('status', ['pending', 'confirmed', 'shipped'])
+                    .order('order_date', { ascending: false });
+
+                if (error) throw error;
+
+                if (!orders || orders.length === 0) {
+                    notifList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-solid fa-bell-slash"></i>
+                            <p>No new notifications</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                notifList.innerHTML = orders.map(o => `
+                    <a href="order-details.html?id=${o.id}" class="notif-item" onclick="closeNotifModal()">
+                        <div class="notif-icon">
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+                        <div class="notif-content">
+                            <h4>Order Update: ${o.order_number || 'N/A'}</h4>
+                            <p>Supplier: ${o.supplier?.company_name || o.supplier?.full_name || 'Supplier'}</p>
+                            <span class="notif-status">${o.status.replace('_', ' ')}</span>
+                        </div>
+                        <div style="font-size:11px;color:#9CA3AF;white-space:nowrap;margin-left:auto;">
+                            ${new Date(o.order_date).toLocaleDateString()}
+                        </div>
+                    </a>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                notifList.innerHTML = `<p style="color:#DC2626;text-align:center;">Error loading notifications.</p>`;
+            }
+        };
+
+        window.closeNotifModal = () => {
+            notifModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        notifModal.addEventListener('click', (e) => {
+            if (e.target === notifModal) window.closeNotifModal();
+        });
+
         // CHECK USER ROLES (Multi-role logic)
         async function checkUserRole() {
             try {
@@ -508,7 +500,6 @@
                 
                 const roles = rolesData ? rolesData.map(r => r.role) : [];
                 
-                // If they are ONLY a buyer, show the "Become a Supplier" CTA
                 if (roles.includes('buyer') && !roles.includes('supplier')) {
                     supplierCtaSection.style.display = 'block';
                 }
@@ -526,7 +517,6 @@
                 const user = await getCurrentUser();
                 if (!user) return;
 
-                // 1. Insert a new row into supplier_profiles
                 const { error: insertError } = await supabase
                     .from('supplier_profiles')
                     .insert([{ 
@@ -539,8 +529,6 @@
                 if (insertError) throw insertError;
 
                 alert('Success! Your supplier account is ready.');
-                
-                // 2. Switch the active role in localStorage and redirect (NO DB ROLE UPDATE NEEDED!)
                 localStorage.setItem('selectedRole', 'supplier');
                 window.location.href = '/supplier/dashboard.html';
 
@@ -622,7 +610,7 @@
                 orderDiv.innerHTML = `
                     <div>
                         <h4>${order.order_number || 'Order'}</h4>
-                        <p>${supplierName} • ZMW ${order.total_amount?.toLocaleString() || '0'}</p>
+                        <p>${supplierName} • $${order.total_amount?.toLocaleString() || '0'}</p>
                     </div>
                     <div class="status ${statusClass}">
                         ${order.status || 'pending'}
@@ -691,7 +679,7 @@
         // INITIALIZE DASHBOARD
         async function init() {
             await loadUserData();
-            await checkUserRole(); // Check if we should show the CTA
+            await checkUserRole();
             await loadOrders();
             await loadNotifications();
         }
@@ -703,7 +691,6 @@
     <script type="module">
         import { supabase, getCurrentUser } from '../assets/js/supabase-client.js';
 
-        // CHECK PROFILE COMPLETION
         async function checkProfileCompletion() {
             try {
                 const user = await getCurrentUser();
@@ -711,24 +698,20 @@
 
                 const profile = user.profile;
 
-                // If already completed, return
                 if (profile.profile_completed) return;
 
-                // Check if reminded within last 7 days
                 if (profile.profile_reminded_at) {
                     const remindedDate = new Date(profile.profile_reminded_at);
                     const daysSinceReminded = (new Date() - remindedDate) / (1000 * 60 * 60 * 24);
-                    if (daysSinceReminded < 7) return; // Only remind every 7 days
+                    if (daysSinceReminded < 7) return;
                 }
 
-                // Check required fields
                 const requiredFields = {
                     full_name: profile.full_name,
                     phone: profile.phone,
-                    country: null // Will check from user_profiles
+                    country: null 
                 };
 
-                // Get country from user_profiles
                 const { data: userProf } = await supabase
                     .from('user_profiles')
                     .select('country')
@@ -751,22 +734,18 @@
             }
         }
 
-        // COMPLETE PROFILE - Redirect to profile page
         window.completeProfile = function() {
             document.getElementById('reminderModal').style.display = 'none';
             window.location.href = '/buyer/profile.html';
         };
 
-        // REMIND LATER - Update timestamp
         window.remindLater = async function() {
             try {
                 const user = await getCurrentUser();
                 if (user) {
                     await supabase
                         .from('profiles')
-                        .update({ 
-                            profile_reminded_at: new Date().toISOString()
-                        })
+                        .update({ profile_reminded_at: new Date().toISOString() })
                         .eq('id', user.id);
                 }
             } catch (error) {
@@ -775,7 +754,6 @@
             document.getElementById('reminderModal').style.display = 'none';
         };
 
-        // Run check after page load
         await checkProfileCompletion();
     </script>
 

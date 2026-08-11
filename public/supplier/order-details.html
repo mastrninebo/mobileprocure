@@ -383,11 +383,13 @@
             }
 
             try {
+                // FIX: Removed transporter_name, added logistics join
                 const { data: order, error } = await supabase
                     .from('orders')
                     .select(`
                         id, order_number, status, total_amount, order_date, 
-                        destination_address, transporter_name,
+                        destination_address,
+                        logistics:logistics_provider_id ( full_name, company_name ),
                         buyer:buyer_id ( full_name, company_name )
                     `)
                     .eq('id', orderId)
@@ -433,6 +435,9 @@
             const showMarkReady = status === 'escrow_funded';
             const showMarkShipped = status === 'confirmed' || status === 'escrow_funded'; // Assuming you mark it shipped/ready
 
+            // FIX: Read transporter from order.logistics
+            const transporterName = order.logistics?.company_name || order.logistics?.full_name || 'Unassigned';
+
             detailsContainer.innerHTML = `
                 <div class="card">
                     <h3>Order Information</h3>
@@ -451,7 +456,7 @@
                         </div>
                         <div class="info">
                             <small>Transporter</small>
-                            <strong>${order.transporter_name || 'Unassigned'}</strong>
+                            <strong>${transporterName}</strong>
                         </div>
                         <div class="info">
                             <small>Total Amount</small>
