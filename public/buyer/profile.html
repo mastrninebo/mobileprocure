@@ -706,7 +706,7 @@
                 if (!orderError && orders) {
                     orderCount.textContent = orders.length;
                     const total = orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
-                    totalSpend.textContent = `ZMW ${total.toLocaleString()}`;
+                    totalSpend.textContent = `$${total.toLocaleString()}`;
                     
                     const uniqueSuppliers = new Set(orders.map(o => o.supplier_id));
                     supplierCount.textContent = uniqueSuppliers.size;
@@ -978,7 +978,7 @@
                 <p>Suppliers</p>
             </div>
             <div class="stat">
-                <h3 id="totalSpend">ZMW 0</h3>
+                <h3 id="totalSpend">$0</h3>
                 <p>Total Spend</p>
             </div>
         </div>
